@@ -1,5 +1,8 @@
 # ntqr_llm_personas — algebraic evaluation of LLM-persona ensembles
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20498699.svg)](https://doi.org/10.5281/zenodo.20498699)
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
+
 Can you tell how accurate a group of noisy judges was on a test **without an
 answer key** — using only their votes? **Algebraic evaluation** (the **NTQR**
 logic) says yes: it builds *exact, universal* polynomials that link the observed
@@ -120,3 +123,23 @@ the measurements.
 
 - **Manuscript:** [`manuscript/manuscript.md`](manuscript/manuscript.md)
 - **Supplemental:** [`manuscript/supplemental.md`](manuscript/supplemental.md)
+
+## Cite
+
+Archived on Zenodo — cite the **concept DOI** (always resolves to the latest
+version): [`10.5281/zenodo.20498699`](https://doi.org/10.5281/zenodo.20498699).
+The v1.0.0 record is [`10.5281/zenodo.20498700`](https://doi.org/10.5281/zenodo.20498700).
+Machine-readable metadata lives in [`CITATION.cff`](CITATION.cff),
+[`.zenodo.json`](.zenodo.json), and [`codemeta.json`](codemeta.json).
+
+```bibtex
+@software{friedman_ntqr_llm_personas_2026,
+  author    = {Friedman, Daniel Ari},
+  title     = {Recovering LLM-Persona Accuracies from Unlabeled Votes},
+  year      = {2026},
+  publisher = {Zenodo},
+  version   = {1.0.0},
+  doi       = {10.5281/zenodo.20498699},
+  url       = {https://doi.org/10.5281/zenodo.20498699}
+}
+```

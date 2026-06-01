@@ -22,9 +22,9 @@ authors:
     corresponding: true
 
 publication:
-  doi: ""
-  version_doi: ""
-  version_record: ""
+  doi: "10.5281/zenodo.20498699"
+  version_doi: "10.5281/zenodo.20498700"
+  version_record: "https://zenodo.org/records/20498700"
   journal: "Preprint"
   volume: "1"
   pages: "1-N"

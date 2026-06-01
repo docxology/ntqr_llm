@@ -277,8 +277,12 @@ def test_pdf_style_uses_red_links_tight_margins_and_no_placeholder_doi():
         assert key in preamble
     assert "allcolors=blue" not in preamble
     assert 'geometry: "margin=0.58in"' in config
-    assert 'doi: ""' in config
-    assert 'version_doi: ""' in config
+    # Post-publication: real Zenodo DOIs are wired in (concept on the PDF cover,
+    # version for the v1.0.0 record). Guard against regressions to empty/placeholder.
+    assert 'doi: "10.5281/zenodo.20498699"' in config
+    assert 'version_doi: "10.5281/zenodo.20498700"' in config
+    assert 'doi: ""' not in config
+    assert "zenodo.1000001" not in config  # no dry-run placeholder DOI
     assert 'github_repository: "docxology/ntqr_llm"' in config
     assert 'repository_url: "https://github.com/docxology/ntqr_llm"' in config
     assert "TBD" not in config
@@ -310,6 +314,12 @@ def test_public_release_metadata_files_match_config():
     assert codemeta_json["codeRepository"] == (
         "https://github.com/docxology/ntqr_llm"
     )
+    # Sidecars must carry the published concept DOI and agree with config.yaml.
+    config_text = (repo / "manuscript" / "config.yaml").read_text()
+    concept_doi = "10.5281/zenodo.20498699"
+    assert f'doi: "{concept_doi}"' in config_text
+    assert f'doi: "{concept_doi}"' in citation_text
+    assert codemeta_json["identifier"] == f"https://doi.org/{concept_doi}"
 
 
 def test_public_docs_do_not_leak_private_paths_or_repo_slug():

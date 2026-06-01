@@ -3,6 +3,7 @@
   "@type": "SoftwareSourceCode",
   "name": "Recovering LLM-Persona Accuracies from Unlabeled Votes",
   "version": "1.0.0",
+  "identifier": "https://doi.org/10.5281/zenodo.20498699",
   "license": "https://spdx.org/licenses/Apache-2.0",
   "codeRepository": "https://github.com/docxology/ntqr_llm",
   "dateModified": "2026-06-01",
