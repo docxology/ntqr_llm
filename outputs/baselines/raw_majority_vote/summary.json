@@ -1,0 +1,17 @@
+{
+  "generated_at": "2026-05-28T17:53:36",
+  "result": {
+    "method": "raw majority vote (baseline, non-ntqr)",
+    "dataset": "uci_adult",
+    "total_instances": 36842,
+    "consensus_label_fraction": {
+      "a": 0.2165734759242169,
+      "b": 0.7834265240757831
+    },
+    "classifier_agreement_with_majority": [
+      0.768362195320558,
+      0.8291623690353401,
+      0.7735736387818251
+    ]
+  }
+}

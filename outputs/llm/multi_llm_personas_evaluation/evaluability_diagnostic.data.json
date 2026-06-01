@@ -1,0 +1,442 @@
+{
+  "generated_at": "2026-06-01T13:18:55",
+  "result": {
+    "figure": "evaluability_diagnostic.png",
+    "title": "Evaluability diagnostic: vote concentration by persona and model",
+    "y_label": "modal vote fraction (0.5 balanced, 1.0 constant)",
+    "thresholds": [
+      {
+        "value": 1.0,
+        "label": "constant classifier",
+        "meaning": "persona never varied its vote; carries no error signal; makes the error-independent algebra unsolvable -> model is unevaluable"
+      },
+      {
+        "value": 0.5,
+        "label": "balanced",
+        "meaning": "evenly split votes -- the most informative case for recovering accuracy"
+      }
+    ],
+    "series": [
+      {
+        "model": "granite4.1:3b",
+        "predicted_evaluable": true,
+        "constant_classifiers": [],
+        "mean_pairwise_disagreement": 0.0625,
+        "vote_variation": {
+          "Optimist": {
+            "n": 64,
+            "n_unparsed": 0,
+            "distinct_calls": [
+              "bearish",
+              "bullish"
+            ],
+            "call_counts": {
+              "bullish": 39,
+              "bearish": 25
+            },
+            "modal_fraction": 0.609375,
+            "is_constant": false
+          },
+          "Neutral": {
+            "n": 64,
+            "n_unparsed": 0,
+            "distinct_calls": [
+              "bearish",
+              "bullish"
+            ],
+            "call_counts": {
+              "bullish": 36,
+              "bearish": 28
+            },
+            "modal_fraction": 0.5625,
+            "is_constant": false
+          },
+          "Pessimist": {
+            "n": 64,
+            "n_unparsed": 0,
+            "distinct_calls": [
+              "bearish",
+              "bullish"
+            ],
+            "call_counts": {
+              "bullish": 33,
+              "bearish": 31
+            },
+            "modal_fraction": 0.515625,
+            "is_constant": false
+          }
+        },
+        "pairwise_disagreement": {
+          "pairs": {
+            "Optimist vs Neutral": 0.046875,
+            "Optimist vs Pessimist": 0.09375,
+            "Neutral vs Pessimist": 0.046875
+          },
+          "mean": 0.0625
+        }
+      },
+      {
+        "model": "mistral:latest",
+        "predicted_evaluable": true,
+        "constant_classifiers": [],
+        "mean_pairwise_disagreement": 0.22916666666666666,
+        "vote_variation": {
+          "Optimist": {
+            "n": 64,
+            "n_unparsed": 0,
+            "distinct_calls": [
+              "bearish",
+              "bullish"
+            ],
+            "call_counts": {
+              "bullish": 45,
+              "bearish": 19
+            },
+            "modal_fraction": 0.703125,
+            "is_constant": false
+          },
+          "Neutral": {
+            "n": 64,
+            "n_unparsed": 0,
+            "distinct_calls": [
+              "bearish",
+              "bullish"
+            ],
+            "call_counts": {
+              "bullish": 39,
+              "bearish": 25
+            },
+            "modal_fraction": 0.609375,
+            "is_constant": false
+          },
+          "Pessimist": {
+            "n": 64,
+            "n_unparsed": 0,
+            "distinct_calls": [
+              "bearish",
+              "bullish"
+            ],
+            "call_counts": {
+              "bullish": 23,
+              "bearish": 41
+            },
+            "modal_fraction": 0.640625,
+            "is_constant": false
+          }
+        },
+        "pairwise_disagreement": {
+          "pairs": {
+            "Optimist vs Neutral": 0.09375,
+            "Optimist vs Pessimist": 0.34375,
+            "Neutral vs Pessimist": 0.25
+          },
+          "mean": 0.22916666666666666
+        }
+      },
+      {
+        "model": "gemma2:2b",
+        "predicted_evaluable": true,
+        "constant_classifiers": [],
+        "mean_pairwise_disagreement": 0.0625,
+        "vote_variation": {
+          "Optimist": {
+            "n": 64,
+            "n_unparsed": 0,
+            "distinct_calls": [
+              "bearish",
+              "bullish"
+            ],
+            "call_counts": {
+              "bullish": 39,
+              "bearish": 25
+            },
+            "modal_fraction": 0.609375,
+            "is_constant": false
+          },
+          "Neutral": {
+            "n": 64,
+            "n_unparsed": 0,
+            "distinct_calls": [
+              "bearish",
+              "bullish"
+            ],
+            "call_counts": {
+              "bullish": 38,
+              "bearish": 26
+            },
+            "modal_fraction": 0.59375,
+            "is_constant": false
+          },
+          "Pessimist": {
+            "n": 64,
+            "n_unparsed": 0,
+            "distinct_calls": [
+              "bearish",
+              "bullish"
+            ],
+            "call_counts": {
+              "bullish": 33,
+              "bearish": 31
+            },
+            "modal_fraction": 0.515625,
+            "is_constant": false
+          }
+        },
+        "pairwise_disagreement": {
+          "pairs": {
+            "Optimist vs Neutral": 0.015625,
+            "Optimist vs Pessimist": 0.09375,
+            "Neutral vs Pessimist": 0.078125
+          },
+          "mean": 0.0625
+        }
+      },
+      {
+        "model": "gemma3:4b",
+        "predicted_evaluable": true,
+        "constant_classifiers": [],
+        "mean_pairwise_disagreement": 0.10416666666666667,
+        "vote_variation": {
+          "Optimist": {
+            "n": 64,
+            "n_unparsed": 0,
+            "distinct_calls": [
+              "bearish",
+              "bullish"
+            ],
+            "call_counts": {
+              "bullish": 44,
+              "bearish": 20
+            },
+            "modal_fraction": 0.6875,
+            "is_constant": false
+          },
+          "Neutral": {
+            "n": 64,
+            "n_unparsed": 0,
+            "distinct_calls": [
+              "bearish",
+              "bullish"
+            ],
+            "call_counts": {
+              "bullish": 38,
+              "bearish": 26
+            },
+            "modal_fraction": 0.59375,
+            "is_constant": false
+          },
+          "Pessimist": {
+            "n": 64,
+            "n_unparsed": 0,
+            "distinct_calls": [
+              "bearish",
+              "bullish"
+            ],
+            "call_counts": {
+              "bullish": 34,
+              "bearish": 30
+            },
+            "modal_fraction": 0.53125,
+            "is_constant": false
+          }
+        },
+        "pairwise_disagreement": {
+          "pairs": {
+            "Optimist vs Neutral": 0.09375,
+            "Optimist vs Pessimist": 0.15625,
+            "Neutral vs Pessimist": 0.0625
+          },
+          "mean": 0.10416666666666667
+        }
+      },
+      {
+        "model": "gemma4:latest",
+        "predicted_evaluable": true,
+        "constant_classifiers": [],
+        "mean_pairwise_disagreement": 0.03125,
+        "vote_variation": {
+          "Optimist": {
+            "n": 64,
+            "n_unparsed": 0,
+            "distinct_calls": [
+              "bearish",
+              "bullish"
+            ],
+            "call_counts": {
+              "bullish": 40,
+              "bearish": 24
+            },
+            "modal_fraction": 0.625,
+            "is_constant": false
+          },
+          "Neutral": {
+            "n": 64,
+            "n_unparsed": 0,
+            "distinct_calls": [
+              "bearish",
+              "bullish"
+            ],
+            "call_counts": {
+              "bullish": 39,
+              "bearish": 25
+            },
+            "modal_fraction": 0.609375,
+            "is_constant": false
+          },
+          "Pessimist": {
+            "n": 64,
+            "n_unparsed": 0,
+            "distinct_calls": [
+              "bearish",
+              "bullish"
+            ],
+            "call_counts": {
+              "bullish": 37,
+              "bearish": 27
+            },
+            "modal_fraction": 0.578125,
+            "is_constant": false
+          }
+        },
+        "pairwise_disagreement": {
+          "pairs": {
+            "Optimist vs Neutral": 0.015625,
+            "Optimist vs Pessimist": 0.046875,
+            "Neutral vs Pessimist": 0.03125
+          },
+          "mean": 0.03125
+        }
+      },
+      {
+        "model": "smollm2:135m-instruct-q4_K_S",
+        "predicted_evaluable": false,
+        "constant_classifiers": [
+          "Optimist",
+          "Neutral",
+          "Pessimist"
+        ],
+        "mean_pairwise_disagreement": 0.0,
+        "vote_variation": {
+          "Optimist": {
+            "n": 64,
+            "n_unparsed": 0,
+            "distinct_calls": [
+              "bullish"
+            ],
+            "call_counts": {
+              "bullish": 64
+            },
+            "modal_fraction": 1.0,
+            "is_constant": true
+          },
+          "Neutral": {
+            "n": 64,
+            "n_unparsed": 0,
+            "distinct_calls": [
+              "bullish"
+            ],
+            "call_counts": {
+              "bullish": 64
+            },
+            "modal_fraction": 1.0,
+            "is_constant": true
+          },
+          "Pessimist": {
+            "n": 64,
+            "n_unparsed": 0,
+            "distinct_calls": [
+              "bullish"
+            ],
+            "call_counts": {
+              "bullish": 64
+            },
+            "modal_fraction": 1.0,
+            "is_constant": true
+          }
+        },
+        "pairwise_disagreement": {
+          "pairs": {
+            "Optimist vs Neutral": 0.0,
+            "Optimist vs Pessimist": 0.0,
+            "Neutral vs Pessimist": 0.0
+          },
+          "mean": 0.0
+        }
+      }
+    ],
+    "metadata": {
+      "generated_utc": "2026-06-01T20:18:55.775408+00:00",
+      "n_scenarios": 64,
+      "n_personas": 3,
+      "personas": [
+        "Optimist",
+        "Neutral",
+        "Pessimist"
+      ],
+      "labels": [
+        "a",
+        "b"
+      ],
+      "experiment": {
+        "backend": "ollama",
+        "temperature": 0.1,
+        "n_personas": 3,
+        "n_scenarios": 64,
+        "n_labels": 2,
+        "n_models_requested": 6,
+        "n_models_evaluated": 5,
+        "prompt_version": "v3_binary_schema",
+        "prompt_hash": "4d157f84885a",
+        "baseline_summary": "baseline_t0.7_summary.json",
+        "date": "2026-06-01"
+      }
+    },
+    "caption": "A judge at 1.0 is a constant classifier: it casts the same vote on every parseable call, carrying zero error signal. That removes a degree of freedom from the 3-judge system, so the error-independent algebra becomes unsolvable and the model is excluded -- read off the votes alone, with no answer key."
+  },
+  "caption": "A judge at 1.0 is a constant classifier: it casts the same vote on every parseable call, carrying zero error signal. That removes a degree of freedom from the 3-judge system, so the error-independent algebra becomes unsolvable and the model is excluded -- read off the votes alone, with no answer key.",
+  "metadata": {
+    "generated_utc": "2026-06-01T20:18:55.775408+00:00",
+    "n_scenarios": 64,
+    "n_personas": 3,
+    "personas": [
+      "Optimist",
+      "Neutral",
+      "Pessimist"
+    ],
+    "labels": [
+      "a",
+      "b"
+    ],
+    "experiment": {
+      "backend": "ollama",
+      "temperature": 0.1,
+      "n_personas": 3,
+      "n_scenarios": 64,
+      "n_labels": 2,
+      "n_models_requested": 6,
+      "n_models_evaluated": 5,
+      "prompt_version": "v3_binary_schema",
+      "prompt_hash": "4d157f84885a",
+      "baseline_summary": "baseline_t0.7_summary.json",
+      "date": "2026-06-01"
+    }
+  },
+  "provenance": {
+    "source_file": "evaluability_diagnostic.data.json",
+    "generated_utc": "2026-06-01T20:18:55.775408+00:00",
+    "n_scenarios": 64,
+    "experiment": {
+      "backend": "ollama",
+      "temperature": 0.1,
+      "n_personas": 3,
+      "n_scenarios": 64,
+      "n_labels": 2,
+      "n_models_requested": 6,
+      "n_models_evaluated": 5,
+      "prompt_version": "v3_binary_schema",
+      "prompt_hash": "4d157f84885a",
+      "baseline_summary": "baseline_t0.7_summary.json",
+      "date": "2026-06-01"
+    }
+  }
+}

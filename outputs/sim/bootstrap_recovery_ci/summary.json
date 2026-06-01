@@ -1,0 +1,28 @@
+{
+  "generated_at": "2026-06-01T13:27:51",
+  "result": {
+    "n_scenarios": 64,
+    "n_boot": 2000,
+    "seed": 9000,
+    "point_recovery_mae": 0.011901709401709407,
+    "point_prevalence_abs_error": 0.015625,
+    "degenerate_count": 42,
+    "degenerate_rate": 0.021,
+    "recovery_mae": {
+      "n": 1958,
+      "mean": 0.0117550335852485,
+      "median": 0.011758947986924395,
+      "ci_lo": 0.0,
+      "ci_hi": 0.03778869147928804
+    },
+    "prevalence_abs_error": {
+      "n": 1958,
+      "mean": 0.015417517875383044,
+      "median": 0.015625,
+      "ci_lo": 0.0,
+      "ci_hi": 0.046875
+    },
+    "model": "mistral:latest",
+    "sampling_noise_floor": 0.10206207261596575
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "params": {
+    "labels": ["a", "b"],
+    "classifiers": ["i", "j"],
+    "qs": [8, 2],
+    "responses": [[6, 4], [7, 3]],
+    "dpi": 200
+  }
+}

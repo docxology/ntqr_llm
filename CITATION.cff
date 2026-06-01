@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: If you use this software or manuscript, please cite this repository and the Zenodo record for the release.
+title: Recovering LLM-Persona Accuracies from Unlabeled Votes
+type: software
+authors:
+  - family-names: Friedman
+    given-names: Daniel Ari
+    orcid: "https://orcid.org/0000-0001-6232-9096"
+    affiliation: Active Inference Institute
+version: 1.0.0
+date-released: "2026-06-01"
+license: Apache-2.0
+repository-code: "https://github.com/docxology/ntqr_llm"
+keywords:
+  - algebraic evaluation
+  - NTQR
+  - unsupervised evaluation
+  - LLM-as-judge
+  - error-independent evaluation
+  - reproducible research

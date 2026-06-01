@@ -1,0 +1,13 @@
+{
+  "generated_at": "2026-05-28T17:53:36",
+  "result": {
+    "method": "pairwise agreement rate (baseline, non-ntqr)",
+    "dataset": "uci_adult",
+    "total_instances": 36842,
+    "pairwise_agreement": {
+      "0-1": 0.5975245643558982,
+      "0-2": 0.5419358341023831,
+      "1-2": 0.6027360078171652
+    }
+  }
+}

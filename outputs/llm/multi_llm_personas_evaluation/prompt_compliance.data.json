@@ -1,0 +1,192 @@
+{
+  "generated_at": "2026-06-01T13:18:55",
+  "result": {
+    "figure": "prompt_compliance.png",
+    "title": "Prompt compliance: schema-valid, repaired, or invalid",
+    "y_label": "persona-scenario cells",
+    "series": [
+      {
+        "model": "granite4.1:3b",
+        "parsed": 192,
+        "unparsed": 0,
+        "primary_valid": 192,
+        "repaired_valid": 0,
+        "final_invalid": 0,
+        "unavailable": 0,
+        "repair_needed": 0,
+        "invalid_label": 0,
+        "total": 192,
+        "parse_rate": 1.0,
+        "parse_methods": {
+          "schema_json": 192
+        },
+        "evaluable": true,
+        "error": null
+      },
+      {
+        "model": "mistral:latest",
+        "parsed": 192,
+        "unparsed": 0,
+        "primary_valid": 192,
+        "repaired_valid": 0,
+        "final_invalid": 0,
+        "unavailable": 0,
+        "repair_needed": 0,
+        "invalid_label": 0,
+        "total": 192,
+        "parse_rate": 1.0,
+        "parse_methods": {
+          "schema_json": 192
+        },
+        "evaluable": true,
+        "error": null
+      },
+      {
+        "model": "gemma2:2b",
+        "parsed": 192,
+        "unparsed": 0,
+        "primary_valid": 192,
+        "repaired_valid": 0,
+        "final_invalid": 0,
+        "unavailable": 0,
+        "repair_needed": 0,
+        "invalid_label": 0,
+        "total": 192,
+        "parse_rate": 1.0,
+        "parse_methods": {
+          "schema_json": 192
+        },
+        "evaluable": true,
+        "error": null
+      },
+      {
+        "model": "gemma3:4b",
+        "parsed": 192,
+        "unparsed": 0,
+        "primary_valid": 192,
+        "repaired_valid": 0,
+        "final_invalid": 0,
+        "unavailable": 0,
+        "repair_needed": 0,
+        "invalid_label": 0,
+        "total": 192,
+        "parse_rate": 1.0,
+        "parse_methods": {
+          "schema_json": 192
+        },
+        "evaluable": true,
+        "error": null
+      },
+      {
+        "model": "gemma4:latest",
+        "parsed": 192,
+        "unparsed": 0,
+        "primary_valid": 192,
+        "repaired_valid": 0,
+        "final_invalid": 0,
+        "unavailable": 0,
+        "repair_needed": 0,
+        "invalid_label": 0,
+        "total": 192,
+        "parse_rate": 1.0,
+        "parse_methods": {
+          "schema_json": 192
+        },
+        "evaluable": true,
+        "error": null
+      },
+      {
+        "model": "smollm2:135m-instruct-q4_K_S",
+        "parsed": 192,
+        "unparsed": 0,
+        "primary_valid": 192,
+        "repaired_valid": 0,
+        "final_invalid": 0,
+        "unavailable": 0,
+        "repair_needed": 0,
+        "invalid_label": 0,
+        "total": 192,
+        "parse_rate": 1.0,
+        "parse_methods": {
+          "schema_json": 192
+        },
+        "evaluable": false,
+        "error": "degenerate (unsolvable / NaN solution); constant classifier(s): Optimist, Neutral, Pessimist"
+      }
+    ],
+    "metadata": {
+      "generated_utc": "2026-06-01T20:18:55.058797+00:00",
+      "n_scenarios": 64,
+      "n_personas": 3,
+      "personas": [
+        "Optimist",
+        "Neutral",
+        "Pessimist"
+      ],
+      "labels": [
+        "a",
+        "b"
+      ],
+      "experiment": {
+        "backend": "ollama",
+        "temperature": 0.1,
+        "n_personas": 3,
+        "n_scenarios": 64,
+        "n_labels": 2,
+        "n_models_requested": 6,
+        "n_models_evaluated": 5,
+        "prompt_version": "v3_binary_schema",
+        "prompt_hash": "4d157f84885a",
+        "baseline_summary": "baseline_t0.7_summary.json",
+        "date": "2026-06-01"
+      }
+    },
+    "caption": "Each model is asked for the same persona-scenario grid under a binary JSON schema. Dark green cells were valid on the first attempt; light green cells became valid after one model-driven repair retry. Red and grey cells remain honest missing votes; no invalid response is converted into a fabricated vote."
+  },
+  "caption": "Each model is asked for the same persona-scenario grid under a binary JSON schema. Dark green cells were valid on the first attempt; light green cells became valid after one model-driven repair retry. Red and grey cells remain honest missing votes; no invalid response is converted into a fabricated vote.",
+  "metadata": {
+    "generated_utc": "2026-06-01T20:18:55.058797+00:00",
+    "n_scenarios": 64,
+    "n_personas": 3,
+    "personas": [
+      "Optimist",
+      "Neutral",
+      "Pessimist"
+    ],
+    "labels": [
+      "a",
+      "b"
+    ],
+    "experiment": {
+      "backend": "ollama",
+      "temperature": 0.1,
+      "n_personas": 3,
+      "n_scenarios": 64,
+      "n_labels": 2,
+      "n_models_requested": 6,
+      "n_models_evaluated": 5,
+      "prompt_version": "v3_binary_schema",
+      "prompt_hash": "4d157f84885a",
+      "baseline_summary": "baseline_t0.7_summary.json",
+      "date": "2026-06-01"
+    }
+  },
+  "provenance": {
+    "source_file": "prompt_compliance.data.json",
+    "generated_utc": "2026-06-01T20:18:55.058797+00:00",
+    "n_scenarios": 64,
+    "experiment": {
+      "backend": "ollama",
+      "temperature": 0.1,
+      "n_personas": 3,
+      "n_scenarios": 64,
+      "n_labels": 2,
+      "n_models_requested": 6,
+      "n_models_evaluated": 5,
+      "prompt_version": "v3_binary_schema",
+      "prompt_hash": "4d157f84885a",
+      "baseline_summary": "baseline_t0.7_summary.json",
+      "date": "2026-06-01"
+    }
+  }
+}

@@ -1,0 +1,725 @@
+{
+  "generated_at": "2026-06-01T13:18:55",
+  "result": {
+    "figure": "scenario_hardness.png",
+    "title": "Scenario-level vote split and authored direction",
+    "x_label": "scenario id",
+    "y_label": "fraction of parsed votes that were bullish",
+    "points": [
+      {
+        "id": "s01",
+        "truth": "bullish",
+        "n_parsed": 18,
+        "bullish_votes": 18,
+        "bearish_votes": 0,
+        "fraction_bullish": 1.0,
+        "entropy_bits": -0.0,
+        "text": "Revenue grew 42% YoY, beat estimates, and management raised full-year guidance."
+      },
+      {
+        "id": "s02",
+        "truth": "bearish",
+        "n_parsed": 18,
+        "bullish_votes": 3,
+        "bearish_votes": 15,
+        "fraction_bullish": 0.16666666666666666,
+        "entropy_bits": 0.6500224216483541,
+        "text": "The company missed earnings for the third straight quarter and cut its dividend."
+      },
+      {
+        "id": "s03",
+        "truth": "bullish",
+        "n_parsed": 18,
+        "bullish_votes": 18,
+        "bearish_votes": 0,
+        "fraction_bullish": 1.0,
+        "entropy_bits": -0.0,
+        "text": "A blockbuster drug just received FDA approval ahead of schedule with a broad label."
+      },
+      {
+        "id": "s04",
+        "truth": "bearish",
+        "n_parsed": 18,
+        "bullish_votes": 3,
+        "bearish_votes": 15,
+        "fraction_bullish": 0.16666666666666666,
+        "entropy_bits": 0.6500224216483541,
+        "text": "Regulators opened a fraud probe and the CFO abruptly resigned this morning."
+      },
+      {
+        "id": "s05",
+        "truth": "bullish",
+        "n_parsed": 18,
+        "bullish_votes": 18,
+        "bearish_votes": 0,
+        "fraction_bullish": 1.0,
+        "entropy_bits": -0.0,
+        "text": "Free cash flow doubled, the firm initiated a large buyback, and debt fell sharply."
+      },
+      {
+        "id": "s06",
+        "truth": "bearish",
+        "n_parsed": 18,
+        "bullish_votes": 3,
+        "bearish_votes": 15,
+        "fraction_bullish": 0.16666666666666666,
+        "entropy_bits": 0.6500224216483541,
+        "text": "A key patent was invalidated and two generic competitors announced launches."
+      },
+      {
+        "id": "s07",
+        "truth": "bullish",
+        "n_parsed": 18,
+        "bullish_votes": 18,
+        "bearish_votes": 0,
+        "fraction_bullish": 1.0,
+        "entropy_bits": -0.0,
+        "text": "The company signed a multi-year supply contract with the largest buyer in its sector."
+      },
+      {
+        "id": "s08",
+        "truth": "bearish",
+        "n_parsed": 18,
+        "bullish_votes": 3,
+        "bearish_votes": 15,
+        "fraction_bullish": 0.16666666666666666,
+        "entropy_bits": 0.6500224216483541,
+        "text": "Inventory is piling up, margins compressed 600bps, and demand guidance was withdrawn."
+      },
+      {
+        "id": "s09",
+        "truth": "bullish",
+        "n_parsed": 18,
+        "bullish_votes": 18,
+        "bearish_votes": 0,
+        "fraction_bullish": 1.0,
+        "entropy_bits": -0.0,
+        "text": "Same-store sales accelerated, traffic is up, and the loyalty program is growing fast."
+      },
+      {
+        "id": "s10",
+        "truth": "bearish",
+        "n_parsed": 18,
+        "bullish_votes": 3,
+        "bearish_votes": 15,
+        "fraction_bullish": 0.16666666666666666,
+        "entropy_bits": 0.6500224216483541,
+        "text": "A major data breach exposed millions of customers and class-action suits are filed."
+      },
+      {
+        "id": "s11",
+        "truth": "bullish",
+        "n_parsed": 18,
+        "bullish_votes": 14,
+        "bearish_votes": 4,
+        "fraction_bullish": 0.7777777777777778,
+        "entropy_bits": 0.7642045065086203,
+        "text": "The central bank signaled rate cuts and the company is highly rate-sensitive on the upside."
+      },
+      {
+        "id": "s12",
+        "truth": "bearish",
+        "n_parsed": 18,
+        "bullish_votes": 3,
+        "bearish_votes": 15,
+        "fraction_bullish": 0.16666666666666666,
+        "entropy_bits": 0.6500224216483541,
+        "text": "The main product was recalled for a safety defect and shipments are halted."
+      },
+      {
+        "id": "s13",
+        "truth": "bullish",
+        "n_parsed": 18,
+        "bullish_votes": 17,
+        "bearish_votes": 1,
+        "fraction_bullish": 0.9444444444444444,
+        "entropy_bits": 0.3095434291503252,
+        "text": "Order backlog hit a record and lead times extended, signaling robust demand."
+      },
+      {
+        "id": "s14",
+        "truth": "bearish",
+        "n_parsed": 18,
+        "bullish_votes": 3,
+        "bearish_votes": 15,
+        "fraction_bullish": 0.16666666666666666,
+        "entropy_bits": 0.6500224216483541,
+        "text": "A larger rival slashed prices 30% to take share in the company's core market."
+      },
+      {
+        "id": "s15",
+        "truth": "bullish",
+        "n_parsed": 18,
+        "bullish_votes": 18,
+        "bearish_votes": 0,
+        "fraction_bullish": 1.0,
+        "entropy_bits": -0.0,
+        "text": "Gross margins expanded for the fifth straight quarter as input costs fell."
+      },
+      {
+        "id": "s16",
+        "truth": "bearish",
+        "n_parsed": 18,
+        "bullish_votes": 3,
+        "bearish_votes": 15,
+        "fraction_bullish": 0.16666666666666666,
+        "entropy_bits": 0.6500224216483541,
+        "text": "The firm issued a going-concern warning and is in breach of its loan covenants."
+      },
+      {
+        "id": "s17",
+        "truth": "bullish",
+        "n_parsed": 18,
+        "bullish_votes": 16,
+        "bearish_votes": 2,
+        "fraction_bullish": 0.8888888888888888,
+        "entropy_bits": 0.5032583347756457,
+        "text": "A respected activist investor took a 9% stake and won three board seats."
+      },
+      {
+        "id": "s18",
+        "truth": "bearish",
+        "n_parsed": 18,
+        "bullish_votes": 3,
+        "bearish_votes": 15,
+        "fraction_bullish": 0.16666666666666666,
+        "entropy_bits": 0.6500224216483541,
+        "text": "Key engineering talent is leaving and the flagship project slipped a full year."
+      },
+      {
+        "id": "s19",
+        "truth": "bullish",
+        "n_parsed": 18,
+        "bullish_votes": 10,
+        "bearish_votes": 8,
+        "fraction_bullish": 0.5555555555555556,
+        "entropy_bits": 0.9910760598382222,
+        "text": "Earnings beat but guidance was merely in line; shares are near all-time highs."
+      },
+      {
+        "id": "s20",
+        "truth": "bearish",
+        "n_parsed": 18,
+        "bullish_votes": 5,
+        "bearish_votes": 13,
+        "fraction_bullish": 0.2777777777777778,
+        "entropy_bits": 0.8524051786494786,
+        "text": "Sales grew but margins thinned and the macro outlook for the sector is murky."
+      },
+      {
+        "id": "s21",
+        "truth": "bullish",
+        "n_parsed": 18,
+        "bullish_votes": 14,
+        "bearish_votes": 4,
+        "fraction_bullish": 0.7777777777777778,
+        "entropy_bits": 0.7642045065086203,
+        "text": "A turnaround plan is showing early traction though leverage remains elevated."
+      },
+      {
+        "id": "s22",
+        "truth": "bearish",
+        "n_parsed": 18,
+        "bullish_votes": 5,
+        "bearish_votes": 13,
+        "fraction_bullish": 0.2777777777777778,
+        "entropy_bits": 0.8524051786494786,
+        "text": "A one-time gain flattered profit while underlying organic growth stalled."
+      },
+      {
+        "id": "s23",
+        "truth": "bullish",
+        "n_parsed": 18,
+        "bullish_votes": 16,
+        "bearish_votes": 2,
+        "fraction_bullish": 0.8888888888888888,
+        "entropy_bits": 0.5032583347756457,
+        "text": "New management is cutting costs aggressively and reinvesting in a growing niche."
+      },
+      {
+        "id": "s24",
+        "truth": "bearish",
+        "n_parsed": 18,
+        "bullish_votes": 3,
+        "bearish_votes": 15,
+        "fraction_bullish": 0.16666666666666666,
+        "entropy_bits": 0.6500224216483541,
+        "text": "The stock is cheap on paper but sits in a structurally declining industry."
+      },
+      {
+        "id": "s25",
+        "truth": "bullish",
+        "n_parsed": 18,
+        "bullish_votes": 18,
+        "bearish_votes": 0,
+        "fraction_bullish": 1.0,
+        "entropy_bits": -0.0,
+        "text": "A new product line sold out within hours and the company doubled its production targets."
+      },
+      {
+        "id": "s26",
+        "truth": "bullish",
+        "n_parsed": 18,
+        "bullish_votes": 18,
+        "bearish_votes": 0,
+        "fraction_bullish": 1.0,
+        "entropy_bits": -0.0,
+        "text": "The company won a multi-year government contract that triples its addressable market."
+      },
+      {
+        "id": "s27",
+        "truth": "bullish",
+        "n_parsed": 18,
+        "bullish_votes": 18,
+        "bearish_votes": 0,
+        "fraction_bullish": 1.0,
+        "entropy_bits": -0.0,
+        "text": "Subscriber growth reaccelerated and monthly churn fell to a multi-year low."
+      },
+      {
+        "id": "s28",
+        "truth": "bullish",
+        "n_parsed": 18,
+        "bullish_votes": 18,
+        "bearish_votes": 0,
+        "fraction_bullish": 1.0,
+        "entropy_bits": -0.0,
+        "text": "A long-running patent suit was settled in the company's favor with a large damages award."
+      },
+      {
+        "id": "s29",
+        "truth": "bullish",
+        "n_parsed": 18,
+        "bullish_votes": 17,
+        "bearish_votes": 1,
+        "fraction_bullish": 0.9444444444444444,
+        "entropy_bits": 0.3095434291503252,
+        "text": "Operating leverage kicked in: revenue rose 20% while operating expenses stayed flat."
+      },
+      {
+        "id": "s30",
+        "truth": "bullish",
+        "n_parsed": 18,
+        "bullish_votes": 18,
+        "bearish_votes": 0,
+        "fraction_bullish": 1.0,
+        "entropy_bits": -0.0,
+        "text": "The firm raised full-year guidance twice this quarter as bookings outpaced every forecast."
+      },
+      {
+        "id": "s31",
+        "truth": "bullish",
+        "n_parsed": 18,
+        "bullish_votes": 17,
+        "bearish_votes": 1,
+        "fraction_bullish": 0.9444444444444444,
+        "entropy_bits": 0.3095434291503252,
+        "text": "A strategic partner took a minority stake at a premium and committed to joint development."
+      },
+      {
+        "id": "s32",
+        "truth": "bullish",
+        "n_parsed": 18,
+        "bullish_votes": 18,
+        "bearish_votes": 0,
+        "fraction_bullish": 1.0,
+        "entropy_bits": -0.0,
+        "text": "Margins hit a record after the firm exited its lowest-margin segment and raised prices."
+      },
+      {
+        "id": "s33",
+        "truth": "bullish",
+        "n_parsed": 18,
+        "bullish_votes": 18,
+        "bearish_votes": 0,
+        "fraction_bullish": 1.0,
+        "entropy_bits": -0.0,
+        "text": "Posted record annual revenue and free cash flow and initiated its first-ever dividend."
+      },
+      {
+        "id": "s34",
+        "truth": "bullish",
+        "n_parsed": 18,
+        "bullish_votes": 18,
+        "bearish_votes": 0,
+        "fraction_bullish": 1.0,
+        "entropy_bits": -0.0,
+        "text": "A flagship product launch drew record preorders and sold out within a day."
+      },
+      {
+        "id": "s35",
+        "truth": "bullish",
+        "n_parsed": 18,
+        "bullish_votes": 17,
+        "bearish_votes": 1,
+        "fraction_bullish": 0.9444444444444444,
+        "entropy_bits": 0.3095434291503252,
+        "text": "Regulators granted a breakthrough designation that fast-tracks the lead program."
+      },
+      {
+        "id": "s36",
+        "truth": "bullish",
+        "n_parsed": 18,
+        "bullish_votes": 17,
+        "bearish_votes": 1,
+        "fraction_bullish": 0.9444444444444444,
+        "entropy_bits": 0.3095434291503252,
+        "text": "Closed an all-cash, immediately accretive acquisition that added no new debt."
+      },
+      {
+        "id": "s37",
+        "truth": "bullish",
+        "n_parsed": 18,
+        "bullish_votes": 17,
+        "bearish_votes": 1,
+        "fraction_bullish": 0.9444444444444444,
+        "entropy_bits": 0.3095434291503252,
+        "text": "Its credit rating was upgraded to investment grade and borrowing costs fell sharply."
+      },
+      {
+        "id": "s38",
+        "truth": "bullish",
+        "n_parsed": 18,
+        "bullish_votes": 18,
+        "bearish_votes": 0,
+        "fraction_bullish": 1.0,
+        "entropy_bits": -0.0,
+        "text": "Signed its largest-ever enterprise contract, a multi-year committed deal."
+      },
+      {
+        "id": "s39",
+        "truth": "bullish",
+        "n_parsed": 18,
+        "bullish_votes": 18,
+        "bearish_votes": 0,
+        "fraction_bullish": 1.0,
+        "entropy_bits": -0.0,
+        "text": "Margins expanded as a new automated plant came online ahead of schedule."
+      },
+      {
+        "id": "s40",
+        "truth": "bullish",
+        "n_parsed": 18,
+        "bullish_votes": 18,
+        "bearish_votes": 0,
+        "fraction_bullish": 1.0,
+        "entropy_bits": -0.0,
+        "text": "A major competitor exited the segment, leaving the firm the dominant supplier."
+      },
+      {
+        "id": "s41",
+        "truth": "bullish",
+        "n_parsed": 18,
+        "bullish_votes": 18,
+        "bearish_votes": 0,
+        "fraction_bullish": 1.0,
+        "entropy_bits": -0.0,
+        "text": "Recurring revenue crossed 80% of sales as customer churn hit a record low."
+      },
+      {
+        "id": "s42",
+        "truth": "bullish",
+        "n_parsed": 18,
+        "bullish_votes": 18,
+        "bearish_votes": 0,
+        "fraction_bullish": 1.0,
+        "entropy_bits": -0.0,
+        "text": "Won a landmark licensing deal that monetizes its previously idle patent portfolio."
+      },
+      {
+        "id": "s43",
+        "truth": "bullish",
+        "n_parsed": 18,
+        "bullish_votes": 17,
+        "bearish_votes": 1,
+        "fraction_bullish": 0.9444444444444444,
+        "entropy_bits": 0.3095434291503252,
+        "text": "Order backlog doubled year over year on accelerating enterprise demand."
+      },
+      {
+        "id": "s44",
+        "truth": "bullish",
+        "n_parsed": 18,
+        "bullish_votes": 18,
+        "bearish_votes": 0,
+        "fraction_bullish": 1.0,
+        "entropy_bits": -0.0,
+        "text": "Raised full-year guidance after a blowout quarter across every segment."
+      },
+      {
+        "id": "s45",
+        "truth": "bullish",
+        "n_parsed": 18,
+        "bullish_votes": 17,
+        "bearish_votes": 1,
+        "fraction_bullish": 0.9444444444444444,
+        "entropy_bits": 0.3095434291503252,
+        "text": "A cornerstone investor took a large stake at a premium to the market price."
+      },
+      {
+        "id": "s46",
+        "truth": "bullish",
+        "n_parsed": 18,
+        "bullish_votes": 18,
+        "bearish_votes": 0,
+        "fraction_bullish": 1.0,
+        "entropy_bits": -0.0,
+        "text": "Grew its net cash position while retiring high-coupon debt early."
+      },
+      {
+        "id": "s47",
+        "truth": "bullish",
+        "n_parsed": 18,
+        "bullish_votes": 18,
+        "bearish_votes": 0,
+        "fraction_bullish": 1.0,
+        "entropy_bits": -0.0,
+        "text": "International expansion beat plan and the new region turned profitable quickly."
+      },
+      {
+        "id": "s48",
+        "truth": "bullish",
+        "n_parsed": 18,
+        "bullish_votes": 17,
+        "bearish_votes": 1,
+        "fraction_bullish": 0.9444444444444444,
+        "entropy_bits": 0.3095434291503252,
+        "text": "A long-delayed product cleared its final certification with no conditions attached."
+      },
+      {
+        "id": "s49",
+        "truth": "bearish",
+        "n_parsed": 18,
+        "bullish_votes": 3,
+        "bearish_votes": 15,
+        "fraction_bullish": 0.16666666666666666,
+        "entropy_bits": 0.6500224216483541,
+        "text": "Slashed full-year guidance twice within a single month as demand evaporated."
+      },
+      {
+        "id": "s50",
+        "truth": "bearish",
+        "n_parsed": 18,
+        "bullish_votes": 3,
+        "bearish_votes": 15,
+        "fraction_bullish": 0.16666666666666666,
+        "entropy_bits": 0.6500224216483541,
+        "text": "A surprise goodwill writedown wiped out the entire quarter's profit."
+      },
+      {
+        "id": "s51",
+        "truth": "bearish",
+        "n_parsed": 18,
+        "bullish_votes": 3,
+        "bearish_votes": 15,
+        "fraction_bullish": 0.16666666666666666,
+        "entropy_bits": 0.6500224216483541,
+        "text": "Its largest customer terminated a contract and switched to a direct rival."
+      },
+      {
+        "id": "s52",
+        "truth": "bearish",
+        "n_parsed": 18,
+        "bullish_votes": 3,
+        "bearish_votes": 15,
+        "fraction_bullish": 0.16666666666666666,
+        "entropy_bits": 0.6500224216483541,
+        "text": "An accounting restatement triggered a delayed filing and an SEC inquiry."
+      },
+      {
+        "id": "s53",
+        "truth": "bearish",
+        "n_parsed": 18,
+        "bullish_votes": 3,
+        "bearish_votes": 15,
+        "fraction_bullish": 0.16666666666666666,
+        "entropy_bits": 0.6500224216483541,
+        "text": "A safety recall halted production of its top-selling product line."
+      },
+      {
+        "id": "s54",
+        "truth": "bearish",
+        "n_parsed": 18,
+        "bullish_votes": 3,
+        "bearish_votes": 15,
+        "fraction_bullish": 0.16666666666666666,
+        "entropy_bits": 0.6500224216483541,
+        "text": "Debt covenants were breached and lenders demanded immediate renegotiation."
+      },
+      {
+        "id": "s55",
+        "truth": "bearish",
+        "n_parsed": 18,
+        "bullish_votes": 3,
+        "bearish_votes": 15,
+        "fraction_bullish": 0.16666666666666666,
+        "entropy_bits": 0.6500224216483541,
+        "text": "The CEO and CFO resigned in the same week amid a board dispute."
+      },
+      {
+        "id": "s56",
+        "truth": "bearish",
+        "n_parsed": 18,
+        "bullish_votes": 3,
+        "bearish_votes": 15,
+        "fraction_bullish": 0.16666666666666666,
+        "entropy_bits": 0.6500224216483541,
+        "text": "A core patent expired and generic rivals immediately flooded the market."
+      },
+      {
+        "id": "s57",
+        "truth": "bullish",
+        "n_parsed": 18,
+        "bullish_votes": 9,
+        "bearish_votes": 9,
+        "fraction_bullish": 0.5,
+        "entropy_bits": 1.0,
+        "text": "Revenue beat expectations but the firm guided conservatively citing macro caution."
+      },
+      {
+        "id": "s58",
+        "truth": "bearish",
+        "n_parsed": 18,
+        "bullish_votes": 5,
+        "bearish_votes": 13,
+        "fraction_bullish": 0.2777777777777778,
+        "entropy_bits": 0.8524051786494786,
+        "text": "Margins held up but unit volumes quietly declined for a third straight quarter."
+      },
+      {
+        "id": "s59",
+        "truth": "bullish",
+        "n_parsed": 18,
+        "bullish_votes": 16,
+        "bearish_votes": 2,
+        "fraction_bullish": 0.8888888888888888,
+        "entropy_bits": 0.5032583347756457,
+        "text": "A costly restructuring is underway but early customer cohorts show real traction."
+      },
+      {
+        "id": "s60",
+        "truth": "bearish",
+        "n_parsed": 18,
+        "bullish_votes": 7,
+        "bearish_votes": 11,
+        "fraction_bullish": 0.3888888888888889,
+        "entropy_bits": 0.964078764808229,
+        "text": "A buyback was announced even as several insiders sold into the news."
+      },
+      {
+        "id": "s61",
+        "truth": "bullish",
+        "n_parsed": 18,
+        "bullish_votes": 14,
+        "bearish_votes": 4,
+        "fraction_bullish": 0.7777777777777778,
+        "entropy_bits": 0.7642045065086203,
+        "text": "Cash burn continues but a recent raise extends the runway by two years."
+      },
+      {
+        "id": "s62",
+        "truth": "bearish",
+        "n_parsed": 18,
+        "bullish_votes": 3,
+        "bearish_votes": 15,
+        "fraction_bullish": 0.16666666666666666,
+        "entropy_bits": 0.6500224216483541,
+        "text": "Headline growth impressed but was driven entirely by one large one-off deal."
+      },
+      {
+        "id": "s63",
+        "truth": "bullish",
+        "n_parsed": 18,
+        "bullish_votes": 7,
+        "bearish_votes": 11,
+        "fraction_bullish": 0.3888888888888889,
+        "entropy_bits": 0.964078764808229,
+        "text": "The dividend was trimmed to fund a high-return capacity expansion."
+      },
+      {
+        "id": "s64",
+        "truth": "bearish",
+        "n_parsed": 18,
+        "bullish_votes": 5,
+        "bearish_votes": 13,
+        "fraction_bullish": 0.2777777777777778,
+        "entropy_bits": 0.8524051786494786,
+        "text": "The stock screens cheap but sits in a slowly shrinking end market."
+      }
+    ],
+    "metadata": {
+      "generated_utc": "2026-06-01T20:18:55.381454+00:00",
+      "n_scenarios": 64,
+      "n_personas": 3,
+      "personas": [
+        "Optimist",
+        "Neutral",
+        "Pessimist"
+      ],
+      "labels": [
+        "a",
+        "b"
+      ],
+      "experiment": {
+        "backend": "ollama",
+        "temperature": 0.1,
+        "n_personas": 3,
+        "n_scenarios": 64,
+        "n_labels": 2,
+        "n_models_requested": 6,
+        "n_models_evaluated": 5,
+        "prompt_version": "v3_binary_schema",
+        "prompt_hash": "4d157f84885a",
+        "baseline_summary": "baseline_t0.7_summary.json",
+        "date": "2026-06-01"
+      }
+    },
+    "caption": "Each point is one authored market scenario. The y-value is the fraction of parsed persona/model calls that were bullish; marker color is the authored operational truth. Points near 0.5 are the hard or intentionally mixed cases that create useful variation."
+  },
+  "caption": "Each point is one authored market scenario. The y-value is the fraction of parsed persona/model calls that were bullish; marker color is the authored operational truth. Points near 0.5 are the hard or intentionally mixed cases that create useful variation.",
+  "metadata": {
+    "generated_utc": "2026-06-01T20:18:55.381454+00:00",
+    "n_scenarios": 64,
+    "n_personas": 3,
+    "personas": [
+      "Optimist",
+      "Neutral",
+      "Pessimist"
+    ],
+    "labels": [
+      "a",
+      "b"
+    ],
+    "experiment": {
+      "backend": "ollama",
+      "temperature": 0.1,
+      "n_personas": 3,
+      "n_scenarios": 64,
+      "n_labels": 2,
+      "n_models_requested": 6,
+      "n_models_evaluated": 5,
+      "prompt_version": "v3_binary_schema",
+      "prompt_hash": "4d157f84885a",
+      "baseline_summary": "baseline_t0.7_summary.json",
+      "date": "2026-06-01"
+    }
+  },
+  "provenance": {
+    "source_file": "scenario_hardness.data.json",
+    "generated_utc": "2026-06-01T20:18:55.381454+00:00",
+    "n_scenarios": 64,
+    "experiment": {
+      "backend": "ollama",
+      "temperature": 0.1,
+      "n_personas": 3,
+      "n_scenarios": 64,
+      "n_labels": 2,
+      "n_models_requested": 6,
+      "n_models_evaluated": 5,
+      "prompt_version": "v3_binary_schema",
+      "prompt_hash": "4d157f84885a",
+      "baseline_summary": "baseline_t0.7_summary.json",
+      "date": "2026-06-01"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "generated_at": "2026-05-28T18:04:05",
+  "result": {
+    "labels": [
+      "a",
+      "b"
+    ],
+    "Q": 10,
+    "safety_factors": [
+      2,
+      2
+    ],
+    "responses": [
+      [
+        7,
+        3
+      ],
+      [
+        6,
+        4
+      ],
+      [
+        8,
+        2
+      ]
+    ],
+    "are_misaligned": false
+  }
+}

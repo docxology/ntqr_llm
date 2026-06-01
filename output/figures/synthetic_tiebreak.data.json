@@ -1,0 +1,159 @@
+{
+  "generated_at": "2026-06-01T13:27:45",
+  "result": {
+    "prevalence_a": 0.6,
+    "q": 256,
+    "n_trials": 200,
+    "seed": 4000,
+    "rows": [
+      {
+        "accuracy": 0.9,
+        "q": 256,
+        "n_trials": 200,
+        "catastrophic_count": 0,
+        "catastrophic_rate": 0.0,
+        "degenerate_count": 0,
+        "degenerate_rate": 0.0,
+        "prevalence_abs_error_mean": 0.013587183594015841
+      },
+      {
+        "accuracy": 0.82,
+        "q": 256,
+        "n_trials": 200,
+        "catastrophic_count": 0,
+        "catastrophic_rate": 0.0,
+        "degenerate_count": 0,
+        "degenerate_rate": 0.0,
+        "prevalence_abs_error_mean": 0.039084286322592685
+      },
+      {
+        "accuracy": 0.76,
+        "q": 256,
+        "n_trials": 200,
+        "catastrophic_count": 9,
+        "catastrophic_rate": 0.045,
+        "degenerate_count": 0,
+        "degenerate_rate": 0.0,
+        "prevalence_abs_error_mean": 0.0932653398871871
+      },
+      {
+        "accuracy": 0.7,
+        "q": 256,
+        "n_trials": 200,
+        "catastrophic_count": 51,
+        "catastrophic_rate": 0.255,
+        "degenerate_count": 2,
+        "degenerate_rate": 0.01,
+        "prevalence_abs_error_mean": 0.18455747893827731
+      },
+      {
+        "accuracy": 0.62,
+        "q": 256,
+        "n_trials": 200,
+        "catastrophic_count": 142,
+        "catastrophic_rate": 0.71,
+        "degenerate_count": 19,
+        "degenerate_rate": 0.095,
+        "prevalence_abs_error_mean": 0.4214799761905717
+      },
+      {
+        "accuracy": 0.56,
+        "q": 256,
+        "n_trials": 200,
+        "catastrophic_count": 170,
+        "catastrophic_rate": 0.85,
+        "degenerate_count": 14,
+        "degenerate_rate": 0.07,
+        "prevalence_abs_error_mean": 0.48498887896733595
+      },
+      {
+        "accuracy": 0.52,
+        "q": 256,
+        "n_trials": 200,
+        "catastrophic_count": 165,
+        "catastrophic_rate": 0.825,
+        "degenerate_count": 17,
+        "degenerate_rate": 0.085,
+        "prevalence_abs_error_mean": 0.48709602700297344
+      }
+    ],
+    "safe_accuracy": 0.82,
+    "max_catastrophic_rate": 0.85,
+    "figure": "synthetic_tiebreak.png",
+    "title": "Better-than-random branch-selection boundary",
+    "caption": "The unsupervised branch rule is stable for strong judges and fails as symmetric judge accuracy approaches random guessing.",
+    "x_label": "Per-label judge accuracy",
+    "y_label": "Catastrophic mirror-selection rate",
+    "thresholds": [
+      {
+        "label": "random guessing",
+        "value": 0.5,
+        "meaning": "symmetric judges at 0.5 accuracy provide no better-than-random branch signal"
+      }
+    ],
+    "metadata": {
+      "generated_utc": "2026-06-01T20:27:45.942596+00:00",
+      "study": "synthetic_recovery_study",
+      "deterministic": true,
+      "ensemble": {
+        "prevalence_a": 0.55,
+        "accuracies": [
+          {
+            "judge": 0,
+            "alpha": 0.9,
+            "beta": 0.8
+          },
+          {
+            "judge": 1,
+            "alpha": 0.85,
+            "beta": 0.75
+          },
+          {
+            "judge": 2,
+            "alpha": 0.7,
+            "beta": 0.95
+          }
+        ]
+      },
+      "q": 256,
+      "n_trials": 200,
+      "seed": 4000
+    }
+  },
+  "caption": "The unsupervised branch rule is stable for strong judges and fails as symmetric judge accuracy approaches random guessing.",
+  "metadata": {
+    "generated_utc": "2026-06-01T20:27:45.942596+00:00",
+    "study": "synthetic_recovery_study",
+    "deterministic": true,
+    "ensemble": {
+      "prevalence_a": 0.55,
+      "accuracies": [
+        {
+          "judge": 0,
+          "alpha": 0.9,
+          "beta": 0.8
+        },
+        {
+          "judge": 1,
+          "alpha": 0.85,
+          "beta": 0.75
+        },
+        {
+          "judge": 2,
+          "alpha": 0.7,
+          "beta": 0.95
+        }
+      ]
+    },
+    "q": 256,
+    "n_trials": 200,
+    "seed": 4000
+  },
+  "provenance": {
+    "source_file": "tiebreak.data.json",
+    "generated_utc": "2026-06-01T20:27:45.942596+00:00",
+    "study": "synthetic_recovery_study",
+    "deterministic": true,
+    "seed": 4000
+  }
+}

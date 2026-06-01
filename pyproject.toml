@@ -1,0 +1,56 @@
+[project]
+name = "ntqr-llm-personas"
+version = "1.0.0"
+description = "Algebraic (NTQR) evaluation of LLM trader-persona ensembles: recovering per-judge accuracies from unlabeled votes, and a label-free evaluability diagnostic."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "matplotlib>=3.10.0",
+    "numpy>=2.0.0",
+    "pyyaml>=6.0",
+    "sympy>=1.12",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "ruff>=0.6",
+    "black>=24.0",
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+# This project is a research harness run from scripts/, not an importable
+# distribution. Declaring an empty package set stops setuptools' flat-layout
+# auto-discovery from trying (and failing) to package figures/outputs/manuscript.
+# The vendored `ntqr` library is installed separately and editable from python/.
+[tool.setuptools]
+packages = []
+py-modules = []
+
+[tool.pytest.ini_options]
+pythonpath = ["scripts", "scripts/llm", "scripts/manuscript"]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short --strict-markers"
+
+[tool.coverage.run]
+source = ["scripts", "python/src/ntqr"]
+branch = true
+
+[tool.coverage.report]
+fail_under = 90
+show_missing = true
+precision = 2
+exclude_lines = [
+    "pragma: no cover",
+    "if __name__ == .__main__.:",
+    "raise NotImplementedError",
+]
+
+[tool.uv]
+# Inherits workspace settings from root pyproject.toml

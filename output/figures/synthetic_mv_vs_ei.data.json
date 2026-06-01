@@ -1,0 +1,263 @@
+{
+  "generated_at": "2026-06-01T13:27:45",
+  "result": {
+    "q": 512,
+    "n_trials": 150,
+    "seed": 8000,
+    "prevalences": [
+      0.55,
+      0.7,
+      0.85
+    ],
+    "accuracies": [
+      0.9,
+      0.82,
+      0.74,
+      0.66,
+      0.58
+    ],
+    "rows": [
+      {
+        "prevalence_a": 0.55,
+        "accuracy": 0.9,
+        "q": 512,
+        "n_trials": 150,
+        "n_solved": 150,
+        "ei_mae_mean": 0.010512247720866983,
+        "mv_mae_mean": 0.011205722989163523,
+        "ei_win_rate": 0.6
+      },
+      {
+        "prevalence_a": 0.55,
+        "accuracy": 0.82,
+        "q": 512,
+        "n_trials": 150,
+        "n_solved": 150,
+        "ei_mae_mean": 0.02322409816760969,
+        "mv_mae_mean": 0.03229959647950633,
+        "ei_win_rate": 0.8266666666666667
+      },
+      {
+        "prevalence_a": 0.55,
+        "accuracy": 0.74,
+        "q": 512,
+        "n_trials": 150,
+        "n_solved": 150,
+        "ei_mae_mean": 0.04720835154532554,
+        "mv_mae_mean": 0.06758200503005295,
+        "ei_win_rate": 0.7866666666666666
+      },
+      {
+        "prevalence_a": 0.55,
+        "accuracy": 0.66,
+        "q": 512,
+        "n_trials": 150,
+        "n_solved": 148,
+        "ei_mae_mean": 0.8406706728086809,
+        "mv_mae_mean": 0.11592635327394292,
+        "ei_win_rate": 0.6148648648648649
+      },
+      {
+        "prevalence_a": 0.55,
+        "accuracy": 0.58,
+        "q": 512,
+        "n_trials": 150,
+        "n_solved": 140,
+        "ei_mae_mean": 1.234632021449065,
+        "mv_mae_mean": 0.17593510008608726,
+        "ei_win_rate": 0.25
+      },
+      {
+        "prevalence_a": 0.7,
+        "accuracy": 0.9,
+        "q": 512,
+        "n_trials": 150,
+        "n_solved": 150,
+        "ei_mae_mean": 0.012190949993676349,
+        "mv_mae_mean": 0.013012992550785257,
+        "ei_win_rate": 0.6533333333333333
+      },
+      {
+        "prevalence_a": 0.7,
+        "accuracy": 0.82,
+        "q": 512,
+        "n_trials": 150,
+        "n_solved": 150,
+        "ei_mae_mean": 0.027495696693915425,
+        "mv_mae_mean": 0.031399904009621234,
+        "ei_win_rate": 0.66
+      },
+      {
+        "prevalence_a": 0.7,
+        "accuracy": 0.74,
+        "q": 512,
+        "n_trials": 150,
+        "n_solved": 150,
+        "ei_mae_mean": 0.05897167910997168,
+        "mv_mae_mean": 0.06455477776747735,
+        "ei_win_rate": 0.64
+      },
+      {
+        "prevalence_a": 0.7,
+        "accuracy": 0.66,
+        "q": 512,
+        "n_trials": 150,
+        "n_solved": 150,
+        "ei_mae_mean": 0.35690969409567314,
+        "mv_mae_mean": 0.1130183166186062,
+        "ei_win_rate": 0.47333333333333333
+      },
+      {
+        "prevalence_a": 0.7,
+        "accuracy": 0.58,
+        "q": 512,
+        "n_trials": 150,
+        "n_solved": 135,
+        "ei_mae_mean": 1.0981176001128665,
+        "mv_mae_mean": 0.17614950967945178,
+        "ei_win_rate": 0.17777777777777778
+      },
+      {
+        "prevalence_a": 0.85,
+        "accuracy": 0.9,
+        "q": 512,
+        "n_trials": 150,
+        "n_solved": 150,
+        "ei_mae_mean": 0.018488441326224136,
+        "mv_mae_mean": 0.018914874516476183,
+        "ei_win_rate": 0.6066666666666667
+      },
+      {
+        "prevalence_a": 0.85,
+        "accuracy": 0.82,
+        "q": 512,
+        "n_trials": 150,
+        "n_solved": 150,
+        "ei_mae_mean": 0.041378569989893456,
+        "mv_mae_mean": 0.03709443324753571,
+        "ei_win_rate": 0.5
+      },
+      {
+        "prevalence_a": 0.85,
+        "accuracy": 0.74,
+        "q": 512,
+        "n_trials": 150,
+        "n_solved": 150,
+        "ei_mae_mean": 0.09621078496054847,
+        "mv_mae_mean": 0.06272374626956628,
+        "ei_win_rate": 0.44666666666666666
+      },
+      {
+        "prevalence_a": 0.85,
+        "accuracy": 0.66,
+        "q": 512,
+        "n_trials": 150,
+        "n_solved": 143,
+        "ei_mae_mean": 1.5893510895812948,
+        "mv_mae_mean": 0.1087226595858119,
+        "ei_win_rate": 0.2517482517482518
+      },
+      {
+        "prevalence_a": 0.85,
+        "accuracy": 0.58,
+        "q": 512,
+        "n_trials": 150,
+        "n_solved": 137,
+        "ei_mae_mean": 1.4316451789534708,
+        "mv_mae_mean": 0.17265051329145673,
+        "ei_win_rate": 0.19708029197080293
+      }
+    ],
+    "ei_best_cell": {
+      "prevalence_a": 0.55,
+      "accuracy": 0.74,
+      "ei_mae_mean": 0.04720835154532554,
+      "mv_mae_mean": 0.06758200503005295,
+      "ei_win_rate": 0.7866666666666666,
+      "ratio_mv_over_ei": 1.4315688393644994
+    },
+    "mv_best_cell": {
+      "prevalence_a": 0.7,
+      "accuracy": 0.58,
+      "ei_mae_mean": 1.0981176001128665,
+      "mv_mae_mean": 0.17614950967945178,
+      "ei_win_rate": 0.17777777777777778
+    },
+    "figure": "synthetic_mv_vs_ei.png",
+    "title": "Error-independent versus majority-voting recovery",
+    "caption": "The error-independent estimator is more accurate when its assumption holds, while majority voting is more robust in the weak-judge, extreme-prevalence danger zone.",
+    "x_label": "Per-label judge accuracy",
+    "y_label": "Recovery MAE (log scale)",
+    "thresholds": [
+      {
+        "label": "EI win rate",
+        "value": "reported per grid cell",
+        "meaning": "fraction of trials in which error-independent recovery has lower MAE than majority voting"
+      }
+    ],
+    "metadata": {
+      "generated_utc": "2026-06-01T20:27:45.942596+00:00",
+      "study": "synthetic_recovery_study",
+      "deterministic": true,
+      "ensemble": {
+        "prevalence_a": 0.55,
+        "accuracies": [
+          {
+            "judge": 0,
+            "alpha": 0.9,
+            "beta": 0.8
+          },
+          {
+            "judge": 1,
+            "alpha": 0.85,
+            "beta": 0.75
+          },
+          {
+            "judge": 2,
+            "alpha": 0.7,
+            "beta": 0.95
+          }
+        ]
+      },
+      "q": 512,
+      "n_trials": 150,
+      "seed": 8000
+    }
+  },
+  "caption": "The error-independent estimator is more accurate when its assumption holds, while majority voting is more robust in the weak-judge, extreme-prevalence danger zone.",
+  "metadata": {
+    "generated_utc": "2026-06-01T20:27:45.942596+00:00",
+    "study": "synthetic_recovery_study",
+    "deterministic": true,
+    "ensemble": {
+      "prevalence_a": 0.55,
+      "accuracies": [
+        {
+          "judge": 0,
+          "alpha": 0.9,
+          "beta": 0.8
+        },
+        {
+          "judge": 1,
+          "alpha": 0.85,
+          "beta": 0.75
+        },
+        {
+          "judge": 2,
+          "alpha": 0.7,
+          "beta": 0.95
+        }
+      ]
+    },
+    "q": 512,
+    "n_trials": 150,
+    "seed": 8000
+  },
+  "provenance": {
+    "source_file": "mv_vs_ei.data.json",
+    "generated_utc": "2026-06-01T20:27:45.942596+00:00",
+    "study": "synthetic_recovery_study",
+    "deterministic": true,
+    "seed": 8000
+  }
+}

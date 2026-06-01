@@ -1,0 +1,43 @@
+{
+  "generated_at": "2026-06-01T13:18:54",
+  "result": {
+    "true_prevalence_a": 0.625,
+    "recovered_prevalence_a": null,
+    "note": "recovered_* comes from ntqr's ErrorIndependentEvaluation using ONLY the personas' votes -- no answer key. Of its two algebraic solutions we keep the higher-mean-accuracy one (the better-than-random assumption). true_* uses the authored ground truth, shown only as a check.",
+    "per_persona": [
+      {
+        "persona": "Optimist",
+        "true_accuracy": {
+          "a": 1.0,
+          "b": 0.0
+        },
+        "recovered_accuracy_unsupervised": {
+          "a": null,
+          "b": null
+        }
+      },
+      {
+        "persona": "Neutral",
+        "true_accuracy": {
+          "a": 1.0,
+          "b": 0.0
+        },
+        "recovered_accuracy_unsupervised": {
+          "a": null,
+          "b": null
+        }
+      },
+      {
+        "persona": "Pessimist",
+        "true_accuracy": {
+          "a": 1.0,
+          "b": 0.0
+        },
+        "recovered_accuracy_unsupervised": {
+          "a": null,
+          "b": null
+        }
+      }
+    ]
+  }
+}

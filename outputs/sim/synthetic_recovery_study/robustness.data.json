@@ -1,0 +1,172 @@
+{
+  "generated_at": "2026-06-01T13:27:45",
+  "result": {
+    "q_values": [
+      64,
+      128,
+      256,
+      512,
+      1024,
+      2048
+    ],
+    "n_trials": 120,
+    "seed": 7000,
+    "rows": [
+      {
+        "label": "balanced p=0.50",
+        "prevalence_a": 0.5,
+        "accuracies": [
+          [
+            0.88,
+            0.82
+          ],
+          [
+            0.8,
+            0.86
+          ],
+          [
+            0.74,
+            0.78
+          ]
+        ],
+        "slope": -0.554552872370754,
+        "r_squared": 0.9987006474795616,
+        "smallest_q_acc_mae": 0.07796952785304466,
+        "largest_q_acc_mae": 0.011112401897110182
+      },
+      {
+        "label": "tilted p=0.70",
+        "prevalence_a": 0.7,
+        "accuracies": [
+          [
+            0.92,
+            0.78
+          ],
+          [
+            0.83,
+            0.8
+          ],
+          [
+            0.71,
+            0.9
+          ]
+        ],
+        "slope": -0.5113028518956081,
+        "r_squared": 0.9945063554082848,
+        "smallest_q_acc_mae": 0.07607952230923726,
+        "largest_q_acc_mae": 0.012821283476590613
+      },
+      {
+        "label": "strong p=0.55",
+        "prevalence_a": 0.55,
+        "accuracies": [
+          [
+            0.95,
+            0.9
+          ],
+          [
+            0.9,
+            0.93
+          ],
+          [
+            0.88,
+            0.85
+          ]
+        ],
+        "slope": -0.4963780081232395,
+        "r_squared": 0.9969475038196257,
+        "smallest_q_acc_mae": 0.026133450255054615,
+        "largest_q_acc_mae": 0.004739721056377566
+      },
+      {
+        "label": "modest p=0.65",
+        "prevalence_a": 0.65,
+        "accuracies": [
+          [
+            0.8,
+            0.72
+          ],
+          [
+            0.78,
+            0.75
+          ],
+          [
+            0.73,
+            0.82
+          ]
+        ],
+        "slope": -0.5987953574306594,
+        "r_squared": 0.9860036063171319,
+        "smallest_q_acc_mae": 0.15158290660615473,
+        "largest_q_acc_mae": 0.018053151006568027
+      }
+    ],
+    "slope_min": -0.5987953574306594,
+    "slope_max": -0.4963780081232395,
+    "n_ensembles": 4,
+    "title": "Synthetic convergence robustness sweep",
+    "caption": "Additional ensembles confirm that the convergence slope is not an artifact of a single synthetic parameter setting.",
+    "metadata": {
+      "generated_utc": "2026-06-01T20:27:45.942596+00:00",
+      "study": "synthetic_recovery_study",
+      "deterministic": true,
+      "ensemble": {
+        "prevalence_a": 0.55,
+        "accuracies": [
+          {
+            "judge": 0,
+            "alpha": 0.9,
+            "beta": 0.8
+          },
+          {
+            "judge": 1,
+            "alpha": 0.85,
+            "beta": 0.75
+          },
+          {
+            "judge": 2,
+            "alpha": 0.7,
+            "beta": 0.95
+          }
+        ]
+      },
+      "n_trials": 120,
+      "seed": 7000
+    }
+  },
+  "caption": "Additional ensembles confirm that the convergence slope is not an artifact of a single synthetic parameter setting.",
+  "metadata": {
+    "generated_utc": "2026-06-01T20:27:45.942596+00:00",
+    "study": "synthetic_recovery_study",
+    "deterministic": true,
+    "ensemble": {
+      "prevalence_a": 0.55,
+      "accuracies": [
+        {
+          "judge": 0,
+          "alpha": 0.9,
+          "beta": 0.8
+        },
+        {
+          "judge": 1,
+          "alpha": 0.85,
+          "beta": 0.75
+        },
+        {
+          "judge": 2,
+          "alpha": 0.7,
+          "beta": 0.95
+        }
+      ]
+    },
+    "n_trials": 120,
+    "seed": 7000
+  },
+  "provenance": {
+    "source_file": "robustness.data.json",
+    "generated_utc": "2026-06-01T20:27:45.942596+00:00",
+    "study": "synthetic_recovery_study",
+    "deterministic": true,
+    "seed": 7000
+  }
+}

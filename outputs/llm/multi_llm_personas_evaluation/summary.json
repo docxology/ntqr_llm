@@ -1,0 +1,739 @@
+{
+  "generated_at": "2026-06-01T13:18:54",
+  "result": {
+    "backend": "ollama",
+    "temperature": 0.1,
+    "prompt_version": "v3_binary_schema",
+    "prompt_hash": "4d157f84885a",
+    "prompt_payload": {
+      "version": "v3_binary_schema",
+      "personas": [
+        {
+          "key": "optimist",
+          "name": "Optimist",
+          "system": "You classify next-quarter equity direction from the stated facts only. Use the Optimist decision policy: in genuinely mixed cases, give slightly more weight to upside catalysts and recovery paths. If the evidence is exactly balanced, choose bullish. Do not force optimism when explicit negative evidence dominates; such cases should be bearish. Return valid JSON only."
+        },
+        {
+          "key": "neutral",
+          "name": "Neutral",
+          "system": "You classify next-quarter equity direction from the stated facts only. Use the Neutral decision policy: weigh positive and negative evidence symmetrically, with no directional prior. Make the call the evidence best supports; if it is close, still choose the stronger stated side. Return valid JSON only."
+        },
+        {
+          "key": "pessimist",
+          "name": "Pessimist",
+          "system": "You classify next-quarter equity direction from the stated facts only. Use the Pessimist decision policy: in genuinely mixed cases, give slightly more weight to downside risks and execution failure. If the evidence is exactly balanced, choose bearish. Do not force pessimism when explicit positive evidence dominates; such cases should be bullish. Return valid JSON only."
+        }
+      ],
+      "user_template": "Market scenario:\n{scenario}\n\nTask: classify the asset's expected direction over the next quarter.\nUse only the facts stated above; do not assume outside market data.\nChoose exactly one allowed value for call: bullish or bearish.\nNo neutral, no mixed, no abstention, and no explanation are allowed. If evidence is mixed, choose the allowed side implied by your persona policy.\nReturn exactly one JSON object and no other text, for example {{\"call\":\"bullish\"}} or {{\"call\":\"bearish\"}}.",
+      "call_schema": {
+        "type": "object",
+        "properties": {
+          "call": {
+            "type": "string",
+            "enum": [
+              "bullish",
+              "bearish"
+            ]
+          }
+        },
+        "required": [
+          "call"
+        ],
+        "additionalProperties": false
+      },
+      "labels": [
+        "bullish",
+        "bearish"
+      ]
+    },
+    "requested_models": [
+      "granite4.1:3b",
+      "mistral:latest",
+      "gemma2:2b",
+      "gemma3:4b",
+      "gemma4:latest",
+      "smollm2:135m-instruct-q4_K_S"
+    ],
+    "evaluated_models": [
+      "mistral:latest",
+      "gemma4:latest",
+      "gemma3:4b",
+      "gemma2:2b",
+      "granite4.1:3b"
+    ],
+    "skipped_unavailable": [],
+    "failed_models": [
+      "smollm2:135m-instruct-q4_K_S"
+    ],
+    "n_scenarios": 64,
+    "best_model": "mistral:latest",
+    "worst_model": "granite4.1:3b",
+    "mean_recovery_mae": 0.027877546430178007,
+    "cross_model_statistics": {
+      "recovery_mae": {
+        "n": 5,
+        "min": 0.011901709401709407,
+        "max": 0.053968253968253964,
+        "mean": 0.027877546430178007,
+        "median": 0.023695456590193436,
+        "std": 0.013957767117960495,
+        "spread": 0.04206654456654456
+      },
+      "mv_recovery_mae": {
+        "n": 5,
+        "min": 0.011901709401709407,
+        "max": 0.053968253968253964,
+        "mean": 0.027877546430178007,
+        "median": 0.023695456590193436,
+        "std": 0.013957767117960495,
+        "spread": 0.04206654456654456
+      },
+      "prevalence_abs_error": {
+        "n": 5,
+        "min": 0.015625,
+        "max": 0.0625,
+        "mean": 0.03125,
+        "median": 0.03125,
+        "std": 0.01711632992203644,
+        "spread": 0.046875
+      },
+      "sampling_noise_floor": 0.10206207261596575,
+      "disagreement_evaluable": {
+        "n": 5,
+        "min": 0.03125,
+        "max": 0.22916666666666666,
+        "mean": 0.09791666666666667,
+        "median": 0.0625,
+        "std": 0.06959705453537526,
+        "spread": 0.19791666666666666
+      },
+      "disagreement_unevaluable": {
+        "n": 1,
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0,
+        "spread": 0.0
+      },
+      "disagreement_gates_evaluability": true,
+      "note": "In this run, aggregate disagreement also separates the groups because the unevaluable model(s) are constant-classifier collapses with low/no disagreement. The structural gate remains per-judge variation and complete votes, not a universal ensemble-disagreement threshold."
+    },
+    "evaluability_diagnostic": {
+      "note": "predicted_evaluable is derived from votes alone (no answer key): an ensemble is evaluable iff every persona varied. diagnostic_matched_outcome is True when that label-free prediction agrees with which models the ntqr solve actually evaluated.",
+      "predicted_evaluable": [
+        "gemma2:2b",
+        "gemma3:4b",
+        "gemma4:latest",
+        "granite4.1:3b",
+        "mistral:latest"
+      ],
+      "actually_evaluated": [
+        "gemma2:2b",
+        "gemma3:4b",
+        "gemma4:latest",
+        "granite4.1:3b",
+        "mistral:latest"
+      ],
+      "diagnostic_matched_outcome": true
+    },
+    "ranking_by_recovery_mae": [
+      {
+        "model": "mistral:latest",
+        "unparsed_responses": 0,
+        "predicted_evaluable": true,
+        "constant_classifiers": [],
+        "mean_pairwise_disagreement": 0.22916666666666666,
+        "prompt_health": {
+          "Optimist": {
+            "n_total": 64,
+            "n_parsed": 64,
+            "n_unparsed": 0,
+            "parse_rate": 1.0,
+            "primary_parse_rate": 1.0,
+            "final_parse_rate": 1.0,
+            "n_repair_needed": 0,
+            "n_repaired": 0,
+            "n_invalid_label": 0,
+            "n_unavailable": 0,
+            "parse_methods": {
+              "schema_json": 64
+            },
+            "call_counts": {
+              "bearish": 19,
+              "bullish": 45
+            },
+            "distinct_calls": [
+              "bearish",
+              "bullish"
+            ],
+            "modal_fraction": 0.703125,
+            "entropy_bits": 0.877437311089633,
+            "is_constant": false
+          },
+          "Neutral": {
+            "n_total": 64,
+            "n_parsed": 64,
+            "n_unparsed": 0,
+            "parse_rate": 1.0,
+            "primary_parse_rate": 1.0,
+            "final_parse_rate": 1.0,
+            "n_repair_needed": 0,
+            "n_repaired": 0,
+            "n_invalid_label": 0,
+            "n_unavailable": 0,
+            "parse_methods": {
+              "schema_json": 64
+            },
+            "call_counts": {
+              "bearish": 25,
+              "bullish": 39
+            },
+            "distinct_calls": [
+              "bearish",
+              "bullish"
+            ],
+            "modal_fraction": 0.609375,
+            "entropy_bits": 0.9652016987500656,
+            "is_constant": false
+          },
+          "Pessimist": {
+            "n_total": 64,
+            "n_parsed": 64,
+            "n_unparsed": 0,
+            "parse_rate": 1.0,
+            "primary_parse_rate": 1.0,
+            "final_parse_rate": 1.0,
+            "n_repair_needed": 0,
+            "n_repaired": 0,
+            "n_invalid_label": 0,
+            "n_unavailable": 0,
+            "parse_methods": {
+              "schema_json": 64
+            },
+            "call_counts": {
+              "bearish": 41,
+              "bullish": 23
+            },
+            "distinct_calls": [
+              "bearish",
+              "bullish"
+            ],
+            "modal_fraction": 0.640625,
+            "entropy_bits": 0.9421631690835511,
+            "is_constant": false
+          }
+        },
+        "true_prevalence_a": 0.625,
+        "recovered_prevalence_a": 0.609375,
+        "prevalence_abs_error": 0.015625,
+        "recovery_mae": 0.011901709401709407,
+        "recovery_mae_by_label": {
+          "a": 0.013247863247863275,
+          "b": 0.01055555555555554
+        },
+        "max_abs_error": 0.03166666666666662,
+        "worst_term": {
+          "persona": "Optimist",
+          "label": "b",
+          "abs_error": 0.03166666666666662
+        },
+        "mv_recovery_mae": 0.011901709401709407
+      },
+      {
+        "model": "gemma4:latest",
+        "unparsed_responses": 0,
+        "predicted_evaluable": true,
+        "constant_classifiers": [],
+        "mean_pairwise_disagreement": 0.03125,
+        "prompt_health": {
+          "Optimist": {
+            "n_total": 64,
+            "n_parsed": 64,
+            "n_unparsed": 0,
+            "parse_rate": 1.0,
+            "primary_parse_rate": 1.0,
+            "final_parse_rate": 1.0,
+            "n_repair_needed": 0,
+            "n_repaired": 0,
+            "n_invalid_label": 0,
+            "n_unavailable": 0,
+            "parse_methods": {
+              "schema_json": 64
+            },
+            "call_counts": {
+              "bearish": 24,
+              "bullish": 40
+            },
+            "distinct_calls": [
+              "bearish",
+              "bullish"
+            ],
+            "modal_fraction": 0.625,
+            "entropy_bits": 0.954434002924965,
+            "is_constant": false
+          },
+          "Neutral": {
+            "n_total": 64,
+            "n_parsed": 64,
+            "n_unparsed": 0,
+            "parse_rate": 1.0,
+            "primary_parse_rate": 1.0,
+            "final_parse_rate": 1.0,
+            "n_repair_needed": 0,
+            "n_repaired": 0,
+            "n_invalid_label": 0,
+            "n_unavailable": 0,
+            "parse_methods": {
+              "schema_json": 64
+            },
+            "call_counts": {
+              "bearish": 25,
+              "bullish": 39
+            },
+            "distinct_calls": [
+              "bearish",
+              "bullish"
+            ],
+            "modal_fraction": 0.609375,
+            "entropy_bits": 0.9652016987500656,
+            "is_constant": false
+          },
+          "Pessimist": {
+            "n_total": 64,
+            "n_parsed": 64,
+            "n_unparsed": 0,
+            "parse_rate": 1.0,
+            "primary_parse_rate": 1.0,
+            "final_parse_rate": 1.0,
+            "n_repair_needed": 0,
+            "n_repaired": 0,
+            "n_invalid_label": 0,
+            "n_unavailable": 0,
+            "parse_methods": {
+              "schema_json": 64
+            },
+            "call_counts": {
+              "bearish": 27,
+              "bullish": 37
+            },
+            "distinct_calls": [
+              "bearish",
+              "bullish"
+            ],
+            "modal_fraction": 0.578125,
+            "entropy_bits": 0.9823166080205501,
+            "is_constant": false
+          }
+        },
+        "true_prevalence_a": 0.625,
+        "recovered_prevalence_a": 0.609375,
+        "prevalence_abs_error": 0.015625,
+        "recovery_mae": 0.023675213675213653,
+        "recovery_mae_by_label": {
+          "a": 0.0329059829059829,
+          "b": 0.014444444444444407
+        },
+        "max_abs_error": 0.050000000000000044,
+        "worst_term": {
+          "persona": "Neutral",
+          "label": "a",
+          "abs_error": 0.050000000000000044
+        },
+        "mv_recovery_mae": 0.023675213675213653
+      },
+      {
+        "model": "gemma3:4b",
+        "unparsed_responses": 0,
+        "predicted_evaluable": true,
+        "constant_classifiers": [],
+        "mean_pairwise_disagreement": 0.10416666666666667,
+        "prompt_health": {
+          "Optimist": {
+            "n_total": 64,
+            "n_parsed": 64,
+            "n_unparsed": 0,
+            "parse_rate": 1.0,
+            "primary_parse_rate": 1.0,
+            "final_parse_rate": 1.0,
+            "n_repair_needed": 0,
+            "n_repaired": 0,
+            "n_invalid_label": 0,
+            "n_unavailable": 0,
+            "parse_methods": {
+              "schema_json": 64
+            },
+            "call_counts": {
+              "bearish": 20,
+              "bullish": 44
+            },
+            "distinct_calls": [
+              "bearish",
+              "bullish"
+            ],
+            "modal_fraction": 0.6875,
+            "entropy_bits": 0.8960382325345574,
+            "is_constant": false
+          },
+          "Neutral": {
+            "n_total": 64,
+            "n_parsed": 64,
+            "n_unparsed": 0,
+            "parse_rate": 1.0,
+            "primary_parse_rate": 1.0,
+            "final_parse_rate": 1.0,
+            "n_repair_needed": 0,
+            "n_repaired": 0,
+            "n_invalid_label": 0,
+            "n_unavailable": 0,
+            "parse_methods": {
+              "schema_json": 64
+            },
+            "call_counts": {
+              "bearish": 26,
+              "bullish": 38
+            },
+            "distinct_calls": [
+              "bearish",
+              "bullish"
+            ],
+            "modal_fraction": 0.59375,
+            "entropy_bits": 0.9744894033980523,
+            "is_constant": false
+          },
+          "Pessimist": {
+            "n_total": 64,
+            "n_parsed": 64,
+            "n_unparsed": 0,
+            "parse_rate": 1.0,
+            "primary_parse_rate": 1.0,
+            "final_parse_rate": 1.0,
+            "n_repair_needed": 0,
+            "n_repaired": 0,
+            "n_invalid_label": 0,
+            "n_unavailable": 0,
+            "parse_methods": {
+              "schema_json": 64
+            },
+            "call_counts": {
+              "bearish": 30,
+              "bullish": 34
+            },
+            "distinct_calls": [
+              "bearish",
+              "bullish"
+            ],
+            "modal_fraction": 0.53125,
+            "entropy_bits": 0.9971803988942642,
+            "is_constant": false
+          }
+        },
+        "true_prevalence_a": 0.625,
+        "recovered_prevalence_a": 0.59375,
+        "prevalence_abs_error": 0.03125,
+        "recovery_mae": 0.023695456590193436,
+        "recovery_mae_by_label": {
+          "a": 0.03991228070175442,
+          "b": 0.007478632478632452
+        },
+        "max_abs_error": 0.050000000000000044,
+        "worst_term": {
+          "persona": "Neutral",
+          "label": "a",
+          "abs_error": 0.050000000000000044
+        },
+        "mv_recovery_mae": 0.023695456590193436
+      },
+      {
+        "model": "gemma2:2b",
+        "unparsed_responses": 0,
+        "predicted_evaluable": true,
+        "constant_classifiers": [],
+        "mean_pairwise_disagreement": 0.0625,
+        "prompt_health": {
+          "Optimist": {
+            "n_total": 64,
+            "n_parsed": 64,
+            "n_unparsed": 0,
+            "parse_rate": 1.0,
+            "primary_parse_rate": 1.0,
+            "final_parse_rate": 1.0,
+            "n_repair_needed": 0,
+            "n_repaired": 0,
+            "n_invalid_label": 0,
+            "n_unavailable": 0,
+            "parse_methods": {
+              "schema_json": 64
+            },
+            "call_counts": {
+              "bearish": 25,
+              "bullish": 39
+            },
+            "distinct_calls": [
+              "bearish",
+              "bullish"
+            ],
+            "modal_fraction": 0.609375,
+            "entropy_bits": 0.9652016987500656,
+            "is_constant": false
+          },
+          "Neutral": {
+            "n_total": 64,
+            "n_parsed": 64,
+            "n_unparsed": 0,
+            "parse_rate": 1.0,
+            "primary_parse_rate": 1.0,
+            "final_parse_rate": 1.0,
+            "n_repair_needed": 0,
+            "n_repaired": 0,
+            "n_invalid_label": 0,
+            "n_unavailable": 0,
+            "parse_methods": {
+              "schema_json": 64
+            },
+            "call_counts": {
+              "bearish": 26,
+              "bullish": 38
+            },
+            "distinct_calls": [
+              "bearish",
+              "bullish"
+            ],
+            "modal_fraction": 0.59375,
+            "entropy_bits": 0.9744894033980523,
+            "is_constant": false
+          },
+          "Pessimist": {
+            "n_total": 64,
+            "n_parsed": 64,
+            "n_unparsed": 0,
+            "parse_rate": 1.0,
+            "primary_parse_rate": 1.0,
+            "final_parse_rate": 1.0,
+            "n_repair_needed": 0,
+            "n_repaired": 0,
+            "n_invalid_label": 0,
+            "n_unavailable": 0,
+            "parse_methods": {
+              "schema_json": 64
+            },
+            "call_counts": {
+              "bearish": 31,
+              "bullish": 33
+            },
+            "distinct_calls": [
+              "bearish",
+              "bullish"
+            ],
+            "modal_fraction": 0.515625,
+            "entropy_bits": 0.9992954443621549,
+            "is_constant": false
+          }
+        },
+        "true_prevalence_a": 0.625,
+        "recovered_prevalence_a": 0.59375,
+        "prevalence_abs_error": 0.03125,
+        "recovery_mae": 0.02614709851551959,
+        "recovery_mae_by_label": {
+          "a": 0.03947368421052636,
+          "b": 0.012820512820512811
+        },
+        "max_abs_error": 0.050000000000000044,
+        "worst_term": {
+          "persona": "Neutral",
+          "label": "a",
+          "abs_error": 0.050000000000000044
+        },
+        "mv_recovery_mae": 0.02614709851551959
+      },
+      {
+        "model": "granite4.1:3b",
+        "unparsed_responses": 0,
+        "predicted_evaluable": true,
+        "constant_classifiers": [],
+        "mean_pairwise_disagreement": 0.0625,
+        "prompt_health": {
+          "Optimist": {
+            "n_total": 64,
+            "n_parsed": 64,
+            "n_unparsed": 0,
+            "parse_rate": 1.0,
+            "primary_parse_rate": 1.0,
+            "final_parse_rate": 1.0,
+            "n_repair_needed": 0,
+            "n_repaired": 0,
+            "n_invalid_label": 0,
+            "n_unavailable": 0,
+            "parse_methods": {
+              "schema_json": 64
+            },
+            "call_counts": {
+              "bearish": 25,
+              "bullish": 39
+            },
+            "distinct_calls": [
+              "bearish",
+              "bullish"
+            ],
+            "modal_fraction": 0.609375,
+            "entropy_bits": 0.9652016987500656,
+            "is_constant": false
+          },
+          "Neutral": {
+            "n_total": 64,
+            "n_parsed": 64,
+            "n_unparsed": 0,
+            "parse_rate": 1.0,
+            "primary_parse_rate": 1.0,
+            "final_parse_rate": 1.0,
+            "n_repair_needed": 0,
+            "n_repaired": 0,
+            "n_invalid_label": 0,
+            "n_unavailable": 0,
+            "parse_methods": {
+              "schema_json": 64
+            },
+            "call_counts": {
+              "bearish": 28,
+              "bullish": 36
+            },
+            "distinct_calls": [
+              "bearish",
+              "bullish"
+            ],
+            "modal_fraction": 0.5625,
+            "entropy_bits": 0.9886994082884974,
+            "is_constant": false
+          },
+          "Pessimist": {
+            "n_total": 64,
+            "n_parsed": 64,
+            "n_unparsed": 0,
+            "parse_rate": 1.0,
+            "primary_parse_rate": 1.0,
+            "final_parse_rate": 1.0,
+            "n_repair_needed": 0,
+            "n_repaired": 0,
+            "n_invalid_label": 0,
+            "n_unavailable": 0,
+            "parse_methods": {
+              "schema_json": 64
+            },
+            "call_counts": {
+              "bearish": 31,
+              "bullish": 33
+            },
+            "distinct_calls": [
+              "bearish",
+              "bullish"
+            ],
+            "modal_fraction": 0.515625,
+            "entropy_bits": 0.9992954443621549,
+            "is_constant": false
+          }
+        },
+        "true_prevalence_a": 0.625,
+        "recovered_prevalence_a": 0.5625,
+        "prevalence_abs_error": 0.0625,
+        "recovery_mae": 0.053968253968253964,
+        "recovery_mae_by_label": {
+          "a": 0.07222222222222223,
+          "b": 0.0357142857142857
+        },
+        "max_abs_error": 0.1071428571428571,
+        "worst_term": {
+          "persona": "Optimist",
+          "label": "b",
+          "abs_error": 0.1071428571428571
+        },
+        "mv_recovery_mae": 0.053968253968253964
+      },
+      {
+        "model": "smollm2:135m-instruct-q4_K_S",
+        "unparsed_responses": 0,
+        "predicted_evaluable": false,
+        "constant_classifiers": [
+          "Optimist",
+          "Neutral",
+          "Pessimist"
+        ],
+        "mean_pairwise_disagreement": 0.0,
+        "prompt_health": {
+          "Optimist": {
+            "n_total": 64,
+            "n_parsed": 64,
+            "n_unparsed": 0,
+            "parse_rate": 1.0,
+            "primary_parse_rate": 1.0,
+            "final_parse_rate": 1.0,
+            "n_repair_needed": 0,
+            "n_repaired": 0,
+            "n_invalid_label": 0,
+            "n_unavailable": 0,
+            "parse_methods": {
+              "schema_json": 64
+            },
+            "call_counts": {
+              "bullish": 64
+            },
+            "distinct_calls": [
+              "bullish"
+            ],
+            "modal_fraction": 1.0,
+            "entropy_bits": -0.0,
+            "is_constant": true
+          },
+          "Neutral": {
+            "n_total": 64,
+            "n_parsed": 64,
+            "n_unparsed": 0,
+            "parse_rate": 1.0,
+            "primary_parse_rate": 1.0,
+            "final_parse_rate": 1.0,
+            "n_repair_needed": 0,
+            "n_repaired": 0,
+            "n_invalid_label": 0,
+            "n_unavailable": 0,
+            "parse_methods": {
+              "schema_json": 64
+            },
+            "call_counts": {
+              "bullish": 64
+            },
+            "distinct_calls": [
+              "bullish"
+            ],
+            "modal_fraction": 1.0,
+            "entropy_bits": -0.0,
+            "is_constant": true
+          },
+          "Pessimist": {
+            "n_total": 64,
+            "n_parsed": 64,
+            "n_unparsed": 0,
+            "parse_rate": 1.0,
+            "primary_parse_rate": 1.0,
+            "final_parse_rate": 1.0,
+            "n_repair_needed": 0,
+            "n_repaired": 0,
+            "n_invalid_label": 0,
+            "n_unavailable": 0,
+            "parse_methods": {
+              "schema_json": 64
+            },
+            "call_counts": {
+              "bullish": 64
+            },
+            "distinct_calls": [
+              "bullish"
+            ],
+            "modal_fraction": 1.0,
+            "entropy_bits": -0.0,
+            "is_constant": true
+          }
+        },
+        "error": "degenerate (unsolvable / NaN solution); constant classifier(s): Optimist, Neutral, Pessimist"
+      }
+    ]
+  }
+}

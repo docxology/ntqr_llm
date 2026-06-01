@@ -1,0 +1,810 @@
+{
+  "generated_at": "2026-06-01T13:27:45",
+  "result": {
+    "study": "synthetic_recovery_study",
+    "deterministic": true,
+    "ensemble": {
+      "prevalence_a": 0.55,
+      "accuracies": [
+        {
+          "judge": 0,
+          "alpha": 0.9,
+          "beta": 0.8
+        },
+        {
+          "judge": 1,
+          "alpha": 0.85,
+          "beta": 0.75
+        },
+        {
+          "judge": 2,
+          "alpha": 0.7,
+          "beta": 0.95
+        }
+      ]
+    },
+    "convergence": {
+      "n_trials": 200,
+      "seed": 2024,
+      "rows": [
+        {
+          "q": 32,
+          "n_trials": 200,
+          "n_solved": 200,
+          "prevalence_abs_error_mean": 0.11687638515740337,
+          "prevalence_abs_error_sd": 0.12448279092649193,
+          "accuracy_mae_mean": 0.12318440654691137,
+          "accuracy_mae_sd": 0.21889882217756992
+        },
+        {
+          "q": 64,
+          "n_trials": 200,
+          "n_solved": 200,
+          "prevalence_abs_error_mean": 0.07409623317705419,
+          "prevalence_abs_error_sd": 0.07085647842595008,
+          "accuracy_mae_mean": 0.07268285817060488,
+          "accuracy_mae_sd": 0.15909022460052716
+        },
+        {
+          "q": 128,
+          "n_trials": 200,
+          "n_solved": 200,
+          "prevalence_abs_error_mean": 0.04760493888868777,
+          "prevalence_abs_error_sd": 0.038488314852881435,
+          "accuracy_mae_mean": 0.03953909812960957,
+          "accuracy_mae_sd": 0.021900102114832593
+        },
+        {
+          "q": 256,
+          "n_trials": 200,
+          "n_solved": 200,
+          "prevalence_abs_error_mean": 0.03598846550985861,
+          "prevalence_abs_error_sd": 0.024635071181360834,
+          "accuracy_mae_mean": 0.02891934463607372,
+          "accuracy_mae_sd": 0.013214803693242598
+        },
+        {
+          "q": 512,
+          "n_trials": 200,
+          "n_solved": 200,
+          "prevalence_abs_error_mean": 0.02317469504433613,
+          "prevalence_abs_error_sd": 0.017214676181332392,
+          "accuracy_mae_mean": 0.01923183918834986,
+          "accuracy_mae_sd": 0.010172064579971064
+        },
+        {
+          "q": 1024,
+          "n_trials": 200,
+          "n_solved": 200,
+          "prevalence_abs_error_mean": 0.01608165215654073,
+          "prevalence_abs_error_sd": 0.012034954414410656,
+          "accuracy_mae_mean": 0.013430081803501965,
+          "accuracy_mae_sd": 0.006706831036735749
+        },
+        {
+          "q": 2048,
+          "n_trials": 200,
+          "n_solved": 200,
+          "prevalence_abs_error_mean": 0.010822282680601158,
+          "prevalence_abs_error_sd": 0.008505673700927306,
+          "accuracy_mae_mean": 0.009492885256396837,
+          "accuracy_mae_sd": 0.004592462673990442
+        },
+        {
+          "q": 4096,
+          "n_trials": 200,
+          "n_solved": 200,
+          "prevalence_abs_error_mean": 0.008074467703508392,
+          "prevalence_abs_error_sd": 0.006017604868681868,
+          "accuracy_mae_mean": 0.006846216186171135,
+          "accuracy_mae_sd": 0.003285928187017254
+        }
+      ],
+      "sqrt_q_fit_accuracy": {
+        "slope": -0.5848933288947189,
+        "intercept": -0.22797292834479554,
+        "r_squared": 0.9887136545041352,
+        "n": 8
+      },
+      "sqrt_q_fit_prevalence": {
+        "slope": -0.5499685173396657,
+        "intercept": -0.3045188654591531,
+        "r_squared": 0.9974379585919941,
+        "n": 8
+      },
+      "q_min": 32,
+      "q_max": 4096,
+      "smallest_q_acc_mae": 0.12318440654691137,
+      "largest_q_acc_mae": 0.006846216186171135,
+      "figure": "synthetic_convergence.png",
+      "title": "Synthetic convergence of NTQR recovery error",
+      "caption": "Synthetic error-independent ensembles show accuracy MAE falling close to the expected 1/sqrt(Q) sampling-noise rate.",
+      "x_label": "Test size Q (log scale)",
+      "y_label": "Unsupervised recovery error (log scale)",
+      "thresholds": [
+        {
+          "label": "sampling-noise slope",
+          "value": -0.5,
+          "meaning": "ideal log-log slope for 1/sqrt(Q) error decay"
+        }
+      ],
+      "metadata": {
+        "generated_utc": "2026-06-01T20:27:45.942596+00:00",
+        "study": "synthetic_recovery_study",
+        "deterministic": true,
+        "ensemble": {
+          "prevalence_a": 0.55,
+          "accuracies": [
+            {
+              "judge": 0,
+              "alpha": 0.9,
+              "beta": 0.8
+            },
+            {
+              "judge": 1,
+              "alpha": 0.85,
+              "beta": 0.75
+            },
+            {
+              "judge": 2,
+              "alpha": 0.7,
+              "beta": 0.95
+            }
+          ]
+        },
+        "n_trials_per_q": 200,
+        "seed": 2024
+      }
+    },
+    "correlation": {
+      "q": 1024,
+      "n_trials": 200,
+      "seed": 5000,
+      "rows": [
+        {
+          "label": "independent",
+          "common_mode": 0.0,
+          "anti_pair": null,
+          "anti_strength": 0.0,
+          "q": 1024,
+          "n_trials": 200,
+          "alarm_count": 0,
+          "alarm_rate": 0.0,
+          "discriminant_mean": 0.011485529005531203,
+          "discriminant_min": 1.0781875121601558e-06,
+          "discriminant_max": 0.051181460292934355,
+          "silent_prevalence_abs_error_mean": 0.015580030322134387
+        },
+        {
+          "label": "common-mode 0.1",
+          "common_mode": 0.1,
+          "anti_pair": null,
+          "anti_strength": 0.0,
+          "q": 1024,
+          "n_trials": 200,
+          "alarm_count": 0,
+          "alarm_rate": 0.0,
+          "discriminant_mean": 0.008018967579332108,
+          "discriminant_min": 4.401477085136385e-06,
+          "discriminant_max": 0.03160176314182439,
+          "silent_prevalence_abs_error_mean": 0.01414973917803801
+        },
+        {
+          "label": "common-mode 0.2",
+          "common_mode": 0.2,
+          "anti_pair": null,
+          "anti_strength": 0.0,
+          "q": 1024,
+          "n_trials": 200,
+          "alarm_count": 0,
+          "alarm_rate": 0.0,
+          "discriminant_mean": 0.004089324577454839,
+          "discriminant_min": 2.2912750630155188e-07,
+          "discriminant_max": 0.02329880636707693,
+          "silent_prevalence_abs_error_mean": 0.023530547196280303
+        },
+        {
+          "label": "common-mode 0.3",
+          "common_mode": 0.3,
+          "anti_pair": null,
+          "anti_strength": 0.0,
+          "q": 1024,
+          "n_trials": 200,
+          "alarm_count": 0,
+          "alarm_rate": 0.0,
+          "discriminant_mean": 0.002149685610964543,
+          "discriminant_min": 4.732709002475133e-09,
+          "discriminant_max": 0.014480674839391194,
+          "silent_prevalence_abs_error_mean": 0.03427973842513867
+        },
+        {
+          "label": "common-mode 0.4",
+          "common_mode": 0.4,
+          "anti_pair": null,
+          "anti_strength": 0.0,
+          "q": 1024,
+          "n_trials": 200,
+          "alarm_count": 0,
+          "alarm_rate": 0.0,
+          "discriminant_mean": 0.0012741605050985221,
+          "discriminant_min": 4.603811754044784e-08,
+          "discriminant_max": 0.010207517073350658,
+          "silent_prevalence_abs_error_mean": 0.04193562558025204
+        },
+        {
+          "label": "anti-pair 0.2",
+          "common_mode": 0.0,
+          "anti_pair": [
+            0,
+            1
+          ],
+          "anti_strength": 0.2,
+          "q": 1024,
+          "n_trials": 200,
+          "alarm_count": 0,
+          "alarm_rate": 0.0,
+          "discriminant_mean": 0.012555227375657056,
+          "discriminant_min": 2.241262466728955e-07,
+          "discriminant_max": 0.1009854785200589,
+          "silent_prevalence_abs_error_mean": 0.042734117359800775
+        },
+        {
+          "label": "anti-pair 0.3",
+          "common_mode": 0.0,
+          "anti_pair": [
+            0,
+            1
+          ],
+          "anti_strength": 0.3,
+          "q": 1024,
+          "n_trials": 200,
+          "alarm_count": 80,
+          "alarm_rate": 0.4,
+          "discriminant_mean": 0.09620995441058541,
+          "discriminant_min": -5.442872325396484,
+          "discriminant_max": 8.604970273289645,
+          "silent_prevalence_abs_error_mean": 0.20445536334716455
+        },
+        {
+          "label": "anti-pair 0.4",
+          "common_mode": 0.0,
+          "anti_pair": [
+            0,
+            1
+          ],
+          "anti_strength": 0.4,
+          "q": 1024,
+          "n_trials": 200,
+          "alarm_count": 188,
+          "alarm_rate": 0.94,
+          "discriminant_mean": -0.07264000593116678,
+          "discriminant_min": -1.9058966327857139,
+          "discriminant_max": 8.567151830644463,
+          "silent_prevalence_abs_error_mean": 0.40741383578193696
+        }
+      ],
+      "independent_false_alarm_rate": 0.0,
+      "common_mode_max_alarm_rate": 0.0,
+      "common_mode_max_silent_error": 0.04193562558025204,
+      "anti_max_alarm_rate": 0.94,
+      "figure": "synthetic_alarm.png",
+      "title": "Imaginary-root alarm and common-mode blind spot",
+      "caption": "The alarm has zero false positives under independence and fires on anti-correlated errors, while positive common-mode dependence remains a documented blind spot.",
+      "x_label": "Dependence condition",
+      "y_label": "Alarm rate and silent prevalence error",
+      "thresholds": [
+        {
+          "label": "imaginary-root alarm",
+          "value": "D < 0",
+          "meaning": "negative prevalence-quadratic discriminant triggers the logical alarm"
+        }
+      ],
+      "metadata": {
+        "generated_utc": "2026-06-01T20:27:45.942596+00:00",
+        "study": "synthetic_recovery_study",
+        "deterministic": true,
+        "ensemble": {
+          "prevalence_a": 0.55,
+          "accuracies": [
+            {
+              "judge": 0,
+              "alpha": 0.9,
+              "beta": 0.8
+            },
+            {
+              "judge": 1,
+              "alpha": 0.85,
+              "beta": 0.75
+            },
+            {
+              "judge": 2,
+              "alpha": 0.7,
+              "beta": 0.95
+            }
+          ]
+        },
+        "q": 1024,
+        "n_trials": 200,
+        "seed": 5000
+      }
+    },
+    "tie_break": {
+      "prevalence_a": 0.6,
+      "q": 256,
+      "n_trials": 200,
+      "seed": 4000,
+      "rows": [
+        {
+          "accuracy": 0.9,
+          "q": 256,
+          "n_trials": 200,
+          "catastrophic_count": 0,
+          "catastrophic_rate": 0.0,
+          "degenerate_count": 0,
+          "degenerate_rate": 0.0,
+          "prevalence_abs_error_mean": 0.013587183594015841
+        },
+        {
+          "accuracy": 0.82,
+          "q": 256,
+          "n_trials": 200,
+          "catastrophic_count": 0,
+          "catastrophic_rate": 0.0,
+          "degenerate_count": 0,
+          "degenerate_rate": 0.0,
+          "prevalence_abs_error_mean": 0.039084286322592685
+        },
+        {
+          "accuracy": 0.76,
+          "q": 256,
+          "n_trials": 200,
+          "catastrophic_count": 9,
+          "catastrophic_rate": 0.045,
+          "degenerate_count": 0,
+          "degenerate_rate": 0.0,
+          "prevalence_abs_error_mean": 0.0932653398871871
+        },
+        {
+          "accuracy": 0.7,
+          "q": 256,
+          "n_trials": 200,
+          "catastrophic_count": 51,
+          "catastrophic_rate": 0.255,
+          "degenerate_count": 2,
+          "degenerate_rate": 0.01,
+          "prevalence_abs_error_mean": 0.18455747893827731
+        },
+        {
+          "accuracy": 0.62,
+          "q": 256,
+          "n_trials": 200,
+          "catastrophic_count": 142,
+          "catastrophic_rate": 0.71,
+          "degenerate_count": 19,
+          "degenerate_rate": 0.095,
+          "prevalence_abs_error_mean": 0.4214799761905717
+        },
+        {
+          "accuracy": 0.56,
+          "q": 256,
+          "n_trials": 200,
+          "catastrophic_count": 170,
+          "catastrophic_rate": 0.85,
+          "degenerate_count": 14,
+          "degenerate_rate": 0.07,
+          "prevalence_abs_error_mean": 0.48498887896733595
+        },
+        {
+          "accuracy": 0.52,
+          "q": 256,
+          "n_trials": 200,
+          "catastrophic_count": 165,
+          "catastrophic_rate": 0.825,
+          "degenerate_count": 17,
+          "degenerate_rate": 0.085,
+          "prevalence_abs_error_mean": 0.48709602700297344
+        }
+      ],
+      "safe_accuracy": 0.82,
+      "max_catastrophic_rate": 0.85,
+      "figure": "synthetic_tiebreak.png",
+      "title": "Better-than-random branch-selection boundary",
+      "caption": "The unsupervised branch rule is stable for strong judges and fails as symmetric judge accuracy approaches random guessing.",
+      "x_label": "Per-label judge accuracy",
+      "y_label": "Catastrophic mirror-selection rate",
+      "thresholds": [
+        {
+          "label": "random guessing",
+          "value": 0.5,
+          "meaning": "symmetric judges at 0.5 accuracy provide no better-than-random branch signal"
+        }
+      ],
+      "metadata": {
+        "generated_utc": "2026-06-01T20:27:45.942596+00:00",
+        "study": "synthetic_recovery_study",
+        "deterministic": true,
+        "ensemble": {
+          "prevalence_a": 0.55,
+          "accuracies": [
+            {
+              "judge": 0,
+              "alpha": 0.9,
+              "beta": 0.8
+            },
+            {
+              "judge": 1,
+              "alpha": 0.85,
+              "beta": 0.75
+            },
+            {
+              "judge": 2,
+              "alpha": 0.7,
+              "beta": 0.95
+            }
+          ]
+        },
+        "q": 256,
+        "n_trials": 200,
+        "seed": 4000
+      }
+    },
+    "robustness": {
+      "q_values": [
+        64,
+        128,
+        256,
+        512,
+        1024,
+        2048
+      ],
+      "n_trials": 120,
+      "seed": 7000,
+      "rows": [
+        {
+          "label": "balanced p=0.50",
+          "prevalence_a": 0.5,
+          "accuracies": [
+            [
+              0.88,
+              0.82
+            ],
+            [
+              0.8,
+              0.86
+            ],
+            [
+              0.74,
+              0.78
+            ]
+          ],
+          "slope": -0.554552872370754,
+          "r_squared": 0.9987006474795616,
+          "smallest_q_acc_mae": 0.07796952785304466,
+          "largest_q_acc_mae": 0.011112401897110182
+        },
+        {
+          "label": "tilted p=0.70",
+          "prevalence_a": 0.7,
+          "accuracies": [
+            [
+              0.92,
+              0.78
+            ],
+            [
+              0.83,
+              0.8
+            ],
+            [
+              0.71,
+              0.9
+            ]
+          ],
+          "slope": -0.5113028518956081,
+          "r_squared": 0.9945063554082848,
+          "smallest_q_acc_mae": 0.07607952230923726,
+          "largest_q_acc_mae": 0.012821283476590613
+        },
+        {
+          "label": "strong p=0.55",
+          "prevalence_a": 0.55,
+          "accuracies": [
+            [
+              0.95,
+              0.9
+            ],
+            [
+              0.9,
+              0.93
+            ],
+            [
+              0.88,
+              0.85
+            ]
+          ],
+          "slope": -0.4963780081232395,
+          "r_squared": 0.9969475038196257,
+          "smallest_q_acc_mae": 0.026133450255054615,
+          "largest_q_acc_mae": 0.004739721056377566
+        },
+        {
+          "label": "modest p=0.65",
+          "prevalence_a": 0.65,
+          "accuracies": [
+            [
+              0.8,
+              0.72
+            ],
+            [
+              0.78,
+              0.75
+            ],
+            [
+              0.73,
+              0.82
+            ]
+          ],
+          "slope": -0.5987953574306594,
+          "r_squared": 0.9860036063171319,
+          "smallest_q_acc_mae": 0.15158290660615473,
+          "largest_q_acc_mae": 0.018053151006568027
+        }
+      ],
+      "slope_min": -0.5987953574306594,
+      "slope_max": -0.4963780081232395,
+      "n_ensembles": 4,
+      "title": "Synthetic convergence robustness sweep",
+      "caption": "Additional ensembles confirm that the convergence slope is not an artifact of a single synthetic parameter setting.",
+      "metadata": {
+        "generated_utc": "2026-06-01T20:27:45.942596+00:00",
+        "study": "synthetic_recovery_study",
+        "deterministic": true,
+        "ensemble": {
+          "prevalence_a": 0.55,
+          "accuracies": [
+            {
+              "judge": 0,
+              "alpha": 0.9,
+              "beta": 0.8
+            },
+            {
+              "judge": 1,
+              "alpha": 0.85,
+              "beta": 0.75
+            },
+            {
+              "judge": 2,
+              "alpha": 0.7,
+              "beta": 0.95
+            }
+          ]
+        },
+        "n_trials": 120,
+        "seed": 7000
+      }
+    },
+    "mv_vs_ei": {
+      "q": 512,
+      "n_trials": 150,
+      "seed": 8000,
+      "prevalences": [
+        0.55,
+        0.7,
+        0.85
+      ],
+      "accuracies": [
+        0.9,
+        0.82,
+        0.74,
+        0.66,
+        0.58
+      ],
+      "rows": [
+        {
+          "prevalence_a": 0.55,
+          "accuracy": 0.9,
+          "q": 512,
+          "n_trials": 150,
+          "n_solved": 150,
+          "ei_mae_mean": 0.010512247720866983,
+          "mv_mae_mean": 0.011205722989163523,
+          "ei_win_rate": 0.6
+        },
+        {
+          "prevalence_a": 0.55,
+          "accuracy": 0.82,
+          "q": 512,
+          "n_trials": 150,
+          "n_solved": 150,
+          "ei_mae_mean": 0.02322409816760969,
+          "mv_mae_mean": 0.03229959647950633,
+          "ei_win_rate": 0.8266666666666667
+        },
+        {
+          "prevalence_a": 0.55,
+          "accuracy": 0.74,
+          "q": 512,
+          "n_trials": 150,
+          "n_solved": 150,
+          "ei_mae_mean": 0.04720835154532554,
+          "mv_mae_mean": 0.06758200503005295,
+          "ei_win_rate": 0.7866666666666666
+        },
+        {
+          "prevalence_a": 0.55,
+          "accuracy": 0.66,
+          "q": 512,
+          "n_trials": 150,
+          "n_solved": 148,
+          "ei_mae_mean": 0.8406706728086809,
+          "mv_mae_mean": 0.11592635327394292,
+          "ei_win_rate": 0.6148648648648649
+        },
+        {
+          "prevalence_a": 0.55,
+          "accuracy": 0.58,
+          "q": 512,
+          "n_trials": 150,
+          "n_solved": 140,
+          "ei_mae_mean": 1.234632021449065,
+          "mv_mae_mean": 0.17593510008608726,
+          "ei_win_rate": 0.25
+        },
+        {
+          "prevalence_a": 0.7,
+          "accuracy": 0.9,
+          "q": 512,
+          "n_trials": 150,
+          "n_solved": 150,
+          "ei_mae_mean": 0.012190949993676349,
+          "mv_mae_mean": 0.013012992550785257,
+          "ei_win_rate": 0.6533333333333333
+        },
+        {
+          "prevalence_a": 0.7,
+          "accuracy": 0.82,
+          "q": 512,
+          "n_trials": 150,
+          "n_solved": 150,
+          "ei_mae_mean": 0.027495696693915425,
+          "mv_mae_mean": 0.031399904009621234,
+          "ei_win_rate": 0.66
+        },
+        {
+          "prevalence_a": 0.7,
+          "accuracy": 0.74,
+          "q": 512,
+          "n_trials": 150,
+          "n_solved": 150,
+          "ei_mae_mean": 0.05897167910997168,
+          "mv_mae_mean": 0.06455477776747735,
+          "ei_win_rate": 0.64
+        },
+        {
+          "prevalence_a": 0.7,
+          "accuracy": 0.66,
+          "q": 512,
+          "n_trials": 150,
+          "n_solved": 150,
+          "ei_mae_mean": 0.35690969409567314,
+          "mv_mae_mean": 0.1130183166186062,
+          "ei_win_rate": 0.47333333333333333
+        },
+        {
+          "prevalence_a": 0.7,
+          "accuracy": 0.58,
+          "q": 512,
+          "n_trials": 150,
+          "n_solved": 135,
+          "ei_mae_mean": 1.0981176001128665,
+          "mv_mae_mean": 0.17614950967945178,
+          "ei_win_rate": 0.17777777777777778
+        },
+        {
+          "prevalence_a": 0.85,
+          "accuracy": 0.9,
+          "q": 512,
+          "n_trials": 150,
+          "n_solved": 150,
+          "ei_mae_mean": 0.018488441326224136,
+          "mv_mae_mean": 0.018914874516476183,
+          "ei_win_rate": 0.6066666666666667
+        },
+        {
+          "prevalence_a": 0.85,
+          "accuracy": 0.82,
+          "q": 512,
+          "n_trials": 150,
+          "n_solved": 150,
+          "ei_mae_mean": 0.041378569989893456,
+          "mv_mae_mean": 0.03709443324753571,
+          "ei_win_rate": 0.5
+        },
+        {
+          "prevalence_a": 0.85,
+          "accuracy": 0.74,
+          "q": 512,
+          "n_trials": 150,
+          "n_solved": 150,
+          "ei_mae_mean": 0.09621078496054847,
+          "mv_mae_mean": 0.06272374626956628,
+          "ei_win_rate": 0.44666666666666666
+        },
+        {
+          "prevalence_a": 0.85,
+          "accuracy": 0.66,
+          "q": 512,
+          "n_trials": 150,
+          "n_solved": 143,
+          "ei_mae_mean": 1.5893510895812948,
+          "mv_mae_mean": 0.1087226595858119,
+          "ei_win_rate": 0.2517482517482518
+        },
+        {
+          "prevalence_a": 0.85,
+          "accuracy": 0.58,
+          "q": 512,
+          "n_trials": 150,
+          "n_solved": 137,
+          "ei_mae_mean": 1.4316451789534708,
+          "mv_mae_mean": 0.17265051329145673,
+          "ei_win_rate": 0.19708029197080293
+        }
+      ],
+      "ei_best_cell": {
+        "prevalence_a": 0.55,
+        "accuracy": 0.74,
+        "ei_mae_mean": 0.04720835154532554,
+        "mv_mae_mean": 0.06758200503005295,
+        "ei_win_rate": 0.7866666666666666,
+        "ratio_mv_over_ei": 1.4315688393644994
+      },
+      "mv_best_cell": {
+        "prevalence_a": 0.7,
+        "accuracy": 0.58,
+        "ei_mae_mean": 1.0981176001128665,
+        "mv_mae_mean": 0.17614950967945178,
+        "ei_win_rate": 0.17777777777777778
+      },
+      "figure": "synthetic_mv_vs_ei.png",
+      "title": "Error-independent versus majority-voting recovery",
+      "caption": "The error-independent estimator is more accurate when its assumption holds, while majority voting is more robust in the weak-judge, extreme-prevalence danger zone.",
+      "x_label": "Per-label judge accuracy",
+      "y_label": "Recovery MAE (log scale)",
+      "thresholds": [
+        {
+          "label": "EI win rate",
+          "value": "reported per grid cell",
+          "meaning": "fraction of trials in which error-independent recovery has lower MAE than majority voting"
+        }
+      ],
+      "metadata": {
+        "generated_utc": "2026-06-01T20:27:45.942596+00:00",
+        "study": "synthetic_recovery_study",
+        "deterministic": true,
+        "ensemble": {
+          "prevalence_a": 0.55,
+          "accuracies": [
+            {
+              "judge": 0,
+              "alpha": 0.9,
+              "beta": 0.8
+            },
+            {
+              "judge": 1,
+              "alpha": 0.85,
+              "beta": 0.75
+            },
+            {
+              "judge": 2,
+              "alpha": 0.7,
+              "beta": 0.95
+            }
+          ]
+        },
+        "q": 512,
+        "n_trials": 150,
+        "seed": 8000
+      }
+    }
+  }
+}

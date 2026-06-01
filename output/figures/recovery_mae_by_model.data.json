@@ -1,0 +1,146 @@
+{
+  "generated_at": "2026-06-01T13:18:55",
+  "result": {
+    "figure": "recovery_mae_by_model.png",
+    "title": "Unsupervised accuracy recovery error, by model",
+    "x_label": "recovery MAE (mean |recovered - true| accuracy)",
+    "thresholds": [
+      {
+        "value": 0.05,
+        "label": "excellent",
+        "meaning": "recovery error below 0.05 accuracy points -- a tight agreement bar between label-free recovery and truth"
+      },
+      {
+        "value": 0.10206207261596575,
+        "label": "sampling-noise floor",
+        "meaning": "worst-case binomial SE of a per-label accuracy from the minority label's 24 questions; at or below this, recovery error is inside the conservative finite-deck noise reference"
+      }
+    ],
+    "series": [
+      {
+        "model": "mistral:latest",
+        "recovery_mae": 0.011901709401709407,
+        "recovery_mae_by_label": {
+          "a": 0.013247863247863275,
+          "b": 0.01055555555555554
+        },
+        "mv_recovery_mae": 0.011901709401709407,
+        "prevalence_abs_error": 0.015625
+      },
+      {
+        "model": "gemma4:latest",
+        "recovery_mae": 0.023675213675213653,
+        "recovery_mae_by_label": {
+          "a": 0.0329059829059829,
+          "b": 0.014444444444444407
+        },
+        "mv_recovery_mae": 0.023675213675213653,
+        "prevalence_abs_error": 0.015625
+      },
+      {
+        "model": "gemma3:4b",
+        "recovery_mae": 0.023695456590193436,
+        "recovery_mae_by_label": {
+          "a": 0.03991228070175442,
+          "b": 0.007478632478632452
+        },
+        "mv_recovery_mae": 0.023695456590193436,
+        "prevalence_abs_error": 0.03125
+      },
+      {
+        "model": "gemma2:2b",
+        "recovery_mae": 0.02614709851551959,
+        "recovery_mae_by_label": {
+          "a": 0.03947368421052636,
+          "b": 0.012820512820512811
+        },
+        "mv_recovery_mae": 0.02614709851551959,
+        "prevalence_abs_error": 0.03125
+      },
+      {
+        "model": "granite4.1:3b",
+        "recovery_mae": 0.053968253968253964,
+        "recovery_mae_by_label": {
+          "a": 0.07222222222222223,
+          "b": 0.0357142857142857
+        },
+        "mv_recovery_mae": 0.053968253968253964,
+        "prevalence_abs_error": 0.0625
+      }
+    ],
+    "metadata": {
+      "generated_utc": "2026-06-01T20:18:55.468103+00:00",
+      "n_scenarios": 64,
+      "n_personas": 3,
+      "personas": [
+        "Optimist",
+        "Neutral",
+        "Pessimist"
+      ],
+      "labels": [
+        "a",
+        "b"
+      ],
+      "experiment": {
+        "backend": "ollama",
+        "temperature": 0.1,
+        "n_personas": 3,
+        "n_scenarios": 64,
+        "n_labels": 2,
+        "n_models_requested": 6,
+        "n_models_evaluated": 5,
+        "prompt_version": "v3_binary_schema",
+        "prompt_hash": "4d157f84885a",
+        "baseline_summary": "baseline_t0.7_summary.json",
+        "date": "2026-06-01"
+      }
+    },
+    "caption": "Each bar is one model's mean |recovered - true| persona accuracy, recovered with no answer key. Left of the red line the error is within the conservative binomial sampling-noise reference for the minority label (24 of 64 questions)."
+  },
+  "caption": "Each bar is one model's mean |recovered - true| persona accuracy, recovered with no answer key. Left of the red line the error is within the conservative binomial sampling-noise reference for the minority label (24 of 64 questions).",
+  "metadata": {
+    "generated_utc": "2026-06-01T20:18:55.468103+00:00",
+    "n_scenarios": 64,
+    "n_personas": 3,
+    "personas": [
+      "Optimist",
+      "Neutral",
+      "Pessimist"
+    ],
+    "labels": [
+      "a",
+      "b"
+    ],
+    "experiment": {
+      "backend": "ollama",
+      "temperature": 0.1,
+      "n_personas": 3,
+      "n_scenarios": 64,
+      "n_labels": 2,
+      "n_models_requested": 6,
+      "n_models_evaluated": 5,
+      "prompt_version": "v3_binary_schema",
+      "prompt_hash": "4d157f84885a",
+      "baseline_summary": "baseline_t0.7_summary.json",
+      "date": "2026-06-01"
+    }
+  },
+  "provenance": {
+    "source_file": "recovery_mae_by_model.data.json",
+    "generated_utc": "2026-06-01T20:18:55.468103+00:00",
+    "n_scenarios": 64,
+    "experiment": {
+      "backend": "ollama",
+      "temperature": 0.1,
+      "n_personas": 3,
+      "n_scenarios": 64,
+      "n_labels": 2,
+      "n_models_requested": 6,
+      "n_models_evaluated": 5,
+      "prompt_version": "v3_binary_schema",
+      "prompt_hash": "4d157f84885a",
+      "baseline_summary": "baseline_t0.7_summary.json",
+      "date": "2026-06-01"
+    }
+  }
+}

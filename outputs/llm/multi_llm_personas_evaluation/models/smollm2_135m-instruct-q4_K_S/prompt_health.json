@@ -1,0 +1,77 @@
+{
+  "generated_at": "2026-06-01T13:18:54",
+  "result": {
+    "Optimist": {
+      "n_total": 64,
+      "n_parsed": 64,
+      "n_unparsed": 0,
+      "parse_rate": 1.0,
+      "primary_parse_rate": 1.0,
+      "final_parse_rate": 1.0,
+      "n_repair_needed": 0,
+      "n_repaired": 0,
+      "n_invalid_label": 0,
+      "n_unavailable": 0,
+      "parse_methods": {
+        "schema_json": 64
+      },
+      "call_counts": {
+        "bullish": 64
+      },
+      "distinct_calls": [
+        "bullish"
+      ],
+      "modal_fraction": 1.0,
+      "entropy_bits": -0.0,
+      "is_constant": true
+    },
+    "Neutral": {
+      "n_total": 64,
+      "n_parsed": 64,
+      "n_unparsed": 0,
+      "parse_rate": 1.0,
+      "primary_parse_rate": 1.0,
+      "final_parse_rate": 1.0,
+      "n_repair_needed": 0,
+      "n_repaired": 0,
+      "n_invalid_label": 0,
+      "n_unavailable": 0,
+      "parse_methods": {
+        "schema_json": 64
+      },
+      "call_counts": {
+        "bullish": 64
+      },
+      "distinct_calls": [
+        "bullish"
+      ],
+      "modal_fraction": 1.0,
+      "entropy_bits": -0.0,
+      "is_constant": true
+    },
+    "Pessimist": {
+      "n_total": 64,
+      "n_parsed": 64,
+      "n_unparsed": 0,
+      "parse_rate": 1.0,
+      "primary_parse_rate": 1.0,
+      "final_parse_rate": 1.0,
+      "n_repair_needed": 0,
+      "n_repaired": 0,
+      "n_invalid_label": 0,
+      "n_unavailable": 0,
+      "parse_methods": {
+        "schema_json": 64
+      },
+      "call_counts": {
+        "bullish": 64
+      },
+      "distinct_calls": [
+        "bullish"
+      ],
+      "modal_fraction": 1.0,
+      "entropy_bits": -0.0,
+      "is_constant": true
+    }
+  }
+}

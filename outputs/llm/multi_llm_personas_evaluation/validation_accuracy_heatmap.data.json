@@ -1,0 +1,358 @@
+{
+  "generated_at": "2026-06-01T13:18:55",
+  "result": {
+    "figure": "validation_accuracy_heatmap.png",
+    "title": "Validation-only accuracy landscape across evaluable models",
+    "x_label": "persona / label accuracy term",
+    "y_label": "evaluable model ranked by recovery MAE",
+    "columns": [
+      {
+        "persona": "Optimist",
+        "label": "a"
+      },
+      {
+        "persona": "Optimist",
+        "label": "b"
+      },
+      {
+        "persona": "Neutral",
+        "label": "a"
+      },
+      {
+        "persona": "Neutral",
+        "label": "b"
+      },
+      {
+        "persona": "Pessimist",
+        "label": "a"
+      },
+      {
+        "persona": "Pessimist",
+        "label": "b"
+      }
+    ],
+    "rows": [
+      {
+        "model": "mistral:latest",
+        "recovery_mae": 0.011901709401709407,
+        "terms": [
+          {
+            "persona": "Optimist",
+            "label": "a",
+            "true_accuracy": 1.0,
+            "recovered_accuracy": 1.0,
+            "abs_error": 0.0
+          },
+          {
+            "persona": "Optimist",
+            "label": "b",
+            "true_accuracy": 0.7916666666666666,
+            "recovered_accuracy": 0.76,
+            "abs_error": 0.03166666666666662
+          },
+          {
+            "persona": "Neutral",
+            "label": "a",
+            "true_accuracy": 0.975,
+            "recovered_accuracy": 1.0,
+            "abs_error": 0.025000000000000022
+          },
+          {
+            "persona": "Neutral",
+            "label": "b",
+            "true_accuracy": 1.0,
+            "recovered_accuracy": 1.0,
+            "abs_error": 0.0
+          },
+          {
+            "persona": "Pessimist",
+            "label": "a",
+            "true_accuracy": 0.575,
+            "recovered_accuracy": 0.5897435897435898,
+            "abs_error": 0.014743589743589802
+          },
+          {
+            "persona": "Pessimist",
+            "label": "b",
+            "true_accuracy": 1.0,
+            "recovered_accuracy": 1.0,
+            "abs_error": 0.0
+          }
+        ]
+      },
+      {
+        "model": "gemma4:latest",
+        "recovery_mae": 0.023675213675213653,
+        "terms": [
+          {
+            "persona": "Optimist",
+            "label": "a",
+            "true_accuracy": 0.975,
+            "recovered_accuracy": 1.0,
+            "abs_error": 0.025000000000000022
+          },
+          {
+            "persona": "Optimist",
+            "label": "b",
+            "true_accuracy": 0.9583333333333334,
+            "recovered_accuracy": 0.96,
+            "abs_error": 0.0016666666666665941
+          },
+          {
+            "persona": "Neutral",
+            "label": "a",
+            "true_accuracy": 0.95,
+            "recovered_accuracy": 1.0,
+            "abs_error": 0.050000000000000044
+          },
+          {
+            "persona": "Neutral",
+            "label": "b",
+            "true_accuracy": 0.9583333333333334,
+            "recovered_accuracy": 1.0,
+            "abs_error": 0.04166666666666663
+          },
+          {
+            "persona": "Pessimist",
+            "label": "a",
+            "true_accuracy": 0.925,
+            "recovered_accuracy": 0.9487179487179487,
+            "abs_error": 0.023717948717948634
+          },
+          {
+            "persona": "Pessimist",
+            "label": "b",
+            "true_accuracy": 1.0,
+            "recovered_accuracy": 1.0,
+            "abs_error": 0.0
+          }
+        ]
+      },
+      {
+        "model": "gemma3:4b",
+        "recovery_mae": 0.023695456590193436,
+        "terms": [
+          {
+            "persona": "Optimist",
+            "label": "a",
+            "true_accuracy": 0.975,
+            "recovered_accuracy": 1.0,
+            "abs_error": 0.025000000000000022
+          },
+          {
+            "persona": "Optimist",
+            "label": "b",
+            "true_accuracy": 0.7916666666666666,
+            "recovered_accuracy": 0.7692307692307693,
+            "abs_error": 0.022435897435897356
+          },
+          {
+            "persona": "Neutral",
+            "label": "a",
+            "true_accuracy": 0.95,
+            "recovered_accuracy": 1.0,
+            "abs_error": 0.050000000000000044
+          },
+          {
+            "persona": "Neutral",
+            "label": "b",
+            "true_accuracy": 1.0,
+            "recovered_accuracy": 1.0,
+            "abs_error": 0.0
+          },
+          {
+            "persona": "Pessimist",
+            "label": "a",
+            "true_accuracy": 0.85,
+            "recovered_accuracy": 0.8947368421052632,
+            "abs_error": 0.044736842105263186
+          },
+          {
+            "persona": "Pessimist",
+            "label": "b",
+            "true_accuracy": 1.0,
+            "recovered_accuracy": 1.0,
+            "abs_error": 0.0
+          }
+        ]
+      },
+      {
+        "model": "gemma2:2b",
+        "recovery_mae": 0.02614709851551959,
+        "terms": [
+          {
+            "persona": "Optimist",
+            "label": "a",
+            "true_accuracy": 0.975,
+            "recovered_accuracy": 1.0,
+            "abs_error": 0.025000000000000022
+          },
+          {
+            "persona": "Optimist",
+            "label": "b",
+            "true_accuracy": 1.0,
+            "recovered_accuracy": 0.9615384615384616,
+            "abs_error": 0.038461538461538436
+          },
+          {
+            "persona": "Neutral",
+            "label": "a",
+            "true_accuracy": 0.95,
+            "recovered_accuracy": 1.0,
+            "abs_error": 0.050000000000000044
+          },
+          {
+            "persona": "Neutral",
+            "label": "b",
+            "true_accuracy": 1.0,
+            "recovered_accuracy": 1.0,
+            "abs_error": 0.0
+          },
+          {
+            "persona": "Pessimist",
+            "label": "a",
+            "true_accuracy": 0.825,
+            "recovered_accuracy": 0.868421052631579,
+            "abs_error": 0.04342105263157903
+          },
+          {
+            "persona": "Pessimist",
+            "label": "b",
+            "true_accuracy": 1.0,
+            "recovered_accuracy": 1.0,
+            "abs_error": 0.0
+          }
+        ]
+      },
+      {
+        "model": "granite4.1:3b",
+        "recovery_mae": 0.053968253968253964,
+        "terms": [
+          {
+            "persona": "Optimist",
+            "label": "a",
+            "true_accuracy": 0.975,
+            "recovered_accuracy": 1.0,
+            "abs_error": 0.025000000000000022
+          },
+          {
+            "persona": "Optimist",
+            "label": "b",
+            "true_accuracy": 1.0,
+            "recovered_accuracy": 0.8928571428571429,
+            "abs_error": 0.1071428571428571
+          },
+          {
+            "persona": "Neutral",
+            "label": "a",
+            "true_accuracy": 0.9,
+            "recovered_accuracy": 1.0,
+            "abs_error": 0.09999999999999998
+          },
+          {
+            "persona": "Neutral",
+            "label": "b",
+            "true_accuracy": 1.0,
+            "recovered_accuracy": 1.0,
+            "abs_error": 0.0
+          },
+          {
+            "persona": "Pessimist",
+            "label": "a",
+            "true_accuracy": 0.825,
+            "recovered_accuracy": 0.9166666666666666,
+            "abs_error": 0.09166666666666667
+          },
+          {
+            "persona": "Pessimist",
+            "label": "b",
+            "true_accuracy": 1.0,
+            "recovered_accuracy": 1.0,
+            "abs_error": 0.0
+          }
+        ]
+      }
+    ],
+    "thresholds": [
+      {
+        "value": 0.10206207261596575,
+        "label": "sampling-noise floor",
+        "meaning": "right-panel color scale is capped at this finite-deck uncertainty reference"
+      }
+    ],
+    "metadata": {
+      "generated_utc": "2026-06-01T20:18:55.638069+00:00",
+      "n_scenarios": 64,
+      "n_personas": 3,
+      "personas": [
+        "Optimist",
+        "Neutral",
+        "Pessimist"
+      ],
+      "labels": [
+        "a",
+        "b"
+      ],
+      "experiment": {
+        "backend": "ollama",
+        "temperature": 0.1,
+        "n_personas": 3,
+        "n_scenarios": 64,
+        "n_labels": 2,
+        "n_models_requested": 6,
+        "n_models_evaluated": 5,
+        "prompt_version": "v3_binary_schema",
+        "prompt_hash": "4d157f84885a",
+        "baseline_summary": "baseline_t0.7_summary.json",
+        "date": "2026-06-01"
+      }
+    },
+    "caption": "Left panel: supervised accuracies computed only after the unlabeled solve. Right panel: absolute recovery error for the same model/persona/label terms. The heatmap shows whether a model is useful because its judges are genuinely accurate, because NTQR can recover their weaknesses, or both."
+  },
+  "caption": "Left panel: supervised accuracies computed only after the unlabeled solve. Right panel: absolute recovery error for the same model/persona/label terms. The heatmap shows whether a model is useful because its judges are genuinely accurate, because NTQR can recover their weaknesses, or both.",
+  "metadata": {
+    "generated_utc": "2026-06-01T20:18:55.638069+00:00",
+    "n_scenarios": 64,
+    "n_personas": 3,
+    "personas": [
+      "Optimist",
+      "Neutral",
+      "Pessimist"
+    ],
+    "labels": [
+      "a",
+      "b"
+    ],
+    "experiment": {
+      "backend": "ollama",
+      "temperature": 0.1,
+      "n_personas": 3,
+      "n_scenarios": 64,
+      "n_labels": 2,
+      "n_models_requested": 6,
+      "n_models_evaluated": 5,
+      "prompt_version": "v3_binary_schema",
+      "prompt_hash": "4d157f84885a",
+      "baseline_summary": "baseline_t0.7_summary.json",
+      "date": "2026-06-01"
+    }
+  },
+  "provenance": {
+    "source_file": "validation_accuracy_heatmap.data.json",
+    "generated_utc": "2026-06-01T20:18:55.638069+00:00",
+    "n_scenarios": 64,
+    "experiment": {
+      "backend": "ollama",
+      "temperature": 0.1,
+      "n_personas": 3,
+      "n_scenarios": 64,
+      "n_labels": 2,
+      "n_models_requested": 6,
+      "n_models_evaluated": 5,
+      "prompt_version": "v3_binary_schema",
+      "prompt_hash": "4d157f84885a",
+      "baseline_summary": "baseline_t0.7_summary.json",
+      "date": "2026-06-01"
+    }
+  }
+}

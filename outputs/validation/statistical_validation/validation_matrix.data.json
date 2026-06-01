@@ -1,0 +1,90 @@
+{
+  "generated_at": "2026-06-01T13:27:52",
+  "result": {
+    "figure": "validation_matrix.png",
+    "title": "Statistical validation matrix",
+    "caption": "Offline validation matrix checking the manuscript's load-bearing claims against generated artifacts, including the complete 16-figure sidecar inventory.",
+    "checks": [
+      {
+        "id": "diagnostic_matches_solve",
+        "label": "Label-free diagnostic matches solver outcome",
+        "passed": true,
+        "evidence": "predicted 5; evaluated 5"
+      },
+      {
+        "id": "real_recovery_within_noise_floor",
+        "label": "Real recovery is below sampling-noise floor",
+        "passed": true,
+        "evidence": "MAE 0.028 <= floor 0.102"
+      },
+      {
+        "id": "bootstrap_ci_within_noise_floor",
+        "label": "Bootstrap CI remains below sampling-noise floor",
+        "passed": true,
+        "evidence": "CI_hi 0.038 <= floor 0.102"
+      },
+      {
+        "id": "sqrt_q_convergence",
+        "label": "Synthetic recovery follows 1/sqrt(Q)",
+        "passed": true,
+        "evidence": "slope -0.585; R2 0.989"
+      },
+      {
+        "id": "alarm_false_positive_control",
+        "label": "Imaginary-root alarm has zero independent false alarms",
+        "passed": true,
+        "evidence": "false alarm 0%"
+      },
+      {
+        "id": "common_mode_blind_spot",
+        "label": "Common-mode dependence is reported as a blind spot",
+        "passed": true,
+        "evidence": "alarm 0%; silent error 0.042"
+      },
+      {
+        "id": "tie_break_boundary",
+        "label": "Better-than-random tie-break boundary is quantified",
+        "passed": true,
+        "evidence": "safe to 0.82; max inversion 85%"
+      },
+      {
+        "id": "ei_mv_tradeoff",
+        "label": "EI-vs-MV trade-off has both regimes",
+        "passed": true,
+        "evidence": "EI win 79%; danger-zone EI win 18%"
+      },
+      {
+        "id": "figure_sidecars_complete",
+        "label": "Every source data figure has a parseable sidecar",
+        "passed": true,
+        "evidence": "16/16 sidecars parse"
+      }
+    ],
+    "thresholds": [
+      {
+        "label": "pass threshold",
+        "value": "all checks pass",
+        "meaning": "The report is considered green only when every load-bearing claim check passes."
+      }
+    ],
+    "metadata": {
+      "generated_utc": "2026-06-01T20:27:52.447745+00:00",
+      "n_checks": 9,
+      "n_passed": 9,
+      "n_failed": 0,
+      "figure_inventory_count": 16
+    }
+  },
+  "caption": "Offline validation matrix checking the manuscript's load-bearing claims against generated artifacts, including the complete 16-figure sidecar inventory.",
+  "metadata": {
+    "generated_utc": "2026-06-01T20:27:52.447745+00:00",
+    "n_checks": 9,
+    "n_passed": 9,
+    "n_failed": 0,
+    "figure_inventory_count": 16
+  },
+  "provenance": {
+    "source_file": "validation_matrix.data.json",
+    "generated_utc": "2026-06-01T20:27:52.447745+00:00"
+  }
+}

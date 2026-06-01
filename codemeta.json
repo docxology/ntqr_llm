@@ -1,0 +1,29 @@
+{
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+  "@type": "SoftwareSourceCode",
+  "name": "Recovering LLM-Persona Accuracies from Unlabeled Votes",
+  "version": "1.0.0",
+  "license": "https://spdx.org/licenses/Apache-2.0",
+  "codeRepository": "https://github.com/docxology/ntqr_llm",
+  "dateModified": "2026-06-01",
+  "keywords": [
+    "algebraic evaluation",
+    "NTQR",
+    "unsupervised evaluation",
+    "LLM-as-judge",
+    "error-independent evaluation",
+    "reproducible research"
+  ],
+  "author": [
+    {
+      "@type": "Person",
+      "givenName": "Daniel Ari",
+      "familyName": "Friedman",
+      "@id": "https://orcid.org/0000-0001-6232-9096",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Active Inference Institute"
+      }
+    }
+  ]
+}

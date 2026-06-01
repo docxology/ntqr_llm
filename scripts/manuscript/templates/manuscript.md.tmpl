@@ -1,0 +1,938 @@
+<!-- GENERATED FILE — do not edit by hand.
+     Source: scripts/manuscript/templates/manuscript.md.tmpl
+     Numbers: scripts/manuscript/_values.py  (read from generated JSON artifacts)
+     Rebuild: python scripts/manuscript/render.py
+     Verify:  python scripts/manuscript/render.py --check -->
+
+# Abstract {#sec:abstract}
+
+Algebraic (NTQR) evaluation infers how accurate a group of noisy classifiers
+was on a finite test **using only their responses — no answer key**. We test
+this end to end on real large language models. Three trader "personas"
+(optimistic, neutral, pessimistic), instantiated as system prompts, each make a
+binary `bullish`/`bearish` call on the same {{Q}} market scenarios; we run the
+identical trio through {{N_MODELS_W}} locally-hosted models via Ollama. For each
+model we recover per-persona, per-label accuracy with
+`ErrorIndependentEvaluation` (unsupervised) and score it against the authored
+ground truth (supervised), which is used only as a check.
+
+On {{EVAL_MODEL_PHRASE}} ({{EVAL_SET}}), the unsupervised algebra
+{{ABSTRACT_RECOVERY}}. {{ABSTRACT_FAILURE}}
+
+The central, non-obvious result: **inter-judge disagreement does not imply
+evaluability.** {{ABSTRACT_DISAGREEMENT}}. What gates
+evaluation is a *per-judge* condition — every judge must vary (and answer) — not
+an *ensemble* one. We formalize this as a label-free **evaluability diagnostic**
+(a judge whose modal-vote fraction reaches 1.0 is a constant classifier; an
+unparseable vote is an abstention) that predicted exactly which models would be
+evaluable, before any solve and without ground truth. This is a concrete
+instance of the safety property the NTQR logic promises: it warns you when an
+ensemble is not good enough to be evaluated. A scenario bootstrap puts a 95% CI
+of [{{BOOT_MAE_CI_LO}}, {{BOOT_MAE_CI_HI}}] on the recovery MAE (well inside the
+{{FLOOR}} noise floor), and a deterministic synthetic study generalizes the
+recovery beyond {{REAL_MODEL_GENERALIZATION}} — error falls like `1/√Q` (slope
+{{SIM_SLOPE}}, stable across ensembles) — while mapping two honest limits: the
+built-in failure alarm catches anti-correlated judges with no false positives yet
+can miss positively-correlated (shared-training) errors, and the two-solution
+tie-break inverts once judges are no longer clearly better than random — exactly
+where simple majority-voting evaluation, though biased, is the more robust
+fallback.
+
+# Introduction {#sec:introduction}
+
+Evaluation is the "forgotten twin" of learning: most AI work optimizes
+training, while the question *how good were these judges, really?* is usually
+answered only when labels exist. The unlabeled version of that question is old:
+Dawid-Skene-style observer-error models, annotator-expertise models, truth
+inference in crowdsourcing, and weak-supervision systems all use repeated
+judgments to infer reliability without a conventional answer key
+[@dawid_skene_1979; @yan_2010_annotator; @zheng_2017_vldb; @ratner_2017_snorkel].
+Modern LLM-as-judge work makes the same problem newly practical and newly
+fragile: LLM judges can scale evaluation, but their errors, biases, and
+measurement uncertainty have to be modeled rather than wished away
+[@zheng_2023_llm_judge; @chen_2026_efficient_judge].
+
+That is also why majority vote and self-consistency are not enough as
+evaluation *instrumentation*. They can select an answer, but they do not by
+themselves tell us whether the voters were reliable, whether one judge was
+systematically wrong on one label, or whether the response matrix has enough
+variation to estimate reliability at all. A high-integrity evaluator needs to
+separate three questions that are often collapsed in practice: did the interface
+return valid measurements, is the vote matrix algebraically evaluable, and how
+does the selected estimate compare with external truth when such truth is
+available?
+
+Algebraic evaluation (the **NTQR** logic [@ntqr_0_8_docs;
+@corrada_emmanuel_2023_ntqr_logic; @corrada_emmanuel_2023_streaming]; see the
+repository root [README](../README.md)) takes a deliberately narrower stance.
+It constructs postulates — true for *any* finite test, containing no probability
+theory and no model of the task domain — that link the observed agreements and
+disagreements of an ensemble to the unknown statistics of their correctness.
+Agreement-rate estimators showed how much unlabeled signal is present in
+classifier agreements [@platanios_2014_uai; @platanios_2016_icml]; NTQR uses a
+complete algebraic postulate system to ask when that signal is sufficient to
+recover judge accuracies, and when the response matrix itself warns that the
+evaluation is not justified.
+
+A crucial caveat in that same framing is that the logic "is not magical … GIGO
+also applies to evaluation on unlabeled data," and its distinctive safety value
+is that it "can warn you if the ensemble is not good enough to perform a
+reliable evaluation." This paper turns that promise into a measured,
+reproducible demonstration on contemporary LLMs, and sharpens the warning into
+a quantitative diagnostic. The claim is not that NTQR solves crowdsourcing or
+judge aggregation generally. The narrow claim is that, under its stated
+algebraic assumptions, NTQR can recover per-judge accuracies from a finite
+unlabeled vote matrix — or emit an evaluability warning when the matrix lacks
+the required structure [@corrada_emmanuel_2024_alarm;
+@corrada_emmanuel_2025_nka].
+
+We ask three questions:
+
+1. **Does unsupervised algebraic recovery actually work on real LLMs?** When an
+   LLM ensemble *is* well-behaved, how close does the answer-key-free recovery
+   come to the truth?
+2. **What breaks it?** Across a spread of models — strong and deliberately weak
+   — what failure mode dominates, and what is its mechanism?
+3. **Can we predict failure without labels?** Is there a statistic, computable
+   from the votes alone, that tells us in advance whether an ensemble is
+   evaluable at all?
+
+Our contributions: (i) an end-to-end, cached, reproducible pipeline that runs
+the same persona trio across many local models and scores unsupervised recovery
+against authored truth; (ii) the empirical finding that **disagreement is not
+evaluability** — the binding constraint is per-judge variation, not ensemble
+disagreement; and (iii) a label-free **evaluability diagnostic** that, in this
+study, perfectly predicted which models the algebra could solve.
+
+The experiment is therefore not asking an LLM to predict markets better than
+another LLM. It is asking whether a finite matrix of binary judgments contains
+enough internal structure to evaluate the judges themselves. That distinction is
+what makes the method useful when a task model is unavailable: the algebra
+evaluates the response process, while authored truth is reserved for the
+controlled validation step.
+
+## Reader map: what is observed, recovered, and checked {#sec:reader-map}
+
+Because the idea is unconventional, the central bookkeeping matters. The
+unsupervised evaluator never sees the authored truth; it sees only the vote
+matrix. The truth appears later, as a validation target for this controlled
+study. The simulations then ask whether the same algebra behaves the same way
+when the true data-generating process is known by construction.
+
+{{TABLE_EVALUATION_OBJECTS}}
+
+: What is observed, recovered, and checked. The answer key is not an input to the unsupervised solve; it is the controlled-study check. {#tbl:evaluation-objects}
+
+The important negative statement is as load-bearing as the positive one: without
+a task/world model, the algebra does **not** learn what financial markets will
+do. It evaluates a finite response matrix. In this study, `bullish` and
+`bearish` are operational labels defined by the authored scenario facts:
+`bullish` means the defensible next-quarter directional call is up under the
+stated facts; `bearish` means down. The estimator then asks whether the pattern
+of judge agreements is sufficient to recover each judge's per-label accuracy on
+that finite test.
+
+{{TABLE_SCENARIO_EXAMPLES}}
+
+: Representative operational questions and answers. The full {{Q}}-scenario answer key is generated in the supplemental; these rows show how `bullish` and `bearish` are defined without a learned task model. {#tbl:scenario-examples}
+
+## Related evaluation paradigms {#sec:related-evaluation-paradigms}
+
+The experiment is easiest to read if NTQR is placed beside the neighboring
+evaluation paradigms it resembles but does not replace. The table below keeps
+the comparison concrete: what is observed, what assumption does the work, what
+the method returns, and what kind of warning it can or cannot provide.
+
+| Paradigm | Observed input | Main assumption | Output | Failure warning |
+|---|---|---|---|---|
+| Supervised evaluation | Votes plus labels | Trusted labels | Empirical accuracies | None about unlabeled evaluability |
+| Dawid-Skene / expertise | Repeated labels | Latent truth model | Worker error estimates | Model-fit warning |
+| Agreement-rate estimation | Classifier agreements | Independence / priors | Accuracy estimates | Assumption sensitivity |
+| Weak supervision | Labeling functions | Generative dependency model | Probabilistic labels | Dependency diagnostics |
+| LLM-as-judge | Model judgments | Judge reliability model | Scalable evaluation | Bias / measurement-error correction |
+| Majority vote / self-consistency | Multiple votes | Better-than-random voters | Aggregate answer | No per-judge recovery guarantee |
+| NTQR in this paper | Unlabeled vote sketch | Algebraic postulates | Accuracies or alarm | Constant-classifier / imaginary-root failure |
+
+: Neighboring evaluation paradigms. Citations in the surrounding text identify the canonical references for each row; the key distinction is that NTQR returns either a label-free algebraic recovery or a label-free warning that recovery is not justified. {#tbl:related-evaluation-paradigms}
+
+# Methods {#sec:methods}
+
+## Evaluation object and data flow {#sec:method-data-flow}
+
+The unit of analysis is a **model-specific vote matrix**: three personas by
+{{Q}} scenarios, with each cell containing exactly one parsed `bullish` or
+`bearish` call. The unsupervised NTQR solve never consumes scenario text, market
+semantics, model logits, chain-of-thought, or the authored answer key. It
+receives only unlabeled vote-pattern counts derived from that matrix.
+
+The controlled experiment adds two layers around that solve. First, a
+schema-constrained collection interface makes parsing a measured engineering
+boundary rather than a hidden source of invented labels. Ollama's structured
+output interface accepts a JSON Schema in the `format` field and its public
+guidance recommends lower-temperature decoding for more reliable schema
+adherence [@ollama_structured_outputs_2024; @ollama_structured_blog_2024].
+Structured-output reliability is itself an active evaluation problem
+[@structured_output_reliability_2025]; here we make it a measured interface
+check and then move the scientific question to the completed binary vote
+matrix.
+Second, the authored scenario truth is kept out of the solve and used only
+afterward to score recovery error. [@fig:evaluation-pipeline] shows this
+separation explicitly.
+
+![Pipeline boundary for the experiment. Scenario facts and system prompts create parsed persona votes; the unsupervised NTQR solve sees only the resulting unlabeled agreement sketch. Authored truth is held out until the validation step, where recovered accuracies are compared with supervised truth.](../output/figures/evaluation_pipeline.png){#fig:evaluation-pipeline width=95%}
+
+## The classifiers: three LLM personas {#sec:classifiers}
+
+We use three system-prompted "trader" personas as noisy binary judges, chosen
+so their *mistakes are not identical* — exactly the error structure
+error-independent evaluation needs:
+
+- **Optimist** — leans `bullish` on ambiguous setups.
+- **Neutral** — weighs the stated facts with no directional bias.
+- **Pessimist** — leans `bearish` on ambiguous setups.
+
+Three personas form a trio, matching the three-classifier `R=2` evaluators in
+the public NTQR package documentation [@ntqr_0_8_docs]. Each persona reads the
+same scenario and returns a single JSON call. The prompt contract is versioned
+as `{{PROMPT_VERSION}}`
+(`{{PROMPT_HASH}}`) and appears verbatim in [@sec:personas-scenarios].
+We treat the personas as instruction-following interfaces, not as human trader
+models; instruction-following behavior itself is a product of modern LLM
+alignment and fine-tuning practice [@ouyang_2022_instructgpt].
+
+## The test: {{Q}} binary scenarios {#sec:test-deck}
+
+The test is **T = {{T}}** test of **Q = {{Q}}** one-line market scenarios with
+**R = {{R}}** possible responses (`bullish`→label `a`, `bearish`→label `b`). Each
+scenario carries an authored `truth` — the defensible call given only the stated
+facts. Most scenarios are clear-cut; six are deliberately ambiguous (mixed
+signals) so the personas' dispositions pull their calls apart.
+
+**The deck is deliberately *not* balanced.** The authored prevalence is
+**{{N_BULLISH}} bullish, {{N_BEARISH}} bearish** — true prevalence of label `a`
+= **{{TRUE_PREV_A}}**. This is a methodological requirement, not an accident. The
+error-independent evaluator has a removable singularity at prevalence exactly
+1/2: there its accuracy equations degenerate (the two algebraic solutions
+coalesce and the per-label accuracies resolve to 0/0, returned as `NaN`). An
+exactly 50/50 answer key places the *true* prevalence on that singularity, so any
+competent ensemble — whose recovered prevalence sits near the truth — lands on it
+and cannot be solved, even when every judge varies. Tilting the deck to
+{{TRUE_PREV_A}} moves the whole problem off the singularity while leaving
+{{N_BEARISH}} clear bearish scenarios, so even the bullish-leaning personas keep
+casting both calls and never collapse into a constant classifier
+([@sec:failure-modes]). The full
+scenario list and truths are in
+[@sec:personas-scenarios].
+
+The authored truth is **never** an input to the unsupervised evaluator. It is
+used only to build a `SupervisedEvaluation` as a check against which recovery is
+scored.
+
+This distinction also defines the meaning of "best predictor" in the paper. The
+best model is not the model with the most plausible financial prose. It is the
+evaluable vote matrix whose selected unsupervised solution has the smallest
+validation-only recovery MAE against the authored labels.
+
+## The models {#sec:models}
+
+We run the identical trio through {{N_MODELS_W}} locally-hosted chat models via
+Ollama at temperature {{TEMP}} ({{DECODING}} decoding): {{EVAL_SET}},
+{{FAILED_SET}}. The models span a range of sizes and capabilities, from small
+sub-instruction-following models to multi-billion-parameter chat models. Votes
+are cached per `(backend, model, temperature, prompt version, prompt hash,
+persona, scenario)`, so the sweep is reproducible and resumable without mixing
+prompt designs.
+
+The local Ollama tags are the experimental identifiers. Public model-family
+references provide provenance only: Mistral for `mistral:latest`
+[@jiang_2023_mistral], the Gemma-family reports for the local Gemma tags
+[@gemma_team_2024; @gemma2_team_2024; @gemma3_team_2025], IBM Granite 4.1 for
+`granite4.1:3b` [@ibm_granite_4_1_2026], and SmolLM2 as family context for the
+quantized local `smollm2:135m-instruct-q4_K_S` tag
+[@ben_allal_2025_smollm2]. None of those citations enters the solve; the solve
+uses only the cached votes and the model names recorded in `summary.json`.
+
+{{TABLE_MODEL_LINEUP}}
+
+: Local model lineup, public family provenance, and data-driven run status. The citations identify model families, while the solve uses only cached votes and the recorded local tags. {#tbl:model-lineup}
+
+Each requested model is asked the same binary task under the same schema.
+If a primary response violates the schema, the collector allows one
+model-driven repair attempt using the same scenario facts and the same binary
+contract. A cell is accepted only if the model returns one of the two allowed
+labels; the collector never maps `neutral`, `mixed`, malformed JSON, or an
+unavailable model into a vote.
+
+## The evaluators {#sec:evaluators}
+
+For each model we encode the trio's votes as `TrioLabelVoteCounts` and run three
+`ntqr.r2` evaluators [@ntqr_0_8_docs; @corrada_emmanuel_2023_streaming]:
+
+- **`ErrorIndependentEvaluation`** (unsupervised) — recovers prevalence and each
+  persona's per-label accuracy from agreement structure alone, with no answer
+  key. It returns **two** algebraically consistent solutions (the labelling we
+  want and its near-zero-accuracy mirror image).
+- **`MajorityVotingEvaluation`** (unsupervised) — a simpler unsupervised
+  baseline, also returning two solutions.
+- **`SupervisedEvaluation`** (the check) — the answer-key truth.
+
+**Two-solution tie-break.** From the two unsupervised solutions we keep the one
+with higher mean accuracy — the standard, answer-key-free "experts are better
+than random" assumption. We deliberately do *not* break the tie by closeness to
+the true prevalence: that would peek at the ground truth and would fail whenever
+the two prevalences are symmetric about 0.5. The derivation is in
+[@sec:tie-break].
+
+## The algebra: from votes to accuracies {#sec:formalism}
+
+This section makes the "exact algebra" concrete, because the whole study turns
+on its structure — including *why* it fails. The derivation follows the NTQR
+complete-postulate and streaming-algorithm line of work
+[@corrada_emmanuel_2023_ntqr_logic; @corrada_emmanuel_2023_streaming], with the
+agreement-rate literature as its nearest statistical antecedent
+[@platanios_2014_uai; @platanios_2016_icml]. We follow the construction in
+[`SimplestExampleOfEvaluationWithAlgebraicGeometry.md`](../docs/essays/SimplestExampleOfEvaluationWithAlgebraicGeometry.md)
+and the public NTQR implementation documented for
+`ntqr.r2.evaluators.ErrorIndependentEvaluation` [@ntqr_0_8_docs].
+
+**The universal evaluation polynomial.** Write the two labels as $\alpha$
+(`bullish`, `a`) and $\beta$ (`bearish`, `b`), the unknown test prevalence of
+$\alpha$ as $P_\alpha$ (with $P_\beta = 1 - P_\alpha$), and a single judge's
+per-label accuracies as $P_{i,\alpha}$ and $P_{i,\beta}$. The observed frequency
+with which that judge votes $\alpha$ decomposes — by definition, with no
+probability model — into "correct on $\alpha$ items" plus "wrong on $\beta$
+items":
+
+$$
+f_\alpha \;=\; P_\alpha\,P_{i,\alpha} \;+\; P_\beta\,\bigl(1 - P_{i,\beta}\bigr).
+$$ {#eq:universal-evaluation-polynomial}
+
+This polynomial is *exact and universal*: any noisy judge on any finite test
+satisfies it identically. It contains no domain knowledge — that emptiness is
+precisely what makes it immune to the out-of-distribution failures of trained
+estimators. It is an evaluation *thermometer*, not a model.
+
+**The trio raises the rank.** One judge gives two such equations in three
+unknowns — underdetermined. Three error-independent judges sharing one test
+supply enough agreement structure to close the system. The `ntqr` data sketch is
+the eight trio vote-pattern frequencies $f_{v_0 v_1 v_2}$ (each $v_i \in
+\{\alpha,\beta\}$, $\sum f = 1$). From them the evaluator forms three orders of
+statistic (shown here for label $\beta$; `datasketches.py`):
+
+$$
+f_{\beta_i} = \!\!\sum_{v_j,v_k}\!\! f_{\dots v_i=\beta\dots}, \qquad
+   \delta_{(i,j)} = f_{\beta_i \beta_j} - f_{\beta_i} f_{\beta_j}, \qquad
+   m_{012} = \!\prod_i f_{\beta_i} + \!\!\sum_{(i,j,k)}\!\! f_{\beta_i}\,\delta_{(j,k)}.
+$$ {#eq:trio-moments}
+
+Here $f_{\beta_i}$ is judge $i$'s marginal $\beta$-vote frequency, the **pair
+moment** $\delta_{(i,j)}$ is the (sample) covariance of judges $i,j$ voting
+$\beta$ — a *measured* agreement, not a modelled one — and $m_{012}$ is the trio
+frequency moment. The prevalence of $\alpha$ is then the root of a **quadratic**
+
+$$
+a\,P_\alpha^{2} + b\,P_\alpha + c \;=\; 0, \qquad
+   a = \Delta^{2} + 4\!\!\prod_{(i,j)}\!\delta_{(i,j)}, \quad
+   b = -a, \quad
+   c = \prod_{(i,j)}\!\delta_{(i,j)}.
+$$ {#eq:prevalence-quadratic}
+
+where $\Delta = f_{\beta\beta\beta} - m_{012}$ is the gap between the all-$\beta$
+vote frequency and the trio frequency moment $m_{012}$ (see
+`alpha_prevalence_quadratic_terms`). Because $b = -a$, the closed form collapses
+to a single $\pm$ pair:
+
+$$
+P_\alpha \;=\; \tfrac12 \;\mp\; \tfrac12\sqrt{\,1 - 4c/a\,}.
+$$ {#eq:prevalence-roots}
+
+**Two solutions, by construction.** The $\mp$ is not numerical noise: absent
+labels, the votes alone admit *exactly two* logically consistent evaluation
+points — the labelling we want and its near-mirror image with the labels
+swapped. Each judge's per-label accuracy is then recovered as an exact *linear*
+function of $P_\alpha$ (`classifier_a_label_accuracy` /
+`classifier_b_label_accuracy`), so fixing the prevalence root fixes all six
+accuracy terms. The tie-break ([@sec:evaluators]) selects between the two points without
+peeking at the truth.
+
+**The singularity at $P_\alpha = \tfrac12$.** The two roots coalesce exactly
+when $1 - 4c/a = 0$, i.e. when prevalence sits at $\tfrac12$. There the radical
+vanishes, both solutions equal $\tfrac12$, and the downstream accuracy ratios
+resolve to $0/0$ (`NaN`). This is the removable singularity that motivates the
+deliberately unbalanced deck in [@sec:test-deck]: an exactly 50/50 answer key puts the
+*true* prevalence on the singularity, so any competent ensemble lands on it and
+cannot be solved. Tilting prevalence to **{{TRUE_PREV_A}}** moves the whole
+problem off the singular point.
+
+**The built-in alarm.** When the judges are in fact error-*correlated* on the
+test, the discriminant $1 - 4c/a$ goes negative and the prevalence root becomes
+imaginary — `ntqr` surfaces this as a `PrevalenceImaginaryException`. An
+imaginary prevalence is an *iron-clad, label-free* detection that the
+error-independence assumption is violated: the algebra refuses to return a
+number it cannot justify. This is the "warning light" property at the center of
+the safety framing and the later no-knowledge alarm formulation
+[@corrada_emmanuel_2024_alarm; @corrada_emmanuel_2025_nka] — and the per-judge
+constant-classifier failure of [@sec:failure-modes] is
+its discrete cousin, which the following makes precise.
+
+> **Proposition (per-judge evaluability).** *If any judge $i$ is a constant
+> classifier — it casts one label on all $Q$ items — then the error-independent
+> trio has no interior prevalence solution, regardless of the other two judges.*
+>
+> *Proof.* A constant judge has marginal $f_{\beta_i} \in \{0, 1\}$, so its
+> sample variance is zero and **every pair moment touching $i$ vanishes**,
+> $\delta_{(i,j)} = f_{\beta_i\beta_j} - f_{\beta_i}f_{\beta_j} = 0$. Hence the
+> product $\prod_{(i,j)}\delta_{(i,j)} = 0$, giving $c = 0$ and $a = \Delta^2$.
+> The quadratic degenerates to $\Delta^2 P_\alpha(P_\alpha - 1) = 0$, whose only
+> roots are the boundary points $P_\alpha \in \{0, 1\}$; the per-label
+> accuracies then resolve to $0/0$ and `ntqr` returns `NaN`. ∎
+
+**This is why disagreement is the wrong axis.** The degeneracy is triggered by a
+*per-judge* quantity ($\delta_{(i,\cdot)} = 0$ for a single $i$) and is blind to
+the *ensemble* quantity of how much the judges collectively disagree. Two judges
+can disagree violently while the third sits constant: the product still vanishes
+and the system is still unsolvable. Conversely the worked example in
+[@sec:worked-example]
+shows all three pair moments strictly positive on real votes, a positive
+discriminant, and the two mirror-image roots resolving to the truth.
+[@sec:disagreement-not-evaluability] is the empirical face of this proposition;
+[@sec:diagnostic-result] turns it into a label-free screen.
+
+## Statistics {#sec:statistics}
+
+- **Recovery MAE** (headline): mean absolute error between recovered and true
+  per-persona, per-label accuracies. We also report it split by label.
+- **Prevalence absolute error**: |recovered − true| prevalence of label `a`.
+- **Sampling-noise floor**: a reference scale for the recovery MAE. A per-label
+  accuracy is estimated from only the questions carrying that label; the
+  worst-case binomial standard error of such a proportion is `sqrt(0.25 / k)`,
+  where `k` is the minority label's question count (here `k = {{MIN_LABEL_COUNT}}`,
+  giving a floor of **{{FLOOR}}**). A recovery MAE at or below this floor is
+  smaller than the worst-case uncertainty of the supervised estimate it is
+  compared against. We use it as a scale reference, not as a formal hypothesis
+  test.
+- **Degeneracy guard**: a constant classifier makes the algebra unsolvable and
+  yields a SymPy `nan`; because `float(nan)` succeeds, we reject non-finite
+  values explicitly (`math.isfinite`) and report the model as a *named failure*
+  rather than averaging `NaN` into a meaningless statistic.
+- **Scenario bootstrap**: uncertainty for the finite scenario deck is estimated
+  by nonparametric resampling of scenarios with replacement, following the
+  bootstrap logic of Efron and Tibshirani [@efron_tibshirani_1993].
+- **Evaluability diagnostic** (label-free; see [@sec:evaluability-diagnostic]).
+
+## The evaluability diagnostic {#sec:evaluability-diagnostic}
+
+Computed from the votes alone — no answer key, no solve:
+
+- **Vote variation** — for each judge, the fraction of scenarios on its single
+  most common call (`modal_fraction`). A value of 1.0 means the judge never
+  varied: a **constant classifier**, which carries no error signal.
+- **Pairwise disagreement** — for each pair of judges, the fraction of scenarios
+  on which they differ; and its mean over pairs.
+- **Verdict** — `predicted_evaluable = (no judge is constant)`.
+
+## Reproducibility {#sec:reproducibility}
+
+Everything is exact and offline-reproducible from the cached votes. The numeric
+core (`scripts/llm/_analysis.py`) is pure — no I/O, no plotting — and covered by
+{{N_SCRIPT_TESTS}} unit tests that run with no network and no Ollama. The
+manuscript itself is *generated*: every number below is injected from
+`summary.json` by `scripts/manuscript/render.py`, so the prose cannot drift from
+the data. Exact commands are in [@sec:reproduction].
+
+# Results {#sec:results}
+
+## Unsupervised recovery works when the ensemble is well-behaved {#sec:recovery-result}
+
+{{BEST_MODEL_INTRO}} Its unsupervised recovery {{RECOVERY_VERB}}:
+
+{{TABLE_S3_RECOVERY}}
+
+: Recovered vs. authored-truth per-persona, per-label accuracies for `{{BEST_MODEL}}`. The recovered columns use only votes; the truth columns are validation-only. {#tbl:recovery}
+
+- **Recovery MAE = {{REC_MAE}}** (by label: `a` = {{REC_MAE_A}}, `b` =
+  {{REC_MAE_B}}){{BYLABEL_SUFFIX}}.
+- **Prevalence**: true {{TRUE_PREV_A}}, recovered {{REC_PREV_A}}; absolute error
+  **{{PREV_ABS_ERR}}**.
+
+The most striking row is the Pessimist on label `a`: the pessimist was genuinely
+*bad* at the bullish calls (true accuracy {{PESS_TRUE_A}} — it called bearish even
+when the facts were clearly bullish), and the unsupervised algebra recovered that
+poor accuracy {{PESS_RECOVERED_PHRASE}} — **with no answer key**. Unsupervised
+evaluation is not merely detecting who is good; it is quantifying who is bad.
+{{EXACTNESS_NOTE}}
+
+![Recovered vs. authored-truth per-persona, per-label accuracy for `{{BEST_MODEL}}`. Bars track the truth term for term; the answer-key-free algebra recovers even the Pessimist's poor bullish accuracy ({{PESS_TRUE_A}}). Recovery MAE = {{REC_MAE}}.](../output/figures/best_model_recovery.png){#fig:best-model-recovery width=95%}
+
+![The same recovery as a scatter of recovered vs. true accuracy: points on the diagonal have zero error. For the evaluable model the terms sit near the line (recovery MAE {{REC_MAE}}).](../output/figures/recovered_vs_true_scatter.png){#fig:recovered-vs-true width=78%}
+
+Across the {{N_EVALUABLE_W}} evaluable matrices, recovery MAE spans
+**{{REC_MAE_MIN}}-{{REC_MAE_MAX}}** with median **{{REC_MAE_MEDIAN}}**
+([@tbl:recovery-ranking]). This range is useful context: NTQR is not merely
+ranking model quality, and a low recovery error does not mean every judge is
+good. It means the algebra recovered the judges' strengths and weaknesses
+faithfully. [@fig:validation-accuracy-heatmap] makes that distinction visible:
+the left panel shows validation-only true accuracies, while the right panel
+shows how much the unsupervised recovery missed each term by.
+
+{{TABLE_RECOVERY_RANKING}}
+
+: Recovery ranking across evaluable model matrices. The MAE columns are computed after the unsupervised branch is selected; the authored truth is used only to score validation error. {#tbl:recovery-ranking}
+
+![Validation-only accuracy landscape across evaluable models. The left panel shows supervised true accuracy by model/persona/label; the right panel shows absolute error of the unsupervised recovery for the same terms.](../output/figures/validation_accuracy_heatmap.png){#fig:validation-accuracy-heatmap width=95%}
+
+**How stable is that number?** The recovery MAE is one figure from one finite
+test, so we bootstrap it: resample the {{Q}} scenarios with replacement and
+re-run the *same* unsupervised solve on each resample ({{BOOT_N}} resamples, no
+new model calls). The point estimate is {{BOOT_POINT_MAE}}, with a 95% bootstrap
+CI of **[{{BOOT_MAE_CI_LO}}, {{BOOT_MAE_CI_HI}}]** for the recovery MAE and
+[{{BOOT_PREV_CI_LO}}, {{BOOT_PREV_CI_HI}}] for the prevalence error — the entire
+interval sits well below the {{FLOOR}} sampling-noise floor ([@fig:bootstrap-recovery]). In
+{{BOOT_DEGENERATE}} of resamples a persona happened to collapse to a constant
+classifier and the solve was unavailable, a concrete measure of how the
+evaluability condition (not the recovery accuracy) is the fragile part.
+
+![Bootstrap distribution of the unsupervised recovery MAE over {{BOOT_N}} scenario resamples of `{{BEST_MODEL}}`. The point estimate ({{BOOT_POINT_MAE}}) and the 95% CI [{{BOOT_MAE_CI_LO}}, {{BOOT_MAE_CI_HI}}] both sit far below the {{FLOOR}} sampling-noise floor; {{BOOT_DEGENERATE}} of resamples were degenerate.](../output/figures/bootstrap_recovery_mae.png){#fig:bootstrap-recovery width=90%}
+
+## Failure modes: constant classifiers and non-compliance {#sec:failure-modes}
+
+{{FAILURE_MODE_INTRO}}
+
+{{TABLE_CONSTANTS}}
+
+: Per-model constant-classifier diagnostics. A model is evaluable only when every persona varies and every cell is parseable. {#tbl:constant-classifiers}
+
+A capable model that follows a strongly-dispositioned persona prompt *too
+rigidly* turns that persona into a judge who answers the same way every time.
+A constant classifier carries no error signal, so the error-independent system
+becomes unsolvable (it returns a degenerate / `NaN` solution). We report these
+under `failed_models` with the offending persona named, rather than crashing the
+sweep or emitting a `NaN` statistic. [@fig:evaluability-diagnostic] shows each
+judge's modal-vote fraction per model; bars at 1.0 (red) are the
+constant classifiers — you can read the failures straight off the votes.
+
+![Per-judge modal-vote fraction for every model. A bar at 1.0 marks a constant classifier — a persona whose parseable calls never varied — which carries no error signal and makes the error-independent solve degenerate. The label-free read-out of which ensembles are unevaluable.](../output/figures/evaluability_diagnostic.png){#fig:evaluability-diagnostic width=95%}
+
+**Non-compliance (no fabricated votes).** {{NONCOMPLIANCE_NOTE}}
+
+{{TABLE_PROMPT_HEALTH}}
+
+: Prompt-health diagnostics by model and persona under prompt version `{{PROMPT_VERSION}}`. Model labels are compacted for PDF fit; the full model names appear in [@tbl:model-lineup] and in `summary.json`. Parse methods and entropy are derived from cached raw-response records. {#tbl:prompt-health}
+
+![Prompt compliance for the persona-scenario grid. Dark green cells were valid on the first schema-constrained attempt; light green cells were accepted only after the one allowed model-driven repair retry; red/grey cells remain missing votes rather than fabricated labels.](../output/figures/prompt_compliance.png){#fig:prompt-compliance width=95%}
+
+{{BASELINE_STRESS_NOTE}} [@fig:temperature-schema-comparison] shows why the
+low-temperature schema-constrained run replaces the temperature-0.7 prompt as
+the headline experiment: parseability is now an interface check, while
+evaluable vote matrices remain the scientific object.
+
+![Temperature/schema comparison between the previous temperature-0.7 prompt contract and the current temperature-0.1 binary-schema run. Bar height is final parse rate; `E` marks a model whose final vote matrix was algebraically evaluable.](../output/figures/temperature_schema_comparison.png){#fig:temperature-schema-comparison width=95%}
+
+## Disagreement is *not* evaluability (the non-obvious result) {#sec:disagreement-not-evaluability}
+
+{{DISAGREEMENT_INTRO}}
+
+{{TABLE_DISAGREEMENT}}
+
+: Mean pairwise disagreement by model. Disagreement is not the evaluability gate; per-judge variation is. {#tbl:disagreement}
+
+{{DISAGREEMENT_NARRATIVE}} The reason is structural: evaluability is
+gated by a **per-judge** necessary condition (every judge must vary), not by an
+**ensemble** quantity (how much the judges collectively disagree). A single judge
+who never varies breaks the algebra no matter how loudly the rest of the ensemble
+argues. Aggregate disagreement and per-judge variation are different axes, and
+only the latter is necessary for a solution to exist. [@fig:disagreement-vs-evaluability]
+plots the two axes against each other and shows the evaluable region is gated
+horizontally (by per-judge variation), not vertically (by disagreement).
+
+![{{DISAGREEMENT_FIG_CAPTION}}](../output/figures/disagreement_vs_evaluability.png){#fig:disagreement-vs-evaluability width=95%}
+
+## A label-free diagnostic predicts evaluability {#sec:diagnostic-result}
+
+Because the binding condition is per-judge variation, it is detectable from the
+votes alone. Our evaluability diagnostic — flagging any judge whose modal-vote
+fraction is 1.0 — predicted `predicted_evaluable = True` for exactly
+{{PRED_EVAL_SET}} and `False` for the other {{N_UNEVALUABLE_W}}. The ntqr solve then
+evaluated exactly {{EVAL_SET}}. The prediction and the outcome agreed on all
+{{N_MODELS_W}} models (`diagnostic_matched_outcome = {{DIAG_MATCHED}}`). The
+diagnostic needs no answer key and no solve: it is computed directly from the
+response matrix, making it a usable pre-flight "evaluation thermometer."
+
+![Scenario-level vote split and authored direction. Each point is one authored market scenario. The y-value is the fraction of parsed persona/model calls that were bullish; marker color is the authored operational truth. Points near 0.5 are the hard or intentionally mixed cases that create useful variation.](../output/figures/scenario_hardness.png){#fig:scenario-hardness width=95%}
+
+## {{MV_EI_HEADING}} {#sec:mv-ei-real}
+
+{{MV_EI_BODY}}
+
+Majority voting is included because it is the classical aggregation baseline:
+Condorcet-style jury arguments justify it only when voters are independent and
+better than random [@condorcet_jury_sep], and LLM self-consistency applies the
+same intuition by sampling multiple reasoning paths and taking the modal answer
+[@wang_2022_self_consistency]. NTQR asks a different question: not which label
+wins, but whether the votes contain enough structure to estimate each judge's
+accuracy.
+
+## Reading the figure suite together {#sec:figure-suite}
+
+The {{N_EMBEDDED_FIGURES_W}} embedded figures tell the paper's arc in one pass.
+[@fig:evaluation-pipeline] fixes the data boundary: votes enter the
+unsupervised solve, and authored truth enters only for validation.
+[@fig:disagreement-vs-evaluability] is the thesis: evaluability separates along
+the per-judge-variation axis, not the disagreement axis.
+[@fig:best-model-recovery] and [@fig:recovered-vs-true] are the recovery result:
+for the best evaluable model, recovered and true accuracies track each other
+term for term (recovery MAE {{REC_MAE}}), while [@fig:recovery-mae-scorecard]
+shows where every evaluable model sits. [@fig:evaluability-diagnostic] is the mechanism:
+the red 1.0 bars are exactly the judges that broke the algebra.
+The scorecard headline is: {{FIG4_SENTENCE}}. Each
+figure ships a `<stem>.data.json` sidecar carrying its exact series and
+thresholds where applicable, so every plotted value is backed by a
+machine-readable number. [@fig:validation-accuracy-heatmap] separates two
+questions that should not be conflated: how accurate each judge actually was
+after validation, and how accurately the unlabeled solve recovered that fact.
+[@fig:prompt-compliance],
+[@fig:temperature-schema-comparison], and [@fig:scenario-hardness] expose the
+prompt interface and scenario difficulty that determine whether the algebra gets
+a usable response matrix; the remaining simulation figures extend the same
+logic through deterministic simulation, bootstrap uncertainty, the tie-break
+boundary, and the EI-vs-MV trade-off.
+
+![Scorecard: unsupervised recovery MAE for each evaluable model (lower is better), drawn against the "excellent" ({{EXCELLENT}}) and sampling-noise-floor ({{FLOOR}}) reference lines. {{FIG4_SENTENCE}}.](../output/figures/recovery_mae_by_model.png){#fig:recovery-mae-scorecard width=90%}
+
+## Synthetic validation: recovery scaling and the alarm's blind spot {#sec:synthetic-validation}
+
+{{SYNTHETIC_VALIDATION_SCOPE}} To test the algebra across *many* ensembles — and
+to probe the failure detector directly — we ran a
+deterministic companion study on **synthetic judges** whose ground truth is set
+by construction (`scripts/sim/synthetic_recovery_study.py`; no network, fully
+seeded, reproducible). A trio with prevalence {{SIM_PREVALENCE}} and per-judge
+`(a, b)` accuracies {{SIM_ACCS}} is sampled under error-independence, its votes
+are fed through the **identical** `ErrorIndependentEvaluation` used on the LLM
+votes, and the unsupervised recovery is scored against the sample truth. We
+average {{SIM_N_TRIALS}} independent draws at each test size.
+
+**Recovery error falls like sampling noise.** As the test grows from
+`Q = {{SIM_Q_MIN}}` to `Q = {{SIM_Q_MAX}}`, the mean recovery MAE drops from
+{{SIM_ACC_MAE_QMIN}} to {{SIM_ACC_MAE_QMAX}} ([@tbl:synthetic-convergence]). A log–log fit of error
+against `Q` has slope **{{SIM_SLOPE}}** (R² = {{SIM_R2}}; the prevalence error
+scales the same way, slope {{SIM_PREV_SLOPE}}) — close to the −0.5 of an
+unbiased, sampling-noise-limited estimator. So the algebra
+carries no persistent bias: the only thing between the unsupervised recovery and
+the truth is finite-sample noise, and the real `{{BEST_MODEL}}` result (recovery MAE
+{{REC_MAE}} at `Q = {{Q}}`) sits squarely on this curve rather than being a
+fortunate one-off.
+
+{{SIM_TABLE_CONVERGENCE}}
+
+: Synthetic recovery error vs. test size, averaged over {{SIM_N_TRIALS}} error-independent ensembles per row. Every draw solved cleanly — no spurious alarms. {#tbl:synthetic-convergence}
+
+![Unsupervised recovery error vs. test size `Q` on log–log axes, over {{SIM_N_TRIALS}} synthetic error-independent ensembles per point (accuracy MAE with ±1 sd error bars; prevalence error overlaid). The dotted line is a `1/√Q` reference; the fitted slope {{SIM_SLOPE}} (R² = {{SIM_R2}}) matches the −0.5 of a sampling-noise-limited estimator.](../output/figures/synthetic_convergence.png){#fig:synthetic-convergence width=90%}
+
+**The scaling is not an artifact of one ensemble.** Repeating the convergence fit
+across {{SIM_ROBUST_N}} deliberately different ensembles — varied prevalence
+(0.50–0.70) and accuracy spread — keeps every fitted slope in a tight band
+**[{{SIM_ROBUST_SLOPE_LO}}, {{SIM_ROBUST_SLOPE_HI}}]** around the ideal −0.5
+([@tbl:synthetic-robustness]), so the sampling-noise-limited behaviour is a property of the algebra,
+not of the particular judges we chose.
+
+{{SIM_TABLE_ROBUSTNESS}}
+
+: The `1/√Q` convergence slope is stable across diverse ensembles, each fitted over the same `Q` grid. All slopes cluster near the ideal −0.5. {#tbl:synthetic-robustness}
+
+**The alarm is sound but has a blind spot.** The error-independent solve carries
+a built-in failure detector: when the prevalence quadratic's discriminant
+`D = 1 − 4c/a` goes negative the prevalence root is imaginary — an answer-key-free
+signal that error-independence is violated. We characterised it by injecting two
+kinds of dependence at `Q = {{SIM_CORR_Q}}` ([@tbl:synthetic-correlation],
+[@fig:synthetic-alarm]). On genuinely
+error-independent draws the alarm fired in **{{SIM_FALSE_ALARM}}** of trials — no
+false positives. An **anti-correlated** judge pair (which drives a pairwise
+vote-moment negative) tripped it in up to **{{SIM_ANTI_ALARM}}** of trials. But
+positive **common-mode** correlation — all judges sharing a forced error, the
+natural analogue of shared training data — never tripped it (**{{SIM_COMMON_ALARM}}**),
+even as it silently worsened the recovery it failed to warn about (prevalence
+error rising from {{SIM_INDEP_SILENT_ERR}} under independence to
+{{SIM_COMMON_SILENT_ERR}} at the strongest common-mode setting).
+
+{{SIM_TABLE_CORRELATION}}
+
+: Alarm-firing rate by error structure at `Q = {{SIM_CORR_Q}}` ({{SIM_N_TRIALS}} trials each). `D` is the mean prevalence discriminant; the last column is the recovery error on the trials where the alarm stayed silent. {#tbl:synthetic-correlation}
+
+![Left: the imaginary-prevalence alarm fires only under anti-correlation, never on independent or common-mode data. Right: the mechanism — as common-mode correlation strengthens, the discriminant `D` falls toward the `D = 0` alarm threshold but never crosses it, while the un-warned recovery error climbs.](../output/figures/synthetic_alarm.png){#fig:synthetic-alarm width=95%}
+
+This sharpens the safety claim honestly: the imaginary-prevalence alarm is a
+*sufficient*, never-false-positive detector of violated error-independence, but
+it is **not necessary** — the most realistic LLM failure, positively-correlated
+errors from shared pre-training, is exactly the regime it can miss. The
+per-judge evaluability diagnostic ([@sec:evaluability-diagnostic]) and this alarm are complementary
+screens, and neither is a substitute for a held-out check when correlated errors
+are plausible.
+
+## The two-solution tie-break needs clearly-better-than-random judges {#sec:tiebreak-boundary}
+
+Error-independent evaluation returns two mirror-image solutions; we pick the one
+with higher mean accuracy ([@sec:tie-break]), the standard better-than-random assumption. That
+assumption has teeth, and a synthetic sweep shows exactly where it loses them. We
+hold the trio symmetric (so mean per-label accuracy is the only varying factor),
+fix prevalence {{SIM_TIEBREAK_PREV}} and `Q = {{SIM_TIEBREAK_Q}}`, and slide the
+accuracy from strong toward random ([@tbl:tiebreak], [@fig:synthetic-tiebreak]).
+For strong judges the
+tie-break is essentially flawless — **0%** catastrophic mirror-selection down to
+accuracy **{{SIM_TIEBREAK_SAFE_ACC}}** — but as the judges approach random the
+mirror starts winning by chance and recovery inverts, reaching
+**{{SIM_TIEBREAK_MAX_CAT}}** catastrophic selections near accuracy 0.5. The
+practical rule: algebraic recovery is trustworthy only for an ensemble that is
+*clearly* better than random; a barely-better-than-chance jury can be confidently
+and silently inverted.
+
+{{SIM_TABLE_TIEBREAK}}
+
+: Catastrophic mirror-selection (prevalence error > 0.25) vs. mean judge accuracy at prevalence {{SIM_TIEBREAK_PREV}}, `Q = {{SIM_TIEBREAK_Q}}`, {{SIM_N_TRIALS}} trials each. {#tbl:tiebreak}
+
+![The better-than-random tie-break is flawless for strong judges and inverts as the ensemble approaches random: catastrophic mirror-selection climbs from 0% to {{SIM_TIEBREAK_MAX_CAT}} and the mean prevalence error rises with it.](../output/figures/synthetic_tiebreak.png){#fig:synthetic-tiebreak width=90%}
+
+## Error-independent vs. majority-voting: exactness vs. robustness {#sec:mv-ei-synthetic}
+
+[@sec:mv-ei-real] reported that on `{{BEST_MODEL}}` the error-independent (EI) and
+majority-voting (MV) evaluators returned the same recovery — explicitly *"a
+property of this particular vote pattern, not a general theorem."* The synthetic
+harness settles the general question by running **both** evaluators on the same
+draws across a prevalence × accuracy grid (`Q = {{SIM_MVEI_Q}}`;
+[@tbl:mv-ei], [@fig:synthetic-mv-vs-ei]). The answer is a clean trade-off,
+not a winner:
+
+- **EI is more accurate where its assumption holds.** For clearly-better-than-
+  random judges the exact algebra beats majority voting — e.g. at prevalence
+  {{SIM_MVEI_EI_PREV}}, accuracy {{SIM_MVEI_EI_ACC}}, EI's recovery MAE is
+  {{SIM_MVEI_EI_EIMAE}} vs MV's {{SIM_MVEI_EI_MVMAE}} ({{SIM_MVEI_EI_RATIO}}×
+  lower), and EI wins on {{SIM_MVEI_EI_WIN}} of draws. MV is *biased* — it assumes
+  the majority vote is the truth — so it cannot reach the exact answer.
+- **MV is more robust where EI's assumption fails.** In the tie-break danger zone
+  of [@sec:tiebreak-boundary] (weak judges, here accuracy {{SIM_MVEI_MV_ACC}} at prevalence
+  {{SIM_MVEI_MV_PREV}}), EI's mirror inverts and its MAE explodes to
+  {{SIM_MVEI_MV_EIMAE}} while MV — which has no imaginary roots and no mirror —
+  stays at {{SIM_MVEI_MV_MVMAE}}; EI wins only {{SIM_MVEI_MV_EIWIN}} of draws.
+
+The practical guidance mirrors the diagnostics of [@sec:evaluability-diagnostic]
+and [@sec:tiebreak-boundary]: prefer the exact
+algebra for an ensemble that clears the evaluability bar and is clearly better
+than random, but keep majority voting as the robust fallback when those
+conditions are in doubt — and report both, as we do per run.
+
+{{SIM_TABLE_MVEI}}
+
+: Error-independent vs. majority-voting recovery MAE across a prevalence × accuracy grid (`Q = {{SIM_MVEI_Q}}`, {{SIM_N_TRIALS}} trials per cell). "EI wins" is the fraction of draws where the exact algebra's MAE was lower. {#tbl:mv-ei}
+
+![Recovery MAE of the error-independent algebra vs. majority-voting as judge accuracy falls from strong to near-random, one panel per prevalence. EI is lower while judges are strong, then crosses above and diverges as its tie-break inverts; MV stays bounded throughout.](../output/figures/synthetic_mv_vs_ei.png){#fig:synthetic-mv-vs-ei width=95%}
+
+## Statistical validation matrix {#sec:validation-matrix}
+
+The manuscript's main claims are checked by a generated validation report rather
+than by prose alone. `scripts/validation/statistical_validation_report.py` reads
+the LLM summary, simulation summaries, bootstrap summary, and figure sidecars;
+it does not call models or rerun experiments. The report currently passes
+**{{VALIDATION_N_PASSED}}/{{VALIDATION_N_CHECKS}}** checks, covering the real
+recovery scale, label-free diagnostic, bootstrap uncertainty, synthetic
+convergence, alarm behavior, tie-break boundary, EI-vs-MV trade-off, and figure
+sidecar completeness.
+
+{{VALIDATION_TABLE}}
+
+: Offline validation checks for the manuscript's load-bearing claims. Each row is computed from generated JSON artifacts, not hand-audited numbers in prose. {#tbl:validation-matrix}
+
+![Validation matrix for the statistical claims. Green rows are checks that passed against the generated artifacts; the evidence labels show the actual thresholds or counts used by each check.](../output/figures/validation_matrix.png){#fig:validation-matrix width=95%}
+
+# Discussion {#sec:discussion}
+
+**What this shows.** On real, contemporary LLM-persona ensembles that satisfy
+the evaluability condition, {{DISCUSSION_RECOVERY_CLAIM}}. That is the positive
+existence result: the NTQR logic is not only theoretically universal but
+operationally effective on real model vote matrices, while still refusing to
+solve a matrix whose judges carry no variation signal.
+
+**How it fits the literature.** The result is complementary to crowdsourcing,
+weak-supervision, and LLM-as-judge measurement-error methods rather than a
+replacement for them [@zheng_2017_vldb; @ratner_2017_snorkel;
+@zheng_2023_llm_judge; @chen_2026_efficient_judge]. Those approaches ask how to
+infer or aggregate task truth under a model of workers, labeling functions, or
+judges; majority-vote and self-consistency baselines ask which answer should win
+under better-than-random aggregation assumptions [@condorcet_jury_sep;
+@wang_2022_self_consistency]. This experiment asks a prior algebraic question:
+before using a judge ensemble as an evaluator, does the unlabeled response
+matrix contain the variation and agreement structure required for evaluation at
+all? That is the practical role of the NTQR alarm lineage
+[@corrada_emmanuel_2024_alarm; @corrada_emmanuel_2025_nka].
+
+**The sharper lesson is the warning.** The repository frames the safety value of
+algebraic evaluation as its ability to "warn you if the ensemble is not good
+enough." We make that warning concrete and show it fires correctly:
+{{UNEVALUABLE_COUNT_SENTENCE}}. Crucially, the warning is
+{{WARNING_NOT_DISAGREE_CLAIM}} The
+correct warning is per-judge: *at least one of your judges is a constant classifier.* For
+practitioners assembling LLM juries, this reframes ensemble design: maximizing
+diversity/disagreement is neither sufficient nor the right target; ensuring every
+judge actually exercises both responses across the test is the necessary
+condition.
+
+**Implications for evaluation engineering.** The operational lesson is to treat
+LLM evaluation as measurement engineering, not just answer aggregation. First,
+make the interface boring: schema-constrained, low-temperature collection and
+explicit repair diagnostics should make parseability a controlled boundary, not
+the headline result. Second, check the unlabeled matrix before trusting any
+recovered score: a constant judge is not a weak signal, it is no signal for the
+trio algebra. Third, distinguish *good judges* from *recoverable judges*:
+[@fig:validation-accuracy-heatmap] shows that the scientific value is not only
+finding high accuracies, but recovering poor or label-specific accuracies without
+looking at the answer key. That is what makes the method relevant to LLM-as-judge
+systems where the evaluator itself is part of the risk surface.
+
+**Why strong models fail this way.** A strongly dispositioned persona prompt is
+a recipe for a constant classifier: a model follows its instruction ("lean
+bullish") so rigidly that it casts the same call on every scenario. The very
+capability that makes a model a good instruction-follower can make it a useless
+*evaluable* judge — in this sweep a capable mid-sized model collapsed personas
+into constant classifiers ([@sec:failure-modes]). Crucially this is *not*
+cured by sampling: it appears here even at temperature {{TEMP}}
+({{DECODING}} decoding), so the failure is prompt-induced degeneracy, not a
+decoding artifact. This is a caution about over-prompting LLM-as-judge
+ensembles.
+
+**Limitations (and what would falsify the claims).**
+
+- **Single run, single test.** `T = {{T}}`, `Q = {{Q}}` — {{SAMPLING_LIMITATION}}
+  Decoding is fixed, but the scenario set is itself a finite sample, so
+  [@sec:recovery-result] bootstraps over it: the recovery MAE carries a 95% CI of
+  [{{BOOT_MAE_CI_LO}}, {{BOOT_MAE_CI_HI}}] and {{BOOT_DEGENERATE}} of resamples are
+  degenerate — the test-draw uncertainty this limitation flags, now quantified.
+- **Recovery needs clearly-better-than-random judges.** The two-solution
+  tie-break ([@sec:tie-break]) assumes the ensemble beats random;
+  [@sec:tiebreak-boundary] shows it stays exact down to accuracy
+  {{SIM_TIEBREAK_SAFE_ACC}} but inverts (up to {{SIM_TIEBREAK_MAX_CAT}}
+  catastrophic) as judges approach chance. The evaluated `{{BEST_MODEL}}` judges are well clear of
+  that boundary, but a borderline jury is not safe.
+- **{{EVALUABLE_SCOPE_HEADING}}** {{EVALUABLE_SCOPE_BODY}} The deterministic synthetic study
+  ([@sec:synthetic-validation]) extends the recovery-quality claim across
+  {{SIM_N_TRIALS}} ensembles per test size where the ground truth is known by
+  construction, showing the real result is on-curve, not a fluke.
+- **Diagnostic is necessary, not proven sufficient.** "No constant classifier"
+  is a *necessary* condition for the error-independent solve; this study shows
+  it was also sufficient on these {{N_MODELS_W}} models, but {{N_MODELS_W}} models is
+  not a powered test of sufficiency. A model could in principle vary on every
+  judge yet still violate error-independence and recover poorly. The honest claim
+  is: the diagnostic is a cheap, label-free *necessary-condition* screen that
+  caught every failure here.
+- **Authored truth.** "Truth" is the authors' defensible call, not a market
+  outcome; it calibrates the check, not the unsupervised recovery.
+
+**Future work.** Repeat across temperatures and scenario draws to get a recovery
+distribution; extend beyond the trio (larger `N`, `R>2`); test whether a
+softened persona prompt (or light temperature) restores variation in the
+collapsed judges and thereby restores evaluability. The synthetic study
+([@sec:synthetic-validation])
+begins the last of these — it shows positive common-mode correlation silently
+degrades recovery without tripping the alarm — and a natural next step is to
+*measure* the realized error-correlation of real LLM juries (e.g. from shared
+base models) and predict the resulting recovery bias.
+
+---
+
+# Figures — formal specification {#sec:figure-specification}
+
+Every figure is regenerated by the pipeline — the real-sweep figures into
+`outputs/llm/multi_llm_personas_evaluation/`, the simulation figures into
+`outputs/sim/synthetic_recovery_study/`, the bootstrap figure into
+`outputs/sim/bootstrap_recovery_ci/`, and the validation figure into
+`outputs/validation/statistical_validation/` — and ships a machine-readable
+`<stem>.data.json` sidecar holding its exact series, threshold values, and a
+provenance block (backend, model set, temperature {{TEMP}}, Q={{Q}}, render
+date). A figure is therefore not an illustration but a *typeset view of a
+data file*: the claim, the encoding, and the numbers are all pinned. Each figure
+below is specified as **claim -> encoding -> reference lines -> data source**.
+
+- `fig:disagreement-vs-evaluability`
+  (`disagreement_vs_evaluability.png`;
+  `disagreement_vs_evaluability.data.json`) supports
+  [@sec:disagreement-not-evaluability] and [@sec:formalism]. It plots
+  per-judge modal-vote concentration against mean pairwise disagreement, with a
+  vertical evaluability band.
+- `fig:evaluation-pipeline` (`evaluation_pipeline.png`;
+  `evaluation_pipeline.data.json`) supports [@sec:method-data-flow]. It shows
+  which objects are observed, which are inferred by NTQR, and where authored
+  truth enters only as a validation target.
+- `fig:best-model-recovery` (`best_model_recovery.png`;
+  `best_model_recovery.data.json`) supports [@sec:recovery-result]. It uses
+  grouped bars for recovered vs. true per-(persona, label) accuracy, with the
+  sampling-noise floor.
+- `fig:recovered-vs-true` (`recovered_vs_true_scatter.png`;
+  `recovered_vs_true_scatter.data.json`) supports [@sec:recovery-result]. It
+  plots true accuracy against recovered accuracy with the $y=x$ identity line.
+- `fig:validation-accuracy-heatmap` (`validation_accuracy_heatmap.png`;
+  `validation_accuracy_heatmap.data.json`) supports [@sec:recovery-result]. It
+  shows validation-only true accuracy and absolute recovery error for every
+  evaluable model/persona/label term.
+- `fig:evaluability-diagnostic` (`evaluability_diagnostic.png`;
+  `evaluability_diagnostic.data.json`) supports [@sec:failure-modes]. It shows
+  per-judge modal-vote fraction by model, with the 1.0 constant-classifier
+  boundary.
+- `fig:prompt-compliance` (`prompt_compliance.png`;
+  `prompt_compliance.data.json`) supports [@sec:failure-modes]. It separates
+  primary-valid cells, repaired-valid cells, final-invalid cells, and
+  unavailable cells under the binary schema.
+- `fig:temperature-schema-comparison` (`temperature_schema_comparison.png`;
+  `temperature_schema_comparison.data.json`) supports [@sec:failure-modes]. It
+  compares the old temperature-0.7 prompt baseline against the headline
+  temperature-0.1 schema run on parseability and evaluability.
+- `fig:scenario-hardness` (`scenario_hardness.png`;
+  `scenario_hardness.data.json`) supports [@sec:reader-map]. It plots the
+  fraction of parsed calls that were bullish for each authored scenario, colored
+  by the authored operational truth, with a 0.5 split line.
+- `fig:recovery-mae-scorecard` (`recovery_mae_by_model.png`;
+  `recovery_mae_by_model.data.json`) supports [@sec:figure-suite]. It shows
+  recovery MAE per evaluable model against the {{EXCELLENT}} "excellent" and
+  {{FLOOR}} sampling-noise reference lines.
+- `fig:synthetic-convergence` (`synthetic_convergence.png`;
+  `synthetic_convergence.data.json`) supports [@sec:synthetic-validation]. It
+  plots recovery error against test size on log-log axes, with the `1/sqrt(Q)`
+  reference and fitted slope {{SIM_SLOPE}}.
+- `fig:synthetic-alarm` (`synthetic_alarm.png`;
+  `synthetic_alarm.data.json`) supports [@sec:synthetic-validation]. It shows
+  alarm rate, discriminant behavior, and silent recovery error by error
+  structure, with the `D = 0` alarm threshold.
+- `fig:bootstrap-recovery` (`bootstrap_recovery_mae.png`;
+  `bootstrap_recovery_mae.data.json`) supports [@sec:recovery-result]. It shows
+  {{BOOT_N}} scenario-resampled recovery-MAE draws, with the point estimate, 95%
+  CI, and {{FLOOR}} sampling-noise floor.
+- `fig:synthetic-tiebreak` (`synthetic_tiebreak.png`;
+  `synthetic_tiebreak.data.json`) supports [@sec:tiebreak-boundary]. It shows
+  catastrophic mirror-selection and prevalence error as judge accuracy approaches
+  random.
+- `fig:synthetic-mv-vs-ei` (`synthetic_mv_vs_ei.png`;
+  `synthetic_mv_vs_ei.data.json`) supports [@sec:mv-ei-synthetic]. It compares
+  EI and MV recovery MAE as judge accuracy falls.
+- `fig:validation-matrix` (`validation_matrix.png`;
+  `validation_matrix.data.json`) supports [@sec:validation-matrix]. It reports
+  generated checks for the manuscript's load-bearing statistical claims.
+
+The figures are mutually reinforcing: [@fig:evaluation-pipeline] defines the
+experimental boundary, [@fig:disagreement-vs-evaluability] states the thesis on
+the right axes, [@fig:evaluability-diagnostic] shows the
+per-judge mechanism that gates it, [@fig:best-model-recovery] and
+[@fig:recovered-vs-true] show the positive recovery when the gate is cleared,
+[@fig:validation-accuracy-heatmap] explains what was actually recovered across
+models, and [@fig:recovery-mae-scorecard] scores how close that recovery is to
+the {{FLOOR}} sampling-noise floor.
+
+# References {#sec:references}
+
+The bibliography is generated from `manuscript/references.bib`. The central
+package citation is the public NTQR 0.8 documentation [@ntqr_0_8_docs], which
+documents the `ntqr.r2` evaluators and trio data sketches used here. This
+repository is cited as the reproducible experiment artifact
+[@ntqr_llm_personas_2026], and Ollama is cited for the local model runtime
+[@ollama_2026].
+
+---
+
+*Supplemental material (tie-break derivation, full vote tables, per-persona
+recovery, scenario list, reproduction commands, diagnostic definition):*
+[**supplemental.md**](supplemental.md).

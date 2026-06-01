@@ -1,0 +1,211 @@
+{
+  "generated_at": "2026-06-01T13:27:45",
+  "result": {
+    "q": 1024,
+    "n_trials": 200,
+    "seed": 5000,
+    "rows": [
+      {
+        "label": "independent",
+        "common_mode": 0.0,
+        "anti_pair": null,
+        "anti_strength": 0.0,
+        "q": 1024,
+        "n_trials": 200,
+        "alarm_count": 0,
+        "alarm_rate": 0.0,
+        "discriminant_mean": 0.011485529005531203,
+        "discriminant_min": 1.0781875121601558e-06,
+        "discriminant_max": 0.051181460292934355,
+        "silent_prevalence_abs_error_mean": 0.015580030322134387
+      },
+      {
+        "label": "common-mode 0.1",
+        "common_mode": 0.1,
+        "anti_pair": null,
+        "anti_strength": 0.0,
+        "q": 1024,
+        "n_trials": 200,
+        "alarm_count": 0,
+        "alarm_rate": 0.0,
+        "discriminant_mean": 0.008018967579332108,
+        "discriminant_min": 4.401477085136385e-06,
+        "discriminant_max": 0.03160176314182439,
+        "silent_prevalence_abs_error_mean": 0.01414973917803801
+      },
+      {
+        "label": "common-mode 0.2",
+        "common_mode": 0.2,
+        "anti_pair": null,
+        "anti_strength": 0.0,
+        "q": 1024,
+        "n_trials": 200,
+        "alarm_count": 0,
+        "alarm_rate": 0.0,
+        "discriminant_mean": 0.004089324577454839,
+        "discriminant_min": 2.2912750630155188e-07,
+        "discriminant_max": 0.02329880636707693,
+        "silent_prevalence_abs_error_mean": 0.023530547196280303
+      },
+      {
+        "label": "common-mode 0.3",
+        "common_mode": 0.3,
+        "anti_pair": null,
+        "anti_strength": 0.0,
+        "q": 1024,
+        "n_trials": 200,
+        "alarm_count": 0,
+        "alarm_rate": 0.0,
+        "discriminant_mean": 0.002149685610964543,
+        "discriminant_min": 4.732709002475133e-09,
+        "discriminant_max": 0.014480674839391194,
+        "silent_prevalence_abs_error_mean": 0.03427973842513867
+      },
+      {
+        "label": "common-mode 0.4",
+        "common_mode": 0.4,
+        "anti_pair": null,
+        "anti_strength": 0.0,
+        "q": 1024,
+        "n_trials": 200,
+        "alarm_count": 0,
+        "alarm_rate": 0.0,
+        "discriminant_mean": 0.0012741605050985221,
+        "discriminant_min": 4.603811754044784e-08,
+        "discriminant_max": 0.010207517073350658,
+        "silent_prevalence_abs_error_mean": 0.04193562558025204
+      },
+      {
+        "label": "anti-pair 0.2",
+        "common_mode": 0.0,
+        "anti_pair": [
+          0,
+          1
+        ],
+        "anti_strength": 0.2,
+        "q": 1024,
+        "n_trials": 200,
+        "alarm_count": 0,
+        "alarm_rate": 0.0,
+        "discriminant_mean": 0.012555227375657056,
+        "discriminant_min": 2.241262466728955e-07,
+        "discriminant_max": 0.1009854785200589,
+        "silent_prevalence_abs_error_mean": 0.042734117359800775
+      },
+      {
+        "label": "anti-pair 0.3",
+        "common_mode": 0.0,
+        "anti_pair": [
+          0,
+          1
+        ],
+        "anti_strength": 0.3,
+        "q": 1024,
+        "n_trials": 200,
+        "alarm_count": 80,
+        "alarm_rate": 0.4,
+        "discriminant_mean": 0.09620995441058541,
+        "discriminant_min": -5.442872325396484,
+        "discriminant_max": 8.604970273289645,
+        "silent_prevalence_abs_error_mean": 0.20445536334716455
+      },
+      {
+        "label": "anti-pair 0.4",
+        "common_mode": 0.0,
+        "anti_pair": [
+          0,
+          1
+        ],
+        "anti_strength": 0.4,
+        "q": 1024,
+        "n_trials": 200,
+        "alarm_count": 188,
+        "alarm_rate": 0.94,
+        "discriminant_mean": -0.07264000593116678,
+        "discriminant_min": -1.9058966327857139,
+        "discriminant_max": 8.567151830644463,
+        "silent_prevalence_abs_error_mean": 0.40741383578193696
+      }
+    ],
+    "independent_false_alarm_rate": 0.0,
+    "common_mode_max_alarm_rate": 0.0,
+    "common_mode_max_silent_error": 0.04193562558025204,
+    "anti_max_alarm_rate": 0.94,
+    "figure": "synthetic_alarm.png",
+    "title": "Imaginary-root alarm and common-mode blind spot",
+    "caption": "The alarm has zero false positives under independence and fires on anti-correlated errors, while positive common-mode dependence remains a documented blind spot.",
+    "x_label": "Dependence condition",
+    "y_label": "Alarm rate and silent prevalence error",
+    "thresholds": [
+      {
+        "label": "imaginary-root alarm",
+        "value": "D < 0",
+        "meaning": "negative prevalence-quadratic discriminant triggers the logical alarm"
+      }
+    ],
+    "metadata": {
+      "generated_utc": "2026-06-01T20:27:45.942596+00:00",
+      "study": "synthetic_recovery_study",
+      "deterministic": true,
+      "ensemble": {
+        "prevalence_a": 0.55,
+        "accuracies": [
+          {
+            "judge": 0,
+            "alpha": 0.9,
+            "beta": 0.8
+          },
+          {
+            "judge": 1,
+            "alpha": 0.85,
+            "beta": 0.75
+          },
+          {
+            "judge": 2,
+            "alpha": 0.7,
+            "beta": 0.95
+          }
+        ]
+      },
+      "q": 1024,
+      "n_trials": 200,
+      "seed": 5000
+    }
+  },
+  "caption": "The alarm has zero false positives under independence and fires on anti-correlated errors, while positive common-mode dependence remains a documented blind spot.",
+  "metadata": {
+    "generated_utc": "2026-06-01T20:27:45.942596+00:00",
+    "study": "synthetic_recovery_study",
+    "deterministic": true,
+    "ensemble": {
+      "prevalence_a": 0.55,
+      "accuracies": [
+        {
+          "judge": 0,
+          "alpha": 0.9,
+          "beta": 0.8
+        },
+        {
+          "judge": 1,
+          "alpha": 0.85,
+          "beta": 0.75
+        },
+        {
+          "judge": 2,
+          "alpha": 0.7,
+          "beta": 0.95
+        }
+      ]
+    },
+    "q": 1024,
+    "n_trials": 200,
+    "seed": 5000
+  },
+  "provenance": {
+    "source_file": "correlation.data.json",
+    "generated_utc": "2026-06-01T20:27:45.942596+00:00",
+    "study": "synthetic_recovery_study",
+    "deterministic": true,
+    "seed": 5000
+  }
+}

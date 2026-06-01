@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-06-01T13:18:54",
+  "result": {
+    "recovery_mae": null,
+    "recovery_mae_by_label": {
+      "a": null,
+      "b": null
+    },
+    "max_abs_error": null,
+    "worst_term": null,
+    "prevalence_abs_error": null,
+    "n_accuracy_terms": 0,
+    "per_persona": [
+      {
+        "persona": "Optimist",
+        "abs_error": {
+          "a": null,
+          "b": null
+        }
+      },
+      {
+        "persona": "Neutral",
+        "abs_error": {
+          "a": null,
+          "b": null
+        }
+      },
+      {
+        "persona": "Pessimist",
+        "abs_error": {
+          "a": null,
+          "b": null
+        }
+      }
+    ]
+  }
+}

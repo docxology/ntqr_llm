@@ -1,0 +1,223 @@
+{
+  "generated_at": "2026-06-01T13:18:55",
+  "result": {
+    "figure": "temperature_schema_comparison.png",
+    "title": "Temperature/schema comparison: parseability and evaluability",
+    "y_label": "final parse rate",
+    "baseline": {
+      "source": "baseline_t0.7_summary.json",
+      "series": [
+        {
+          "model": "granite4.1:3b",
+          "run": "baseline",
+          "temperature": 0.7,
+          "prompt_version": "v2_balanced_schema",
+          "parsed": 190,
+          "unparsed": 2,
+          "total": 192,
+          "parse_rate": 0.9895833333333334,
+          "evaluable": false
+        },
+        {
+          "model": "mistral:latest",
+          "run": "baseline",
+          "temperature": 0.7,
+          "prompt_version": "v2_balanced_schema",
+          "parsed": 169,
+          "unparsed": 23,
+          "total": 192,
+          "parse_rate": 0.8802083333333334,
+          "evaluable": false
+        },
+        {
+          "model": "gemma2:2b",
+          "run": "baseline",
+          "temperature": 0.7,
+          "prompt_version": "v2_balanced_schema",
+          "parsed": 170,
+          "unparsed": 22,
+          "total": 192,
+          "parse_rate": 0.8854166666666666,
+          "evaluable": false
+        },
+        {
+          "model": "gemma3:4b",
+          "run": "baseline",
+          "temperature": 0.7,
+          "prompt_version": "v2_balanced_schema",
+          "parsed": 191,
+          "unparsed": 1,
+          "total": 192,
+          "parse_rate": 0.9947916666666666,
+          "evaluable": false
+        },
+        {
+          "model": "gemma4:latest",
+          "run": "baseline",
+          "temperature": 0.7,
+          "prompt_version": "v2_balanced_schema",
+          "parsed": 192,
+          "unparsed": 0,
+          "total": 192,
+          "parse_rate": 1.0,
+          "evaluable": true
+        },
+        {
+          "model": "smollm2:135m-instruct-q4_K_S",
+          "run": "baseline",
+          "temperature": 0.7,
+          "prompt_version": "v2_balanced_schema",
+          "parsed": 35,
+          "unparsed": 157,
+          "total": 192,
+          "parse_rate": 0.18229166666666666,
+          "evaluable": false
+        }
+      ]
+    },
+    "headline": {
+      "series": [
+        {
+          "model": "granite4.1:3b",
+          "run": "headline",
+          "temperature": 0.1,
+          "prompt_version": "v3_binary_schema",
+          "parsed": 192,
+          "unparsed": 0,
+          "total": 192,
+          "parse_rate": 1.0,
+          "evaluable": true
+        },
+        {
+          "model": "mistral:latest",
+          "run": "headline",
+          "temperature": 0.1,
+          "prompt_version": "v3_binary_schema",
+          "parsed": 192,
+          "unparsed": 0,
+          "total": 192,
+          "parse_rate": 1.0,
+          "evaluable": true
+        },
+        {
+          "model": "gemma2:2b",
+          "run": "headline",
+          "temperature": 0.1,
+          "prompt_version": "v3_binary_schema",
+          "parsed": 192,
+          "unparsed": 0,
+          "total": 192,
+          "parse_rate": 1.0,
+          "evaluable": true
+        },
+        {
+          "model": "gemma3:4b",
+          "run": "headline",
+          "temperature": 0.1,
+          "prompt_version": "v3_binary_schema",
+          "parsed": 192,
+          "unparsed": 0,
+          "total": 192,
+          "parse_rate": 1.0,
+          "evaluable": true
+        },
+        {
+          "model": "gemma4:latest",
+          "run": "headline",
+          "temperature": 0.1,
+          "prompt_version": "v3_binary_schema",
+          "parsed": 192,
+          "unparsed": 0,
+          "total": 192,
+          "parse_rate": 1.0,
+          "evaluable": true
+        },
+        {
+          "model": "smollm2:135m-instruct-q4_K_S",
+          "run": "headline",
+          "temperature": 0.1,
+          "prompt_version": "v3_binary_schema",
+          "parsed": 192,
+          "unparsed": 0,
+          "total": 192,
+          "parse_rate": 1.0,
+          "evaluable": false
+        }
+      ]
+    },
+    "metadata": {
+      "generated_utc": "2026-06-01T20:18:55.145351+00:00",
+      "n_scenarios": 64,
+      "n_personas": 3,
+      "personas": [
+        "Optimist",
+        "Neutral",
+        "Pessimist"
+      ],
+      "labels": [
+        "a",
+        "b"
+      ],
+      "experiment": {
+        "backend": "ollama",
+        "temperature": 0.1,
+        "n_personas": 3,
+        "n_scenarios": 64,
+        "n_labels": 2,
+        "n_models_requested": 6,
+        "n_models_evaluated": 5,
+        "prompt_version": "v3_binary_schema",
+        "prompt_hash": "4d157f84885a",
+        "baseline_summary": "baseline_t0.7_summary.json",
+        "date": "2026-06-01"
+      }
+    },
+    "caption": "The old temperature-0.7 prompt is retained as a stress-test baseline. The new temperature-0.1 schema run is the headline experiment: parseability should approach 100%, leaving genuine vote-matrix evaluability as the object of study. E marks an ensemble that the ntqr solve could evaluate."
+  },
+  "caption": "The old temperature-0.7 prompt is retained as a stress-test baseline. The new temperature-0.1 schema run is the headline experiment: parseability should approach 100%, leaving genuine vote-matrix evaluability as the object of study. E marks an ensemble that the ntqr solve could evaluate.",
+  "metadata": {
+    "generated_utc": "2026-06-01T20:18:55.145351+00:00",
+    "n_scenarios": 64,
+    "n_personas": 3,
+    "personas": [
+      "Optimist",
+      "Neutral",
+      "Pessimist"
+    ],
+    "labels": [
+      "a",
+      "b"
+    ],
+    "experiment": {
+      "backend": "ollama",
+      "temperature": 0.1,
+      "n_personas": 3,
+      "n_scenarios": 64,
+      "n_labels": 2,
+      "n_models_requested": 6,
+      "n_models_evaluated": 5,
+      "prompt_version": "v3_binary_schema",
+      "prompt_hash": "4d157f84885a",
+      "baseline_summary": "baseline_t0.7_summary.json",
+      "date": "2026-06-01"
+    }
+  },
+  "provenance": {
+    "source_file": "temperature_schema_comparison.data.json",
+    "generated_utc": "2026-06-01T20:18:55.145351+00:00",
+    "n_scenarios": 64,
+    "experiment": {
+      "backend": "ollama",
+      "temperature": 0.1,
+      "n_personas": 3,
+      "n_scenarios": 64,
+      "n_labels": 2,
+      "n_models_requested": 6,
+      "n_models_evaluated": 5,
+      "prompt_version": "v3_binary_schema",
+      "prompt_hash": "4d157f84885a",
+      "baseline_summary": "baseline_t0.7_summary.json",
+      "date": "2026-06-01"
+    }
+  }
+}

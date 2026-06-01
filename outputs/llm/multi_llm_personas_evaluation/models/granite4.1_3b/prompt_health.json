@@ -1,0 +1,83 @@
+{
+  "generated_at": "2026-06-01T13:18:54",
+  "result": {
+    "Optimist": {
+      "n_total": 64,
+      "n_parsed": 64,
+      "n_unparsed": 0,
+      "parse_rate": 1.0,
+      "primary_parse_rate": 1.0,
+      "final_parse_rate": 1.0,
+      "n_repair_needed": 0,
+      "n_repaired": 0,
+      "n_invalid_label": 0,
+      "n_unavailable": 0,
+      "parse_methods": {
+        "schema_json": 64
+      },
+      "call_counts": {
+        "bearish": 25,
+        "bullish": 39
+      },
+      "distinct_calls": [
+        "bearish",
+        "bullish"
+      ],
+      "modal_fraction": 0.609375,
+      "entropy_bits": 0.9652016987500656,
+      "is_constant": false
+    },
+    "Neutral": {
+      "n_total": 64,
+      "n_parsed": 64,
+      "n_unparsed": 0,
+      "parse_rate": 1.0,
+      "primary_parse_rate": 1.0,
+      "final_parse_rate": 1.0,
+      "n_repair_needed": 0,
+      "n_repaired": 0,
+      "n_invalid_label": 0,
+      "n_unavailable": 0,
+      "parse_methods": {
+        "schema_json": 64
+      },
+      "call_counts": {
+        "bearish": 28,
+        "bullish": 36
+      },
+      "distinct_calls": [
+        "bearish",
+        "bullish"
+      ],
+      "modal_fraction": 0.5625,
+      "entropy_bits": 0.9886994082884974,
+      "is_constant": false
+    },
+    "Pessimist": {
+      "n_total": 64,
+      "n_parsed": 64,
+      "n_unparsed": 0,
+      "parse_rate": 1.0,
+      "primary_parse_rate": 1.0,
+      "final_parse_rate": 1.0,
+      "n_repair_needed": 0,
+      "n_repaired": 0,
+      "n_invalid_label": 0,
+      "n_unavailable": 0,
+      "parse_methods": {
+        "schema_json": 64
+      },
+      "call_counts": {
+        "bearish": 31,
+        "bullish": 33
+      },
+      "distinct_calls": [
+        "bearish",
+        "bullish"
+      ],
+      "modal_fraction": 0.515625,
+      "entropy_bits": 0.9992954443621549,
+      "is_constant": false
+    }
+  }
+}

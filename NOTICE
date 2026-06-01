@@ -1,0 +1,14 @@
+NTQR LLM Personas
+Copyright 2026 Daniel Ari Friedman
+
+This repository contains the manuscript, scripts, generated artifacts, and
+reproducibility materials for "Recovering LLM-Persona Accuracies from
+Unlabeled Votes."
+
+The vendored NTQR algebraic-evaluation library is included under
+python/src/ntqr/ and carries its own license at python/LICENSE.txt. The
+manuscript cites the public NTQR 0.8 documentation:
+https://ntqr.readthedocs.io/en/latest/
+
+NTQR documentation copyright notice:
+Copyright (c) 2026, Andres Corrada-Emmanuel, Walker Lee, Adam Sloat.

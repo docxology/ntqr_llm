@@ -1,0 +1,61 @@
+{
+  "generated_at": "2026-06-01T13:18:54",
+  "result": {
+    "predicted_evaluable": true,
+    "constant_classifiers": [],
+    "n_unparsed": 0,
+    "mean_pairwise_disagreement": 0.22916666666666666,
+    "vote_variation": {
+      "Optimist": {
+        "n": 64,
+        "n_unparsed": 0,
+        "distinct_calls": [
+          "bearish",
+          "bullish"
+        ],
+        "call_counts": {
+          "bullish": 45,
+          "bearish": 19
+        },
+        "modal_fraction": 0.703125,
+        "is_constant": false
+      },
+      "Neutral": {
+        "n": 64,
+        "n_unparsed": 0,
+        "distinct_calls": [
+          "bearish",
+          "bullish"
+        ],
+        "call_counts": {
+          "bullish": 39,
+          "bearish": 25
+        },
+        "modal_fraction": 0.609375,
+        "is_constant": false
+      },
+      "Pessimist": {
+        "n": 64,
+        "n_unparsed": 0,
+        "distinct_calls": [
+          "bearish",
+          "bullish"
+        ],
+        "call_counts": {
+          "bullish": 23,
+          "bearish": 41
+        },
+        "modal_fraction": 0.640625,
+        "is_constant": false
+      }
+    },
+    "pairwise_disagreement": {
+      "pairs": {
+        "Optimist vs Neutral": 0.09375,
+        "Optimist vs Pessimist": 0.34375,
+        "Neutral vs Pessimist": 0.25
+      },
+      "mean": 0.22916666666666666
+    }
+  }
+}

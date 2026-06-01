@@ -1,0 +1,142 @@
+{
+  "generated_at": "2026-06-01T13:18:54",
+  "result": {
+    "figure": "evaluation_pipeline.png",
+    "title": "What enters the unsupervised solve, and what is validation-only",
+    "stages": [
+      {
+        "id": "scenario_facts",
+        "label": "Scenario facts -> (authored truth hidden)"
+      },
+      {
+        "id": "binary_prompt",
+        "label": "v3 binary schema -> model must choose one label"
+      },
+      {
+        "id": "parse_repair",
+        "label": "Parse + one repair retry -> no local vote fabrication"
+      },
+      {
+        "id": "vote_matrix",
+        "label": "Complete vote matrix -> 3 personas x Q scenarios"
+      },
+      {
+        "id": "trio_counts",
+        "label": "Unlabeled TrioVoteCounts -> agreement sketch only"
+      },
+      {
+        "id": "ntqr_solve",
+        "label": "NTQR EI solve -> two roots or alarm"
+      },
+      {
+        "id": "validation",
+        "label": "Branch selection + validation -> MAE scored after solve"
+      }
+    ],
+    "edges": [
+      [
+        "scenario_facts",
+        "binary_prompt"
+      ],
+      [
+        "binary_prompt",
+        "parse_repair"
+      ],
+      [
+        "parse_repair",
+        "vote_matrix"
+      ],
+      [
+        "vote_matrix",
+        "trio_counts"
+      ],
+      [
+        "trio_counts",
+        "ntqr_solve"
+      ],
+      [
+        "ntqr_solve",
+        "validation"
+      ]
+    ],
+    "validation_only": [
+      "authored truth",
+      "SupervisedEvaluation",
+      "recovery MAE"
+    ],
+    "metadata": {
+      "generated_utc": "2026-06-01T20:18:54.847939+00:00",
+      "n_scenarios": 64,
+      "n_personas": 3,
+      "personas": [
+        "Optimist",
+        "Neutral",
+        "Pessimist"
+      ],
+      "labels": [
+        "a",
+        "b"
+      ],
+      "experiment": {
+        "backend": "ollama",
+        "temperature": 0.1,
+        "n_personas": 3,
+        "n_scenarios": 64,
+        "n_labels": 2,
+        "n_models_requested": 6,
+        "n_models_evaluated": 5,
+        "prompt_version": "v3_binary_schema",
+        "prompt_hash": "4d157f84885a",
+        "baseline_summary": "baseline_t0.7_summary.json",
+        "date": "2026-06-01"
+      }
+    },
+    "caption": "The NTQR solve sees only parsed votes summarized as unlabeled agreement counts. Authored truth is held out until after branch selection, where it scores recovery MAE for this controlled experiment."
+  },
+  "caption": "The NTQR solve sees only parsed votes summarized as unlabeled agreement counts. Authored truth is held out until after branch selection, where it scores recovery MAE for this controlled experiment.",
+  "metadata": {
+    "generated_utc": "2026-06-01T20:18:54.847939+00:00",
+    "n_scenarios": 64,
+    "n_personas": 3,
+    "personas": [
+      "Optimist",
+      "Neutral",
+      "Pessimist"
+    ],
+    "labels": [
+      "a",
+      "b"
+    ],
+    "experiment": {
+      "backend": "ollama",
+      "temperature": 0.1,
+      "n_personas": 3,
+      "n_scenarios": 64,
+      "n_labels": 2,
+      "n_models_requested": 6,
+      "n_models_evaluated": 5,
+      "prompt_version": "v3_binary_schema",
+      "prompt_hash": "4d157f84885a",
+      "baseline_summary": "baseline_t0.7_summary.json",
+      "date": "2026-06-01"
+    }
+  },
+  "provenance": {
+    "source_file": "evaluation_pipeline.data.json",
+    "generated_utc": "2026-06-01T20:18:54.847939+00:00",
+    "n_scenarios": 64,
+    "experiment": {
+      "backend": "ollama",
+      "temperature": 0.1,
+      "n_personas": 3,
+      "n_scenarios": 64,
+      "n_labels": 2,
+      "n_models_requested": 6,
+      "n_models_evaluated": 5,
+      "prompt_version": "v3_binary_schema",
+      "prompt_hash": "4d157f84885a",
+      "baseline_summary": "baseline_t0.7_summary.json",
+      "date": "2026-06-01"
+    }
+  }
+}

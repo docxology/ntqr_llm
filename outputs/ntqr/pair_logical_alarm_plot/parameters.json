@@ -1,0 +1,28 @@
+{
+  "generated_at": "2026-05-28T17:53:36",
+  "result": {
+    "labels": [
+      "a",
+      "b"
+    ],
+    "classifiers": [
+      "i",
+      "j"
+    ],
+    "qs": [
+      5,
+      5
+    ],
+    "responses": [
+      [
+        3,
+        2
+      ],
+      [
+        4,
+        1
+      ]
+    ],
+    "figure": "pair_logical_alarm.png"
+  }
+}

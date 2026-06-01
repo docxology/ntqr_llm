@@ -1,0 +1,770 @@
+{
+  "ollama|granite4.1:3b|t0.7|optimist|s01": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s01": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s01": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s02": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s02": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s02": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s03": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s03": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s03": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s04": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s04": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s04": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s05": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s05": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s05": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s06": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s06": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s06": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s07": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s07": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s07": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s08": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s08": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s08": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s09": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s09": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s09": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s10": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s10": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s10": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s11": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s11": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s11": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s12": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s12": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s12": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s13": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s13": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s13": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s14": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s14": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s14": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s15": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s15": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s15": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s16": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s16": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s16": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s17": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s17": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s17": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s18": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s18": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s18": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s19": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s19": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s19": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s20": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s20": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s20": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s21": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s21": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s21": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s22": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s22": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s22": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s23": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s23": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s23": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s24": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s24": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s24": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s25": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s25": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s25": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s26": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s26": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s26": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s27": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s27": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s27": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s28": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s28": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s28": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s29": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s29": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s29": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s30": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s30": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s30": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s31": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s31": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s31": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s32": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s32": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s32": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s33": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s33": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s33": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s34": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s34": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s34": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s35": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s35": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s35": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s36": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s36": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s36": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s37": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s37": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s37": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s38": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s38": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s38": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s39": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s39": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s39": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s40": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s40": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s40": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s41": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s41": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s41": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s42": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s42": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s42": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s43": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s43": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s43": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s44": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s44": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s44": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s45": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s45": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s45": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s46": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s46": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s46": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s47": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s47": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s47": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s48": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s48": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s48": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s49": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s49": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s49": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s50": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s50": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s50": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s51": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s51": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s51": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s52": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s52": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s52": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s53": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s53": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s53": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s54": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s54": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s54": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s55": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s55": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s55": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s56": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s56": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s56": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s57": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s57": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s57": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s58": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s58": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s58": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s59": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s59": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s59": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s60": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s60": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s60": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s61": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s61": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s61": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s62": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s62": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s62": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s63": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s63": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s63": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|optimist|s64": {
+    "call": "bullish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|neutral|s64": {
+    "call": "bearish",
+    "unparsed": false
+  },
+  "ollama|granite4.1:3b|t0.7|pessimist|s64": {
+    "call": "bearish",
+    "unparsed": false
+  }
+}

@@ -1,0 +1,5155 @@
+{
+  "generated_at": "2026-06-01T13:18:54",
+  "result": {
+    "backend": "ollama",
+    "model": "gemma4:latest",
+    "prompt_version": "v3_binary_schema",
+    "prompt_hash": "4d157f84885a",
+    "personas": [
+      "Optimist",
+      "Neutral",
+      "Pessimist"
+    ],
+    "unparsed_responses": 0,
+    "by_scenario": {
+      "s01": {
+        "optimist": "bullish",
+        "neutral": "bullish",
+        "pessimist": "bullish"
+      },
+      "s02": {
+        "optimist": "bearish",
+        "neutral": "bearish",
+        "pessimist": "bearish"
+      },
+      "s03": {
+        "optimist": "bullish",
+        "neutral": "bullish",
+        "pessimist": "bullish"
+      },
+      "s04": {
+        "optimist": "bearish",
+        "neutral": "bearish",
+        "pessimist": "bearish"
+      },
+      "s05": {
+        "optimist": "bullish",
+        "neutral": "bullish",
+        "pessimist": "bullish"
+      },
+      "s06": {
+        "optimist": "bearish",
+        "neutral": "bearish",
+        "pessimist": "bearish"
+      },
+      "s07": {
+        "optimist": "bullish",
+        "neutral": "bullish",
+        "pessimist": "bullish"
+      },
+      "s08": {
+        "optimist": "bearish",
+        "neutral": "bearish",
+        "pessimist": "bearish"
+      },
+      "s09": {
+        "optimist": "bullish",
+        "neutral": "bullish",
+        "pessimist": "bullish"
+      },
+      "s10": {
+        "optimist": "bearish",
+        "neutral": "bearish",
+        "pessimist": "bearish"
+      },
+      "s11": {
+        "optimist": "bullish",
+        "neutral": "bullish",
+        "pessimist": "bullish"
+      },
+      "s12": {
+        "optimist": "bearish",
+        "neutral": "bearish",
+        "pessimist": "bearish"
+      },
+      "s13": {
+        "optimist": "bullish",
+        "neutral": "bullish",
+        "pessimist": "bullish"
+      },
+      "s14": {
+        "optimist": "bearish",
+        "neutral": "bearish",
+        "pessimist": "bearish"
+      },
+      "s15": {
+        "optimist": "bullish",
+        "neutral": "bullish",
+        "pessimist": "bullish"
+      },
+      "s16": {
+        "optimist": "bearish",
+        "neutral": "bearish",
+        "pessimist": "bearish"
+      },
+      "s17": {
+        "optimist": "bullish",
+        "neutral": "bullish",
+        "pessimist": "bullish"
+      },
+      "s18": {
+        "optimist": "bearish",
+        "neutral": "bearish",
+        "pessimist": "bearish"
+      },
+      "s19": {
+        "optimist": "bearish",
+        "neutral": "bearish",
+        "pessimist": "bearish"
+      },
+      "s20": {
+        "optimist": "bearish",
+        "neutral": "bearish",
+        "pessimist": "bearish"
+      },
+      "s21": {
+        "optimist": "bullish",
+        "neutral": "bullish",
+        "pessimist": "bearish"
+      },
+      "s22": {
+        "optimist": "bearish",
+        "neutral": "bearish",
+        "pessimist": "bearish"
+      },
+      "s23": {
+        "optimist": "bullish",
+        "neutral": "bullish",
+        "pessimist": "bullish"
+      },
+      "s24": {
+        "optimist": "bearish",
+        "neutral": "bearish",
+        "pessimist": "bearish"
+      },
+      "s25": {
+        "optimist": "bullish",
+        "neutral": "bullish",
+        "pessimist": "bullish"
+      },
+      "s26": {
+        "optimist": "bullish",
+        "neutral": "bullish",
+        "pessimist": "bullish"
+      },
+      "s27": {
+        "optimist": "bullish",
+        "neutral": "bullish",
+        "pessimist": "bullish"
+      },
+      "s28": {
+        "optimist": "bullish",
+        "neutral": "bullish",
+        "pessimist": "bullish"
+      },
+      "s29": {
+        "optimist": "bullish",
+        "neutral": "bullish",
+        "pessimist": "bullish"
+      },
+      "s30": {
+        "optimist": "bullish",
+        "neutral": "bullish",
+        "pessimist": "bullish"
+      },
+      "s31": {
+        "optimist": "bullish",
+        "neutral": "bullish",
+        "pessimist": "bullish"
+      },
+      "s32": {
+        "optimist": "bullish",
+        "neutral": "bullish",
+        "pessimist": "bullish"
+      },
+      "s33": {
+        "optimist": "bullish",
+        "neutral": "bullish",
+        "pessimist": "bullish"
+      },
+      "s34": {
+        "optimist": "bullish",
+        "neutral": "bullish",
+        "pessimist": "bullish"
+      },
+      "s35": {
+        "optimist": "bullish",
+        "neutral": "bullish",
+        "pessimist": "bullish"
+      },
+      "s36": {
+        "optimist": "bullish",
+        "neutral": "bullish",
+        "pessimist": "bullish"
+      },
+      "s37": {
+        "optimist": "bullish",
+        "neutral": "bullish",
+        "pessimist": "bullish"
+      },
+      "s38": {
+        "optimist": "bullish",
+        "neutral": "bullish",
+        "pessimist": "bullish"
+      },
+      "s39": {
+        "optimist": "bullish",
+        "neutral": "bullish",
+        "pessimist": "bullish"
+      },
+      "s40": {
+        "optimist": "bullish",
+        "neutral": "bullish",
+        "pessimist": "bullish"
+      },
+      "s41": {
+        "optimist": "bullish",
+        "neutral": "bullish",
+        "pessimist": "bullish"
+      },
+      "s42": {
+        "optimist": "bullish",
+        "neutral": "bullish",
+        "pessimist": "bullish"
+      },
+      "s43": {
+        "optimist": "bullish",
+        "neutral": "bullish",
+        "pessimist": "bullish"
+      },
+      "s44": {
+        "optimist": "bullish",
+        "neutral": "bullish",
+        "pessimist": "bullish"
+      },
+      "s45": {
+        "optimist": "bullish",
+        "neutral": "bullish",
+        "pessimist": "bullish"
+      },
+      "s46": {
+        "optimist": "bullish",
+        "neutral": "bullish",
+        "pessimist": "bullish"
+      },
+      "s47": {
+        "optimist": "bullish",
+        "neutral": "bullish",
+        "pessimist": "bullish"
+      },
+      "s48": {
+        "optimist": "bullish",
+        "neutral": "bullish",
+        "pessimist": "bullish"
+      },
+      "s49": {
+        "optimist": "bearish",
+        "neutral": "bearish",
+        "pessimist": "bearish"
+      },
+      "s50": {
+        "optimist": "bearish",
+        "neutral": "bearish",
+        "pessimist": "bearish"
+      },
+      "s51": {
+        "optimist": "bearish",
+        "neutral": "bearish",
+        "pessimist": "bearish"
+      },
+      "s52": {
+        "optimist": "bearish",
+        "neutral": "bearish",
+        "pessimist": "bearish"
+      },
+      "s53": {
+        "optimist": "bearish",
+        "neutral": "bearish",
+        "pessimist": "bearish"
+      },
+      "s54": {
+        "optimist": "bearish",
+        "neutral": "bearish",
+        "pessimist": "bearish"
+      },
+      "s55": {
+        "optimist": "bearish",
+        "neutral": "bearish",
+        "pessimist": "bearish"
+      },
+      "s56": {
+        "optimist": "bearish",
+        "neutral": "bearish",
+        "pessimist": "bearish"
+      },
+      "s57": {
+        "optimist": "bullish",
+        "neutral": "bearish",
+        "pessimist": "bearish"
+      },
+      "s58": {
+        "optimist": "bearish",
+        "neutral": "bearish",
+        "pessimist": "bearish"
+      },
+      "s59": {
+        "optimist": "bullish",
+        "neutral": "bullish",
+        "pessimist": "bullish"
+      },
+      "s60": {
+        "optimist": "bullish",
+        "neutral": "bullish",
+        "pessimist": "bearish"
+      },
+      "s61": {
+        "optimist": "bullish",
+        "neutral": "bullish",
+        "pessimist": "bullish"
+      },
+      "s62": {
+        "optimist": "bearish",
+        "neutral": "bearish",
+        "pessimist": "bearish"
+      },
+      "s63": {
+        "optimist": "bullish",
+        "neutral": "bullish",
+        "pessimist": "bullish"
+      },
+      "s64": {
+        "optimist": "bearish",
+        "neutral": "bearish",
+        "pessimist": "bearish"
+      }
+    },
+    "response_records": {
+      "s01": {
+        "optimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s02": {
+        "optimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\":\"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\":\"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s03": {
+        "optimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s04": {
+        "optimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s05": {
+        "optimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s06": {
+        "optimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\":\"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\":\"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s07": {
+        "optimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s08": {
+        "optimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s09": {
+        "optimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s10": {
+        "optimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\":\"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\":\"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\":\"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\":\"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s11": {
+        "optimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s12": {
+        "optimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\":\"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\":\"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\":\"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\":\"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s13": {
+        "optimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s14": {
+        "optimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s15": {
+        "optimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s16": {
+        "optimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\":\"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\":\"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s17": {
+        "optimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s18": {
+        "optimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s19": {
+        "optimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s20": {
+        "optimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s21": {
+        "optimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s22": {
+        "optimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s23": {
+        "optimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s24": {
+        "optimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s25": {
+        "optimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s26": {
+        "optimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s27": {
+        "optimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s28": {
+        "optimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s29": {
+        "optimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s30": {
+        "optimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s31": {
+        "optimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s32": {
+        "optimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s33": {
+        "optimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s34": {
+        "optimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s35": {
+        "optimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s36": {
+        "optimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s37": {
+        "optimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s38": {
+        "optimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s39": {
+        "optimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s40": {
+        "optimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s41": {
+        "optimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s42": {
+        "optimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s43": {
+        "optimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s44": {
+        "optimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s45": {
+        "optimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s46": {
+        "optimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s47": {
+        "optimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s48": {
+        "optimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s49": {
+        "optimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\":\"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\":\"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s50": {
+        "optimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\":\"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\":\"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s51": {
+        "optimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\":\"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\":\"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s52": {
+        "optimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s53": {
+        "optimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s54": {
+        "optimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\":\"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\":\"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s55": {
+        "optimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s56": {
+        "optimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\":\"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\":\"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s57": {
+        "optimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s58": {
+        "optimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s59": {
+        "optimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s60": {
+        "optimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s61": {
+        "optimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s62": {
+        "optimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s63": {
+        "optimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bullish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bullish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bullish\"}",
+              "call": "bullish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      },
+      "s64": {
+        "optimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "neutral": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        },
+        "pessimist": {
+          "call": "bearish",
+          "unparsed": false,
+          "raw": "{\"call\": \"bearish\"}",
+          "parse_method": "schema_json",
+          "schema_valid": true,
+          "invalid_reason": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "raw": "{\"call\": \"bearish\"}",
+              "call": "bearish",
+              "parse_method": "schema_json",
+              "schema_valid": true,
+              "invalid_reason": null
+            }
+          ],
+          "repair_used": false,
+          "n_attempts": 1,
+          "primary_parse_valid": true,
+          "final_parse_valid": true,
+          "prompt_version": "v3_binary_schema",
+          "prompt_hash": "4d157f84885a"
+        }
+      }
+    },
+    "prompt_health": {
+      "Optimist": {
+        "n_total": 64,
+        "n_parsed": 64,
+        "n_unparsed": 0,
+        "parse_rate": 1.0,
+        "primary_parse_rate": 1.0,
+        "final_parse_rate": 1.0,
+        "n_repair_needed": 0,
+        "n_repaired": 0,
+        "n_invalid_label": 0,
+        "n_unavailable": 0,
+        "parse_methods": {
+          "schema_json": 64
+        },
+        "call_counts": {
+          "bearish": 24,
+          "bullish": 40
+        },
+        "distinct_calls": [
+          "bearish",
+          "bullish"
+        ],
+        "modal_fraction": 0.625,
+        "entropy_bits": 0.954434002924965,
+        "is_constant": false
+      },
+      "Neutral": {
+        "n_total": 64,
+        "n_parsed": 64,
+        "n_unparsed": 0,
+        "parse_rate": 1.0,
+        "primary_parse_rate": 1.0,
+        "final_parse_rate": 1.0,
+        "n_repair_needed": 0,
+        "n_repaired": 0,
+        "n_invalid_label": 0,
+        "n_unavailable": 0,
+        "parse_methods": {
+          "schema_json": 64
+        },
+        "call_counts": {
+          "bearish": 25,
+          "bullish": 39
+        },
+        "distinct_calls": [
+          "bearish",
+          "bullish"
+        ],
+        "modal_fraction": 0.609375,
+        "entropy_bits": 0.9652016987500656,
+        "is_constant": false
+      },
+      "Pessimist": {
+        "n_total": 64,
+        "n_parsed": 64,
+        "n_unparsed": 0,
+        "parse_rate": 1.0,
+        "primary_parse_rate": 1.0,
+        "final_parse_rate": 1.0,
+        "n_repair_needed": 0,
+        "n_repaired": 0,
+        "n_invalid_label": 0,
+        "n_unavailable": 0,
+        "parse_methods": {
+          "schema_json": 64
+        },
+        "call_counts": {
+          "bearish": 27,
+          "bullish": 37
+        },
+        "distinct_calls": [
+          "bearish",
+          "bullish"
+        ],
+        "modal_fraction": 0.578125,
+        "entropy_bits": 0.9823166080205501,
+        "is_constant": false
+      }
+    }
+  }
+}

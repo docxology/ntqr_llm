@@ -1,0 +1,4 @@
+{
+  "dataset": "uci_adult",
+  "labels": ["a", "b"]
+}

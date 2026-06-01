@@ -1,0 +1,312 @@
+# Supplemental material {#sec:supplemental}
+
+<!-- GENERATED FILE — do not edit by hand.
+     Source: scripts/manuscript/templates/supplemental.md.tmpl
+     Numbers: scripts/manuscript/_values.py  (read from generated JSON artifacts)
+     Rebuild: python scripts/manuscript/render.py -->
+
+Companion to the main manuscript. All numbers here are reproduced
+from generated artifacts: the cached LLM sweep in
+`outputs/llm/multi_llm_personas_evaluation/` (Ollama backend, temperature
+{{TEMP}}, N={{N}} personas, T={{T}} test, Q={{Q}} scenarios, R={{R}} responses),
+the deterministic simulation/bootstrap outputs, and the offline validation
+matrix.
+
+- [S1 — The two-solution tie-break](#sec:tie-break)
+- [S1.5 — Worked example: the prevalence algebra on real votes](#sec:worked-example)
+- [S1.6 — Exactly when the imaginary-root alarm fires (and its blind spot)](#sec:alarm-derivation)
+- [S2 — Full per-model label vote counts](#sec:vote-counts)
+- [S3 — Full per-persona recovery ({{BEST_MODEL}})](#sec:full-recovery)
+- [S4 — Personas, scenarios, and authored truth](#sec:personas-scenarios)
+- [S5 — Reproduction](#sec:reproduction)
+- [S6 — The evaluability diagnostic, defined](#sec:diagnostic-definition)
+- [S7 — Output file inventory](#sec:output-inventory)
+
+## S1 — The two-solution tie-break {#sec:tie-break}
+
+`ErrorIndependentEvaluation` (and `MajorityVotingEvaluation`) each return **two**
+algebraically consistent solutions for the trio's prevalence and per-persona
+accuracies. The two are a symmetry pair: the labelling we intend, and its
+*mirror image* in which every judge is treated as near-random/anti-correct and
+the prevalence is reflected about 0.5. Both satisfy the postulates exactly — the
+algebra alone cannot distinguish them.
+
+We select with the standard answer-key-free assumption that **the judges are
+better than random**: keep the solution with the higher mean per-judge,
+per-label accuracy (`scripts/llm/_analysis.py::select_best`).
+
+Two tempting alternatives are rejected on principle:
+
+1. **Pick the solution closest to the true prevalence.** This peeks at the
+   ground truth, so it is not unsupervised. It also fails outright when the two
+   candidate prevalences are symmetric about 0.5 (e.g. 0.46 vs 0.54), where
+   "closest to 0.5" is a coin flip.
+2. **Pick by internal consistency.** Both solutions are *exactly* consistent —
+   that is the whole point — so consistency cannot break the tie.
+
+For {{BEST_MODEL}}, the selected solution had mean accuracy ≈ {{SEL_MEAN_ACC}}
+against its mirror's ≈ {{MIRROR_MEAN_ACC}}; the tie-break is unambiguous. See the
+two solutions verbatim in
+`outputs/llm/multi_llm_personas_evaluation/models/{{BEST_MODEL_DIR}}/evaluation_error_independent.json`.
+
+## S1.5 — Worked example: the prevalence algebra on real votes {#sec:worked-example}
+
+This section runs the [@sec:formalism] formalism on **`{{BEST_MODEL}}`'s actual votes** — no
+toy numbers. Every value below is recomputed by `_values.py` from the on-disk
+`label_vote_counts.json` through `ntqr.r2`, so it cannot drift from the data.
+
+**Step 1 — the data sketch.** From the trio's votes we read the all-bearish
+vote-pattern frequency and the frequency moments (label `b`):
+
+| Quantity | Symbol | Value |
+|---|---|---|
+| All-`b` vote frequency | $f_{\beta\beta\beta}$ | {{WE_F_BBB}} |
+| Trio frequency moment | $m_{012}$ | {{WE_TRIO_MOMENT}} |
+| Gap | $\Delta = f_{\beta\beta\beta} - m_{012}$ | {{WE_DELTA}} |
+| Pair moment (Opt,Neu) | $\delta_{(0,1)}$ | {{WE_PAIR_01}} |
+| Pair moment (Opt,Pes) | $\delta_{(0,2)}$ | {{WE_PAIR_02}} |
+| Pair moment (Neu,Pes) | $\delta_{(1,2)}$ | {{WE_PAIR_12}} |
+| Product of pair moments | $\prod_{(i,j)}\delta_{(i,j)}$ | {{WE_PROD_PAIRS}} |
+
+: Real-vote frequency moments for `{{BEST_MODEL}}`, recomputed from `label_vote_counts.json`. {#tbl:worked-frequency-moments}
+
+All three pair moments are **strictly positive** — every judge varies and the
+pairs co-vary — so the product does not vanish and the system is non-degenerate
+(contrast [@sec:failure-modes], where a constant classifier drives a pair moment to zero).
+
+**Step 2 — the prevalence quadratic.** With $a = \Delta^2 + 4\prod\delta$ and
+$c = \prod\delta$, the discriminant of $P_\alpha = \tfrac12 \mp
+\tfrac12\sqrt{1 - 4c/a}$ evaluates to
+
+$$
+1 - 4c/a = {{WE_DISCRIMINANT}} \;>\; 0 \quad\Longrightarrow\quad
+   \tfrac12\sqrt{1 - 4c/a} = {{WE_HALF_SQRT}}.
+$$ {#eq:worked-discriminant}
+
+The discriminant is **positive**, so the prevalence is real — the algebra finds
+no error-correlation violation (had it been negative, `ntqr` would raise
+`PrevalenceImaginaryException`; see [@sec:formalism]).
+
+**Step 3 — the two solutions.** The $\mp$ yields the symmetry pair
+
+$$
+P_\alpha \in \{\,{{WE_ROOT_LO}},\; {{WE_ROOT_HI}}\,\}.
+$$ {#eq:worked-roots}
+
+mirror images about $\tfrac12$. The tie-break ([@sec:tie-break]) selects
+**{{WE_SELECTED_PREV}}** (higher mean accuracy), against the authored true
+prevalence of **{{WE_TRUE_PREV}}** — an absolute error of **{{WE_PREV_ERR}}**,
+recovered with no answer key. Fixing this root then fixes all six per-persona,
+per-label accuracies via the linear maps of [@sec:formalism] (tabulated in
+[@sec:full-recovery]).
+
+## S1.6 — Exactly when the imaginary-root alarm fires (and its blind spot) {#sec:alarm-derivation}
+
+The [@sec:synthetic-validation] simulation finds, empirically, that the imaginary-prevalence alarm trips
+on an anti-correlated judge pair but **never** on positive common-mode
+correlation. That asymmetry is not a quirk of the draws — it falls straight out
+of the quadratic. Substituting $a = \Delta^2 + 4\prod\delta$ and $c = \prod\delta$
+into the discriminant and simplifying,
+
+$$
+D \;=\; 1 - \frac{4c}{a}
+   \;=\; \frac{\Delta^2 + 4\prod\delta - 4\prod\delta}{\Delta^2 + 4\prod\delta}
+   \;=\; \frac{\Delta^2}{\Delta^2 + 4\prod\delta},
+$$ {#eq:alarm-discriminant}
+
+where $\Delta = f_{\beta\beta\beta} - m_{012}$ and $\prod\delta =
+\delta_{(0,1)}\,\delta_{(0,2)}\,\delta_{(1,2)}$ is the product of the three
+pairwise vote-moments. The numerator $\Delta^2 \ge 0$ is a square, so (for
+$\Delta \neq 0$) the alarm condition $D < 0$ is **exactly**
+
+$$
+\Delta^2 + 4\prod\delta < 0
+   \quad\Longleftrightarrow\quad
+   \prod\delta \;<\; -\,\tfrac14\,\Delta^2 \;\le\; 0.
+$$ {#eq:alarm-condition}
+
+Two consequences, both visible in [@sec:synthetic-validation]:
+
+1. **The alarm is sufficient, never a false positive.** $D < 0$ forces
+   $\prod\delta < 0$ — an *odd* number of the three pairs are anti-correlated in
+   their votes. No genuinely error-independent test produces that in expectation,
+   which is why the independent control fired in {{SIM_FALSE_ALARM}} of trials.
+2. **It is blind to positive common-mode correlation.** If every pair co-varies
+   positively ($\prod\delta > 0$), then $D \in (0, 1]$ for *any* strength of that
+   correlation: the root stays real and the alarm is structurally silent. Shared
+   errors only push every $\delta_{(i,j)}$ **more** positive, enlarging the
+   denominator and driving $D \to 0^{+}$ without ever crossing it — precisely the
+   [@sec:synthetic-validation] curve where recovery degraded from {{SIM_INDEP_SILENT_ERR}} to
+   {{SIM_COMMON_SILENT_ERR}} while the alarm never sounded. The real worked
+   example above sits in this safe regime: all three $\delta_{(i,j)}$ are
+   positive, so $D = {{WE_DISCRIMINANT}} > 0$.
+
+The practical reading: the imaginary-root alarm is a genuine, answer-key-free
+*sufficient* check, but a silent $D$ is **not** a certificate of
+error-independence — only an absence of the specific anti-correlated signature it
+can see.
+
+## S2 — Full per-model label vote counts {#sec:vote-counts}
+
+Vote patterns are ordered `(Optimist, Neutral, Pessimist)`; `a` = bullish,
+`b` = bearish. The outer key is the **authored truth** of the scenario. Counts
+sum to {{Q}} ({{N_BULLISH}} bullish `a`, {{N_BEARISH}} bearish `b`).
+
+{{S2_ALL}}
+
+## S3 — Full per-persona recovery ({{BEST_MODEL}}) {#sec:full-recovery}
+
+Unsupervised recovery (`ErrorIndependentEvaluation`, better-than-random branch)
+vs. supervised truth. Source:
+`models/{{BEST_MODEL_DIR}}/comparison.json` and `recovery_stats.json`.
+
+{{TABLE_S3_RECOVERY}}
+
+: Full per-persona recovery table for `{{BEST_MODEL}}`, with the selected unsupervised branch compared to the supervised check. {#tbl:full-recovery}
+
+- **Recovery MAE** = {{REC_MAE4}} over {{N_TERMS_W}} accuracy terms
+  ({{S3_RECOVERY_QUALIFIER}}).
+- **Recovery MAE by label**: a = {{REC_MAE_A4}}, b = {{REC_MAE_B4}}.
+- **Prevalence (label a)**: true {{TRUE_PREV_A4}}, recovered {{REC_PREV_A4}}, abs.
+  error {{PREV_ABS_ERR4}}.
+- **Majority-voting recovery MAE** = {{MV_REC_MAE4}} (identical to
+  error-independent here).
+
+Exact fractions (from `evaluation_*.json`): recovered prevalence =
+{{REC_PREV_FRAC}}; Optimist(b) = {{OPT_B_FRAC}}; Neutral = 1; Pessimist(a) =
+{{PESS_A_FRAC}}. {{S3_RECOVERY_INTERPRETATION}}
+
+## S4 — Personas, scenarios, and authored truth {#sec:personas-scenarios}
+
+### Persona system prompts (verbatim)
+
+Prompt contract: `{{PROMPT_VERSION}}` (`{{PROMPT_HASH}}`).
+
+{{TABLE_PERSONA_PROMPTS}}
+
+: Versioned persona system prompts. The optimist and pessimist policies bias only genuinely mixed cases and explicitly allow evidence to override the persona. {#tbl:persona-prompts}
+
+Each persona receives the scenario and this user prompt:
+
+> {{USER_PROMPT}}
+
+### Scenarios and authored truth (Q = {{Q}})
+
+{{TABLE_SCENARIOS_FULL}}
+
+: Full generated scenario list and authored operational truth. These truths are validation-only and are not visible to the unsupervised evaluator. {#tbl:scenario-truth-full}
+
+Authored prevalence: **{{N_BULLISH}} bullish (`a`) / {{N_BEARISH}} bearish
+(`b`) → true prevalence of `a` = {{TRUE_PREV_A}}**. The deck is intentionally
+tilted off an even 50/50: an exactly balanced answer key would put the true
+prevalence at 1/2, a removable singularity of the error-independent evaluator
+where its accuracy equations degenerate to `NaN` (see
+[@sec:test-deck]). The
+{{N_BEARISH}} clear bearish scenarios keep even the bullish-leaning personas
+casting both calls, so no judge collapses to a constant classifier.
+
+## S5 — Reproduction {#sec:reproduction}
+
+All commands run from the repository root. The sweep is reproducible offline
+from the cached votes (`outputs/llm/.../cache.json`); only a fresh `--set
+refresh=true` run needs a live Ollama.
+
+```bash
+# 1. Project test suite (no network, no Ollama, no TeX):
+.venv/bin/python -m pytest tests/ -q                      # {{N_SCRIPT_TESTS}} tests
+#   or: cd python && ../.venv/bin/python -m pytest -q     # {{N_LIB_TESTS}} library tests
+
+# 2. Regenerate the multi-LLM sweep from the cache (JSON + figures):
+.venv/bin/python scripts/llm/multi_llm_personas_evaluation.py
+
+# 2b. Regenerate the deterministic synthetic-validation study (no network):
+.venv/bin/python scripts/sim/synthetic_recovery_study.py
+
+# 2c. Bootstrap a CI on the real recovery MAE (deterministic, offline):
+.venv/bin/python scripts/sim/bootstrap_recovery_ci.py
+
+# 2d. Regenerate the offline statistical validation matrix:
+.venv/bin/python scripts/validation/statistical_validation_report.py
+
+# 3. Re-inject the numbers into the manuscript (generated from templates):
+.venv/bin/python scripts/manuscript/render.py
+.venv/bin/python scripts/manuscript/render.py --check     # verify no drift
+.venv/bin/python scripts/z_generate_manuscript_variables.py
+
+# 4. Run the whole orchestrator harness including the LLM category:
+.venv/bin/python scripts/run_all.py --include llm
+
+# 5. Re-query live models (requires `ollama serve` and the pulled models):
+.venv/bin/python scripts/llm/multi_llm_personas_evaluation.py \
+    --set refresh=true --set timeout=45
+
+# 6. Run a custom model list:
+.venv/bin/python scripts/llm/multi_llm_personas_evaluation.py \
+    --set models='["granite4.1:3b","mistral:latest"]'
+```
+
+Lint/format used in this study:
+`.venv/bin/ruff check scripts tests` and
+`.venv/bin/black --check -l 79 scripts tests`.
+
+## S6 — The evaluability diagnostic, defined {#sec:diagnostic-definition}
+
+Computed from the vote matrix alone — no answer key, no solve
+(`scripts/llm/_analysis.py`):
+
+- **`vote_variation(votes)`** → per judge: `distinct_calls`, `call_counts`,
+  `modal_fraction` = (count of the most common call) / Q, and
+  `is_constant` = (only one distinct call seen). `modal_fraction == 1.0` ⇔
+  `is_constant`.
+- **`pairwise_disagreement(votes)`** → for each judge pair, the fraction of the
+  Q scenarios on which they differ; plus the mean over the three pairs.
+- **`evaluability_diagnostic(votes)`** → `predicted_evaluable` =
+  (no judge `is_constant`), plus the named `constant_classifiers` and the mean
+  pairwise disagreement.
+
+**Predictive check (this study).** The orchestrator records, in
+`summary.json → evaluability_diagnostic`, whether the label-free
+`predicted_evaluable` set equals the set of models the ntqr solve actually
+evaluated. Result: `diagnostic_matched_outcome = {{DIAG_MATCHED}}` — predicted
+evaluable = {{PRED_EVAL_SET}} = actually evaluated.
+
+**Disagreement vs. evaluability (the key contrast).**
+
+{{TABLE_S6_DISAGREEMENT}}
+
+{{S6_DISAGREEMENT_TEXT}}
+
+## S7 — Output file inventory {#sec:output-inventory}
+
+Per sweep, under `outputs/llm/multi_llm_personas_evaluation/`:
+
+- `summary.json` — cross-model ranking, evaluability-diagnostic block, the
+  requested/evaluated/failed model sets.
+- `cache.json` — shared response cache, keyed by
+  `backend / model / temperature / prompt-version / prompt-hash / persona /
+  scenario`. New records include every raw attempt, parse method, schema-valid
+  flag, invalid reason, parsed call, repair status, and prompt version/hash.
+- `disagreement_vs_evaluability.png`, `recovery_mae_by_model.png`,
+  `recovered_vs_true_scatter.png`, `evaluability_diagnostic.png`,
+  `prompt_compliance.png`, `temperature_schema_comparison.png`,
+  `scenario_hardness.png`, `best_model_recovery.png` — the figures, each with a
+  `<stem>.data.json` sidecar.
+- `models/<sanitized-model>/` — per model:
+  `votes.json`, `label_vote_counts.json`, `evaluability_diagnostic.json`,
+  `evaluation_error_independent.json`, `evaluation_majority_voting.json`,
+  `evaluation_supervised.json`, `comparison.json`, `recovery_stats.json`,
+  `comparison_majority_voting.json`, `recovery_stats_majority_voting.json`.
+
+Degenerate models still emit `votes.json`, `label_vote_counts.json`, and
+`evaluability_diagnostic.json` (the inputs that explain the failure); they do not
+emit the recovery files, because there is no finite solution to record.
+
+Additional generated artifacts:
+
+- `outputs/sim/synthetic_recovery_study/` — deterministic convergence,
+  dependence/alarm, tie-break, robustness, and EI-vs-MV sweeps; each embedded
+  figure has a parseable `.data.json` sidecar.
+- `outputs/sim/bootstrap_recovery_ci/` — scenario-bootstrap summary,
+  `bootstrap_recovery_mae.png`, and `bootstrap_recovery_mae.data.json`.
+- `outputs/validation/statistical_validation/` — offline validation report
+  (`summary.json`), validation-matrix figure, and `validation_matrix.data.json`.

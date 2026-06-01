@@ -1,0 +1,30 @@
+{
+  "title": "Recovering LLM-Persona Accuracies from Unlabeled Votes",
+  "upload_type": "software",
+  "description": "Source code, generated result data, figures, and manuscript artifacts for an algebraic NTQR evaluation study of local LLM-persona ensembles.",
+  "creators": [
+    {
+      "name": "Friedman, Daniel Ari",
+      "orcid": "0000-0001-6232-9096",
+      "affiliation": "Active Inference Institute"
+    }
+  ],
+  "version": "1.0.0",
+  "license": "Apache-2.0",
+  "keywords": [
+    "algebraic evaluation",
+    "NTQR",
+    "unsupervised evaluation",
+    "LLM-as-judge",
+    "error-independent evaluation",
+    "reproducible research"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/docxology/ntqr_llm",
+      "relation": "isSupplementTo",
+      "scheme": "url",
+      "resource_type": "software"
+    }
+  ]
+}

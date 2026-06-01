@@ -1,0 +1,149 @@
+{
+  "generated_at": "2026-06-01T13:18:55",
+  "result": {
+    "figure": "best_model_recovery.png",
+    "title": "True vs recovered persona accuracy -- mistral:latest",
+    "y_label": "accuracy",
+    "model": "mistral:latest",
+    "recovery_mae": 0.011901709401709407,
+    "recovery_mae_by_label": {
+      "a": 0.013247863247863275,
+      "b": 0.01055555555555554
+    },
+    "terms": [
+      {
+        "persona": "Optimist",
+        "label": "a",
+        "true": 1.0,
+        "recovered": 1.0,
+        "abs_error": 0.0
+      },
+      {
+        "persona": "Optimist",
+        "label": "b",
+        "true": 0.7916666666666666,
+        "recovered": 0.76,
+        "abs_error": 0.03166666666666662
+      },
+      {
+        "persona": "Neutral",
+        "label": "a",
+        "true": 0.975,
+        "recovered": 1.0,
+        "abs_error": 0.025000000000000022
+      },
+      {
+        "persona": "Neutral",
+        "label": "b",
+        "true": 1.0,
+        "recovered": 1.0,
+        "abs_error": 0.0
+      },
+      {
+        "persona": "Pessimist",
+        "label": "a",
+        "true": 0.575,
+        "recovered": 0.5897435897435898,
+        "abs_error": 0.014743589743589802
+      },
+      {
+        "persona": "Pessimist",
+        "label": "b",
+        "true": 1.0,
+        "recovered": 1.0,
+        "abs_error": 0.0
+      }
+    ],
+    "thresholds": [
+      {
+        "value": 0.10206207261596575,
+        "label": "sampling-noise floor",
+        "meaning": "per-term errors (d) at or below this are within the supervised estimate's own sampling error"
+      }
+    ],
+    "metadata": {
+      "generated_utc": "2026-06-01T20:18:55.864304+00:00",
+      "n_scenarios": 64,
+      "n_personas": 3,
+      "personas": [
+        "Optimist",
+        "Neutral",
+        "Pessimist"
+      ],
+      "labels": [
+        "a",
+        "b"
+      ],
+      "experiment": {
+        "backend": "ollama",
+        "temperature": 0.1,
+        "n_personas": 3,
+        "n_scenarios": 64,
+        "n_labels": 2,
+        "n_models_requested": 6,
+        "n_models_evaluated": 5,
+        "prompt_version": "v3_binary_schema",
+        "prompt_hash": "4d157f84885a",
+        "baseline_summary": "baseline_t0.7_summary.json",
+        "date": "2026-06-01"
+      },
+      "worst_term": {
+        "persona": "Optimist",
+        "label": "b",
+        "abs_error": 0.03166666666666662
+      }
+    },
+    "caption": "d = |recovered - true| per term. With no answer key the algebra tracks all six per-persona accuracies closely, worst term Optimist / b off by 0.03 -- including a deliberately bad judge."
+  },
+  "caption": "d = |recovered - true| per term. With no answer key the algebra tracks all six per-persona accuracies closely, worst term Optimist / b off by 0.03 -- including a deliberately bad judge.",
+  "metadata": {
+    "generated_utc": "2026-06-01T20:18:55.864304+00:00",
+    "n_scenarios": 64,
+    "n_personas": 3,
+    "personas": [
+      "Optimist",
+      "Neutral",
+      "Pessimist"
+    ],
+    "labels": [
+      "a",
+      "b"
+    ],
+    "experiment": {
+      "backend": "ollama",
+      "temperature": 0.1,
+      "n_personas": 3,
+      "n_scenarios": 64,
+      "n_labels": 2,
+      "n_models_requested": 6,
+      "n_models_evaluated": 5,
+      "prompt_version": "v3_binary_schema",
+      "prompt_hash": "4d157f84885a",
+      "baseline_summary": "baseline_t0.7_summary.json",
+      "date": "2026-06-01"
+    },
+    "worst_term": {
+      "persona": "Optimist",
+      "label": "b",
+      "abs_error": 0.03166666666666662
+    }
+  },
+  "provenance": {
+    "source_file": "best_model_recovery.data.json",
+    "generated_utc": "2026-06-01T20:18:55.864304+00:00",
+    "n_scenarios": 64,
+    "experiment": {
+      "backend": "ollama",
+      "temperature": 0.1,
+      "n_personas": 3,
+      "n_scenarios": 64,
+      "n_labels": 2,
+      "n_models_requested": 6,
+      "n_models_evaluated": 5,
+      "prompt_version": "v3_binary_schema",
+      "prompt_hash": "4d157f84885a",
+      "baseline_summary": "baseline_t0.7_summary.json",
+      "date": "2026-06-01"
+    }
+  }
+}

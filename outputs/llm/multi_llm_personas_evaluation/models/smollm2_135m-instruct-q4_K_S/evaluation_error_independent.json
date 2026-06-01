@@ -1,0 +1,185 @@
+{
+  "generated_at": "2026-06-01T13:18:54",
+  "result": {
+    "exact": [
+      {
+        "prevalence": {
+          "a": {
+            "exact": "nan",
+            "float": NaN
+          },
+          "b": {
+            "exact": "nan",
+            "float": NaN
+          }
+        },
+        "accuracy": [
+          {
+            "a": {
+              "exact": "nan",
+              "float": NaN
+            },
+            "b": {
+              "exact": "nan",
+              "float": NaN
+            }
+          },
+          {
+            "a": {
+              "exact": "nan",
+              "float": NaN
+            },
+            "b": {
+              "exact": "nan",
+              "float": NaN
+            }
+          },
+          {
+            "a": {
+              "exact": "nan",
+              "float": NaN
+            },
+            "b": {
+              "exact": "nan",
+              "float": NaN
+            }
+          }
+        ]
+      },
+      {
+        "prevalence": {
+          "a": {
+            "exact": "nan",
+            "float": NaN
+          },
+          "b": {
+            "exact": "nan",
+            "float": NaN
+          }
+        },
+        "accuracy": [
+          {
+            "a": {
+              "exact": "nan",
+              "float": NaN
+            },
+            "b": {
+              "exact": "nan",
+              "float": NaN
+            }
+          },
+          {
+            "a": {
+              "exact": "nan",
+              "float": NaN
+            },
+            "b": {
+              "exact": "nan",
+              "float": NaN
+            }
+          },
+          {
+            "a": {
+              "exact": "nan",
+              "float": NaN
+            },
+            "b": {
+              "exact": "nan",
+              "float": NaN
+            }
+          }
+        ]
+      }
+    ],
+    "float": [
+      {
+        "prevalence": {
+          "a": {
+            "exact": "nan",
+            "float": NaN
+          },
+          "b": {
+            "exact": "nan",
+            "float": NaN
+          }
+        },
+        "accuracy": [
+          {
+            "a": {
+              "exact": "nan",
+              "float": NaN
+            },
+            "b": {
+              "exact": "nan",
+              "float": NaN
+            }
+          },
+          {
+            "a": {
+              "exact": "nan",
+              "float": NaN
+            },
+            "b": {
+              "exact": "nan",
+              "float": NaN
+            }
+          },
+          {
+            "a": {
+              "exact": "nan",
+              "float": NaN
+            },
+            "b": {
+              "exact": "nan",
+              "float": NaN
+            }
+          }
+        ]
+      },
+      {
+        "prevalence": {
+          "a": {
+            "exact": "nan",
+            "float": NaN
+          },
+          "b": {
+            "exact": "nan",
+            "float": NaN
+          }
+        },
+        "accuracy": [
+          {
+            "a": {
+              "exact": "nan",
+              "float": NaN
+            },
+            "b": {
+              "exact": "nan",
+              "float": NaN
+            }
+          },
+          {
+            "a": {
+              "exact": "nan",
+              "float": NaN
+            },
+            "b": {
+              "exact": "nan",
+              "float": NaN
+            }
+          },
+          {
+            "a": {
+              "exact": "nan",
+              "float": NaN
+            },
+            "b": {
+              "exact": "nan",
+              "float": NaN
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

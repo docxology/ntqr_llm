@@ -1,0 +1,138 @@
+{
+  "generated_at": "2026-06-01T13:18:55",
+  "result": {
+    "figure": "disagreement_vs_evaluability.png",
+    "title": "Disagreement does not gate evaluability -- per-judge variation does",
+    "x_label": "per-judge concentration (max modal-vote fraction; 1.0 = constant judge)",
+    "y_label": "ensemble mean pairwise disagreement",
+    "thresholds": [
+      {
+        "value": 1.0,
+        "label": "constant-judge boundary",
+        "meaning": "at x = 1.0 some judge never varied; the error-independent algebra is unsolvable -> unevaluable, at any disagreement level"
+      }
+    ],
+    "points": [
+      {
+        "model": "granite4.1:3b",
+        "max_modal_fraction": 0.609375,
+        "mean_pairwise_disagreement": 0.0625,
+        "evaluable": true,
+        "constant_classifiers": []
+      },
+      {
+        "model": "mistral:latest",
+        "max_modal_fraction": 0.703125,
+        "mean_pairwise_disagreement": 0.22916666666666666,
+        "evaluable": true,
+        "constant_classifiers": []
+      },
+      {
+        "model": "gemma2:2b",
+        "max_modal_fraction": 0.609375,
+        "mean_pairwise_disagreement": 0.0625,
+        "evaluable": true,
+        "constant_classifiers": []
+      },
+      {
+        "model": "gemma3:4b",
+        "max_modal_fraction": 0.6875,
+        "mean_pairwise_disagreement": 0.10416666666666667,
+        "evaluable": true,
+        "constant_classifiers": []
+      },
+      {
+        "model": "gemma4:latest",
+        "max_modal_fraction": 0.625,
+        "mean_pairwise_disagreement": 0.03125,
+        "evaluable": true,
+        "constant_classifiers": []
+      },
+      {
+        "model": "smollm2:135m-instruct-q4_K_S",
+        "max_modal_fraction": 1.0,
+        "mean_pairwise_disagreement": 0.0,
+        "evaluable": false,
+        "constant_classifiers": [
+          "Optimist",
+          "Neutral",
+          "Pessimist"
+        ]
+      }
+    ],
+    "metadata": {
+      "generated_utc": "2026-06-01T20:18:54.949148+00:00",
+      "n_scenarios": 64,
+      "n_personas": 3,
+      "personas": [
+        "Optimist",
+        "Neutral",
+        "Pessimist"
+      ],
+      "labels": [
+        "a",
+        "b"
+      ],
+      "experiment": {
+        "backend": "ollama",
+        "temperature": 0.1,
+        "n_personas": 3,
+        "n_scenarios": 64,
+        "n_labels": 2,
+        "n_models_requested": 6,
+        "n_models_evaluated": 5,
+        "prompt_version": "v3_binary_schema",
+        "prompt_hash": "4d157f84885a",
+        "baseline_summary": "baseline_t0.7_summary.json",
+        "date": "2026-06-01"
+      }
+    },
+    "caption": "Each marker is one model. Green circles are evaluable; red crosses failed; 5/6 models are evaluable. The split is purely horizontal: any model at x = 1.0 has at least one constant judge, regardless of its ensemble disagreement (y)."
+  },
+  "caption": "Each marker is one model. Green circles are evaluable; red crosses failed; 5/6 models are evaluable. The split is purely horizontal: any model at x = 1.0 has at least one constant judge, regardless of its ensemble disagreement (y).",
+  "metadata": {
+    "generated_utc": "2026-06-01T20:18:54.949148+00:00",
+    "n_scenarios": 64,
+    "n_personas": 3,
+    "personas": [
+      "Optimist",
+      "Neutral",
+      "Pessimist"
+    ],
+    "labels": [
+      "a",
+      "b"
+    ],
+    "experiment": {
+      "backend": "ollama",
+      "temperature": 0.1,
+      "n_personas": 3,
+      "n_scenarios": 64,
+      "n_labels": 2,
+      "n_models_requested": 6,
+      "n_models_evaluated": 5,
+      "prompt_version": "v3_binary_schema",
+      "prompt_hash": "4d157f84885a",
+      "baseline_summary": "baseline_t0.7_summary.json",
+      "date": "2026-06-01"
+    }
+  },
+  "provenance": {
+    "source_file": "disagreement_vs_evaluability.data.json",
+    "generated_utc": "2026-06-01T20:18:54.949148+00:00",
+    "n_scenarios": 64,
+    "experiment": {
+      "backend": "ollama",
+      "temperature": 0.1,
+      "n_personas": 3,
+      "n_scenarios": 64,
+      "n_labels": 2,
+      "n_models_requested": 6,
+      "n_models_evaluated": 5,
+      "prompt_version": "v3_binary_schema",
+      "prompt_hash": "4d157f84885a",
+      "baseline_summary": "baseline_t0.7_summary.json",
+      "date": "2026-06-01"
+    }
+  }
+}
