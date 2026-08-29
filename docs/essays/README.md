@@ -136,7 +136,7 @@ principal/agent relationship of evaluation to make us safer.</b> </figcaption>
 
 ## Guide to the repository
 
-- [**AlgebraicEvaluation.py**](./AlgebraicEvaluation.py): This Python code
+**AlgebraicEvaluation.py** (not present in this repository — see note below): This Python code
   contains basic utilities showing how you can turn the counts of voting
   patterns by binary classifiers into an algebraic formalism for carrying out
   perfect evaluation of binary classifiers **IF** they are error independent in
@@ -145,7 +145,8 @@ principal/agent relationship of evaluation to make us safer.</b> </figcaption>
   evaluation (the evaluation ideal).
 
 -
-  [**EvaluationIdealAndVarietyErrorIndependentTrio.nb**](./EvaluationIdealAndVarietyErorrIndependentTrio.nb):
+  **EvaluationIdealAndVarietyErrorIndependentTrio.nb** (not present in this
+  repository — see note below):
   The mathematics of algebraic evaluation is algebraic geometry. Since you are
   estimating sample statistics, you get to work in a finite dimensional space
   where all parameters are known. You can build exact polynomial representations
@@ -181,3 +182,8 @@ principal/agent relationship of evaluation to make us safer.</b> </figcaption>
   geometry may seem like overkill for such a trivial ensemble but we hope the
   reader will use it as a bridge from their familiarity with evaluating binary
   classifiers to the unfamiliar topic of the geometry of polynomial ideals.
+
+> Note (docs-audit 2026-08-29): `AlgebraicEvaluation.py` and
+> `EvaluationIdealAndVarietyErorrIndependentTrio.nb` were never committed to
+> this repository (verified against git history); these mentions are retained
+> from the upstream write-up as pointers to material hosted elsewhere.

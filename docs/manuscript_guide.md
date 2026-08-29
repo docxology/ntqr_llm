@@ -46,8 +46,8 @@ reproduction · `S6` the diagnostic defined · `S7` output inventory.
   appears, a `{{TOKEN}}` backs it and `_values.py` computes it from the data.
 - **Equations are static.** Symbolic math (LaTeX `$…$` / `$$…$$`) is structural,
   not data, so it lives in the template directly.
-- **Figures are embedded** with `![caption](../outputs/llm/multi_llm_personas_evaluation/<stem>.png)`
-  at their first reference; captions may interpolate tokens (e.g. `{{REC_MAE}}`).
+- **Figures are embedded** with `![caption](../outputs/llm/multi_llm_personas_evaluation/<run-dir>/<stem>.png)`
+  (replace `<run-dir>` with the actual timestamped run directory; there is no literal file named `<stem>.png`) at their first reference; captions may interpolate tokens (e.g. `{{REC_MAE}}`).
 - **Data-driven prose** (exact vs approximate, singular vs plural, which model is
   lowest) is computed in `_values.py`, never asserted in the template — this is
   what keeps adjectives honest at any temperature or model count.
