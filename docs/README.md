@@ -2,7 +2,7 @@
 
 Technical documentation for the algebraic-evaluation study that recovers
 LLM-persona accuracies from unlabeled votes. For the science, read the generated
-[`manuscript/manuscript.md`](../manuscript/manuscript.md); for the software, read
+[`docs/manuscript/manuscript.md`](../manuscript/manuscript.md); for the software, read
 here.
 
 ## Index
@@ -45,7 +45,7 @@ here.
 - **Research context** — the manuscript now situates NTQR beside Dawid-Skene
   truth inference, weak supervision, agreement-rate estimators, LLM-as-judge
   evaluation, structured-output collection, and majority-vote/self-consistency
-  baselines; citation keys are checked against `manuscript/references.bib`.
+  baselines; citation keys are checked against `docs/manuscript/references.bib`.
 - **Evaluability is per-judge** — a single constant classifier (a judge that never
   varies) collapses the algebra regardless of how much the ensemble disagrees
   (proved in manuscript §2.5, shown on real votes in Supplemental §S1.5).

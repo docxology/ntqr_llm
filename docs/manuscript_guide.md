@@ -2,8 +2,8 @@
 
 ## What the manuscript is
 
-A single generated study, `manuscript/manuscript.md`, plus a
-`manuscript/supplemental.md` and a short `manuscript/README.md`. All three are
+A single generated study, `docs/manuscript/manuscript.md`, plus a
+`docs/manuscript/supplemental.md` and a short `docs/manuscript/README.md`. All three are
 **rendered** from templates by [the rendering pipeline](rendering_pipeline.md);
 do not edit the `.md` outputs directly.
 
@@ -11,11 +11,11 @@ do not edit the `.md` outputs directly.
 
 | You want to change… | Edit… |
 |---------------------|-------|
-| prose, structure, equations, figure captions | `scripts/manuscript/templates/*.md.tmpl` |
+| prose, structure, equations, figure captions | `scripts/docs/manuscript/templates/*.md.tmpl` |
 | a number, a table, a data-driven sentence | `scripts/manuscript/_values.py` (then reference the new `{{TOKEN}}`) |
-| metadata (title, authors, keywords, DOI) | `manuscript/config.yaml` |
-| PDF style (margins, link colors, LaTeX packages) | `manuscript/config.yaml` and `manuscript/preamble.md` |
-| the experiment (models, scenarios, personas) | `scripts/llm/_personas.py`, `multi_llm_personas_evaluation.py` — then re-run the sweep |
+| metadata (title, authors, keywords, DOI) | `docs/manuscript/config.yaml` |
+| PDF style (margins, link colors, LaTeX packages) | `docs/manuscript/config.yaml` and `docs/manuscript/preamble.md` |
+| the experiment (models, scenarios, personas) | `python/src/ntqr/llm/personas.py`, `multi_llm_personas_evaluation.py` — then re-run the sweep |
 
 ## Structure of the main manuscript
 
@@ -52,7 +52,7 @@ reproduction · `S6` the diagnostic defined · `S7` output inventory.
   lowest) is computed in `_values.py`, never asserted in the template — this is
   what keeps adjectives honest at any temperature or model count.
 - **Citations are checked.** Every `[@key]` in the templates must have a matching
-  entry in `manuscript/references.bib`; `tests/test_manuscript_render.py`
+  entry in `docs/manuscript/references.bib`; `tests/test_manuscript_render.py`
   enforces this before the PDF render.
 
 ## Worked example wiring (the deepest token path)

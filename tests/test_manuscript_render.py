@@ -23,7 +23,7 @@ import _values  # noqa: E402
 import render  # noqa: E402
 
 OUT = SCRIPTS.parent / "outputs" / "llm" / "multi_llm_personas_evaluation"
-REFERENCES = SCRIPTS.parent / "manuscript" / "references.bib"
+REFERENCES = SCRIPTS.parent / "docs" / "manuscript" / "references.bib"
 TEMPLATES = SCRIPTS / "manuscript" / "templates"
 
 
@@ -155,7 +155,7 @@ def test_rendered_manuscript_figure_inventory_has_sidecars():
         print("[SKIP] no summary.json — run the sweep first")
         return
     repo = SCRIPTS.parent
-    manuscript = render.render_all()[repo / "manuscript" / "manuscript.md"]
+    manuscript = render.render_all()[repo / "docs" / "manuscript" / "manuscript.md"]
     links = re.findall(r"!\[.*?\]\(([^)]+\.png)\)", manuscript, re.S)
     expected_sidecars = {
         "../output/figures/evaluation_pipeline.png": "../output/figures/evaluation_pipeline.data.json",
@@ -181,8 +181,8 @@ def test_rendered_manuscript_figure_inventory_has_sidecars():
         print("[SKIP] template figure hydration has not been run")
         return
     for image, sidecar in expected_sidecars.items():
-        image_path = (repo / "manuscript" / image).resolve()
-        sidecar_path = (repo / "manuscript" / sidecar).resolve()
+        image_path = (repo / image.removeprefix("../")).resolve()
+        sidecar_path = (repo / sidecar.removeprefix("../")).resolve()
         assert image_path.exists(), image
         assert sidecar_path.exists(), sidecar
         doc = json.loads(sidecar_path.read_text())
@@ -225,7 +225,7 @@ def test_manuscript_has_reader_map_and_validation_matrix():
         print("[SKIP] no summary.json — run the sweep first")
         return
     repo = SCRIPTS.parent
-    manuscript = render.render_all()[repo / "manuscript" / "manuscript.md"]
+    manuscript = render.render_all()[repo / "docs" / "manuscript" / "manuscript.md"]
     assert (
         "## Reader map: what is observed, recovered, and checked {#sec:reader-map}"
         in manuscript
@@ -251,7 +251,7 @@ def test_public_ntqr_citation_is_present():
         print("[SKIP] no summary.json — run the sweep first")
         return
     repo = SCRIPTS.parent
-    manuscript = render.render_all()[repo / "manuscript" / "manuscript.md"]
+    manuscript = render.render_all()[repo / "docs" / "manuscript" / "manuscript.md"]
     references = REFERENCES.read_text()
     assert "ntqr_0_8_docs" in references
     assert "NTQR 0.8 Documentation" in references
@@ -265,8 +265,8 @@ def test_public_ntqr_citation_is_present():
 
 def test_pdf_style_uses_red_links_tight_margins_and_no_placeholder_doi():
     repo = SCRIPTS.parent
-    preamble = (repo / "manuscript" / "preamble.md").read_text()
-    config = (repo / "manuscript" / "config.yaml").read_text()
+    preamble = (repo / "docs" / "manuscript" / "preamble.md").read_text()
+    config = (repo / "docs" / "manuscript" / "config.yaml").read_text()
     for key in (
         "linkcolor=red",
         "urlcolor=red",
@@ -315,7 +315,7 @@ def test_public_release_metadata_files_match_config():
         "https://github.com/docxology/ntqr_llm"
     )
     # Sidecars must carry the published concept DOI and agree with config.yaml.
-    config_text = (repo / "manuscript" / "config.yaml").read_text()
+    config_text = (repo / "docs" / "manuscript" / "config.yaml").read_text()
     concept_doi = "10.5281/zenodo.20498699"
     assert f'doi: "{concept_doi}"' in config_text
     assert f'doi: "{concept_doi}"' in citation_text
@@ -328,13 +328,13 @@ def test_public_docs_do_not_leak_private_paths_or_repo_slug():
         repo / "README.md",
         repo / "docs" / "README.md",
         repo / "docs" / "VERIFICATION.md",
-        repo / "manuscript" / "config.yaml",
+        repo / "docs" / "manuscript" / "config.yaml",
         repo / "CITATION.cff",
         repo / ".zenodo.json",
         repo / "codemeta.json",
     ]
-    if (repo / "manuscript" / "manuscript.md").exists():
-        public_docs.append(repo / "manuscript" / "manuscript.md")
+    if (repo / "docs" / "manuscript" / "manuscript.md").exists():
+        public_docs.append(repo / "docs" / "manuscript" / "manuscript.md")
     banned = ["/Users/4d", "docxology/projects"]
     for path in public_docs:
         text = path.read_text()
@@ -404,7 +404,7 @@ def test_rendered_validation_sidecar_count_is_current():
         print("[SKIP] no summary.json — run the sweep first")
         return
     repo = SCRIPTS.parent
-    manuscript = render.render_all()[repo / "manuscript" / "manuscript.md"]
+    manuscript = render.render_all()[repo / "docs" / "manuscript" / "manuscript.md"]
     assert "14/14 sidecars" not in manuscript
     assert "16/16 sidecars" in manuscript
 
@@ -431,7 +431,7 @@ def test_required_context_citations_are_in_rendered_sections():
         print("[SKIP] no summary.json — run the sweep first")
         return
     repo = SCRIPTS.parent
-    manuscript = render.render_all()[repo / "manuscript" / "manuscript.md"]
+    manuscript = render.render_all()[repo / "docs" / "manuscript" / "manuscript.md"]
     introduction = _section(manuscript, "# Introduction", "# Methods")
     methods = _section(manuscript, "# Methods", "# Results")
     discussion = _section(manuscript, "# Discussion", "---")
@@ -481,7 +481,7 @@ def test_template_crossref_syntax_is_present():
         print("[SKIP] no summary.json — run the sweep first")
         return
     repo = SCRIPTS.parent
-    manuscript = render.render_all()[repo / "manuscript" / "manuscript.md"]
+    manuscript = render.render_all()[repo / "docs" / "manuscript" / "manuscript.md"]
     figure_labels = re.findall(
         r"!\[.*?\]\([^)]+\.png\)\{#fig:[^}]+}", manuscript, re.S
     )

@@ -1,8 +1,9 @@
 """Pure recovery-scoring core shared across the evaluation paths.
 
 Turning an ``ntqr`` two-solution result into scored numbers is the same math
-whether the votes came from real LLMs (``_analysis``), a synthetic generator
-(``_simulation``), or a scenario resample (``_bootstrap``). That math lives here,
+whether the votes came from real LLMs (``ntqr.llm.analysis``), a synthetic
+generator (``ntqr.llm.simulation``), or a scenario resample
+(``ntqr.llm.bootstrap``). That math lives here,
 once: the finite-float guard, a solution's mean accuracy, the better-than-random
 tie-break between the two logically-consistent solutions, and the per-term
 absolute errors against a known (or supervised) truth.

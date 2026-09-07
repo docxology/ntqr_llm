@@ -28,6 +28,7 @@ from ntqr import uciadult_label_counts, TrioLabelVoteCounts, TrioVoteCounts
 | `plots.py` | Plotting utilities (uses LaTeX by default) |
 | `r2/` | R=2 binary-classification implementation |
 | `r3/` | R=3 three-class implementation |
+| `llm/` | LLM-persona study: response parsing + vote analysis (`analysis`), recovery-scoring core (`recovery_scoring`), synthetic + bootstrap validation harnesses (`simulation`, `bootstrap`), persona/scenario tables (`personas`) |
 | `notebooks/` | Tutorials and worked examples |
 
 ## Worked examples

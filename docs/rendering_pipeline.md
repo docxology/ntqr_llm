@@ -26,7 +26,7 @@ scripts/manuscript/render.py :: render_all()
         │     substitute every {{TOKEN}};  raise KeyError on unknown token;
         │     raise KeyError on any leftover {{…}} after substitution
         ▼
-manuscript/{manuscript,supplemental,README}.md          (GENERATED)
+docs/manuscript/{manuscript,supplemental,README}.md          (GENERATED)
         │
         ▼
 scripts/z_generate_manuscript_variables.py
@@ -63,8 +63,8 @@ their data sidecars into `output/figures/`. The template renderer then supplies
 the cover page and resolves Pandoc-crossref labels for figures, tables,
 equations, and sections.
 
-PDF style is project-local: `manuscript/config.yaml` sets the compact
-`margin=0.58in` geometry used by Pandoc, and `manuscript/preamble.md` pins
+PDF style is project-local: `docs/manuscript/config.yaml` sets the compact
+`margin=0.58in` geometry used by Pandoc, and `docs/manuscript/preamble.md` pins
 cross-reference, citation, and URL hyperlinks to red. These are copied into
 `output/manuscript/` by `z_generate_manuscript_variables.py` before the template
 renderer runs.
@@ -97,7 +97,7 @@ adapts truthfully to any run.
 
 ## Editing prose
 
-Edit `templates/*.md.tmpl`, never `manuscript/*.md` (the latter is overwritten on
+Edit `templates/*.md.tmpl`, never `docs/manuscript/*.md` (the latter is overwritten on
 every render and is guarded by the `<!-- GENERATED FILE -->` banner). Structural
 math (equations, the evaluability proposition) is static and lives in the
 template directly; only *data-derived numbers* must be tokens.

@@ -23,7 +23,8 @@ def test_mocked():
         ...   # passes regardless of whether the algebra is correct
 ```
 
-The numeric core `scripts/llm/_analysis.py` is **pure** (no I/O, no plotting, no
+The numeric core `ntqr.llm.analysis` (with `ntqr.llm.recovery_scoring`) is
+**pure** (no I/O, no plotting, no
 network), so `tests/test_llm_analysis.py` runs it directly with real vote
 fixtures — no Ollama, no mock needed. `tests/test_manuscript_render.py` renders
 the real templates against real values and asserts the determinism contract
@@ -60,7 +61,7 @@ longer matches the artifacts fails the build.
 | Suite | Covers |
 |-------|--------|
 | `tests/test_llm_analysis.py` | the pure numeric core: label counts, vote variation, pairwise disagreement, the evaluability diagnostic, recovery statistics, the sampling-noise floor |
-| `tests/test_recovery.py` | the shared scoring core (`_recovery`): the finite-float guard, mean accuracy, the better-than-random tie-break, and per-term absolute errors |
+| `tests/test_recovery.py` | the shared scoring core (`ntqr.llm.recovery_scoring`): the finite-float guard, mean accuracy, the better-than-random tie-break, and per-term absolute errors |
 | `tests/test_simulation.py` | the synthetic harness against the *real* ntqr solver: vote-count conservation, seeded reproducibility, exact sample truth, recovery on error-independent data, the `~1/√Q` convergence fit and its robustness across ensembles, the imaginary-root alarm (anti-correlation fires, common-mode blind spot, no false alarm), the tie-break inversion toward random, and the EI-vs-majority-voting trade-off (EI wins for strong judges, MV more robust in the danger zone) |
 | `tests/test_bootstrap.py` | the scenario bootstrap: count conservation, point estimate equals the full-sample solve, well-formed CIs and degenerate counts, and seed reproducibility |
 | `tests/test_validation_report.py` | the offline validation matrix: every load-bearing statistical check passes, and the report writes a parseable summary, sidecar, and figure |

@@ -56,11 +56,13 @@ import _config  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
-import _analysis  # noqa: E402
-import _llm  # noqa: E402
-import _personas  # noqa: E402
 
 _common.ensure_ntqr_importable()
+
+import _analysis  # noqa: E402  (thin collect-votes glue)
+import _llm  # noqa: E402
+from ntqr.llm import analysis  # noqa: E402
+from ntqr.llm import personas  # noqa: E402
 
 from ntqr.r2.datasketches import TrioLabelVoteCounts  # noqa: E402
 from ntqr.r2.evaluators import (  # noqa: E402
@@ -150,9 +152,9 @@ def evaluate_model(client, cache, refresh, out_dir, cache_path=None):
         on_error="tolerate",
         on_cache_update=_persist,
     )
-    records = _analysis.response_records(client, cache)
-    prompt_health = _analysis.prompt_health(votes, records)
-    label_counts = _analysis.build_label_counts(votes)
+    records = analysis.response_records(client, cache)
+    prompt_health = analysis.prompt_health(votes, records)
+    label_counts = analysis.build_label_counts(votes)
     _config.save_label_vote_counts(
         out_dir / "label_vote_counts.json", label_counts
     )
@@ -162,9 +164,9 @@ def evaluate_model(client, cache, refresh, out_dir, cache_path=None):
         {
             "backend": client.backend,
             "model": client.model,
-            "prompt_version": _personas.PROMPT_VERSION,
-            "prompt_hash": _personas.prompt_hash(),
-            "personas": [p["name"] for p in _personas.PERSONAS],
+            "prompt_version": personas.PROMPT_VERSION,
+            "prompt_hash": personas.prompt_hash(),
+            "personas": [p["name"] for p in personas.PERSONAS],
             "unparsed_responses": unparsed,
             "by_scenario": votes,
             "response_records": records,
@@ -176,7 +178,7 @@ def evaluate_model(client, cache, refresh, out_dir, cache_path=None):
     # Label-free evaluability diagnostic: computed for EVERY model (even ones
     # that will fail the solve) because its whole purpose is to PREDICT the
     # failure from the votes alone, with no answer key.
-    diagnostic = _analysis.evaluability_diagnostic(votes)
+    diagnostic = analysis.evaluability_diagnostic(votes)
     _common.save_json(out_dir, "evaluability_diagnostic.json", diagnostic)
     base = {
         "model": client.model,
@@ -208,13 +210,13 @@ def evaluate_model(client, cache, refresh, out_dir, cache_path=None):
         error_independent = ErrorIndependentEvaluation(trio_votes)
         majority = MajorityVotingEvaluation(trio_votes)
         supervised = SupervisedEvaluation(trio_label)
-        comparison = _analysis.build_comparison(supervised, error_independent)
-        stats = _analysis.recovery_stats(comparison)
+        comparison = analysis.build_comparison(supervised, error_independent)
+        stats = analysis.recovery_stats(comparison)
         # Head-to-head: how well does the simpler majority-voting evaluator
         # recover the same truth? Both return two solutions, so build_comparison
         # selects each one's better-than-random branch identically.
-        mv_comparison = _analysis.build_comparison(supervised, majority)
-        mv_stats = _analysis.recovery_stats(mv_comparison)
+        mv_comparison = analysis.build_comparison(supervised, majority)
+        mv_stats = analysis.recovery_stats(mv_comparison)
     except Exception as exc:  # degenerate votes -> unsolvable algebra
         return {**base, "error": repr(exc)}
 
@@ -253,7 +255,7 @@ def evaluate_model(client, cache, refresh, out_dir, cache_path=None):
         # All recovered accuracies were non-finite: the algebra was unsolvable,
         # almost always because a persona voted one-sidedly (constant
         # classifier). Report it as a named failure, not a NaN statistic.
-        consts = _analysis.constant_personas(label_counts)
+        consts = analysis.constant_personas(label_counts)
         reason = "degenerate (unsolvable / NaN solution)"
         if consts:
             reason += "; constant classifier(s): " + ", ".join(consts)
@@ -287,10 +289,10 @@ def _fig_metadata(extra=None, ctx=None):
     """Shared provenance block stamped into every figure data sidecar."""
     meta = {
         "generated_utc": datetime.now(timezone.utc).isoformat(),
-        "n_scenarios": len(_personas.SCENARIOS),
-        "n_personas": len(_personas.PERSONAS),
-        "personas": [p["name"] for p in _personas.PERSONAS],
-        "labels": list(_personas.LABELS),
+        "n_scenarios": len(personas.SCENARIOS),
+        "n_personas": len(personas.PERSONAS),
+        "personas": [p["name"] for p in personas.PERSONAS],
+        "labels": list(personas.LABELS),
     }
     if ctx:
         meta["experiment"] = dict(ctx)
@@ -353,16 +355,16 @@ def _plot(rows, out, ctx=None):
         return []
     written = []
     cmap = plt.get_cmap("tab10")
-    n_scen = len(_personas.SCENARIOS)
+    n_scen = len(personas.SCENARIOS)
     # Below this recovery MAE, the label-free recovery is within the binomial
     # sampling noise of the supervised accuracy it is compared against. The deck
     # is imbalanced, so the minority label backs the weakest estimate and sets
     # the conservative floor.
-    min_label = _analysis.min_truth_label_count()
-    noise_floor = _analysis.sampling_noise_floor(
+    min_label = analysis.min_truth_label_count()
+    noise_floor = analysis.sampling_noise_floor(
         n_scen, min_label_count=min_label
     )
-    excellent = _analysis.RECOVERY_MAE_EXCELLENT
+    excellent = analysis.RECOVERY_MAE_EXCELLENT
     provenance = _provenance_line(ctx)
     evaluable_models = {x["model"] for x in ranked}
     n_evaluable = len(evaluable_models)
@@ -1011,7 +1013,7 @@ def _plot(rows, out, ctx=None):
     # was each scenario? This makes the operational meaning of bullish/bearish
     # visible and shows which authored cases actually induce disagreement.
     scenario_points = []
-    for scenario in _personas.SCENARIOS:
+    for scenario in personas.SCENARIOS:
         calls = []
         for r in rows:
             votes_path = (
@@ -1023,13 +1025,13 @@ def _plot(rows, out, ctx=None):
             body = payload.get("result", payload)
             by_scenario = body.get("by_scenario", {})
             for call in by_scenario.get(scenario["id"], {}).values():
-                if call in _personas.CALL_TO_LABEL:
+                if call in personas.CALL_TO_LABEL:
                     calls.append(call)
         counts = Counter(calls)
         total = sum(counts.values())
         bull = counts.get("bullish", 0)
         p_bull = bull / total if total else None
-        entropy = _analysis._entropy(counts) if total else None
+        entropy = analysis._entropy(counts) if total else None
         scenario_points.append(
             {
                 "id": scenario["id"],
@@ -1328,7 +1330,7 @@ def _plot(rows, out, ctx=None):
     # measured. This is deliberately validation-only, not an input to the solve.
     heat_terms = []
     col_labels = []
-    for persona in _personas.PERSONAS:
+    for persona in personas.PERSONAS:
         for label in ("a", "b"):
             col_labels.append(f"{persona['name'][:3]}\n{label}")
             heat_terms.append((persona["name"], label))
@@ -1478,7 +1480,7 @@ def _plot(rows, out, ctx=None):
         diag = payload.get("result", payload)
         diagnosed.append((r["model"], diag))
     if diagnosed:
-        persona_names = [p["name"] for p in _personas.PERSONAS]
+        persona_names = [p["name"] for p in personas.PERSONAS]
         n_models = len(diagnosed)
         n_personas = len(persona_names)
         width = 0.8 / n_personas
@@ -1826,33 +1828,33 @@ def main(argv: list[str] | None = None) -> None:
             "and complete votes, not by ensemble disagreement."
         )
     cross_model_statistics = {
-        "recovery_mae": _analysis.descriptive_stats(maes),
-        "mv_recovery_mae": _analysis.descriptive_stats(
+        "recovery_mae": analysis.descriptive_stats(maes),
+        "mv_recovery_mae": analysis.descriptive_stats(
             [r.get("mv_recovery_mae") for r in ranked]
         ),
-        "prevalence_abs_error": _analysis.descriptive_stats(
+        "prevalence_abs_error": analysis.descriptive_stats(
             [r.get("prevalence_abs_error") for r in ranked]
         ),
-        "sampling_noise_floor": _analysis.sampling_noise_floor(
-            len(_personas.SCENARIOS),
-            min_label_count=_analysis.min_truth_label_count(),
+        "sampling_noise_floor": analysis.sampling_noise_floor(
+            len(personas.SCENARIOS),
+            min_label_count=analysis.min_truth_label_count(),
         ),
-        "disagreement_evaluable": _analysis.descriptive_stats(dis_eval),
-        "disagreement_unevaluable": _analysis.descriptive_stats(dis_uneval),
+        "disagreement_evaluable": analysis.descriptive_stats(dis_eval),
+        "disagreement_unevaluable": analysis.descriptive_stats(dis_uneval),
         "disagreement_gates_evaluability": disagreement_gates,
         "note": disagreement_note,
     }
     summary = {
         "backend": backend,
         "temperature": temperature,
-        "prompt_version": _personas.PROMPT_VERSION,
-        "prompt_hash": _personas.prompt_hash(),
-        "prompt_payload": _personas.prompt_payload(),
+        "prompt_version": personas.PROMPT_VERSION,
+        "prompt_hash": personas.prompt_hash(),
+        "prompt_payload": personas.prompt_payload(),
         "requested_models": models,
         "evaluated_models": [r["model"] for r in ranked],
         "skipped_unavailable": missing,
         "failed_models": [r["model"] for r in rows if "error" in r],
-        "n_scenarios": len(_personas.SCENARIOS),
+        "n_scenarios": len(personas.SCENARIOS),
         "best_model": ranked[0]["model"] if ranked else None,
         "worst_model": ranked[-1]["model"] if ranked else None,
         "mean_recovery_mae": (sum(maes) / len(maes)) if maes else None,
@@ -1877,13 +1879,13 @@ def main(argv: list[str] | None = None) -> None:
     plot_ctx = {
         "backend": backend,
         "temperature": temperature,
-        "n_personas": len(_personas.PERSONAS),
-        "n_scenarios": len(_personas.SCENARIOS),
-        "n_labels": len(_personas.LABELS),
+        "n_personas": len(personas.PERSONAS),
+        "n_scenarios": len(personas.SCENARIOS),
+        "n_labels": len(personas.LABELS),
         "n_models_requested": len(models),
         "n_models_evaluated": len(ranked),
-        "prompt_version": _personas.PROMPT_VERSION,
-        "prompt_hash": _personas.prompt_hash(),
+        "prompt_version": personas.PROMPT_VERSION,
+        "prompt_hash": personas.prompt_hash(),
         "baseline_summary": (
             BASELINE_SUMMARY if (out / BASELINE_SUMMARY).exists() else None
         ),
@@ -1893,7 +1895,7 @@ def main(argv: list[str] | None = None) -> None:
 
     _common.banner(
         f"multi-LLM personas via {backend} "
-        f"({len(present)} models, {len(_personas.SCENARIOS)} scenarios)"
+        f"({len(present)} models, {len(personas.SCENARIOS)} scenarios)"
     )
     if missing:
         print(f"skipped (not pulled): {', '.join(missing)}")

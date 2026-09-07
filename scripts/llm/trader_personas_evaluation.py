@@ -35,11 +35,13 @@ import _config  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
-import _analysis  # noqa: E402
-import _llm  # noqa: E402
-import _personas  # noqa: E402
 
 _common.ensure_ntqr_importable()
+
+import _analysis  # noqa: E402  (thin collect-votes glue)
+import _llm  # noqa: E402
+from ntqr.llm import analysis  # noqa: E402
+from ntqr.llm import personas  # noqa: E402
 
 from ntqr.r2.datasketches import TrioLabelVoteCounts  # noqa: E402
 from ntqr.r2.evaluators import (  # noqa: E402
@@ -79,7 +81,7 @@ def main(argv: list[str] | None = None) -> None:
     )
     cache_path.write_text(json.dumps(cache, indent=2) + "\n")
 
-    label_counts = _analysis.build_label_counts(votes)
+    label_counts = analysis.build_label_counts(votes)
     _config.save_label_vote_counts(
         out_dir / "label_vote_counts.json", label_counts
     )
@@ -89,7 +91,7 @@ def main(argv: list[str] | None = None) -> None:
         {
             "backend": client.backend,
             "model": client.model,
-            "personas": [p["name"] for p in _personas.PERSONAS],
+            "personas": [p["name"] for p in personas.PERSONAS],
             "unparsed_responses": unparsed,
             "by_scenario": votes,
         },
@@ -100,7 +102,7 @@ def main(argv: list[str] | None = None) -> None:
     if unparsed:
         _common.banner(
             f"trader personas via {client.backend}:{client.model} "
-            f"({len(_personas.SCENARIOS)} scenarios)"
+            f"({len(personas.SCENARIOS)} scenarios)"
         )
         print(
             f"non-compliant: {unparsed} unparseable response(s); votes are "
@@ -114,8 +116,8 @@ def main(argv: list[str] | None = None) -> None:
     trio_votes = trio_label.to_TrioVoteCounts()
     error_independent = ErrorIndependentEvaluation(trio_votes)
     supervised = SupervisedEvaluation(trio_label)
-    comparison = _analysis.build_comparison(supervised, error_independent)
-    stats = _analysis.recovery_stats(comparison)
+    comparison = analysis.build_comparison(supervised, error_independent)
+    stats = analysis.recovery_stats(comparison)
 
     _common.save_json(
         out_dir,
@@ -138,7 +140,7 @@ def main(argv: list[str] | None = None) -> None:
 
     _common.banner(
         f"trader personas via {client.backend}:{client.model} "
-        f"({len(_personas.SCENARIOS)} scenarios)"
+        f"({len(personas.SCENARIOS)} scenarios)"
     )
     print(
         f"true a-prevalence = {comparison['true_prevalence_a']:.3f}  "

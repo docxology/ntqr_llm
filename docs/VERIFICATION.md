@@ -14,8 +14,9 @@ to build nothing; the vendored `ntqr` is the only editable install).
 Expected: `tests/` all pass (`test_llm_analysis.py`, `test_recovery.py`,
 `test_simulation.py`, `test_bootstrap.py`, `test_validation_report.py`,
 `test_manuscript_render.py`); `python/` all pass. The shared scoring core
-(`_recovery.py`), the LLM numeric core (`_analysis.py`), the synthetic harness,
-the scenario bootstrap, the offline validation report, and the renderer are all
+(`ntqr.llm.recovery_scoring`), the LLM numeric core (`ntqr.llm.analysis`), the
+synthetic harness (`ntqr.llm.simulation`), the scenario bootstrap
+(`ntqr.llm.bootstrap`), the offline validation report, and the renderer are all
 tested with no I/O to models.
 
 ## 2. Lint / format
@@ -80,11 +81,11 @@ print('requested:', r.get('requested_models'))"
 python3 - <<'PY'
 import re
 from pathlib import Path
-for path in [Path("manuscript/manuscript.md"), Path("manuscript/supplemental.md"), Path("manuscript/README.md")]:
+for path in [Path("docs/manuscript/manuscript.md"), Path("docs/manuscript/supplemental.md"), Path("docs/manuscript/README.md")]:
     assert not re.findall(r"\{\{[A-Z0-9_]+\}\}", path.read_text()), path
 print("OK no unresolved manuscript tokens")
 PY
-grep -c '!\[' manuscript/manuscript.md                             # expect 16 (figures embedded)
+grep -c '!\[' docs/manuscript/manuscript.md                             # expect 16 (figures embedded)
 for f in evaluation_pipeline best_model_recovery recovered_vs_true_scatter \
          evaluability_diagnostic disagreement_vs_evaluability \
          recovery_mae_by_model prompt_compliance \
@@ -115,7 +116,7 @@ test -f output/figures/validation_matrix.data.json \
 | Figures embedded | 16 `![]()` in `manuscript.md`; 10 method/LLM + 4 synthetic + 1 bootstrap + 1 validation PNG in `output/figures/`, with parseable data sidecars |
 | Validation matrix | `scripts/validation/statistical_validation_report.py` reports 9/9 checks passed |
 | Models | `summary.json` `requested_models` are pulled in Ollama |
-| Template PDF | `output/pdf/ntqr_llm_personas_combined.pdf` exists after the targeted template render, has no unresolved `{{TOKEN}}` text, uses red hyperlinks, and uses the compact `margin=0.58in` geometry from `manuscript/config.yaml` |
+| Template PDF | `output/pdf/ntqr_llm_personas_combined.pdf` exists after the targeted template render, has no unresolved `{{TOKEN}}` text, uses red hyperlinks, and uses the compact `margin=0.58in` geometry from `docs/manuscript/config.yaml` |
 
 ## Common issues
 
@@ -123,5 +124,5 @@ test -f output/figures/validation_matrix.data.json \
 |---------|-----|
 | `missing summary.json under …` | run the sweep (§4); a fresh checkout has no data |
 | `none of the requested models are available` | `ollama pull <model>`; check `curl …/api/tags` |
-| `--check` reports DRIFT | re-run `render.py`; do not hand-edit `manuscript/*.md` |
+| `--check` reports DRIFT | re-run `render.py`; do not hand-edit `docs/manuscript/*.md` |
 | a model runs for minutes per call | large model (e.g. `gemma4:latest`); restrict `--set models=[…]` to cached/fast ones |

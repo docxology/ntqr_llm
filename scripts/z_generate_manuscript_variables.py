@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Hydrate manuscript variables for the docxology/template renderer.
 
-The standalone project renderer writes ``manuscript/{manuscript,supplemental}.md``.
+The standalone project renderer writes ``docs/manuscript/{manuscript,supplemental}.md``.
 The sibling template renderer prefers ``output/manuscript/*.md`` and
 ``output/figures/*.png``. This script bridges those interfaces without changing
 the experiment math: it computes the same `_values.py` token map, writes it to
@@ -19,7 +19,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-MANUSCRIPT_DIR = ROOT / "manuscript"
+MANUSCRIPT_DIR = ROOT / "docs" / "manuscript"
 OUT_DIR = ROOT / "outputs" / "llm" / "multi_llm_personas_evaluation"
 OUTPUT_MANUSCRIPT = ROOT / "output" / "manuscript"
 OUTPUT_DATA = ROOT / "output" / "data"

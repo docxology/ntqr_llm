@@ -18,13 +18,12 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "llm"))
 import _common  # noqa: E402
 
 _common.ensure_ntqr_importable()
 
-import _bootstrap  # noqa: E402
-import _personas  # noqa: E402
+from ntqr.llm import bootstrap  # noqa: E402
+from ntqr.llm import personas  # noqa: E402
 
 N_BOOT = 2000
 SEED = 9000
@@ -43,18 +42,18 @@ def _model_dir(model: str) -> Path:
 def reconstruct_records(model: str) -> list[tuple[str, tuple]]:
     """Rebuild ``(truth_label, vote_pattern)`` records from cached votes + truth.
 
-    Uses the authored truth in ``_personas.SCENARIOS`` and the model's
-    ``by_scenario`` votes; the persona order matches ``_personas.PERSONAS``.
+    Uses the authored truth in ``personas.SCENARIOS`` and the model's
+    ``by_scenario`` votes; the persona order matches ``personas.PERSONAS``.
     """
     votes = _load_result(_model_dir(model) / "votes.json")["by_scenario"]
     truth = {
-        s["id"]: _personas.CALL_TO_LABEL[s["truth"]]
-        for s in _personas.SCENARIOS
+        s["id"]: personas.CALL_TO_LABEL[s["truth"]]
+        for s in personas.SCENARIOS
     }
-    order = [p["key"] for p in _personas.PERSONAS]
+    order = [p["key"] for p in personas.PERSONAS]
     records = []
     for sid, calls in votes.items():
-        pattern = tuple(_personas.CALL_TO_LABEL[calls[k]] for k in order)
+        pattern = tuple(personas.CALL_TO_LABEL[calls[k]] for k in order)
         records.append((truth[sid], pattern))
     return records
 
@@ -119,7 +118,7 @@ def main() -> int:
     floor = sweep["cross_model_statistics"]["sampling_noise_floor"]
 
     records = reconstruct_records(model)
-    summary = _bootstrap.bootstrap_recovery(records, N_BOOT, SEED)
+    summary = bootstrap.bootstrap_recovery(records, N_BOOT, SEED)
     samples = summary.pop("mae_samples")
     summary["model"] = model
     summary["sampling_noise_floor"] = floor

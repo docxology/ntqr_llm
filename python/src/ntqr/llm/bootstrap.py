@@ -9,8 +9,9 @@ records with replacement and re-running the same ntqr solve on each resample.
 This directly answers the manuscript's own limitation ("the recovery MAE has no
 sampling distribution here because decoding is deterministic"): decoding is
 fixed, but the test is a finite draw, and the bootstrap gives that draw a
-distribution. Each resample is scored by the shared ``_simulation.solve_recovery``
-(the identical ``ErrorIndependentEvaluation`` path), so the point estimate here
+distribution. Each resample is scored by the shared
+``ntqr.llm.simulation.solve_recovery`` (the identical
+``ErrorIndependentEvaluation`` path), so the point estimate here
 equals the headline recovery MAE by construction.
 
 A record is ``(truth_label, vote_pattern)`` for one scenario, e.g.
@@ -19,7 +20,7 @@ A record is ``(truth_label, vote_pattern)`` for one scenario, e.g.
 
 from __future__ import annotations
 
-from _simulation import solve_recovery
+from ntqr.llm.simulation import solve_recovery
 
 
 def label_counts_from_records(records):

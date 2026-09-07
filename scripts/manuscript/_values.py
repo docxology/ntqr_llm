@@ -19,11 +19,11 @@ import sys
 from fractions import Fraction
 from pathlib import Path
 
-LLM_DIR = Path(__file__).resolve().parents[1] / "llm"
-sys.path.insert(0, str(LLM_DIR))
-import _personas  # noqa: E402
+NTQR_SRC = Path(__file__).resolve().parents[2] / "python" / "src"
+sys.path.insert(0, str(NTQR_SRC))
+from ntqr.llm import personas  # noqa: E402
 
-# Persona display order, matching scripts/llm/_personas.py PERSONAS.
+# Persona display order, matching ntqr.llm.personas.PERSONAS.
 PERSONA_ORDER = ["Optimist", "Neutral", "Pessimist"]
 LABELS = ("a", "b")
 LABEL_CALL = {"a": "bullish", "b": "bearish"}
@@ -802,7 +802,7 @@ def compute_values(out: Path) -> dict[str, str]:
     v["TABLE_SCENARIOS_FULL"] = _scenario_table()
     v["TABLE_PERSONA_PROMPTS"] = _persona_prompt_table()
     v["TABLE_MODEL_LINEUP"] = _model_lineup_table(summary)
-    v["USER_PROMPT"] = _personas.USER_TEMPLATE.format(
+    v["USER_PROMPT"] = personas.USER_TEMPLATE.format(
         scenario="[scenario text]"
     ).replace("\n", "<br>")
     v["TABLE_PROMPT_HEALTH"] = _prompt_health_table(summary)
@@ -866,7 +866,7 @@ def _scenario_examples_table() -> str:
         "|---|---|---|---|",
     ]
     for sid in ("s01", "s02", "s19", "s20", "s23", "s24"):
-        scenario = next(s for s in _personas.SCENARIOS if s["id"] == sid)
+        scenario = next(s for s in personas.SCENARIOS if s["id"] == sid)
         rows.append(
             f"| {sid} | {scenario['truth']} | "
             f"{_SCENARIO_RATIONALES[sid]} | {scenario['text']} |"
@@ -880,7 +880,7 @@ def _scenario_table() -> str:
         "|---|---|---|",
     ]
     ambiguous = {"s19", "s20", "s21", "s22", "s23", "s24"}
-    for scenario in _personas.SCENARIOS:
+    for scenario in personas.SCENARIOS:
         marker = " *(mixed)*" if scenario["id"] in ambiguous else ""
         rows.append(
             f"| {scenario['id']} | {scenario['truth']} | "
@@ -891,7 +891,7 @@ def _scenario_table() -> str:
 
 def _persona_prompt_table() -> str:
     rows = ["| Persona | System prompt |", "|---|---|"]
-    for persona in _personas.PERSONAS:
+    for persona in personas.PERSONAS:
         rows.append(f"| {persona['name']} | {persona['system']} |")
     return "\n".join(rows)
 

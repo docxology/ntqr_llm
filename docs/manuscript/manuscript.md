@@ -457,7 +457,7 @@ Computed from the votes alone — no answer key, no solve:
 ## Reproducibility {#sec:reproducibility}
 
 Everything is exact and offline-reproducible from the cached votes. The numeric
-core (`scripts/llm/_analysis.py`) is pure — no I/O, no plotting — and covered by
+core (`python/src/ntqr/llm/`) is pure — no I/O, no plotting — and covered by
 99 unit tests that run with no network and no Ollama. The
 manuscript itself is *generated*: every number below is injected from
 `summary.json` by `scripts/manuscript/render.py`, so the prose cannot drift from

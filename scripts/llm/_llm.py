@@ -18,9 +18,10 @@ from __future__ import annotations
 
 import json
 import os
-import re
 import urllib.error
 import urllib.request
+
+from ntqr.llm.analysis import extract_json
 
 OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://localhost:11434")
 DEFAULT_OLLAMA_MODEL = os.environ.get("OLLAMA_MODEL", "granite4.1:3b")
@@ -113,7 +114,7 @@ class LLMClient:
     def complete_json(self, system: str, user: str) -> dict:
         """Complete in JSON mode and parse the first JSON object found."""
         text = self.complete(system, user, json_mode=True)
-        return _extract_json(text)
+        return extract_json(text)
 
     def _ollama_complete(
         self,
@@ -179,15 +180,3 @@ class LLMClient:
         return blocks[0].get("text", "") if blocks else ""
 
 
-def _extract_json(text: str) -> dict:
-    """Pull the first JSON object out of a model response."""
-    text = text.strip()
-    try:
-        return json.loads(text)
-    except json.JSONDecodeError:
-        pass
-    # Strip code fences / surrounding prose: grab the outermost {...}.
-    match = re.search(r"\{.*\}", text, re.DOTALL)
-    if match:
-        return json.loads(match.group(0))
-    raise ValueError(f"no JSON object found in model response: {text!r}")

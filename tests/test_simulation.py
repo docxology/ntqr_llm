@@ -1,4 +1,4 @@
-"""Tests for scripts/llm/_simulation.py -- the synthetic NTQR validation harness.
+"""Tests for ntqr.llm.simulation -- the synthetic NTQR validation harness.
 
 No mocks: every test drives the *real* ntqr solver on seeded, deterministic
 synthetic vote counts. Params are kept small so the suite stays well under the
@@ -17,11 +17,9 @@ from pathlib import Path
 import pytest
 
 REPO = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(REPO / "scripts"))
-sys.path.insert(0, str(REPO / "scripts" / "llm"))
 sys.path.insert(0, str(REPO / "python" / "src"))
 
-import _simulation as sim  # noqa: E402
+from ntqr.llm import simulation as sim  # noqa: E402
 
 ENS = sim.Ensemble(
     prevalence_a=0.55,

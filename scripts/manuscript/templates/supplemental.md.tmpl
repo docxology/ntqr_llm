@@ -33,7 +33,7 @@ algebra alone cannot distinguish them.
 
 We select with the standard answer-key-free assumption that **the judges are
 better than random**: keep the solution with the higher mean per-judge,
-per-label accuracy (`scripts/llm/_analysis.py::select_best`).
+per-label accuracy (`ntqr.llm.recovery_scoring::select_best`).
 
 Two tempting alternatives are rejected on principle:
 
@@ -252,7 +252,7 @@ Lint/format used in this study:
 ## S6 — The evaluability diagnostic, defined {#sec:diagnostic-definition}
 
 Computed from the vote matrix alone — no answer key, no solve
-(`scripts/llm/_analysis.py`):
+(`ntqr.llm.analysis`):
 
 - **`vote_variation(votes)`** → per judge: `distinct_calls`, `call_counts`,
   `modal_fraction` = (count of the most common call) / Q, and

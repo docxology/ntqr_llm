@@ -1,6 +1,6 @@
 """Synthetic-ensemble validation of the NTQR error-independent solve.
 
-A thin orchestrator: it imports the pure harness in ``scripts/llm/_simulation.py``,
+A thin orchestrator: it imports the pure harness in ``ntqr.llm.simulation``,
 runs two deterministic studies through the *real* ntqr solver, writes the data
 and figures under ``outputs/sim/synthetic_recovery_study/``, and prints the
 output paths for the pipeline manifest.
@@ -27,12 +27,11 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "llm"))
 import _common  # noqa: E402
 
 _common.ensure_ntqr_importable()
 
-import _simulation as sim  # noqa: E402
+from ntqr.llm import simulation as sim  # noqa: E402
 
 # --- canonical, frozen study parameters (change here, never in prose) ---
 ENSEMBLE = sim.Ensemble(

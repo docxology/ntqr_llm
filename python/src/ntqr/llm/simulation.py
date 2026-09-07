@@ -36,7 +36,7 @@ import math
 import random
 from dataclasses import dataclass
 
-from _recovery import accuracy_abs_errors, safe_float, select_best
+from ntqr.llm.recovery_scoring import accuracy_abs_errors, safe_float, select_best
 
 # A judge's accuracy is (alpha, beta): P(correct | true label a), P(correct | b).
 JudgeAccuracy = tuple[float, float]

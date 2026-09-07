@@ -9,11 +9,11 @@ terminal artifact is a *generated* manuscript — every number in the prose is
 computed from the run, never typed by hand.
 
 ```
-            scripts/llm/_personas.py          python/src/ntqr  (algebra)
+       python/src/ntqr/llm/personas.py      python/src/ntqr  (algebra)
             (3 personas × 64 scenarios)                 │
                      │  system prompts                  │
                      ▼                                  ▼
-  Ollama  ──▶  scripts/llm/_llm.py  ──▶  votes  ──▶  scripts/llm/_analysis.py
+  Ollama  ──▶  scripts/llm/_llm.py  ──▶  votes  ──▶  ntqr/llm/analysis.py
  (6 models)    (cached per call)        (parsed,     (TrioLabelVoteCounts →
                      │                   never        ErrorIndependent /
                      │                   fabricated)   MajorityVoting /
@@ -38,7 +38,7 @@ computed from the run, never typed by hand.
    scripts/manuscript/render.py  ── fills templates/*.md.tmpl ───────────┘
                      │  (fails loudly on unknown / leftover token)
                      ▼
-   manuscript/{manuscript,supplemental,README}.md   (GENERATED — do not edit)
+   docs/manuscript/{manuscript,supplemental,README}.md   (GENERATED — do not edit)
 ```
 
 ## Layers
@@ -54,20 +54,22 @@ computed from the run, never typed by hand.
 The harness depends on the library; the manuscript pipeline depends only on the
 JSON artifacts (never on the models or the network).
 
-## The method modules (`scripts/llm/`)
+## The method modules (`scripts/llm/` + `python/src/ntqr/llm/`)
 
 | File | Role |
 |------|------|
-| `_personas.py` | the three personas (Optimist/Neutral/Pessimist) as system prompts; the 64 scenarios with authored truth; `CALL_TO_LABEL` / `LABEL_TO_CALL` |
-| `_llm.py` | `LLMClient` (Ollama backend), `preflight()`, per-call caching, `LLMUnavailable` |
-| `_analysis.py` | **pure numeric core** — no I/O, no plotting: `build_label_counts`, `vote_variation`, `pairwise_disagreement`, `evaluability_diagnostic`, `select_best` (two-solution tie-break), `build_comparison`, `recovery_stats`, `sampling_noise_floor` |
+| `python/src/ntqr/llm/personas.py` | the three personas (Optimist/Neutral/Pessimist) as system prompts; the 64 scenarios with authored truth; `CALL_TO_LABEL` / `LABEL_TO_CALL` |
+| `scripts/llm/_llm.py` | `LLMClient` (Ollama backend), `preflight()`, per-call caching, `LLMUnavailable` |
+| `python/src/ntqr/llm/analysis.py` | **pure numeric core** — no I/O, no plotting: response parsing, cache-record diagnostics, `build_label_counts`, `vote_variation`, `pairwise_disagreement`, `evaluability_diagnostic`, `build_comparison`, `recovery_stats`, `sampling_noise_floor` |
+| `scripts/llm/_analysis.py` | thin collect-votes glue: prompt formatting, client calls with schema + repair retry, response-cache writes |
 | `multi_llm_personas_evaluation.py` | the orchestrator: sweep the six models, run the three evaluators per model, rank by recovery MAE, write `summary.json` + ten method/LLM figures |
 | `trader_personas_evaluation.py` | single-model variant of the same flow |
-| `_recovery.py` | **pure shared scoring core** — `safe_float`, `mean_accuracy`, `select_best` (the better-than-random tie-break), `accuracy_abs_errors`; reused by `_analysis`, `_simulation`, `_bootstrap` (and re-exported by `_analysis`) |
-| `_simulation.py` | **pure synthetic harness** — generate error-(in)dependent votes for known-accuracy judges, solve through the *same* `ErrorIndependentEvaluation`, and sweep recovery-vs-`Q`, the alarm, the tie-break, ensemble robustness, and EI-vs-majority-voting; used by `scripts/sim/synthetic_recovery_study.py` (manuscript §3.7–3.9) |
-| `_bootstrap.py` | **pure scenario bootstrap** — resample the authored scenarios to put a CI on the real recovery MAE; used by `scripts/sim/bootstrap_recovery_ci.py` (§3.1) |
+| `python/src/ntqr/llm/recovery_scoring.py` | **pure shared scoring core** — `safe_float`, `mean_accuracy`, `select_best` (the better-than-random tie-break), `accuracy_abs_errors`; reused by `analysis`, `simulation`, `bootstrap` |
+| `python/src/ntqr/llm/simulation.py` | **pure synthetic harness** — generate error-(in)dependent votes for known-accuracy judges, solve through the *same* `ErrorIndependentEvaluation`, and sweep recovery-vs-`Q`, the alarm, the tie-break, ensemble robustness, and EI-vs-majority-voting; used by `scripts/sim/synthetic_recovery_study.py` (manuscript §3.7–3.9) |
+| `python/src/ntqr/llm/bootstrap.py` | **pure scenario bootstrap** — resample the authored scenarios to put a CI on the real recovery MAE; used by `scripts/sim/bootstrap_recovery_ci.py` (§3.1) |
 
-`_recovery.py`, `_analysis.py`, `_simulation.py`, and `_bootstrap.py` are
+`ntqr.llm.recovery_scoring`, `ntqr.llm.analysis`, `ntqr.llm.simulation`, and
+`ntqr.llm.bootstrap` are
 deliberately pure so they can be unit-tested with **no network and no Ollama**
 (`tests/test_{recovery,llm_analysis,simulation,bootstrap}.py`). The `scripts/sim/`
 studies write to `outputs/sim/` and are fully deterministic.

@@ -1,7 +1,8 @@
-"""Tests for scripts/llm/_recovery.py -- the shared recovery-scoring core.
+"""Tests for ntqr.llm.recovery_scoring -- the shared recovery-scoring core.
 
-Pure arithmetic over the ntqr solution dict shape; no ntqr import needed. These
-pin the behaviour that _analysis, _simulation, and _bootstrap all depend on.
+Pure arithmetic over the ntqr solution dict shape; no ntqr algebra import
+needed. These pin the behaviour that ntqr.llm.analysis, ntqr.llm.simulation,
+and ntqr.llm.bootstrap all depend on.
 
     .venv/bin/python -m pytest tests/test_recovery.py -q
 """
@@ -14,9 +15,9 @@ from pathlib import Path
 import pytest
 
 REPO = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(REPO / "scripts" / "llm"))
+sys.path.insert(0, str(REPO / "python" / "src"))
 
-import _recovery as R  # noqa: E402
+from ntqr.llm import recovery_scoring as R  # noqa: E402
 
 
 def _solution(accs, prev=0.6):

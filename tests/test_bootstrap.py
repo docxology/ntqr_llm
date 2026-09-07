@@ -1,6 +1,7 @@
-"""Tests for scripts/llm/_bootstrap.py -- the scenario-bootstrap recovery CI.
+"""Tests for ntqr.llm.bootstrap -- the scenario-bootstrap recovery CI.
 
-No mocks: resamples drive the real ntqr solve via the shared _simulation path.
+No mocks: resamples drive the real ntqr solve via the shared
+ntqr.llm.simulation path.
 Records are built from a seeded synthetic ensemble so the test is deterministic
 and needs no cached LLM data.
 
@@ -16,11 +17,10 @@ from pathlib import Path
 import pytest
 
 REPO = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(REPO / "scripts" / "llm"))
 sys.path.insert(0, str(REPO / "python" / "src"))
 
-import _bootstrap as B  # noqa: E402
-import _simulation as sim  # noqa: E402
+from ntqr.llm import bootstrap as B  # noqa: E402
+from ntqr.llm import simulation as sim  # noqa: E402
 
 
 def _records(n=256, seed=1):

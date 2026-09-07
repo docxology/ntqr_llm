@@ -29,7 +29,7 @@ import _values  # noqa: E402
 REPO_ROOT = HERE.parents[1]
 OUT_DIR = REPO_ROOT / "outputs" / "llm" / "multi_llm_personas_evaluation"
 TEMPLATE_DIR = HERE / "templates"
-MANUSCRIPT_DIR = REPO_ROOT / "manuscript"
+MANUSCRIPT_DIR = REPO_ROOT / "docs" / "manuscript"
 
 # template stem -> output file
 TARGETS = {
