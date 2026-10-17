@@ -42,7 +42,7 @@
   "local_patches": [
     {
       "file": "ntqr/evaluations.py",
-      "reason": "Preserve observed event counts in exact sparse consistent-set enumeration; flatten sparse vectors before correct-cuboid projection.",
+      "reason": "Preserve observed event counts in exact sparse consistent-set enumeration; flatten sparse vectors before correct-cuboid projection. Immutable, storage-independent HashablePoint hashing preserves equality and set membership across dense/sparse representations.",
       "tests": "tests/test_ntqr09.py"
     }
   ]

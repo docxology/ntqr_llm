@@ -118,3 +118,29 @@ def test_hydration_preserves_directory_guides():
         text=True,
     )
     assert {path: path.read_bytes() for path in paths} == before
+
+
+def test_hashable_points_have_value_semantics_across_storage_formats():
+    from ntqr.evaluations import HashablePoint
+    from scipy.sparse import csr_array
+    import numpy as np
+    original = np.array([[1, 0, 2]], dtype=np.int32)
+    dense = HashablePoint(original)
+    numeric = HashablePoint(original.astype(float))
+    sparse = HashablePoint(csr_array(original))
+    assert dense == numeric == sparse
+    assert len({dense, numeric, sparse}) == 1
+    original[0, 0] = 99
+    assert dense == sparse
+    assert sparse in {dense}
+    assert dense.sum() == 3
+    with pytest.raises(ValueError):
+        dense._obj[0, 0] = 99
+
+
+def test_consistency_budget_precedes_large_simulation_or_symbol_construction():
+    from ntqr.llm.consistency import summarize_sets
+    with pytest.raises(ValueError, match="max_events"):
+        summarize_sets(("a", "b"), tuple(str(i) for i in range(30)), (1, 1))
+    with pytest.raises(ValueError, match="max_allocations"):
+        summarize_sets(("a", "b"), ("i",), (10 ** 9, 0))

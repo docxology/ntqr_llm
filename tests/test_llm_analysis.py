@@ -352,7 +352,9 @@ def test_recovery_stats_skips_missing_terms():
     }
     stats = analysis.recovery_stats(comparison)
     assert stats["n_accuracy_terms"] == 1  # only the b term counted
-    assert abs(stats["recovery_mae"] - 0.1) < 1e-9
+    assert stats["recovery_mae"] is None
+    assert abs(stats["available_terms_mae"] - 0.1) < 1e-9
+    assert stats["complete"] is False
     assert stats["prevalence_abs_error"] is None
 
 

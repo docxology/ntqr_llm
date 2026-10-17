@@ -28,8 +28,9 @@ and, for each model, recover per-persona, per-label accuracy with
 it against an authored truth used only as a check. The headline, non-obvious
 result: **inter-judge disagreement does not imply evaluability.** What gates a
 solution is a *per-judge* condition — every judge must actually vary — not an
-*ensemble* one. A label-free evaluability diagnostic predicts, before any solve,
-exactly which models the algebra can evaluate.
+*ensemble* one. A label-free preliminary screen matches the evaluated-model set in this study.
+Passing that screen alone does not guarantee a complete physical solution; the
+[recovery-validity audit](docs/recovery_validity.md) checks the actual roots.
 
 ## The algebra (why it works, and how it fails)
 
@@ -146,3 +147,15 @@ Machine-readable metadata lives in [`CITATION.cff`](CITATION.cff),
   url       = {https://doi.org/10.5281/zenodo.20498699}
 }
 ```
+
+## Additional offline checks
+
+```bash
+uv run python scripts/validation/recovery_validity_report.py
+uv run python scripts/z_generate_manuscript_variables.py --check
+```
+
+See [recovery validity and reliable artifacts](docs/recovery_validity.md) for
+physical solution selection, exact pair-moment checks, atomic caches, strict
+JSON, and generated-file manifests. Recorded studies remain distinct from new
+model collection; these checks require no model calls.

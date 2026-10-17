@@ -19,7 +19,7 @@ import math
 
 
 def safe_float(val) -> float | None:
-    """Finite float, or ``None`` for complex/irrational/None/NaN/inf.
+    """Finite float, or ``None`` for complex/None/NaN/inf/overflow.
 
     A degenerate evaluation (e.g. a persona that voted one-sidedly, leaving a
     constant classifier) makes ntqr's algebra unsolvable and yields SymPy
@@ -29,7 +29,7 @@ def safe_float(val) -> float | None:
     """
     try:
         out = float(val)
-    except (TypeError, ValueError):
+    except (TypeError, ValueError, OverflowError):
         return None
     return out if math.isfinite(out) else None
 
@@ -37,16 +37,13 @@ def safe_float(val) -> float | None:
 def mean_accuracy(solution) -> float:
     """Average of every per-classifier, per-label accuracy in a solution.
 
-    Returns ``-1.0`` for a fully-degenerate solution (no finite terms), which
+    Returns ``-1.0`` for an incomplete or degenerate solution, which
     sorts strictly below any real accuracy so :func:`select_best` never picks it.
     """
     vals = [
-        safe_float(acc[label])
-        for acc in solution["accuracy"]
-        for label in ("a", "b")
+        safe_float(acc[label]) for acc in solution["accuracy"] for label in ("a", "b")
     ]
-    vals = [v for v in vals if v is not None]
-    return sum(vals) / len(vals) if vals else -1.0
+    return sum(vals) / len(vals) if vals and all(v is not None for v in vals) else -1.0
 
 
 def select_best(solutions):
@@ -74,6 +71,10 @@ def accuracy_abs_errors(solution, truth_accuracies) -> list[float]:
     is non-finite are skipped, so a degenerate solution yields fewer than six
     errors rather than poisoning the mean — callers can check the count.
     """
+    if len(solution["accuracy"]) != len(truth_accuracies):
+        raise ValueError(
+            "recovered and reference evaluations must have the same number of judges"
+        )
     errors = []
     for i, truth in enumerate(truth_accuracies):
         for label in ("a", "b"):
@@ -82,3 +83,54 @@ def accuracy_abs_errors(solution, truth_accuracies) -> list[float]:
             if rec is not None and tru is not None:
                 errors.append(abs(rec - tru))
     return errors
+
+
+PROBABILITY_TOLERANCE = 1e-9
+
+
+def solution_validity(solution) -> dict:
+    """Separate finite algebraic roots from complete physical binary-trio probabilities.
+
+    A real root can still place an accuracy or prevalence outside [0, 1].
+    No labels or oracle values enter this check, and invalid values are not clipped.
+    """
+    issues = []
+    values = []
+    try:
+        prevalence = [safe_float(solution["prevalence"][label]) for label in ("a", "b")]
+        rows = solution["accuracy"]
+        if len(rows) != 3:
+            issues.append("expected_three_classifiers")
+        accuracies = [safe_float(row[label]) for row in rows for label in ("a", "b")]
+        values = prevalence + accuracies
+        if any(value is None for value in values):
+            issues.append("nonfinite_or_missing_probability")
+        else:
+            if not math.isclose(
+                sum(prevalence), 1.0, abs_tol=PROBABILITY_TOLERANCE, rel_tol=0
+            ):
+                issues.append("prevalences_do_not_sum_to_one")
+            if any(
+                not -PROBABILITY_TOLERANCE <= value <= 1 + PROBABILITY_TOLERANCE
+                for value in values
+            ):
+                issues.append("probability_out_of_range")
+    except (KeyError, TypeError, AttributeError):
+        issues.append("incomplete_solution")
+    return {
+        "finite": bool(values) and all(value is not None for value in values),
+        "physical": not issues,
+        "issues": issues,
+    }
+
+
+def select_physical(solutions):
+    """Select the better-than-random branch among complete physical solutions.
+
+    Return None when none is admissible. The legacy select_best function remains
+    available for reproducing historical raw algebraic-error experiments.
+    """
+    admissible = [
+        solution for solution in solutions if solution_validity(solution)["physical"]
+    ]
+    return max(admissible, key=mean_accuracy) if admissible else None

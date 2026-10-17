@@ -1,5 +1,7 @@
 {
-  "generated_at": "2026-05-28T17:53:36",
+  "generated_at": "2026-10-17T23:41:46+00:00",
+  "schema_version": 2,
+  "ntqr_version": "0.9",
   "result": {
     "method": "raw majority vote (baseline, non-ntqr)",
     "dataset": "uci_adult",

@@ -84,6 +84,18 @@ class CorrelationConfig:
     anti_pair: tuple[int, int] | None = None
     anti_strength: float = 0.0
 
+    def __post_init__(self) -> None:
+        if not math.isfinite(self.common_mode) or not 0 <= self.common_mode <= 1:
+            raise ValueError("common_mode must be in [0, 1]")
+        if not math.isfinite(self.anti_strength) or not 0 <= self.anti_strength <= 1:
+            raise ValueError("anti_strength must be in [0, 1]")
+        if self.anti_pair is not None and (len(self.anti_pair) != 2 or
+                any(type(i) is not int or i not in range(3) for i in self.anti_pair) or
+                self.anti_pair[0] == self.anti_pair[1]):
+            raise ValueError("anti_pair must contain two distinct judge indices from 0 to 2")
+        if self.anti_pair is None and self.anti_strength != 0:
+            raise ValueError("anti_strength requires an anti_pair")
+
 
 def _wrong_vote(true_label: str) -> str:
     return "b" if true_label == "a" else "a"
@@ -104,6 +116,8 @@ def generate_label_counts(
     No vote is ever fabricated or dropped -- each item contributes exactly one
     length-3 pattern, so the counts sum to ``q``.
     """
+    if type(q) is not int or q < 1:
+        raise ValueError("q must be a positive integer")
     config = config or CorrelationConfig()
     q_a = round(ensemble.prevalence_a * q)
     truths = ["a"] * q_a + ["b"] * (q - q_a)
@@ -142,9 +156,19 @@ def sample_truth(label_counts: dict) -> dict:
     (no sympy). Comparing recovery to the sample (not the population parameter)
     isolates the algebraic recovery error from the irreducible sampling spread.
     """
+    if set(label_counts) != {"a", "b"}:
+        raise ValueError("label counts must provide both binary label strata")
+    for counts in label_counts.values():
+        for pattern, count in counts.items():
+            if len(pattern) != 3 or any(label not in ("a", "b") for label in pattern):
+                raise ValueError("vote patterns must contain three binary labels")
+            if type(count) is not int or count < 0:
+                raise ValueError("vote counts must be nonnegative integers")
     totals = {lab: sum(label_counts[lab].values()) for lab in ("a", "b")}
     q = totals["a"] + totals["b"]
-    prevalence_a = totals["a"] / q if q else 0.0
+    if q == 0:
+        raise ValueError("vote counts must contain at least one observation")
+    prevalence_a = totals["a"] / q
     accuracies = []
     for idx in range(3):
         row = {}
@@ -210,7 +234,7 @@ def solve_recovery(label_counts: dict) -> dict:
     )
 
     abs_errors = accuracy_abs_errors(best, truth["accuracies"])
-    accuracy_mae = sum(abs_errors) / len(abs_errors) if abs_errors else None
+    accuracy_mae = sum(abs_errors) / len(abs_errors) if len(abs_errors) == 6 else None
 
     return {
         "discriminant": discriminant,

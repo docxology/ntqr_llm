@@ -16,6 +16,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Physical-solution validation and answer-key-free recorded-vote audit.
+- Atomic strict JSON artifacts, deterministic encoding, cache checkpoints and render manifests.
+- Bounded response-space construction and immutable storage-independent point hashing.
+
 - v0.5 Added generic classes for arbitrary number of labels and classifiers.
        These are ntqr.raxioms.MAxiomsIdeal and
        ntqr.evaluations.MLabelResponseSimplexes

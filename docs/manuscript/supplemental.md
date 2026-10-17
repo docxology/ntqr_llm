@@ -358,7 +358,7 @@ refresh=true` run needs a live Ollama.
 
 ```bash
 # 1. Project test suite (no network, no Ollama, no TeX):
-.venv/bin/python -m pytest tests/ -q                      # 108 tests
+.venv/bin/python -m pytest tests/ -q                      # 124 tests
 #   or: cd python && ../.venv/bin/python -m pytest -q     # 22 library tests
 
 # 2. Regenerate the multi-LLM sweep from the cache (JSON + figures):
@@ -406,8 +406,13 @@ Computed from the vote matrix alone — no answer key, no solve
 - **`pairwise_disagreement(votes)`** → for each judge pair, the fraction of the
   Q scenarios on which they differ; plus the mean over the three pairs.
 - **`evaluability_diagnostic(votes)`** → `predicted_evaluable` =
-  (no judge `is_constant`), plus the named `constant_classifiers` and the mean
-  pairwise disagreement.
+  (no judge `is_constant` and no abstentions), plus the named
+  `constant_classifiers` and mean pairwise disagreement. This preliminary screen
+  is necessary but insufficient for a physical solution.
+- **`audit_votes(votes_by_judge)`** in `ntqr.llm.validity_audit` checks exact pair
+  moments and every recovered probability. It distinguishes constant or missing
+  votes, singular pair moments, complex/nonfinite roots, nonphysical real roots,
+  and complete physical solutions, using no answer key.
 
 **Predictive check (this study).** The orchestrator records, in
 `summary.json → evaluability_diagnostic`, whether the label-free

@@ -74,6 +74,10 @@ def bootstrap_recovery(records, n_boot: int, base_seed: int) -> dict:
     """
     import random
 
+    if type(n_boot) is not int or n_boot < 1:
+        raise ValueError("n_boot must be a positive integer")
+    if not records:
+        raise ValueError("records must be nonempty")
     point = solve_recovery(label_counts_from_records(records))
     n = len(records)
     maes: list[float] = []

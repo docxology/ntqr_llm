@@ -21,7 +21,7 @@ import re
 from collections import Counter
 
 from ntqr.llm import personas
-from ntqr.llm.recovery_scoring import safe_float, select_best
+from ntqr.llm.recovery_scoring import safe_float, select_best, select_physical
 
 # Interpretation thresholds for the recovery MAE, reused by the orchestrator's
 # figures and data sidecars so the plots and the JSON agree on what the numbers
@@ -238,9 +238,7 @@ def normalize_cache_record(record) -> dict[str, object]:
                     first_attempt.get("schema_valid", not unparsed),
                 )
             ),
-            "final_parse_valid": bool(
-                record.get("final_parse_valid", not unparsed)
-            ),
+            "final_parse_valid": bool(record.get("final_parse_valid", not unparsed)),
             "prompt_version": record.get("prompt_version"),
             "prompt_hash": record.get("prompt_hash"),
         }
@@ -279,9 +277,7 @@ def _entropy(counts):
     total = sum(counts.values())
     if total == 0:
         return 0.0
-    return -sum(
-        (n / total) * math.log2(n / total) for n in counts.values() if n
-    )
+    return -sum((n / total) * math.log2(n / total) for n in counts.values() if n)
 
 
 def prompt_health(votes, records=None):
@@ -326,9 +322,7 @@ def prompt_health(votes, records=None):
             "n_parsed": n_parsed,
             "n_unparsed": n_total - n_parsed,
             "parse_rate": n_parsed / n_total if n_total else 0.0,
-            "primary_parse_rate": (
-                n_primary_valid / n_total if n_total else 0.0
-            ),
+            "primary_parse_rate": (n_primary_valid / n_total if n_total else 0.0),
             "final_parse_rate": n_parsed / n_total if n_total else 0.0,
             "n_repair_needed": n_repair_needed,
             "n_repaired": n_repaired,
@@ -430,7 +424,7 @@ def pairwise_disagreement(votes):
 
 
 def evaluability_diagnostic(votes):
-    """Label-free verdict on whether the ensemble is ntqr-evaluable.
+    """Label-free preliminary screen; passing does not guarantee a physical solve.
 
     Fuses ``vote_variation`` and ``pairwise_disagreement`` into one prediction
     that uses NO answer key. The error-independent algebra is solvable only if
@@ -446,6 +440,8 @@ def evaluability_diagnostic(votes):
     n_unparsed = sum(v["n_unparsed"] for v in variation.values())
     return {
         "predicted_evaluable": (not constant) and n_unparsed == 0,
+        "screen_scope": "necessary_conditions_only",
+        "solver_verification_required": True,
         "constant_classifiers": constant,
         "n_unparsed": n_unparsed,
         "mean_pairwise_disagreement": disagreement["mean"],
@@ -470,10 +466,16 @@ def constant_personas(label_counts):
     return [names[i] for i, labels in enumerate(seen) if len(labels) < 2]
 
 
-def build_comparison(supervised, error_independent):
+def build_comparison(supervised, error_independent, *, physical_only: bool = False):
     """Pair each persona's true accuracy with the unsupervised recovery."""
     true_prev_a = safe_float(supervised.evaluation_float["prevalence"]["a"])
-    best = select_best(error_independent.evaluation_float)
+    best = (
+        select_physical(error_independent.evaluation_float)
+        if physical_only
+        else select_best(error_independent.evaluation_float)
+    )
+    if best is None:
+        raise ValueError("no complete physical solution for the observed votes")
     order = [p["name"] for p in personas.PERSONAS]
     per_persona = []
     for i, name in enumerate(order):
@@ -522,8 +524,8 @@ def recovery_stats(comparison):
     for row in comparison["per_persona"]:
         row_errors = {}
         for label in ("a", "b"):
-            true_v = row["true_accuracy"][label]
-            rec_v = row["recovered_accuracy_unsupervised"][label]
+            true_v = safe_float(row["true_accuracy"][label])
+            rec_v = safe_float(row["recovered_accuracy_unsupervised"][label])
             if true_v is None or rec_v is None:
                 row_errors[label] = None
                 continue
@@ -537,21 +539,23 @@ def recovery_stats(comparison):
                     "label": label,
                     "abs_error": err,
                 }
-        per_persona.append(
-            {"persona": row["persona"], "abs_error": row_errors}
-        )
+        per_persona.append({"persona": row["persona"], "abs_error": row_errors})
 
-    true_prev = comparison["true_prevalence_a"]
-    rec_prev = comparison["recovered_prevalence_a"]
+    true_prev = safe_float(comparison["true_prevalence_a"])
+    rec_prev = safe_float(comparison["recovered_prevalence_a"])
     prevalence_abs_error = (
         abs(rec_prev - true_prev)
         if true_prev is not None and rec_prev is not None
         else None
     )
+    expected_terms = 2 * len(comparison["per_persona"])
+    complete = expected_terms > 0 and len(abs_errors) == expected_terms
+    available_mean = sum(abs_errors) / len(abs_errors) if abs_errors else None
     return {
-        "recovery_mae": (
-            sum(abs_errors) / len(abs_errors) if abs_errors else None
-        ),
+        "complete": complete,
+        "expected_accuracy_terms": expected_terms,
+        "available_terms_mae": available_mean,
+        "recovery_mae": available_mean if complete else None,
         "recovery_mae_by_label": {
             label: (sum(errs) / len(errs) if errs else None)
             for label, errs in by_label.items()

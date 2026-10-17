@@ -100,32 +100,38 @@ class HashablePoint:
     """
 
     def __init__(self, obj):
-        # We store the underlying array or sparse matrix
-        self._obj = obj
+        # Evaluation points are immutable values, including when used as set keys.
+        if sp.issparse(obj):
+            self._obj = obj.tocsr(copy=True)
+            self._obj.sum_duplicates()
+            self._obj.eliminate_zeros()
+            self._obj.sort_indices()
+            coo = self._obj.tocoo()
+            indices = np.ravel_multi_index(coo.coords, self._obj.shape)
+            entries = sorted(zip(indices.tolist(), coo.data.tolist()))
+            for array in (self._obj.data, self._obj.indices, self._obj.indptr):
+                array.flags.writeable = False
+        elif isinstance(obj, np.ndarray):
+            self._obj = obj.copy()
+            indices = np.flatnonzero(self._obj)
+            entries = list(zip(indices.tolist(), self._obj.ravel()[indices].tolist()))
+            self._obj.flags.writeable = False
+        else:
+            raise TypeError("HashablePoint requires a NumPy array or SciPy sparse array")
+        # Numeric equality is independent of dtype and sparse storage details.
+        self._hash = hash((self._obj.shape, tuple(entries)))
 
     def __getattr__(self, name):
-        # Delegate any call (like .sum or .shape) to the underlying object
         return getattr(self._obj, name)
 
     def __hash__(self):
-        # Handle sparse and dense objects differently to generate a hash
-        if sp.issparse(self._obj):
-            return hash(
-                (
-                    self._obj.data.tobytes(),
-                    self._obj.indices.tobytes(),
-                    self._obj.indptr.tobytes(),
-                    self._obj.shape,
-                )
-            )
-        else:
-            return hash(self._obj.tobytes())
+        return self._hash
 
     def __eq__(self, other):
-        if not isinstance(other, HashablePoint):
+        if not isinstance(other, HashablePoint) or self._obj.shape != other._obj.shape:
             return False
-        # Use array_equal for both dense arrays and sparse matrices
-        # We convert sparse to dense only for the comparison equality check
+        if sp.issparse(self._obj) and sp.issparse(other._obj):
+            return (self._obj != other._obj).nnz == 0
         return np.array_equal(
             self._obj.toarray() if sp.issparse(self._obj) else self._obj,
             other._obj.toarray() if sp.issparse(other._obj) else other._obj,

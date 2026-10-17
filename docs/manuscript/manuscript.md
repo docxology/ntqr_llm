@@ -226,16 +226,15 @@ signals) so the personas' dispositions pull their calls apart.
 
 **The deck is deliberately *not* balanced.** The authored prevalence is
 **40 bullish, 24 bearish** — true prevalence of label `a`
-= **0.625**. This is a methodological requirement, not an accident. The
-error-independent evaluator has a removable singularity at prevalence exactly
-1/2: there its accuracy equations degenerate (the two algebraic solutions
-coalesce and the per-label accuracies resolve to 0/0, returned as `NaN`). An
-exactly 50/50 answer key places the *true* prevalence on that singularity, so any
-competent ensemble — whose recovered prevalence sits near the truth — lands on it
-and cannot be solved, even when every judge varies. Tilting the deck to
-0.625 moves the whole problem off the singularity while leaving
-24 clear bearish scenarios, so even the bullish-leaning personas keep
-casting both calls and never collapse into a constant classifier
+= **0.625**. The imbalance is a design choice motivated by the
+implemented evaluator's singularity when its recovered prevalence is exactly
+1/2. At that point its two algebraic roots coalesce and some accuracy ratios
+become 0/0. An exactly balanced answer key does not force that equality in a
+finite sampled sketch: empirical error correlations can shift the roots.
+Tilting the generating prevalence to 0.625 avoids centering the
+study on that symmetric case, while leaving 24 bearish scenarios
+for assessing label variation. Neither imbalance nor variation guarantees a
+complete physical solution
 ([@sec:failure-modes]). The full
 scenario list and truths are in
 [@sec:personas-scenarios].
@@ -370,7 +369,7 @@ P_\alpha \;=\; \tfrac12 \;\mp\; \tfrac12\sqrt{\,1 - 4c/a\,}.
 $$ {#eq:prevalence-roots}
 
 **Two solutions, by construction.** The $\mp$ is not numerical noise: absent
-labels, the votes alone admit *exactly two* logically consistent evaluation
+labels, a nondegenerate physical solve admits two mirror evaluation
 points — the labelling we want and its near-mirror image with the labels
 swapped. Each judge's per-label accuracy is then recovered as an exact *linear*
 function of $P_\alpha$ (`classifier_a_label_accuracy` /
@@ -378,18 +377,19 @@ function of $P_\alpha$ (`classifier_a_label_accuracy` /
 accuracy terms. The tie-break ([@sec:evaluators]) selects between the two points without
 peeking at the truth.
 
-**The singularity at $P_\alpha = \tfrac12$.** The two roots coalesce exactly
-when $1 - 4c/a = 0$, i.e. when prevalence sits at $\tfrac12$. There the radical
-vanishes, both solutions equal $\tfrac12$, and the downstream accuracy ratios
-resolve to $0/0$ (`NaN`). This is the removable singularity that motivates the
-deliberately unbalanced deck in [@sec:test-deck]: an exactly 50/50 answer key puts the
-*true* prevalence on the singularity, so any competent ensemble lands on it and
-cannot be solved. Tilting prevalence to **0.625** moves the whole
-problem off the singular point.
+**The singularity at $P_\alpha = \tfrac12$.** When the prevalence quadratic
+has discriminant zero, its two roots coalesce at $\tfrac12$, and this evaluator's
+downstream accuracy ratios can become $0/0$. Exact symmetry can therefore make
+the implemented estimator singular. A 50/50 authored answer key alone does not
+force finite sampled votes onto that singularity: sample error correlations
+can shift the algebraic roots. The deliberately unbalanced deck in
+[@sec:test-deck] avoids centering the generating prevalence on the symmetric
+case; it does not guarantee identifiability or physical roots.
 
 **The built-in alarm.** When the judges are in fact error-*correlated* on the
 test, the discriminant $1 - 4c/a$ goes negative and the prevalence root becomes
-imaginary — `ntqr` surfaces this as a `PrevalenceImaginaryException`. An
+imaginary — the current evaluator returns complex symbolic values, which the
+physical-solution guard rejects. An
 imaginary prevalence is an *iron-clad, label-free* detection that the
 error-independence assumption is violated: the algebra refuses to return a
 number it cannot justify. This is the "warning light" property at the center of
@@ -398,17 +398,18 @@ the safety framing and the later no-knowledge alarm formulation
 constant-classifier failure of [@sec:failure-modes] is
 its discrete cousin, which the following makes precise.
 
-> **Proposition (per-judge evaluability).** *If any judge $i$ is a constant
-> classifier — it casts one label on all $Q$ items — then the error-independent
-> trio has no interior prevalence solution, regardless of the other two judges.*
+> **Proposition (constant-judge non-identification).** *If any judge $i$ casts
+> one label on all $Q$ items, the error-independent trio's prevalence quadratic
+> does not identify isolated prevalence roots, regardless of the other judges.*
 >
-> *Proof.* A constant judge has marginal $f_{\beta_i} \in \{0, 1\}$, so its
-> sample variance is zero and **every pair moment touching $i$ vanishes**,
-> $\delta_{(i,j)} = f_{\beta_i\beta_j} - f_{\beta_i}f_{\beta_j} = 0$. Hence the
-> product $\prod_{(i,j)}\delta_{(i,j)} = 0$, giving $c = 0$ and $a = \Delta^2$.
-> The quadratic degenerates to $\Delta^2 P_\alpha(P_\alpha - 1) = 0$, whose only
-> roots are the boundary points $P_\alpha \in \{0, 1\}$; the per-label
-> accuracies then resolve to $0/0$ and `ntqr` returns `NaN`. ∎
+> *Proof.* A constant judge has $f_{\beta_i}\in\{0,1\}$, and every pair moment
+> touching it vanishes. Thus $c=\prod\delta_{(i,j)}=0$. If $f_{\beta_i}=0$,
+> both $f_{\beta\beta\beta}$ and $m_{012}$ vanish. If $f_{\beta_i}=1$, both
+> equal the remaining pair's joint frequency. In either case $\Delta=0$, so
+> $a=b=c=0$: the polynomial is identically zero, not a quadratic with two
+> isolated roots. The implemented estimator is singular and returns undefined
+> terms. This proves non-identification, not the absence of all possible
+> interior physical evaluations. ∎
 
 **This is why disagreement is the wrong axis.** The degeneracy is triggered by a
 *per-judge* quantity ($\delta_{(i,\cdot)} = 0$ for a single $i$) and is blind to
@@ -452,13 +453,18 @@ Computed from the votes alone — no answer key, no solve:
   varied: a **constant classifier**, which carries no error signal.
 - **Pairwise disagreement** — for each pair of judges, the fraction of scenarios
   on which they differ; and its mean over pairs.
-- **Verdict** — `predicted_evaluable = (no judge is constant)`.
+- **Preliminary screen** — `predicted_evaluable` requires no constant judge and
+  no abstentions. This is a necessary-condition screen, not a sufficient test.
+  Varying judges can still have zero pair covariance, complex roots, or
+  out-of-range accuracy estimates. The offline `recovery_validity_report.py`
+  separately checks exact pair moments and all recovered probabilities without
+  an answer key. Current live scoring requires a complete physical solution.
 
 ## Reproducibility {#sec:reproducibility}
 
 Everything is exact and offline-reproducible from the cached votes. The numeric
 core (`python/src/ntqr/llm/`) is pure — no I/O, no plotting — and covered by
-108 unit tests that run with no network and no Ollama. The
+124 unit tests that run with no network and no Ollama. The
 manuscript itself is *generated*: every number below is injected from
 `summary.json` by `scripts/manuscript/render.py`, so the prose cannot drift from
 the data. Exact commands are in [@sec:reproduction].

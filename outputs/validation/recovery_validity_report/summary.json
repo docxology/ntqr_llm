@@ -1,0 +1,284 @@
+{
+  "generated_at": "2026-10-17T23:42:18+00:00",
+  "schema_version": 2,
+  "ntqr_version": "0.9",
+  "result": {
+    "uses_answer_key": false,
+    "n_models": 6,
+    "status_counts": {
+      "physical_solution": 5,
+      "constant_classifier": 1
+    },
+    "models": [
+      {
+        "model": "gemma2:2b",
+        "n_items": 64,
+        "n_missing_votes": 0,
+        "constant_classifiers": [],
+        "variation_screen_passed": true,
+        "physical_solution_available": true,
+        "uses_answer_key": false,
+        "status": "physical_solution",
+        "pair_moment_numerators": {
+          "0,1": 950,
+          "0,2": 825,
+          "1,2": 858
+        },
+        "solutions": [
+          {
+            "finite": true,
+            "physical": true,
+            "issues": []
+          },
+          {
+            "finite": true,
+            "physical": true,
+            "issues": []
+          }
+        ],
+        "selected_solution": {
+          "prevalence": {
+            "a": 0.59375,
+            "b": 0.40625
+          },
+          "accuracy": [
+            {
+              "a": 1.0,
+              "b": 0.9615384615384616
+            },
+            {
+              "a": 1.0,
+              "b": 1.0
+            },
+            {
+              "a": 0.868421052631579,
+              "b": 1.0
+            }
+          ]
+        },
+        "source_file": "gemma2_2b/votes.json",
+        "source_sha256": "d41b1b4d145cd0dbef996c2659d95c8fdcbbe5578abd64e491b23f6a3245b25e"
+      },
+      {
+        "model": "gemma3:4b",
+        "n_items": 64,
+        "n_missing_votes": 0,
+        "constant_classifiers": [],
+        "variation_screen_passed": true,
+        "physical_solution_available": true,
+        "uses_answer_key": false,
+        "status": "physical_solution",
+        "pair_moment_numerators": {
+          "0,1": 760,
+          "0,2": 680,
+          "1,2": 884
+        },
+        "solutions": [
+          {
+            "finite": true,
+            "physical": true,
+            "issues": []
+          },
+          {
+            "finite": true,
+            "physical": true,
+            "issues": []
+          }
+        ],
+        "selected_solution": {
+          "prevalence": {
+            "a": 0.59375,
+            "b": 0.40625
+          },
+          "accuracy": [
+            {
+              "a": 1.0,
+              "b": 0.7692307692307693
+            },
+            {
+              "a": 1.0,
+              "b": 1.0
+            },
+            {
+              "a": 0.8947368421052632,
+              "b": 1.0
+            }
+          ]
+        },
+        "source_file": "gemma3_4b/votes.json",
+        "source_sha256": "3ac3062de6f62b9f65d4fec7b7349ddbc8fe9c640f9594e0668e0e6189fe40e4"
+      },
+      {
+        "model": "gemma4:latest",
+        "n_items": 64,
+        "n_missing_votes": 0,
+        "constant_classifiers": [],
+        "variation_screen_passed": true,
+        "physical_solution_available": true,
+        "uses_answer_key": false,
+        "status": "physical_solution",
+        "pair_moment_numerators": {
+          "0,1": 936,
+          "0,2": 888,
+          "1,2": 925
+        },
+        "solutions": [
+          {
+            "finite": true,
+            "physical": true,
+            "issues": []
+          },
+          {
+            "finite": true,
+            "physical": true,
+            "issues": []
+          }
+        ],
+        "selected_solution": {
+          "prevalence": {
+            "a": 0.609375,
+            "b": 0.390625
+          },
+          "accuracy": [
+            {
+              "a": 1.0,
+              "b": 0.96
+            },
+            {
+              "a": 1.0,
+              "b": 1.0
+            },
+            {
+              "a": 0.9487179487179487,
+              "b": 1.0
+            }
+          ]
+        },
+        "source_file": "gemma4_latest/votes.json",
+        "source_sha256": "1c497269f83b727de2295aa4232a9a6d3bfae709c9e436fb9b3b203bd0999d59"
+      },
+      {
+        "model": "granite4.1:3b",
+        "n_items": 64,
+        "n_missing_votes": 0,
+        "constant_classifiers": [],
+        "variation_screen_passed": true,
+        "physical_solution_available": true,
+        "uses_answer_key": false,
+        "status": "physical_solution",
+        "pair_moment_numerators": {
+          "0,1": 900,
+          "0,2": 825,
+          "1,2": 924
+        },
+        "solutions": [
+          {
+            "finite": true,
+            "physical": true,
+            "issues": []
+          },
+          {
+            "finite": true,
+            "physical": true,
+            "issues": []
+          }
+        ],
+        "selected_solution": {
+          "prevalence": {
+            "a": 0.5625,
+            "b": 0.4375
+          },
+          "accuracy": [
+            {
+              "a": 1.0,
+              "b": 0.8928571428571429
+            },
+            {
+              "a": 1.0,
+              "b": 1.0
+            },
+            {
+              "a": 0.9166666666666666,
+              "b": 1.0
+            }
+          ]
+        },
+        "source_file": "granite4.1_3b/votes.json",
+        "source_sha256": "38f7a74c21f96c3d086a419b210b6da83f2d57a99a41c010b953c978cd5ef0c3"
+      },
+      {
+        "model": "mistral:latest",
+        "n_items": 64,
+        "n_missing_votes": 0,
+        "constant_classifiers": [],
+        "variation_screen_passed": true,
+        "physical_solution_available": true,
+        "uses_answer_key": false,
+        "status": "physical_solution",
+        "pair_moment_numerators": {
+          "0,1": 741,
+          "0,2": 437,
+          "1,2": 575
+        },
+        "solutions": [
+          {
+            "finite": true,
+            "physical": true,
+            "issues": []
+          },
+          {
+            "finite": true,
+            "physical": true,
+            "issues": []
+          }
+        ],
+        "selected_solution": {
+          "prevalence": {
+            "a": 0.609375,
+            "b": 0.390625
+          },
+          "accuracy": [
+            {
+              "a": 1.0,
+              "b": 0.76
+            },
+            {
+              "a": 1.0,
+              "b": 1.0
+            },
+            {
+              "a": 0.5897435897435898,
+              "b": 1.0
+            }
+          ]
+        },
+        "source_file": "mistral_latest/votes.json",
+        "source_sha256": "1dfc55aba17b562e434109196c7ae9f73bdce668aa5ef510516f5a652523f994"
+      },
+      {
+        "model": "smollm2:135m-instruct-q4_K_S",
+        "n_items": 64,
+        "n_missing_votes": 0,
+        "constant_classifiers": [
+          0,
+          1,
+          2
+        ],
+        "variation_screen_passed": false,
+        "physical_solution_available": false,
+        "uses_answer_key": false,
+        "status": "constant_classifier",
+        "pair_moment_numerators": {
+          "0,1": 0,
+          "0,2": 0,
+          "1,2": 0
+        },
+        "solutions": [],
+        "selected_solution": null,
+        "source_file": "smollm2_135m-instruct-q4_K_S/votes.json",
+        "source_sha256": "ecc8709ba8715504b3cd48066c48e4e93101cf7ed9673da8e234ce73700773d0"
+      }
+    ],
+    "interpretation": "A physical solution is a consistency check under error independence; it does not prove that assumption or resolve the label mirror without a better-than-random assumption."
+  }
+}

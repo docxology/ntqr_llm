@@ -34,6 +34,7 @@ DEFAULTS = {
     "seed": 0,
     "n_samples": 3,
     "max_allocations": 1_000_000,
+    "max_events": 4096,
 }
 
 
@@ -55,6 +56,7 @@ def main(argv: list[str] | None = None) -> None:
     summary = summarize_sets(
         labels, classifiers, ql, seed, n_samples,
         config.get("max_allocations", DEFAULTS["max_allocations"]),
+        config.get("max_events", DEFAULTS["max_events"]),
     )
     _common.save_json(out, "summary.json", summary)
 

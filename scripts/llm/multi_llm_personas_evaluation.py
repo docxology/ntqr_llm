@@ -108,7 +108,8 @@ def _select_models(backend: str, models: list[str]):
 
 
 def _save_cache(cache_path: Path, cache: dict) -> None:
-    cache_path.write_text(json.dumps(cache, indent=2) + "\n")
+    from ntqr.llm.artifacts import save_json
+    save_json(cache_path, cache)
 
 
 def _result_body(path: Path) -> dict:
@@ -210,15 +211,17 @@ def evaluate_model(client, cache, refresh, out_dir, cache_path=None):
         error_independent = ErrorIndependentEvaluation(trio_votes)
         majority = MajorityVotingEvaluation(trio_votes)
         supervised = SupervisedEvaluation(trio_label)
-        comparison = analysis.build_comparison(supervised, error_independent)
+        comparison = analysis.build_comparison(supervised, error_independent, physical_only=True)
         stats = analysis.recovery_stats(comparison)
-        # Head-to-head: how well does the simpler majority-voting evaluator
-        # recover the same truth? Both return two solutions, so build_comparison
-        # selects each one's better-than-random branch identically.
-        mv_comparison = analysis.build_comparison(supervised, majority)
-        mv_stats = analysis.recovery_stats(mv_comparison)
-    except Exception as exc:  # degenerate votes -> unsolvable algebra
+    except Exception as exc:  # invalid or singular votes -> unavailable EI evaluation
         return {**base, "error": repr(exc)}
+    # A baseline failure does not erase a complete physical EI recovery.
+    try:
+        mv_comparison = analysis.build_comparison(supervised, majority, physical_only=True)
+        mv_stats = analysis.recovery_stats(mv_comparison)
+    except ValueError as exc:
+        mv_comparison = {"error": str(exc)}
+        mv_stats = {"recovery_mae": None, "error": str(exc)}
 
     _common.save_json(
         out_dir,

@@ -13,8 +13,9 @@ and copies every embedded figure plus its machine-readable sidecar.
 from __future__ import annotations
 
 import json
+import argparse
+import hashlib
 import re
-import shutil
 import sys
 from pathlib import Path
 
@@ -156,23 +157,11 @@ FIGURES: tuple[tuple[Path, Path | None], ...] = (
         / "sim"
         / "synthetic_recovery_study"
         / "synthetic_convergence.png",
-        ROOT
-        / "outputs"
-        / "sim"
-        / "synthetic_recovery_study"
-        / "convergence.data.json",
+        ROOT / "outputs" / "sim" / "synthetic_recovery_study" / "convergence.data.json",
     ),
     (
-        ROOT
-        / "outputs"
-        / "sim"
-        / "synthetic_recovery_study"
-        / "synthetic_alarm.png",
-        ROOT
-        / "outputs"
-        / "sim"
-        / "synthetic_recovery_study"
-        / "correlation.data.json",
+        ROOT / "outputs" / "sim" / "synthetic_recovery_study" / "synthetic_alarm.png",
+        ROOT / "outputs" / "sim" / "synthetic_recovery_study" / "correlation.data.json",
     ),
     (
         ROOT
@@ -192,11 +181,7 @@ FIGURES: tuple[tuple[Path, Path | None], ...] = (
         / "sim"
         / "synthetic_recovery_study"
         / "synthetic_tiebreak.png",
-        ROOT
-        / "outputs"
-        / "sim"
-        / "synthetic_recovery_study"
-        / "tiebreak.data.json",
+        ROOT / "outputs" / "sim" / "synthetic_recovery_study" / "tiebreak.data.json",
     ),
     (
         ROOT
@@ -204,11 +189,7 @@ FIGURES: tuple[tuple[Path, Path | None], ...] = (
         / "sim"
         / "synthetic_recovery_study"
         / "synthetic_mv_vs_ei.png",
-        ROOT
-        / "outputs"
-        / "sim"
-        / "synthetic_recovery_study"
-        / "mv_vs_ei.data.json",
+        ROOT / "outputs" / "sim" / "synthetic_recovery_study" / "mv_vs_ei.data.json",
     ),
     (
         ROOT
@@ -259,75 +240,80 @@ def _split_main(text: str) -> dict[str, str]:
     return sections
 
 
-def _copy_auxiliary_files() -> None:
-    for name in ("config.yaml", "preamble.md", "references.bib"):
-        src = MANUSCRIPT_DIR / name
-        if src.exists():
-            shutil.copy2(src, OUTPUT_MANUSCRIPT / name)
-
-
-def _copy_figures() -> None:
-    OUTPUT_FIGURES.mkdir(parents=True, exist_ok=True)
-    for old in OUTPUT_FIGURES.glob("*"):
-        if old.is_file() and old.suffix in {".png", ".json"}:
-            old.unlink()
-    missing = []
-    for image, sidecar in FIGURES:
-        if not image.exists():
-            missing.append(str(image.relative_to(ROOT)))
-            continue
-        shutil.copy2(image, OUTPUT_FIGURES / image.name)
+def figure_payloads(figures=FIGURES) -> dict[Path, bytes]:
+    """Read and validate every declared input before replacing any generated file."""
+    payloads = {}
+    for image, sidecar in figures:
+        image_target = OUTPUT_FIGURES / image.name
+        if image_target in payloads:
+            raise ValueError(f"duplicate generated figure filename: {image.name}")
+        payloads[image_target] = image.read_bytes()
         if sidecar is not None:
-            if not sidecar.exists():
-                missing.append(str(sidecar.relative_to(ROOT)))
-                continue
-            dst = OUTPUT_FIGURES / f"{image.stem}.data.json"
-            shutil.copy2(sidecar, dst)
-            json.loads(dst.read_text())
-    if missing:
-        raise FileNotFoundError(
-            "missing figure or sidecar artifact(s): " + ", ".join(missing)
-        )
+            source = sidecar.read_bytes()
+            json.loads(source)
+            sidecar_target = OUTPUT_FIGURES / f"{image.stem}.data.json"
+            if sidecar_target in payloads:
+                raise ValueError(
+                    f"duplicate generated sidecar filename: {sidecar_target.name}"
+                )
+            payloads[sidecar_target] = source
+    return payloads
 
 
-def main() -> int:
-    values = _values.compute_values(OUT_DIR)
-    OUTPUT_DATA.mkdir(parents=True, exist_ok=True)
-    (OUTPUT_DATA / "manuscript_variables.json").write_text(
-        json.dumps(values, indent=2, sort_keys=True) + "\n",
-        encoding="utf-8",
+def main(argv=None) -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--check",
+        action="store_true",
+        help="Check all declared outputs without writing",
     )
+    args = parser.parse_args(argv)
+    from ntqr.llm.artifacts import atomic_write_bytes
 
+    values = _values.compute_values(OUT_DIR)
     rendered = render.render_all()
     main_text = rendered[MANUSCRIPT_DIR / "manuscript.md"]
     supplemental = rendered[MANUSCRIPT_DIR / "supplemental.md"]
-
-    OUTPUT_MANUSCRIPT.mkdir(parents=True, exist_ok=True)
-    for stale in list(OUTPUT_MANUSCRIPT.glob("*.md")) + list(
-        OUTPUT_MANUSCRIPT.glob("*.bib")
-    ):
-        if stale.name not in {"README.md", "AGENTS.md"}:
-            stale.unlink()
-    for stale in ("config.yaml", "preamble.md"):
-        path = OUTPUT_MANUSCRIPT / stale
-        if path.exists():
-            path.unlink()
-
+    payloads = figure_payloads()
+    payloads[OUTPUT_DATA / "manuscript_variables.json"] = (
+        json.dumps(values, indent=2, sort_keys=True, allow_nan=False) + "\n"
+    ).encode("utf-8")
     for filename, section in _split_main(main_text).items():
         body = _template_path_text(section)
         if TOKEN_RE.search(body):
             raise KeyError(f"unresolved token in generated section {filename}")
-        (OUTPUT_MANUSCRIPT / filename).write_text(body, encoding="utf-8")
-
+        payloads[OUTPUT_MANUSCRIPT / filename] = body.encode("utf-8")
     supp_body = _template_path_text(supplemental.strip() + "\n")
     if TOKEN_RE.search(supp_body):
         raise KeyError("unresolved token in generated supplemental")
-    (OUTPUT_MANUSCRIPT / "S01_supplemental.md").write_text(
-        supp_body, encoding="utf-8"
-    )
+    payloads[OUTPUT_MANUSCRIPT / "S01_supplemental.md"] = supp_body.encode("utf-8")
+    for name in ("config.yaml", "preamble.md", "references.bib"):
+        payloads[OUTPUT_MANUSCRIPT / name] = (MANUSCRIPT_DIR / name).read_bytes()
+    manifest = {
+        "schema_version": 1,
+        "files": {
+            str(path.relative_to(ROOT)): hashlib.sha256(source).hexdigest()
+            for path, source in sorted(payloads.items())
+        },
+    }
+    payloads[OUTPUT_DATA / "render_manifest.json"] = (
+        json.dumps(manifest, indent=2, sort_keys=True) + "\n"
+    ).encode("utf-8")
+    if args.check:
+        stale = [
+            str(path.relative_to(ROOT))
+            for path, source in payloads.items()
+            if not path.is_file() or path.read_bytes() != source
+        ]
+        if stale:
+            print("Stale generated artifacts: " + ", ".join(stale), file=sys.stderr)
+            return 1
+        print(f"OK — {len(payloads)} generated artifacts match their sources.")
+        return 0
+    # All validation has completed; replace only files this bridge owns.
+    for path, source in payloads.items():
+        atomic_write_bytes(path, source)
 
-    _copy_auxiliary_files()
-    _copy_figures()
     print(OUTPUT_DATA / "manuscript_variables.json")
     return 0
 

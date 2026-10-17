@@ -9,8 +9,6 @@ lives here so each orchestrator stays a few readable lines.
 
 from __future__ import annotations
 
-import datetime as _dt
-import json
 import sys
 from pathlib import Path
 from typing import Any
@@ -45,21 +43,9 @@ def _jsonable(obj: Any) -> Any:
     Handles the two shapes ntqr returns that stdlib json cannot: SymPy
     numbers/expressions, and dicts keyed by tuples (e.g. vote patterns).
     """
-    # SymPy objects expose .evalf(); render both exact and float forms.
-    if hasattr(obj, "free_symbols") or obj.__class__.__module__.startswith(
-        "sympy"
-    ):
-        try:
-            return {"exact": str(obj), "float": float(obj)}
-        except (TypeError, ValueError):
-            return {"exact": str(obj)}
-    if isinstance(obj, dict):
-        return {_key(k): _jsonable(v) for k, v in obj.items()}
-    if isinstance(obj, (list, tuple, set, frozenset)):
-        return [_jsonable(v) for v in obj]
-    if isinstance(obj, (str, int, float, bool)) or obj is None:
-        return obj
-    return str(obj)
+    ensure_ntqr_importable()
+    from ntqr.llm.artifacts import jsonable
+    return jsonable(obj)
 
 
 def _key(key: Any) -> str:
@@ -69,7 +55,7 @@ def _key(key: Any) -> str:
 
 
 def _sidecar_provenance(
-    filename: str, result: dict[str, Any]
+    filename: str, result: dict[str, Any], generated_at: str
 ) -> dict[str, Any]:
     metadata = result.get("metadata")
     meta = metadata if isinstance(metadata, dict) else {}
@@ -90,17 +76,19 @@ def _sidecar_provenance(
     if isinstance(meta.get("experiment"), dict):
         provenance["experiment"] = meta["experiment"]
     if "generated_utc" not in provenance:
-        provenance["generated_at"] = _dt.datetime.now().isoformat(
-            timespec="seconds"
-        )
+        provenance["generated_at"] = generated_at
     return provenance
 
 
 def save_json(directory: Path, filename: str, payload: Any) -> Path:
     """Write ``payload`` as pretty JSON, wrapped with a small provenance header."""
     result = _jsonable(payload)
+    from ntqr.llm.artifacts import generated_at, save_json as atomic_save_json
+    from ntqr import __version__
     record = {
-        "generated_at": _dt.datetime.now().isoformat(timespec="seconds"),
+        "generated_at": generated_at(),
+        "schema_version": 2,
+        "ntqr_version": __version__,
         "result": result,
     }
     if (
@@ -116,17 +104,16 @@ def save_json(directory: Path, filename: str, payload: Any) -> Path:
         record["provenance"] = (
             provenance
             if isinstance(provenance, dict)
-            else _sidecar_provenance(filename, result)
+            else _sidecar_provenance(filename, result, record["generated_at"])
         )
     path = directory / filename
-    path.write_text(json.dumps(record, indent=2) + "\n")
-    return path
+    return atomic_save_json(path, record)
 
 
 def save_text(directory: Path, filename: str, text: str) -> Path:
-    path = directory / filename
-    path.write_text(text if text.endswith("\n") else text + "\n")
-    return path
+    ensure_ntqr_importable()
+    from ntqr.llm.artifacts import atomic_write_text
+    return atomic_write_text(directory / filename, text if text.endswith("\n") else text + "\n")
 
 
 def banner(title: str) -> None:

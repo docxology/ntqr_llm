@@ -37,7 +37,13 @@ def simulate_counts(labels, classifiers, ql, seed):
 
 
 def summarize_sets(
-    labels, classifiers, ql, seed=0, n_samples=3, max_allocations=1_000_000
+    labels,
+    classifiers,
+    ql,
+    seed=0,
+    n_samples=3,
+    max_allocations=1_000_000,
+    max_events=4096,
 ):
     """Count an exact finite set and take a seeded sample without replacement.
 
@@ -60,6 +66,15 @@ def summarize_sets(
         raise ValueError("n_samples must be a nonnegative integer")
     if type(max_allocations) is not int or max_allocations < 1:
         raise ValueError("max_allocations must be a positive integer")
+    if type(max_events) is not int or max_events < 1:
+        raise ValueError("max_events must be a positive integer")
+    if len(labels) ** len(classifiers) > max_events:
+        raise ValueError(
+            "the response space exceeds max_events; raise it explicitly for larger examples"
+        )
+    minimum_allocations = math.comb(sum(ql) + len(labels) - 1, len(labels) - 1)
+    if minimum_allocations > max_allocations:
+        raise ValueError("the minimum allocation bound exceeds max_allocations")
     counts = simulate_counts(labels, classifiers, ql, seed)
     allocation_bound = math.prod(
         math.comb(n + len(labels) - 1, len(labels) - 1) for n in counts.values()

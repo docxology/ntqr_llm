@@ -40,6 +40,7 @@ _common.ensure_ntqr_importable()
 
 import _analysis  # noqa: E402  (thin collect-votes glue)
 import _llm  # noqa: E402
+from ntqr.llm.artifacts import save_json as save_cache
 from ntqr.llm import analysis  # noqa: E402
 from ntqr.llm import personas  # noqa: E402
 
@@ -78,8 +79,9 @@ def main(argv: list[str] | None = None) -> None:
         cache,
         config.get("refresh", False),
         on_error="tolerate",
+        on_cache_update=lambda updated: save_cache(cache_path, updated),
     )
-    cache_path.write_text(json.dumps(cache, indent=2) + "\n")
+    save_cache(cache_path, cache)
 
     label_counts = analysis.build_label_counts(votes)
     _config.save_label_vote_counts(
@@ -116,7 +118,7 @@ def main(argv: list[str] | None = None) -> None:
     trio_votes = trio_label.to_TrioVoteCounts()
     error_independent = ErrorIndependentEvaluation(trio_votes)
     supervised = SupervisedEvaluation(trio_label)
-    comparison = analysis.build_comparison(supervised, error_independent)
+    comparison = analysis.build_comparison(supervised, error_independent, physical_only=True)
     stats = analysis.recovery_stats(comparison)
 
     _common.save_json(
