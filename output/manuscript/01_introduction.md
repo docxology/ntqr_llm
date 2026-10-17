@@ -22,7 +22,7 @@ return valid measurements, is the vote matrix algebraically evaluable, and how
 does the selected estimate compare with external truth when such truth is
 available?
 
-Algebraic evaluation (the **NTQR** logic [@ntqr_0_8_docs;
+Algebraic evaluation (the **NTQR** logic [@ntqr_0_9_docs;
 @corrada_emmanuel_2023_ntqr_logic; @corrada_emmanuel_2023_streaming]; see the
 repository root [README](../README.md)) takes a deliberately narrower stance.
 It constructs postulates — true for *any* finite test, containing no probability

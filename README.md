@@ -14,8 +14,8 @@ when an ensemble is not good enough to be evaluated at all**.
 This project tests that promise end to end on real local large language models,
 and sharpens the warning into a quantitative, label-free diagnostic.
 For publication metadata, the manuscript cites the public
-[NTQR 0.8 documentation](https://ntqr.readthedocs.io/en/latest/) as the package
-authority.
+[NTQR 0.9 release](https://pypi.org/project/ntqr/0.9/) as the package
+authority. See [the migration notes](docs/ntqr09.md) for source provenance and local fixes.
 
 ## The study in one paragraph
 
@@ -92,6 +92,9 @@ Reproduce this project as a standalone checkout. The final PDF uses the public
 `TEMPLATE_DIR` you provide:
 
 ```bash
+# 0. Install the locked environment and bundled NTQR 0.9 study library
+uv sync --locked --extra dev
+
 # 1. Regenerate the LLM data (needs a running Ollama with the six models pulled)
 .venv/bin/python scripts/llm/multi_llm_personas_evaluation.py --set temperature=0.1 --set timeout=45
 
@@ -112,7 +115,7 @@ Reproduce this project as a standalone checkout. The final PDF uses the public
 
 # 5. Verify the prose has not drifted from the data, and run the suite
 .venv/bin/python scripts/manuscript/render.py --check
-.venv/bin/python -m pytest tests/ -q
+.venv/bin/python -m pytest -q
 ```
 
 The manuscript is a **generated artifact**: every numeric claim is a `{{TOKEN}}`

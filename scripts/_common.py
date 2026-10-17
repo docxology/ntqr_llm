@@ -22,18 +22,14 @@ _PACKAGE_SRC = REPO_ROOT / "python" / "src"
 
 
 def ensure_ntqr_importable() -> None:
-    """Make ``import ntqr`` work whether or not the package is pip-installed.
+    """Use this checkout's NTQR 0.9 plus study extensions consistently."""
+    if str(_PACKAGE_SRC) not in sys.path:
+        sys.path.insert(0, str(_PACKAGE_SRC))
+    import ntqr
 
-    Preferred setup is ``pip install -e python`` inside a virtualenv. As a
-    fallback (e.g. a fresh checkout with no install), we add the in-repo source
-    tree to ``sys.path`` so the orchestrators still run against local source.
-    """
-    try:
-        import ntqr  # noqa: F401
-    except ModuleNotFoundError:
-        if _PACKAGE_SRC.is_dir():
-            sys.path.insert(0, str(_PACKAGE_SRC))
-        import ntqr  # noqa: F401  (re-raise if still missing)
+    expected = (_PACKAGE_SRC / "ntqr" / "__init__.py").resolve()
+    if Path(ntqr.__file__).resolve() != expected or ntqr.__version__ != "0.9":
+        raise RuntimeError("run with this checkout's NTQR 0.9: uv sync --extra dev")
 
 
 def output_dir(category: str, name: str) -> Path:

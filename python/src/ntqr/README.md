@@ -9,7 +9,7 @@ labels and assumes no probability model.
 
 ```python
 import ntqr
-ntqr.__version__                      # "0.8"
+ntqr.__version__                      # "0.9"
 from ntqr import ErrorIndependentEvaluation, MajorityVotingEvaluation, SupervisedEvaluation
 from ntqr import uciadult_label_counts, TrioLabelVoteCounts, TrioVoteCounts
 ```

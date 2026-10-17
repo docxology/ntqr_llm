@@ -7,16 +7,17 @@ and its associated axioms.
 
 from collections.abc import Sequence
 from dataclasses import dataclass, field
-from functools import lru_cache
 from itertools import chain, combinations, product
 import math
 import random
+import scipy.sparse as sp
 from types import MappingProxyType
 from typing import Iterable, Mapping, Self, Set, Tuple
 
 import numpy as np
 import numpy.typing as npt
 import sympy
+from numba import njit
 
 from ntqr import Labels
 from ntqr.algebra import extract_coefficents, extract_constant
@@ -90,114 +91,105 @@ def random_simplex_point(target_sum: int, n_vars: int) -> Sequence[int]:
     return tuple(x - 1 for x in positive_samples)
 
 
-def generate_observable_cube_points(
-    target_sum: int, maxs: Sequence[int]
-) -> Iterable[Sequence[int]]:
-    """Generator of points on a simple inside the observable hypercube.
-
-    The sum of decision events must equal the assumed label count in
-    the answer key, but, in addition, each event count cannot be larger
-    than the min of the label count OR the observed count of the event.
-
-    This generator produces the points that obey the target sum and
-    the individual max possible value for an event. Note that this is
-    not enough to produce the consistent set as the product of each
-    label generator -- they must obey the same observable count
-    ACROSS all labels.
-
-    Parameters
-    ----------
-    target_sum : int
-        Sum of the variables.
-    maxs : Sequence[int]
-        The individual max for each variable.
-
-    Returns
-    -------
-    Iterable[Sequence[int]]
-        DESCRIPTION.
-
+class HashablePoint:
     """
-    # Base case. When one var is left, it gets the remainder
-    # of the sum.
-    if len(maxs) == 1:
-        if (target_sum >= 0) and (target_sum <= maxs[0]):
-            yield (target_sum,)
-        return
+    Class to make evaluation points hashable for set construction.
 
-    # Recurse over the current variable
-    for i in range(maxs[0] + 1):
-        for sub_combination in generate_observable_cube_points(
-            target_sum - i, maxs[1:]
-        ):
-            yield (i,) + sub_combination
-
-
-def random_bounded_simplex_point(
-    total_sum: int, bounds: Sequence[int]
-) -> Sequence[int]:
+    The class is meant to transparently handle both sparse and
+    dense array representations of the label simplex points.
     """
-    Uniformly samples non-negative integers x_i such that:
-    0 <= x_i <= bounds[i] and sum(x_i) == total_sum
 
-    Parameters
-    ----------
-    total_sum : int
-        Sum required.
-    bounds : Sequence[int]
-        Bounds for each variable, must be equal to or less than total_sum.
+    def __init__(self, obj):
+        # We store the underlying array or sparse matrix
+        self._obj = obj
 
-    Raises
-    ------
-    ValueError
-        If no points satisfy the given bounds and sum to total_sum.
+    def __getattr__(self, name):
+        # Delegate any call (like .sum or .shape) to the underlying object
+        return getattr(self._obj, name)
 
-    Returns
-    -------
-    Sequence[int]
-        The sampled point.
+    def __hash__(self):
+        # Handle sparse and dense objects differently to generate a hash
+        if sp.issparse(self._obj):
+            return hash(
+                (
+                    self._obj.data.tobytes(),
+                    self._obj.indices.tobytes(),
+                    self._obj.indptr.tobytes(),
+                    self._obj.shape,
+                )
+            )
+        else:
+            return hash(self._obj.tobytes())
 
+    def __eq__(self, other):
+        if not isinstance(other, HashablePoint):
+            return False
+        # Use array_equal for both dense arrays and sparse matrices
+        # We convert sparse to dense only for the comparison equality check
+        return np.array_equal(
+            self._obj.toarray() if sp.issparse(self._obj) else self._obj,
+            other._obj.toarray() if sp.issparse(other._obj) else other._obj,
+        )
+
+    def __add__(self, other):
+        # 1. Ensure 'other' is also a HashablePoint (or extract its internal object)
+        other_obj = other._obj if isinstance(other, HashablePoint) else other
+
+        # 2. Perform addition based on underlying type
+        # SciPy sparse matrices and NumPy arrays both support the + operator
+        new_obj = self._obj + other_obj
+
+        # 3. Return a new HashablePoint containing the result
+        return HashablePoint(new_obj)
+
+    # Allow reverse addition (e.g., int + HashablePoint) if needed
+    def __radd__(self, other):
+        return self.__add__(other)
+
+    def __repr__(self):
+        # This will show: HashablePoint(Sparse(<1x10 sparse matrix... >))
+        if sp.issparse(self._obj):
+            label = f"{repr(self._obj)}"
+        elif isinstance(self._obj, np.ndarray):
+            label = f"Dense(shape={self._obj.shape}, data={repr(self._obj)})"
+        else:
+            label = repr(self._obj)
+
+        return f"HashablePoint({label})"
+
+
+@njit
+def _run_mcmc_loop(matrix, max_vals_np, R, E, n_iters):
     """
-    n = len(bounds)
+    Helper function to speed up the work of random generators.
 
-    # 1. Check if a valid solution is mathematically possible
-    if total_sum < 0 or total_sum > sum(bounds):
-        raise ValueError("Total sum is impossible given the provided bounds.")
+    JIT-compiled MCMC engine. Everything happens in memory.
+    """
+    for _ in range(n_iters):
+        r1 = np.random.randint(0, R)
+        r2 = np.random.randint(0, R - 1)
+        if r2 >= r1:
+            r2 += 1
+        c1 = np.random.randint(0, E)
+        c2 = np.random.randint(0, E - 1)
+        if c2 >= c1:
+            c2 += 1
 
-    # 2. Count valid ways to complete the remaining variables using Memoization
-    @lru_cache(maxsize=None)
-    def count_ways(index, remaining_sum):
-        # Base case: if we processed all variables
-        if index == n:
-            return 1 if remaining_sum == 0 else 0
-        if remaining_sum < 0:
-            return 0
+        # Calculate max jump
+        max_jump = min(
+            max_vals_np[r1, c1] - matrix[r1, c1],
+            max_vals_np[r2, c2] - matrix[r2, c2],
+            matrix[r1, c2],
+            matrix[r2, c1],
+        )
 
-        ways = 0
-        max_v = min(bounds[index], remaining_sum)
-        for v in range(max_v + 1):
-            ways += count_ways(index + 1, remaining_sum - v)
-        return ways
-
-    # 3. Generate the variables sequentially based on exact remaining probabilities
-    result = []
-    current_sum = total_sum
-
-    for i in range(n):
-        max_v = min(bounds[i], current_sum)
-
-        # Determine the probability weight for each valid assignment of the current variable
-        weights = []
-        for v in range(max_v + 1):
-            weights.append(count_ways(i + 1, current_sum - v))
-
-        # Choices picks a value based on the exact number of matching downstream paths
-        chosen_v = random.choices(range(max_v + 1), weights=weights, k=1)[0]
-
-        result.append(chosen_v)
-        current_sum -= chosen_v
-
-    return tuple(result)
+        if max_jump > 0:
+            jump = np.random.randint(1, max_jump + 1)
+            matrix[r1, c1] += jump
+            matrix[r2, c2] += jump
+            matrix[r1, c2] -= jump
+            matrix[r2, c1] -= jump
+    return matrix
 
 
 class AnswerKeyQSimplex:
@@ -344,7 +336,9 @@ class PossibleSet:
 
         return count
 
-    def set_generator(self, ql: Sequence[int]) -> Iterable[Sequence[int]]:
+    def set_generator(
+        self, ql: Sequence[int]
+    ) -> Iterable[tuple[HashablePoint]]:
         """
         Generator of the possible set at given answer key ql point.
 
@@ -363,20 +357,23 @@ class PossibleSet:
 
         Returns
         -------
-        Iterable[Sequence[int]]
+        Iterable[tuple[HashablePoint]]
             Points are represented as tuples of ints where the
             label response variables have been sorted by label,
             then event.
 
         """
         n_events = len(self.labels) ** len(self.classifiers)
+
         label_generators = (
             generate_simplex_points(q_val, n_events) for q_val in ql
         )
 
-        point_generator = (point for point in product(*label_generators))
-
-        return point_generator
+        for point in product(*label_generators):
+            # Convert each list to a numpy array, then wrap in HashableWrapper
+            yield tuple(
+                HashablePoint(np.array(arr, dtype=int)) for arr in point
+            )
 
     def random_points(
         self, ql: Sequence[int], n: int
@@ -409,6 +406,42 @@ class PossibleSet:
 
         return points
 
+    def is_valid_point(
+        self, point: Sequence[Sequence[int]], ql: Sequence[int]
+    ) -> tuple[bool, str]:
+        """
+        Tests if a point is logically consistent with the counts.
+
+
+        Parameters
+        ----------
+        point : Sequence[Sequence[int]]
+            Point, putatively in the consistent set, to be tested.
+        ql : Sequence[int]
+            Point in the Q-simple.
+
+        Returns
+        -------
+        tuple(bool,str)
+            Whether the point is valid or not, and a string message
+            with debug information if the test fails.
+
+        """
+
+        # 1. Check Label Sums
+        for i, matrix in enumerate(point):
+            if matrix.sum() != ql[i]:
+                err_msg = (
+                    f"Constraint Mismatch: Label {i} ",
+                    f"sum {matrix.sum()} != ql[{i}] ({ql[i]})",
+                )
+                return (
+                    False,
+                    err_msg,
+                )
+
+        return True, "Valid"
+
     def __repr__(self):
         return f"PossibleSet({self.labels},{self.classifiers})"
 
@@ -425,7 +458,8 @@ class ConsistentSet:
 
     This is due to the observable counts for an event setting a ceiling
     for the possible value of the count of the same event **given** true
-    label.
+    label. This is the key property of the ConsistentSet, it is sparse
+    in the PossibleSet.
     """
 
     def __init__(
@@ -446,7 +480,8 @@ class ConsistentSet:
 
         The maximum value possible for the count of a decision event by
         the ensemble given true label is the minimum of the assumed count of
-        that label in the answer key and event observed count.
+        that label in the answer key and event observed count. For most points
+        in the Q-simplex, the ceiling is set by the observable count.
 
         Parameters
         ----------
@@ -466,42 +501,38 @@ class ConsistentSet:
         rVars = ntqr.statistics.ResponseVariables(
             self.labels, self.classifiers
         )
-        lr_var_to_ql = rVars.label_response_to_q()
-        lr_var_to_obs = rVars.label_response_to_observable()
-
-        # The substitution dict for the Q-simplex point
-        # We assume q vars are ordered the same as the labels.
-        qVars = ntqr.statistics.AnswerKeyVariables(self.labels)
-        q_dict = {
-            q_var: q_val
-            for q_var, q_val in zip(
-                [qVars.qs[label] for label in self.labels], ql
-            )
-        }
-        # The observables substitution dict
-        obs_dict = rVars.observables_dict(self.counts)
+        lr_var_to_ql = rVars.label_response_to_q(ql)
+        lr_var_to_obs = rVars.label_response_to_observable(self.counts)
 
         # Assembling the output
         max_vals = [
             min(
-                lr_var_to_ql[var].subs(q_dict),
-                lr_var_to_obs[var].subs(obs_dict),
+                lr_var_to_ql[var],
+                lr_var_to_obs[var],
             )
             for var in vars
         ]
 
         return max_vals
 
-    def set_generator(self, ql: Sequence[int]) -> Iterable[Sequence[int]]:
+    def set_generator(self, ql: Sequence[int]) -> Iterable[tuple]:
         """
-        Generator of the possible set at given answer key ql point.
+        Generator of the consistent set at given answer key ql point.
 
-        Points are returned as tuples where variables are sorted
-        by label then event.
+        Points are returned as tuples of sparse label event arrays.
+        For most use cases, Q, the size of the test is much smaller
+        than R^N, the count of the possible joint events N classifiers
+        can make assigning R labels.
 
         This generator should be used with caution since even reasonably
         sized tests can be quite large, of the order of (R^N)! where
         R is the number of labels and N the number of classifiers.
+
+        There are regions in the Q-simplex where the consistent set is
+        small. Those are around the vertices of the Q-simplex: where one
+        label alone is present in the answer key. At the vertices themselves,
+        given the observed joint decision counts, there is only one
+        possible evaluation.
 
         Parameters
         ----------
@@ -512,11 +543,15 @@ class ConsistentSet:
         Returns
         -------
         Iterable[Sequence[int]]
-            Points are represented as tuples of ints where the
+            Points are represented as sparse arrays of ints where the
             label response variables have been sorted by label,
             then event.
 
         """
+        observed = self.get_expected_event_counts()
+        if len(ql) != len(self.labels) or any(q < 0 for q in ql) or sum(ql) != int(observed.sum()):
+            raise ValueError("ql must match the labels and sum to the observed test size")
+
         rVars = ntqr.statistics.ResponseVariables(
             self.labels, self.classifiers
         )
@@ -524,46 +559,76 @@ class ConsistentSet:
             self.max_value_at_ql(ql, rVars.label_responses[label].values())
             for label in self.labels
         ]
-        label_generators = (
-            generate_observable_cube_points(q_val, maxs)
-            for q_val, maxs in zip(ql[1:], max_vals[1:])
-        )
 
-        for nm1_point in product(*label_generators):
-            sum_others = tuple(sum(vals) for vals in zip(*nm1_point))
-            if all(
-                max_val - sum_event_others >= 0
-                for max_val, sum_event_others in zip(max_vals[0], sum_others)
-            ):
-                first_point = tuple(
-                    max_val - sum_event_others
-                    for max_val, sum_event_others in zip(
-                        max_vals[0], sum_others
+        R, E = len(self.labels), len(max_vals[0])
+
+        # FIX: Dynamically select the slack variable to avoid 0-capacity bottlenecks
+        slack_idx = max(range(R), key=lambda i: ql[i])
+        non_slack = [i for i in range(R) if i != slack_idx]
+
+        targets = tuple(ql[i] for i in non_slack)
+        active_J = [j for j in range(E) if observed[j] > 0]
+
+        # Pre-filter valid columns to reduce work inside the loop
+        valid_cols = []
+        for j in active_J:
+            max_slack = max_vals[slack_idx][j]
+            ranges = [range(max_vals[i][j] + 1) for i in non_slack]
+            # Filtered to only include valid sums immediately
+            valid_cols.append(
+                [v for v in product(*ranges) if 0 <= observed[j] - sum(v) <= max_slack]
+            )
+
+        # Stack stores: (event_idx, current_sums, path)
+        stack = [(0, tuple([0] * (R - 1)), ())]
+
+        while stack:
+            event_idx, current_sums, path = stack.pop()
+
+            if event_idx == len(active_J):
+                if current_sums == targets:
+                    # Reconstruction logic mapping back to original label order
+                    points = [[0] * E for _ in range(R)]
+                    points[slack_idx] = observed.tolist()
+
+                    for step, j in enumerate(active_J):
+                        col = path[step]
+                        for idx, i in enumerate(non_slack):
+                            points[i][j] = col[idx]
+                            points[slack_idx][j] -= col[idx]
+
+                    yield tuple(
+                        HashablePoint(sp.csr_matrix(row)) for row in points
                     )
-                )
-                yield (first_point, *nm1_point)
-        return
+                continue
 
-    def random_points(
-        self, ql: Sequence[int], n: int
-    ) -> set[Sequence[Sequence[int]]]:
+            # Optimization: Pre-calculate remaining constraints to prune
+            for v in valid_cols[event_idx]:
+                new_sums = [current_sums[i] + v[i] for i in range(R - 1)]
+                if all(new_sums[i] <= targets[i] for i in range(R - 1)):
+                    stack.append((event_idx + 1, tuple(new_sums), path + (v,)))
+
+    def random_set_generator2(self, ql: Sequence[int]) -> Iterable[tuple]:
         """
-        Returns n random points in the consistent set at given ql.
+        SUMMARY.
 
         Parameters
         ----------
         ql : Sequence[int]
-            Assumed value of labels in the answer key.
-        n : int
-            Number of random points wanted.
+            DESCRIPTION.
 
-        Returns
-        -------
-        set[Sequence[Sequence[int]]]
-            A random set of n points from the consistent set of evaluations
-            at given ql point.
+        Yields
+        ------
+        Iterable[tuple]
+            DESCRIPTION.
 
+        Raises
+        ------
+        ValueError
+            DESCRIPTION.
         """
+
+        # 1. Setup
         rVars = ntqr.statistics.ResponseVariables(
             self.labels, self.classifiers
         )
@@ -572,29 +637,262 @@ class ConsistentSet:
             for label in self.labels
         ]
 
-        points = set()
-        while len(points) < n:
+        R, E = len(self.labels), len(max_vals[0])
+        obs_data = np.array(
+            list(rVars.observables_dict(self.counts).values()), dtype=int
+        )
+        max_vals_np = np.array(max_vals, dtype=int)
 
-            # A random point on the rest of the labels
-            nm1_point = tuple(
-                random_bounded_simplex_point(q_val, maxs)
-                for q_val, maxs in zip(ql[1:], max_vals[1:])
+        # 2. Greedy Initialization
+        matrix = np.zeros((R, E), dtype=int)
+        col_totals = obs_data.copy()
+        row_totals = np.array(ql, dtype=int)
+
+        for r in range(R):
+            for c in range(E):
+                # Take the maximum possible without violating margins or caps
+                take = min(row_totals[r], col_totals[c], max_vals_np[r, c])
+                matrix[r, c] = take
+                row_totals[r] -= take
+                col_totals[c] -= take
+
+        # Failsafe: If greedy initialization cannot resolve the margins
+        if np.any(row_totals > 0) or np.any(col_totals > 0):
+            raise ValueError(
+                "Incompatible ql, obs_data, or max_vals: Cannot generate a valid starting point."
             )
 
-            sum_others = tuple(sum(vals) for vals in zip(*nm1_point))
-            if all(
-                max_val - sum_event_others >= 0
-                for max_val, sum_event_others in zip(max_vals[0], sum_others)
-            ):
-                first_point = tuple(
-                    max_val - sum_event_others
-                    for max_val, sum_event_others in zip(
-                        max_vals[0], sum_others
-                    )
-                )
-                points.add((first_point, *nm1_point))
+        while True:
+            # Number of iterations per yield
+            n_iters = R * E * 50
 
-        return points
+            # 1. PRE-GENERATE ALL RANDOM NUMBERS VIA NUMPY (Extremely Fast)
+            # Generate row indices
+            r1_arr = np.random.randint(0, R, size=n_iters)
+            r2_arr = np.random.randint(0, R - 1, size=n_iters)
+            r2_arr[r2_arr >= r1_arr] += 1
+
+            # Generate column indices
+            c1_arr = np.random.randint(0, E, size=n_iters)
+            c2_arr = np.random.randint(0, E - 1, size=n_iters)
+            c2_arr[c2_arr >= c1_arr] += 1
+
+            # Generate random floats [0.0, 1.0) to calculate our dynamic jumps later
+            jump_ratios = np.random.random(size=n_iters)
+
+            # 2. FAST PYTHON LOOP (Zero function call overhead for randoms)
+            for i in range(n_iters):
+                # O(1) array lookup
+                r1, r2 = r1_arr[i], r2_arr[i]
+                c1, c2 = c1_arr[i], c2_arr[i]
+
+                # Determine maximum valid jump
+                max_add_r1c1 = max_vals_np[r1, c1] - matrix[r1, c1]
+                max_add_r2c2 = max_vals_np[r2, c2] - matrix[r2, c2]
+                max_sub_r1c2 = matrix[r1, c2]
+                max_sub_r2c1 = matrix[r2, c1]
+
+                max_jump = min(
+                    max_add_r1c1, max_add_r2c2, max_sub_r1c2, max_sub_r2c1
+                )
+
+                if max_jump > 0:
+                    # O(1) math replacing random.randrange(1, max_jump + 1)
+                    jump = int(jump_ratios[i] * max_jump) + 1
+
+                    matrix[r1, c1] += jump
+                    matrix[r2, c2] += jump
+                    matrix[r1, c2] -= jump
+                    matrix[r2, c1] -= jump
+
+            # 3. Yield result
+            yield (
+                HashablePoint(sp.csr_matrix(matrix[0].reshape(-1, 1))),
+                *[
+                    HashablePoint(sp.csr_matrix(matrix[i].reshape(-1, 1)))
+                    for i in range(1, R)
+                ],
+            )
+
+    def random_set_generator(
+        self, ql: Sequence[int]
+    ) -> Iterable[tuple[HashablePoint]]:
+        """
+        SUMMARY.
+
+        Parameters
+        ----------
+        ql : Sequence[int]
+            DESCRIPTION.
+
+        Yields
+        ------
+        Iterable[tuple[HashablePoint]]
+            DESCRIPTION.
+        """
+
+        # 1. Setup (Same as before)
+        rVars = ntqr.statistics.ResponseVariables(
+            self.labels, self.classifiers
+        )
+        max_vals = [
+            self.max_value_at_ql(ql, rVars.label_responses[label].values())
+            for label in self.labels
+        ]
+        R, E = len(self.labels), len(max_vals[0])
+        obs_data = np.array(
+            list(rVars.observables_dict(self.counts).values()), dtype=int
+        )
+        max_vals_np = np.array(max_vals, dtype=int)
+
+        # 2. Greedy Initialization
+        matrix = np.zeros((R, E), dtype=int)
+        col_totals, row_totals = obs_data.copy(), np.array(ql, dtype=int)
+        for r in range(R):
+            for c in range(E):
+                take = min(row_totals[r], col_totals[c], max_vals_np[r, c])
+                matrix[r, c] = take
+                row_totals[r] -= take
+                col_totals[c] -= take
+
+        # 3. MCMC Sampling
+        # Numba handles the entire loop. We only leave Numba to yield results.
+        n_iters_per_yield = R * E * 50
+        while True:
+            # Run 50 * R * E iterations in pure machine code
+            matrix = _run_mcmc_loop(
+                matrix, max_vals_np, R, E, n_iters_per_yield
+            )
+
+            # Yield as sparse arrays here
+            yield tuple(
+                HashablePoint(sp.csr_array(matrix[i].copy())) for i in range(R)
+            )
+
+    def alt_set_generator(self, ql: Sequence[int]) -> Iterable[tuple]:
+        """
+        SUMMARY.
+
+        Parameters
+        ----------
+        ql : Sequence[int]
+            DESCRIPTION.
+
+        Yields
+        ------
+        Iterable[tuple]
+            DESCRIPTION.
+
+        Raises
+        ------
+        ValueError
+            DESCRIPTION.
+        """
+
+        # 1. Setup
+        rVars = ntqr.statistics.ResponseVariables(
+            self.labels, self.classifiers
+        )
+        max_vals = [
+            self.max_value_at_ql(ql, rVars.label_responses[label].values())
+            for label in self.labels
+        ]
+
+        R, E = len(self.labels), len(max_vals[0])
+        obs_data = np.array(
+            list(rVars.observables_dict(self.counts).values()), dtype=int
+        )
+        max_vals_np = np.array(max_vals, dtype=int)
+
+        # 2. Greedy Initialization
+        matrix = np.zeros((R, E), dtype=int)
+        col_totals = obs_data.copy()
+        row_totals = np.array(ql, dtype=int)
+
+        for r in range(R):
+            for c in range(E):
+                take = min(row_totals[r], col_totals[c], max_vals_np[r, c])
+                matrix[r, c] = take
+                row_totals[r] -= take
+                col_totals[c] -= take
+
+        # Failsafe: If greedy initialization cannot resolve the margins
+        if np.any(row_totals > 0) or np.any(col_totals > 0):
+            raise ValueError(
+                "Incompatible ql, obs_data, or max_vals: Cannot generate a valid starting point."
+            )
+
+        # 3. MCMC Sampling
+        while True:
+            n_iters = R * E * 50
+
+            # Pre-generate random indices for the entire block
+            r1_arr = np.random.randint(0, R, size=n_iters)
+            r2_arr = np.random.randint(0, R - 1, size=n_iters)
+            r2_arr[r2_arr >= r1_arr] += 1
+
+            c1_arr = np.random.randint(0, E, size=n_iters)
+            c2_arr = np.random.randint(0, E - 1, size=n_iters)
+            c2_arr[c2_arr >= c1_arr] += 1
+
+            jump_ratios = np.random.random(size=n_iters)
+
+            # Main Loop: O(1) arithmetic swaps
+            for i in range(n_iters):
+                r1, r2 = r1_arr[i], r2_arr[i]
+                c1, c2 = c1_arr[i], c2_arr[i]
+
+                max_jump = min(
+                    max_vals_np[r1, c1] - matrix[r1, c1],
+                    max_vals_np[r2, c2] - matrix[r2, c2],
+                    matrix[r1, c2],
+                    matrix[r2, c1],
+                )
+
+                if max_jump > 0:
+                    jump = int(jump_ratios[i] * max_jump) + 1
+                    matrix[r1, c1] += jump
+                    matrix[r2, c2] += jump
+                    matrix[r1, c2] -= jump
+                    matrix[r2, c1] -= jump
+
+            # Yield results as a tuple of HashablePoint objects
+            # We use .copy() to ensure the wrapper owns the data
+            yield tuple(HashablePoint(matrix[i].copy()) for i in range(R))
+
+    def correct_cuboid_marginal_matrices(self) -> Sequence[Sequence[int]]:
+        """
+        Computes the correct marginal matrices for joint evaluations.
+
+        With this list of matrices, indexed by label order, one can
+        get the correct cuboid points for all classifiers. Each cuboid
+        point has the dimension of the number of classifers.
+
+
+        Returns
+        -------
+        Sequence[Sequence[int]]
+            List, indexed by label order, of marginalization matrices for
+            correct cuboid points.
+
+        """
+        label_vars = ntqr.statistics.ResponseVariables(
+            self.labels, self.classifiers
+        ).label_responses
+        marg_mats = [
+            np.array(
+                [
+                    [
+                        1 if event[c] == label else 0
+                        for event in label_vars[label].keys()
+                    ]
+                    for c in range(len(self.classifiers))
+                ]
+            )
+            for label in self.labels
+        ]
+
+        return marg_mats
 
     def correct_cuboid_generator(
         self, ql: Sequence[int]
@@ -626,80 +924,166 @@ class ConsistentSet:
         # Calculate the matrices that allow us to marginalize the joint
         # event counts to the number of correct for each classifier
         # and label.
-        label_vars = ntqr.statistics.ResponseVariables(
-            self.labels, self.classifiers
-        ).label_responses
-        marg_mats = [
-            np.array(
-                [
-                    [
-                        1 if event[c] == label else 0
-                        for event in label_vars[label].keys()
-                    ]
-                    for c in range(len(self.classifiers))
-                ]
-            )
-            for label in self.labels
-        ]
+        marg_mats = self.correct_cuboid_marginal_matrices()
 
         for l_points in self.set_generator(ql):
             yield tuple(
-                tuple((m_mat @ l_point).tolist())
+                tuple(int(v) for v in m_mat @ l_point.toarray().ravel())
                 for m_mat, l_point in zip(marg_mats, l_points)
             )
 
         return
 
-    def random_correct_cuboid_points(
-        self, ql: Sequence[int], n: int
-    ) -> Sequence[Sequence[Sequence[int]]]:
+    def correct_cuboid_random_generator(
+        self, ql: Sequence[int]
+    ) -> Iterable[Sequence[Sequence[int]]]:
         """
-        Random list of points on the correct label cuboids.
-
-        Points may not be unique since they are marginalized
-        counts of unique points on the consistent set.
+        Generates random points in the correct_cuboids.
 
         Parameters
         ----------
         ql : Sequence[int]
-            Assumed count of each label in the answer key.
-        n : int
-            Number of points sampled in the consistent set.
+            Point in the Q-simplex.
+
+        Yields
+        ------
+        Iterable[Sequence[Sequence[int]]]
+            Random stream of transformed points.
+        """
+        marg_mats = self.correct_cuboid_marginal_matrices()
+        gen = self.random_set_generator(ql)
+
+        for point in gen:
+            # Each m_mat is (n_classifiers, n_classes)
+            # Each p_part is (n_classes,)
+            # np.atleast_1d ensures the simplex vector is correctly shaped
+            # for matrix-vector multiplication.
+            transformed = tuple(
+                tuple(
+                    int(cls_vector @ label_vector.toarray().ravel())
+                    for cls_vector in label_classifier_marg_vectors
+                )
+                for label_classifier_marg_vectors, label_vector in zip(
+                    marg_mats, point
+                )
+            )
+
+            yield transformed
+
+    def get_expected_event_counts(self) -> Sequence[int]:
+        """
+        Creates array of observed joint decision event counts.
+
+        Events are sorted in the order established by ntqr.statistics.
 
         Returns
         -------
-        Sequence[Sequence[Sequence[int]]]
-            Sequence, n long, of points in the correctness cuboid.
+        Sequence[int]
+            Observed joint decision counts.
 
         """
-        # Constructing the matrices that will allow us to
-        # marginalize to the correct cuboid coordinates.
-        label_vars = ntqr.statistics.ResponseVariables(
+        # Initialize the statistics class to access the canonical event order
+        rVars = ntqr.statistics.ResponseVariables(
             self.labels, self.classifiers
-        ).label_responses
-        marg_mats = [
-            np.array(
-                [
-                    [
-                        1 if event[c] == label else 0
-                        for event in label_vars[label].keys()
-                    ]
-                    for c in range(len(self.classifiers))
-                ]
-            )
-            for label in self.labels
-        ]
+        )
+        canonical_events = list(rVars.responses.keys())
 
-        points = list(self.random_points(ql, n))
-        c_points = [
-            tuple(
-                tuple((m_mat @ l_point).tolist())
-                for m_mat, l_point in zip(marg_mats, point)
-            )
-            for point in points
-        ]
+        # Extract counts from self.counts using the canonical order.
+        # We use .get(event, 0) just in case an event exists in the model
+        # but not in your input data counter.
+        return np.array(
+            [self.counts.get(event, 0) for event in canonical_events],
+            dtype=np.int64,
+        )
 
-        return c_points
+    def is_valid_point(
+        self, point: Sequence[Sequence[int]], ql: Sequence[int]
+    ) -> tuple[bool, str]:
+        """
+        Tests if a point is logically consistent with the counts.
+
+
+        Parameters
+        ----------
+        point : Sequence[Sequence[int]]
+            Point, putatively in the consistent set, to be tested.
+        ql : Sequence[int]
+            Point in the Q-simple.
+
+        Returns
+        -------
+        tuple(bool,str)
+            Whether the point is valid or not, and a string message
+            with debug information if the test fails.
+
+        """
+        # 1. Get the expected counts in the correct order
+        expected_counts = self.get_expected_event_counts()
+
+        # 2. Check Label Sums
+        for i, matrix in enumerate(point):
+            if matrix.sum() != ql[i]:
+                return (
+                    False,
+                    f"Constraint Mismatch: Label {i} sum {matrix.sum()} != ql[{i}] ({ql[i]})",
+                )
+
+        # 3. Check Event Sums
+        # Sum across all label matrices
+        # We start with the first matrix, then add the rest.
+        # This avoids trying to add an 'int' (0) to a HashablePoint object.
+        summed_matrix = point[0]
+        for matrix_wrapper in point[1:]:
+            summed_matrix = summed_matrix + matrix_wrapper
+
+        observed_sums = summed_matrix.toarray().flatten()
+
+        if not np.array_equal(observed_sums, expected_counts):
+            # Identify the first point of failure for debugging
+            mismatch_indices = np.where(observed_sums != expected_counts)[0]
+            return (
+                False,
+                f"Event Mismatch at indices {mismatch_indices[:5]}...",
+            )
+
+        return True, "Valid"
+
+    def are_points_equal(
+        self, p1: Tuple["HashablePoint", ...], p2: Tuple["HashablePoint", ...]
+    ) -> bool:
+        """
+        Tests if points are equal.
+
+        Parameters
+        ----------
+        p1 : tuple[sparray]
+            First point.
+        p2 : tuple[sparray]
+            Second point.
+
+        Returns
+        -------
+        bool
+            Returns true if both points have the same number of labels
+            and all their values are equal.
+
+        """
+        if len(p1) != len(p2):
+            return False
+
+        for hp1, hp2 in zip(p1, p2):
+            # 1. Check if shapes match (via delegation)
+            if hp1.shape != hp2.shape:
+                return False
+
+            # 2. Check if values match
+            # Since we implemented __eq__ in HashablePoint,
+            # this will correctly compare sparse vs sparse,
+            # sparse vs dense, or dense vs dense.
+            if hp1 != hp2:
+                return False
+
+        return True
 
     def __repr__(self):
         return f"ConsistentSet({self.labels},{self.classifiers},{self.counts})"

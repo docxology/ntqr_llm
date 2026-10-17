@@ -62,7 +62,7 @@ return valid measurements, is the vote matrix algebraically evaluable, and how
 does the selected estimate compare with external truth when such truth is
 available?
 
-Algebraic evaluation (the **NTQR** logic [@ntqr_0_8_docs;
+Algebraic evaluation (the **NTQR** logic [@ntqr_0_9_docs;
 @corrada_emmanuel_2023_ntqr_logic; @corrada_emmanuel_2023_streaming]; see the
 repository root [README](../README.md)) takes a deliberately narrower stance.
 It constructs postulates — true for *any* finite test, containing no probability
@@ -208,7 +208,7 @@ error-independent evaluation needs:
 - **Pessimist** — leans `bearish` on ambiguous setups.
 
 Three personas form a trio, matching the three-classifier `R=2` evaluators in
-the public NTQR package documentation [@ntqr_0_8_docs]. Each persona reads the
+the public NTQR package documentation [@ntqr_0_9_docs]. Each persona reads the
 same scenario and returns a single JSON call. The prompt contract is versioned
 as `v3_binary_schema`
 (`4d157f84885a`) and appears verbatim in [@sec:personas-scenarios].
@@ -289,7 +289,7 @@ unavailable model into a vote.
 ## The evaluators {#sec:evaluators}
 
 For each model we encode the trio's votes as `TrioLabelVoteCounts` and run three
-`ntqr.r2` evaluators [@ntqr_0_8_docs; @corrada_emmanuel_2023_streaming]:
+`ntqr.r2` evaluators [@ntqr_0_9_docs; @corrada_emmanuel_2023_streaming]:
 
 - **`ErrorIndependentEvaluation`** (unsupervised) — recovers prevalence and each
   persona's per-label accuracy from agreement structure alone, with no answer
@@ -316,7 +316,7 @@ agreement-rate literature as its nearest statistical antecedent
 [@platanios_2014_uai; @platanios_2016_icml]. We follow the construction in
 [`SimplestExampleOfEvaluationWithAlgebraicGeometry.md`](../docs/essays/SimplestExampleOfEvaluationWithAlgebraicGeometry.md)
 and the public NTQR implementation documented for
-`ntqr.r2.evaluators.ErrorIndependentEvaluation` [@ntqr_0_8_docs].
+`ntqr.r2.evaluators.ErrorIndependentEvaluation` [@ntqr_0_9_docs].
 
 **The universal evaluation polynomial.** Write the two labels as $\alpha$
 (`bullish`, `a`) and $\beta$ (`bearish`, `b`), the unknown test prevalence of
@@ -458,7 +458,7 @@ Computed from the votes alone — no answer key, no solve:
 
 Everything is exact and offline-reproducible from the cached votes. The numeric
 core (`python/src/ntqr/llm/`) is pure — no I/O, no plotting — and covered by
-99 unit tests that run with no network and no Ollama. The
+108 unit tests that run with no network and no Ollama. The
 manuscript itself is *generated*: every number below is injected from
 `summary.json` by `scripts/manuscript/render.py`, so the prose cannot drift from
 the data. Exact commands are in [@sec:reproduction].
@@ -1051,7 +1051,7 @@ the 0.102 sampling-noise floor.
 # References {#sec:references}
 
 The bibliography is generated from `manuscript/references.bib`. The central
-package citation is the public NTQR 0.8 documentation [@ntqr_0_8_docs], which
+package citation is the public NTQR 0.9 documentation [@ntqr_0_9_docs], which
 documents the `ntqr.r2` evaluators and trio data sketches used here. This
 repository is cited as the reproducible experiment artifact
 [@ntqr_llm_personas_2026], and Ollama is cited for the local model runtime

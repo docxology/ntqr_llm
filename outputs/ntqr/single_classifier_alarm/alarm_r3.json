@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-05-28T18:04:05",
+  "generated_at": "2026-10-17T16:17:53",
   "result": {
     "labels": [
       "a",
       "b",
       "c"
     ],
-    "Q": 15,
+    "Q": 3,
     "safety_factors": [
       2,
       2,
@@ -14,21 +14,26 @@
     ],
     "responses": [
       [
-        5,
-        5,
-        5
+        1,
+        1,
+        1
       ],
       [
-        6,
-        5,
-        4
+        2,
+        1,
+        0
       ],
       [
-        7,
-        4,
-        4
+        1,
+        2,
+        0
       ]
     ],
-    "are_misaligned": false
+    "are_misaligned": true,
+    "metadata": {
+      "ntqr_version": "0.9",
+      "max_q": 6,
+      "algorithm": "legacy exact enumeration"
+    }
   }
 }

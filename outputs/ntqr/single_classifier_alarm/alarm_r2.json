@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-28T18:04:05",
+  "generated_at": "2026-10-17T16:17:53",
   "result": {
     "labels": [
       "a",
@@ -24,6 +24,11 @@
         2
       ]
     ],
-    "are_misaligned": false
+    "are_misaligned": false,
+    "metadata": {
+      "ntqr_version": "0.9",
+      "max_q": 30,
+      "algorithm": "legacy exact enumeration"
+    }
   }
 }

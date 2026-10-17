@@ -8,7 +8,8 @@ dependencies = [
     "matplotlib>=3.10.0",
     "numpy>=2.0.0",
     "pyyaml>=6.0",
-    "sympy>=1.12",
+    "sympy>=1.14.0",
+    "ntqr==0.9",
 ]
 
 [project.optional-dependencies]
@@ -32,8 +33,8 @@ packages = []
 py-modules = []
 
 [tool.pytest.ini_options]
-pythonpath = ["scripts", "scripts/llm", "scripts/manuscript"]
-testpaths = ["tests"]
+pythonpath = ["python/src", "scripts", "scripts/llm", "scripts/manuscript"]
+testpaths = ["tests", "python/tests"]
 python_files = ["test_*.py"]
 python_functions = ["test_*"]
 addopts = "-v --tb=short --strict-markers"
@@ -54,3 +55,6 @@ exclude_lines = [
 
 [tool.uv]
 # Inherits workspace settings from root pyproject.toml
+
+[tool.uv.sources]
+ntqr = { path = "python", editable = true }

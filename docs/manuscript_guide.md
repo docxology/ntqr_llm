@@ -31,7 +31,7 @@ do not edit the `.md` outputs directly.
 | §3.1–3.6 | recovery ranking across evaluable models; failure modes; *disagreement ≠ evaluability*; the label-free diagnostic; MV vs error-independent; reading the figures |
 | §4 Discussion | what it shows, the warning, why strong models fail, limitations, future work |
 | Figures | formal per-figure specification (claim → encoding → thresholds → sidecar) |
-| References | generated bibliography; cite NTQR via public NTQR 0.8 documentation (`ntqr_0_8_docs`) and add new `[@key]` citations only after adding matching BibTeX |
+| References | generated bibliography; cite NTQR via public NTQR 0.9 documentation (`ntqr_0_9_docs`) and add new `[@key]` citations only after adding matching BibTeX |
 
 ## Structure of the supplemental
 

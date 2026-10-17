@@ -1,7 +1,7 @@
 # ntqr_llm_personas — manuscript configuration.
 # This file is the discovery key: the template/ repo's introspection
 # (src/template_template/introspection.py :: discover_projects) treats any
-# workspace containing manuscript/config.yaml as a renderable project, and reads
+# workspace containing docs/manuscript/config.yaml as a renderable project, and reads
 # the testing: block below for its coverage gate. The manuscript itself is a
 # GENERATED artifact — every number is injected from outputs/llm/.../summary.json
 # by scripts/manuscript/render.py; nothing here is hand-typed.

@@ -1,3 +1,9 @@
+> This checkout integrates the published NTQR 0.9 release with the local
+> `ntqr.llm` study extension. Use `uv sync --locked --extra dev` from the
+> repository root. See [migration notes](../docs/ntqr09.md) and
+> [source provenance](UPSTREAM.json) for imported files and local corrections.
+> The upstream introduction below includes historical development plans.
+
 # Logic tools to make your AI safer
 
 ![NTQR](./img/NTQRpt24.png)

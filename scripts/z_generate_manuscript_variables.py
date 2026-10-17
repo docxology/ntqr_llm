@@ -269,7 +269,7 @@ def _copy_auxiliary_files() -> None:
 def _copy_figures() -> None:
     OUTPUT_FIGURES.mkdir(parents=True, exist_ok=True)
     for old in OUTPUT_FIGURES.glob("*"):
-        if old.is_file():
+        if old.is_file() and old.suffix in {".png", ".json"}:
             old.unlink()
     missing = []
     for image, sidecar in FIGURES:
@@ -306,7 +306,8 @@ def main() -> int:
     for stale in list(OUTPUT_MANUSCRIPT.glob("*.md")) + list(
         OUTPUT_MANUSCRIPT.glob("*.bib")
     ):
-        stale.unlink()
+        if stale.name not in {"README.md", "AGENTS.md"}:
+            stale.unlink()
     for stale in ("config.yaml", "preamble.md"):
         path = OUTPUT_MANUSCRIPT / stale
         if path.exists():

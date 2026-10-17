@@ -3,7 +3,7 @@
 Child dirs: baselines/, configs/, llm/, manuscript/ (with templates/), ntqr/,
 sim/, validation/. Thin orchestrators only — import computation from
 `python/src/ntqr/`. The LLM-persona study computation lives in
-`python/src/ntqr/llm/` (`analysis`, `recovery_scoring`, `simulation`,
+`python/src/ntqr/llm/` (`analysis`, `recovery_scoring`, `consistency`, `alarm_demo`, `simulation`,
 `bootstrap`, `personas`); scripts keep only the LLM client (`llm/_llm.py`),
 the collect-votes glue (`llm/_analysis.py::collect_votes`), and the manuscript
 token map (`manuscript/_values.py`).

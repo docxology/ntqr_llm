@@ -1,0 +1,49 @@
+{
+  "distribution": "ntqr",
+  "version": "0.9",
+  "source": "https://pypi.org/project/ntqr/0.9/",
+  "wheel": "ntqr-0.9-py2.py3-none-any.whl",
+  "sha256": "83f3cbeeb54eb6a86fb1df8a7c86187f8b14511d69de94d3527ebe49d0a931d8",
+  "files": {
+    "ntqr/__init__.py": "5dea4b903b26323b05b0bbe12988031cd413e9a9b9adeecf3cbd0a8b73532754",
+    "ntqr/alarms.py": "5f0841828930ffd6512ce7c9d86c7b484374712947eeaa4a98221f1b13aa680a",
+    "ntqr/algebra.py": "2a30ee22553843fca48ccb095e252d56a378efd95ba455c2fc7a87dc3e7b5a9f",
+    "ntqr/evaluations.py": "a477fb3490a7cd6f6f00cb83c80ffddbed1e04b29dff8f0cd5454bee79f0f0d3",
+    "ntqr/labels.py": "045920435ff220b5237abb5cc47f6f2a56b637eaa12f92d935920cbf52f3559f",
+    "ntqr/plots.py": "910b3001e0cea9f42f6ac6f0bec5c7ad7e04abc1fbe75132ce8270f29ee1a387",
+    "ntqr/raxioms.py": "7fcf082375f241e5733b3b03409b7831cf96f09e9260ae0edc8fff61e4be0d62",
+    "ntqr/statistics.py": "23bd40c470dcf4f5e1ba5d6002de0d5c46afefc722ecc7f56d6fa392098579f2",
+    "ntqr/testsketches.py": "9dd9b54d1320f4ed069209b9ae62839408e31dc77187bf86372ae467f3c95e17",
+    "ntqr/notebooks/AlgebraAndGeometryOfNTQR.ipynb": "ab251f391b3b36aef7d8e1ec58c7d61830d381d48a2dac1c7b0301f586f615ff",
+    "ntqr/notebooks/ExactAlgebraicSolutionErrorIndependent.ipynb": "2be58cb51fd2498d2f0837e496b12c5c0a4ba1ccd90ce726aa397ae3339661be",
+    "ntqr/notebooks/HowManyIndependentAxioms.ipynb": "7b6a156a0cd1f9284776f2e048a1cd0db075993a57819cd91b74f4a5ad51a5b3",
+    "ntqr/notebooks/LogicOfUnsupervisedEvaluationTutorial.ipynb": "4d7173777650422521238dd3bf65426cc32a4f4b412411b5e79ab924b04e1eea",
+    "ntqr/notebooks/LogicalAlarmsMisalignedClassifiers.ipynb": "37e6df1c540f702ae4c0a9f793529a3007a282eb56c528efb23693dd5b51e1f3",
+    "ntqr/notebooks/MedQAQ300Test.ipynb": "682d0d975849414ca48c80e4894b9162e5d2542859a684c70b88c322eaa605d1",
+    "ntqr/notebooks/PossibleAndConsistentSet.ipynb": "4cf067295831a0b4ba5869a02f6d9c99421c4d29ba100e1fd1b21cde9b85feb3",
+    "ntqr/notebooks/Tutorial.ipynb": "73b5ad11f3965ed747b69c6613450f4c491bf778b88e2b0c675d1e79811c0679",
+    "ntqr/notebooks/VerifyingNTQR.ipynb": "e55a28b326762468453748f6a6ed8aa94ebc7197364556decf1879c99192dbdc",
+    "ntqr/r2/__init__.py": "41e2232c07901bbcffe761ff30c4e7d176618dc5f9255b30b96b8582a6892326",
+    "ntqr/r2/datasketches.py": "aa5628a7890a6a785267e6406c969282ef3482d74874626cb327aac58d66a376",
+    "ntqr/r2/evaluations.py": "4b04979de4c8de4884635b197dc979c5eea3b40d542ffa6b19a957a5ec099071",
+    "ntqr/r2/evaluators.py": "c64dd6383f72092e42018d18fdc66be8161f72817bc9993d7630d8dd896dad6c",
+    "ntqr/r2/examples.py": "8a5ac711f7fc16dda45ea8d62080feb2c7b0991e8c44ef51bac6660ef67ca5dd",
+    "ntqr/r2/paxioms.py": "8b07dc64cc3a975dce0b37ee2d4ad3881bcb83204937bcff5c6e76c94b9a5987",
+    "ntqr/r2/plots.py": "a7dd9edc9f118553bb881479c236ab97bdc33c3712cbcbf0fe2f6687d7012c96",
+    "ntqr/r2/raxioms.py": "ca68d0fef0855f7552ed99cba9cef249af3f5d2f6a42d75c3e2d0b0c3bf5ab68",
+    "ntqr/r2/uci_adult_20240415.py": "5a0eec0fd78aac133205faa36ee788326c67acf6336c3be5abce02c6cbe10176",
+    "ntqr/r3/__init__.py": "d36b0d834f8397783f1cd8dec2fb9bc4505e974237fbdff98a81cf3246f106f8",
+    "ntqr/r3/evaluations.py": "f2febd313baa8d5b2e054325bae4c5a5148171c5b62dc9d1aca14d8e7b8c6976",
+    "ntqr/r3/raxioms.py": "7b71d3efe401c66f249e3ae7a3a964936d98f527dc2e76a088f922eedb761313"
+  },
+  "local_extensions": [
+    "ntqr/llm/"
+  ],
+  "local_patches": [
+    {
+      "file": "ntqr/evaluations.py",
+      "reason": "Preserve observed event counts in exact sparse consistent-set enumeration; flatten sparse vectors before correct-cuboid projection.",
+      "tests": "tests/test_ntqr09.py"
+    }
+  ]
+}

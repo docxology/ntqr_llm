@@ -253,12 +253,12 @@ def test_public_ntqr_citation_is_present():
     repo = SCRIPTS.parent
     manuscript = render.render_all()[repo / "docs" / "manuscript" / "manuscript.md"]
     references = REFERENCES.read_text()
-    assert "ntqr_0_8_docs" in references
-    assert "NTQR 0.8 Documentation" in references
+    assert "ntqr_0_9_docs" in references
+    assert "NTQR 0.9: Software and Documentation" in references
     assert "Corrada-Emmanuel" in references
     assert "Lee, Walker" in references
     assert "Sloat, Adam" in references
-    assert "[@ntqr_0_8_docs]" in manuscript
+    assert "[@ntqr_0_9_docs]" in manuscript
     assert "2. `ntqr` Python package" not in manuscript
     assert "@misc{ntqr_library_2026" not in references
 
@@ -451,7 +451,7 @@ def test_required_context_citations_are_in_rendered_sections():
     }:
         assert f"@{key}" in introduction
     for key in {
-        "ntqr_0_8_docs",
+        "ntqr_0_9_docs",
         "ollama_structured_outputs_2024",
         "ollama_structured_blog_2024",
         "structured_output_reliability_2025",

@@ -33,7 +33,7 @@ algebra alone cannot distinguish them.
 
 We select with the standard answer-key-free assumption that **the judges are
 better than random**: keep the solution with the higher mean per-judge,
-per-label accuracy (`scripts/llm/_analysis.py::select_best`).
+per-label accuracy (`ntqr.llm.recovery_scoring::select_best`).
 
 Two tempting alternatives are rejected on principle:
 
@@ -60,13 +60,13 @@ vote-pattern frequency and the frequency moments (label `b`):
 
 | Quantity | Symbol | Value |
 |---|---|---|
-| All-`b` vote frequency | $f_{\beta\beta\beta}$ | n/a |
-| Trio frequency moment | $m_{012}$ | n/a |
-| Gap | $\Delta = f_{\beta\beta\beta} - m_{012}$ | n/a |
-| Pair moment (Opt,Neu) | $\delta_{(0,1)}$ | n/a |
-| Pair moment (Opt,Pes) | $\delta_{(0,2)}$ | n/a |
-| Pair moment (Neu,Pes) | $\delta_{(1,2)}$ | n/a |
-| Product of pair moments | $\prod_{(i,j)}\delta_{(i,j)}$ | n/a |
+| All-`b` vote frequency | $f_{\beta\beta\beta}$ | 0.2969 |
+| Trio frequency moment | $m_{012}$ | 0.2735 |
+| Gap | $\Delta = f_{\beta\beta\beta} - m_{012}$ | 0.0233 |
+| Pair moment (Opt,Neu) | $\delta_{(0,1)}$ | 0.1809 |
+| Pair moment (Opt,Pes) | $\delta_{(0,2)}$ | 0.1067 |
+| Pair moment (Neu,Pes) | $\delta_{(1,2)}$ | 0.1404 |
+| Product of pair moments | $\prod_{(i,j)}\delta_{(i,j)}$ | 2.71e-03 |
 
 : Real-vote frequency moments for `mistral:latest`, recomputed from `label_vote_counts.json`. {#tbl:worked-frequency-moments}
 
@@ -79,8 +79,8 @@ $c = \prod\delta$, the discriminant of $P_\alpha = \tfrac12 \mp
 \tfrac12\sqrt{1 - 4c/a}$ evaluates to
 
 $$
-1 - 4c/a = n/a \;>\; 0 \quad\Longrightarrow\quad
-   \tfrac12\sqrt{1 - 4c/a} = n/a.
+1 - 4c/a = 0.0479 \;>\; 0 \quad\Longrightarrow\quad
+   \tfrac12\sqrt{1 - 4c/a} = 0.1094.
 $$ {#eq:worked-discriminant}
 
 The discriminant is **positive**, so the prevalence is real — the algebra finds
@@ -90,12 +90,12 @@ no error-correlation violation (had it been negative, `ntqr` would raise
 **Step 3 — the two solutions.** The $\mp$ yields the symmetry pair
 
 $$
-P_\alpha \in \{\,n/a,\; n/a\,\}.
+P_\alpha \in \{\,0.3906,\; 0.6094\,\}.
 $$ {#eq:worked-roots}
 
 mirror images about $\tfrac12$. The tie-break ([@sec:tie-break]) selects
-**n/a** (higher mean accuracy), against the authored true
-prevalence of **n/a** — an absolute error of **n/a**,
+**0.6094** (higher mean accuracy), against the authored true
+prevalence of **0.6250** — an absolute error of **0.0156**,
 recovered with no answer key. Fixing this root then fixes all six per-persona,
 per-label accuracies via the linear maps of [@sec:formalism] (tabulated in
 [@sec:full-recovery]).
@@ -139,7 +139,7 @@ Two consequences, both visible in [@sec:synthetic-validation]:
    [@sec:synthetic-validation] curve where recovery degraded from 0.016 to
    0.042 while the alarm never sounded. The real worked
    example above sits in this safe regime: all three $\delta_{(i,j)}$ are
-   positive, so $D = n/a > 0$.
+   positive, so $D = 0.0479 > 0$.
 
 The practical reading: the imaginary-root alarm is a genuine, answer-key-free
 *sufficient* check, but a silent $D$ is **not** a certificate of
@@ -358,7 +358,7 @@ refresh=true` run needs a live Ollama.
 
 ```bash
 # 1. Project test suite (no network, no Ollama, no TeX):
-.venv/bin/python -m pytest tests/ -q                      # 99 tests
+.venv/bin/python -m pytest tests/ -q                      # 108 tests
 #   or: cd python && ../.venv/bin/python -m pytest -q     # 22 library tests
 
 # 2. Regenerate the multi-LLM sweep from the cache (JSON + figures):
@@ -397,7 +397,7 @@ Lint/format used in this study:
 ## S6 — The evaluability diagnostic, defined {#sec:diagnostic-definition}
 
 Computed from the vote matrix alone — no answer key, no solve
-(`scripts/llm/_analysis.py`):
+(`ntqr.llm.analysis`):
 
 - **`vote_variation(votes)`** → per judge: `distinct_calls`, `call_counts`,
   `modal_fraction` = (count of the most common call) / Q, and

@@ -41,7 +41,7 @@ here.
   from generated JSON artifacts; the prose cannot drift from the data.
 - **Algebraic (NTQR) evaluation** — recover per-judge accuracies from votes alone,
   no answer key; two logically consistent solutions, selected by a label-free
-  tie-break. Cite the public NTQR 0.8 documentation as `ntqr_0_8_docs`.
+  tie-break. Cite the public NTQR 0.9 documentation as `ntqr_0_9_docs`.
 - **Research context** — the manuscript now situates NTQR beside Dawid-Skene
   truth inference, weak supervision, agreement-rate estimators, LLM-as-judge
   evaluation, structured-output collection, and majority-vote/self-consistency
@@ -53,3 +53,5 @@ here.
   are named, never solved on invented votes.
 - **Sixteen embedded figures**, each with a parseable data sidecar so every
   plotted value is machine-readable.
+
+- [NTQR 0.9 migration](ntqr09.md): release provenance, sparse API changes, local fixes, and offline verification.

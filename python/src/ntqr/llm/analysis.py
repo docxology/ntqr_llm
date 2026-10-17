@@ -408,11 +408,11 @@ def pairwise_disagreement(votes):
     complements ``vote_variation``: a usable ensemble needs BOTH per-judge
     variation AND disagreement across judges.
     """
-    personas = personas.PERSONAS
+    panel = personas.PERSONAS
     pairs: dict[str, float] = {}
-    for i in range(len(personas)):
-        for j in range(i + 1, len(personas)):
-            ki, kj = personas[i]["key"], personas[j]["key"]
+    for i in range(len(panel)):
+        for j in range(i + 1, len(panel)):
+            ki, kj = panel[i]["key"], panel[j]["key"]
             compared = 0
             diff = 0
             for s in personas.SCENARIOS:
@@ -423,7 +423,7 @@ def pairwise_disagreement(votes):
                 compared += 1
                 if vi != vj:
                     diff += 1
-            label = f"{personas[i]['name']} vs {personas[j]['name']}"
+            label = f"{panel[i]['name']} vs {panel[j]['name']}"
             pairs[label] = diff / compared if compared else 0.0
     mean = sum(pairs.values()) / len(pairs) if pairs else 0.0
     return {"pairs": pairs, "mean": mean}
