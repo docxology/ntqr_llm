@@ -91,3 +91,23 @@ degrades recovery without tripping the alarm — and a natural next step is to
 base models) and predict the resulting recovery bias.
 
 ---
+
+## Identifiability and reproducible computation {#sec:identifiability-and-computation}
+
+Latent-class theory distinguishes generic identifiability from identifiability
+at every parameter value [@allman2009]. Here, variation is only a necessary
+screen; physical-root checks enforce the probability constraints of the fitted
+model, and a better-than-random assumption orients its label mirror. A physical
+solution cannot verify the independence assumption that generated it.
+
+The supervised scores are exact for the authored finite deck. Scenario
+bootstrap intervals describe the stated resampling procedure conditional on
+that deck and the recorded responses; they do not include prompt-selection,
+model-selection, model-update, or market-population uncertainty.
+
+Runtime profiles in `benchmarks/runtime/` use Python 3.15, deterministic inputs,
+unprofiled timing samples, and separate tracing and memory passes. Native
+sampling availability is recorded explicitly. Computational improvements and
+figure regeneration do not add model observations to the empirical study.
+`docs/research_map.json` links scoped claims to their sources and artifacts;
+the offline checker guards reference integrity rather than certifying claims.

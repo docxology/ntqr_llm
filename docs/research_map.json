@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "reviewed_on": "2026-10-17",
+  "policy": "Selected primary references verified; all bibliography entries receive offline structural checks. Verification is not a claim of full literature coverage.",
+  "verified_references": [
+    {
+      "key": "allman2009",
+      "source_url": "https://arxiv.org/abs/0809.5032",
+      "verified_on": "2026-10-17",
+      "scope": "Generic identifiability under stated latent-model and rank conditions; exceptional nonidentifiable parameters remain."
+    },
+    {
+      "key": "corrada_emmanuel_2023_ntqr_logic",
+      "source_url": "https://arxiv.org/abs/2312.05392",
+      "verified_on": "2026-10-17",
+      "scope": "Algebraic consistency and evaluation postulates; preprint, not independent validation of these model votes."
+    },
+    {
+      "key": "corrada_emmanuel_2023_streaming",
+      "source_url": "https://arxiv.org/abs/2306.01726",
+      "verified_on": "2026-10-17",
+      "scope": "Error-independent and majority-voting estimators on binary sketches."
+    },
+    {
+      "key": "corrada_emmanuel_2024_alarm",
+      "source_url": "https://arxiv.org/abs/2409.11052",
+      "verified_on": "2026-10-17",
+      "scope": "Logical inconsistency of empirical evaluations under a stated safety specification."
+    },
+    {
+      "key": "platanios_2016_icml",
+      "source_url": "https://proceedings.mlr.press/v48/platanios16.html",
+      "verified_on": "2026-10-17",
+      "scope": "A neighboring Bayesian method for estimating accuracy from unlabeled classifier outputs."
+    }
+  ],
+  "claims": [
+    {
+      "id": "physical-recovery",
+      "statement": "Physical-root validation enforces complete finite probabilities under the assumed model.",
+      "reference_keys": [
+        "allman2009",
+        "corrada_emmanuel_2023_ntqr_logic"
+      ],
+      "evidence_paths": [
+        "python/src/ntqr/llm/validity_audit.py",
+        "outputs/validation/recovery_validity_report/summary.json"
+      ],
+      "limitations": [
+        "It does not establish independence, orient the label mirror without an assumption, or certify real-market predictions."
+      ]
+    },
+    {
+      "id": "finite-deck-scoring",
+      "statement": "Recovery error compares algebraic estimates with supervised scores on the authored finite deck.",
+      "reference_keys": [
+        "corrada_emmanuel_2023_streaming",
+        "platanios_2016_icml"
+      ],
+      "evidence_paths": [
+        "python/src/ntqr/llm/recovery_scoring.py",
+        "outputs/llm/multi_llm_personas_evaluation/summary.json"
+      ],
+      "limitations": [
+        "Binomial SE is a reference scale, not a universal error floor.",
+        "Bootstrap intervals exclude model and prompt selection uncertainty."
+      ]
+    },
+    {
+      "id": "alarms",
+      "statement": "An imaginary root rejects the exact empirical error-independent model.",
+      "reference_keys": [
+        "corrada_emmanuel_2024_alarm"
+      ],
+      "evidence_paths": [
+        "python/src/ntqr/llm/simulation.py",
+        "outputs/sim/synthetic_recovery_study/correlation.data.json"
+      ],
+      "limitations": [
+        "It is not a calibrated zero-false-positive population independence test.",
+        "The selected common-mode trials show a blind spot."
+      ]
+    },
+    {
+      "id": "runtime",
+      "statement": "Runtime receipts retain unprofiled timing samples and separate tracing/memory diagnostics.",
+      "reference_keys": [],
+      "evidence_paths": [
+        "benchmarks/runtime/before.json",
+        "python/src/ntqr/llm/runtime_profile.py"
+      ],
+      "limitations": [
+        "Results are host-specific; native sampling can be unavailable under OS permissions."
+      ]
+    }
+  ]
+}

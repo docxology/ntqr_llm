@@ -1,5 +1,7 @@
 {
-  "generated_at": "2026-06-01T13:18:55",
+  "generated_at": "2026-10-18T00:10:49+00:00",
+  "schema_version": 2,
+  "ntqr_version": "0.9",
   "result": {
     "figure": "prompt_compliance.png",
     "title": "Prompt compliance: schema-valid, repaired, or invalid",
@@ -111,11 +113,11 @@
           "schema_json": 192
         },
         "evaluable": false,
-        "error": "degenerate (unsolvable / NaN solution); constant classifier(s): Optimist, Neutral, Pessimist"
+        "error": "not evaluated in the recorded study summary"
       }
     ],
     "metadata": {
-      "generated_utc": "2026-06-01T20:18:55.058797+00:00",
+      "generated_utc": "2026-10-18T00:10:48+00:00",
       "n_scenarios": 64,
       "n_personas": 3,
       "personas": [
@@ -137,15 +139,20 @@
         "n_models_evaluated": 5,
         "prompt_version": "v3_binary_schema",
         "prompt_hash": "4d157f84885a",
-        "baseline_summary": "baseline_t0.7_summary.json",
-        "date": "2026-06-01"
+        "date": "2026-06-01",
+        "figure_inputs_sha256": "653fb8dee1b203f871dc8fef8879561922945a258a04c09a0ae93d7213d0a065",
+        "collection": "recorded responses; no model calls"
       }
     },
-    "caption": "Each model is asked for the same persona-scenario grid under a binary JSON schema. Dark green cells were valid on the first attempt; light green cells became valid after one model-driven repair retry. Red and grey cells remain honest missing votes; no invalid response is converted into a fabricated vote."
+    "caption": "Each model is asked for the same persona-scenario grid under a binary JSON schema. Dark green cells were valid on the first attempt; light green cells became valid after one model-driven repair retry. Red and grey cells remain honest missing votes; no invalid response is converted into a fabricated vote.",
+    "exports": {
+      "raster": "prompt_compliance.png",
+      "vector": "prompt_compliance.svg"
+    }
   },
   "caption": "Each model is asked for the same persona-scenario grid under a binary JSON schema. Dark green cells were valid on the first attempt; light green cells became valid after one model-driven repair retry. Red and grey cells remain honest missing votes; no invalid response is converted into a fabricated vote.",
   "metadata": {
-    "generated_utc": "2026-06-01T20:18:55.058797+00:00",
+    "generated_utc": "2026-10-18T00:10:48+00:00",
     "n_scenarios": 64,
     "n_personas": 3,
     "personas": [
@@ -167,13 +174,14 @@
       "n_models_evaluated": 5,
       "prompt_version": "v3_binary_schema",
       "prompt_hash": "4d157f84885a",
-      "baseline_summary": "baseline_t0.7_summary.json",
-      "date": "2026-06-01"
+      "date": "2026-06-01",
+      "figure_inputs_sha256": "653fb8dee1b203f871dc8fef8879561922945a258a04c09a0ae93d7213d0a065",
+      "collection": "recorded responses; no model calls"
     }
   },
   "provenance": {
     "source_file": "prompt_compliance.data.json",
-    "generated_utc": "2026-06-01T20:18:55.058797+00:00",
+    "generated_utc": "2026-10-18T00:10:48+00:00",
     "n_scenarios": 64,
     "experiment": {
       "backend": "ollama",
@@ -185,8 +193,9 @@
       "n_models_evaluated": 5,
       "prompt_version": "v3_binary_schema",
       "prompt_hash": "4d157f84885a",
-      "baseline_summary": "baseline_t0.7_summary.json",
-      "date": "2026-06-01"
+      "date": "2026-06-01",
+      "figure_inputs_sha256": "653fb8dee1b203f871dc8fef8879561922945a258a04c09a0ae93d7213d0a065",
+      "collection": "recorded responses; no model calls"
     }
   }
 }

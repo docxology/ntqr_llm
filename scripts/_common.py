@@ -45,6 +45,7 @@ def _jsonable(obj: Any) -> Any:
     """
     ensure_ntqr_importable()
     from ntqr.llm.artifacts import jsonable
+
     return jsonable(obj)
 
 
@@ -54,66 +55,20 @@ def _key(key: Any) -> str:
     return str(key)
 
 
-def _sidecar_provenance(
-    filename: str, result: dict[str, Any], generated_at: str
-) -> dict[str, Any]:
-    metadata = result.get("metadata")
-    meta = metadata if isinstance(metadata, dict) else {}
-    provenance: dict[str, Any] = {
-        "source_file": filename,
-    }
-    for key in (
-        "generated_utc",
-        "study",
-        "deterministic",
-        "model",
-        "n_scenarios",
-        "n_boot",
-        "seed",
-    ):
-        if key in meta:
-            provenance[key] = meta[key]
-    if isinstance(meta.get("experiment"), dict):
-        provenance["experiment"] = meta["experiment"]
-    if "generated_utc" not in provenance:
-        provenance["generated_at"] = generated_at
-    return provenance
-
-
 def save_json(directory: Path, filename: str, payload: Any) -> Path:
-    """Write ``payload`` as pretty JSON, wrapped with a small provenance header."""
-    result = _jsonable(payload)
-    from ntqr.llm.artifacts import generated_at, save_json as atomic_save_json
-    from ntqr import __version__
-    record = {
-        "generated_at": generated_at(),
-        "schema_version": 2,
-        "ntqr_version": __version__,
-        "result": result,
-    }
-    if (
-        filename.endswith(".data.json")
-        and isinstance(result, dict)
-        and ("figure" in result or "caption" in result)
-    ):
-        if result.get("caption"):
-            record["caption"] = result["caption"]
-        if isinstance(result.get("metadata"), dict):
-            record["metadata"] = result["metadata"]
-        provenance = result.get("provenance")
-        record["provenance"] = (
-            provenance
-            if isinstance(provenance, dict)
-            else _sidecar_provenance(filename, result, record["generated_at"])
-        )
-    path = directory / filename
-    return atomic_save_json(path, record)
+    ensure_ntqr_importable()
+    from ntqr.llm.artifacts import save_record
+
+    return save_record(directory, filename, payload)
 
 
 def save_text(directory: Path, filename: str, text: str) -> Path:
     ensure_ntqr_importable()
     from ntqr.llm.artifacts import atomic_write_text
-    return atomic_write_text(directory / filename, text if text.endswith("\n") else text + "\n")
+
+    return atomic_write_text(
+        directory / filename, text if text.endswith("\n") else text + "\n"
+    )
 
 
 def banner(title: str) -> None:

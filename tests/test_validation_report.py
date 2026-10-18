@@ -34,7 +34,8 @@ def test_validation_report_checks_all_load_bearing_claims():
     }
     assert set(checks) == expected
     assert all(row["passed"] for row in checks.values())
-    assert "16/16 sidecars" in checks["figure_sidecars_complete"]["evidence"]
+    count = len(report.manuscript_variables.FIGURES)
+    assert f"{count}/{count} sidecars" in checks["figure_sidecars_complete"]["evidence"]
     assert summary["n_passed"] == summary["n_checks"] == len(expected)
 
 
@@ -50,5 +51,5 @@ def test_validation_report_writes_summary_sidecar_and_figure(tmp_path):
     assert summary["n_failed"] == 0
     assert sidecar["figure"] == figure_path.name
     assert sidecar["caption"]
-    assert sidecar["metadata"]["figure_inventory_count"] == 16
+    assert sidecar["metadata"]["figure_inventory_count"] == len(report.manuscript_variables.FIGURES)
     assert len(sidecar["checks"]) == summary["n_checks"]

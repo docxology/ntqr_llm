@@ -92,13 +92,12 @@ def summarize_sets(
         valid, reason = consistent.is_valid_point(point, ql)
         if not valid:
             raise ValueError(f"NTQR returned an inconsistent evaluation: {reason}")
-        dense = [row.toarray().ravel().tolist() for row in point]
         if len(reservoir) < n_samples:
-            reservoir.append(dense)
-        else:
+            reservoir.append([row.toarray().ravel().tolist() for row in point])
+        elif n_samples:
             index = rng.randrange(count)
             if index < n_samples:
-                reservoir[index] = dense
+                reservoir[index] = [row.toarray().ravel().tolist() for row in point]
     marginals = consistent.correct_cuboid_marginal_matrices()
     return {
         "labels": list(labels),

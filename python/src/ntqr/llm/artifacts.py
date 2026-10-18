@@ -97,3 +97,62 @@ def save_json(path: Path, record) -> Path:
         + "\n"
     )
     return atomic_write_text(path, encoded)
+
+
+from typing import Any
+
+
+def _sidecar_provenance(
+    filename: str, result: dict[str, Any], generated_at: str
+) -> dict[str, Any]:
+    metadata = result.get("metadata")
+    meta = metadata if isinstance(metadata, dict) else {}
+    provenance: dict[str, Any] = {
+        "source_file": filename,
+    }
+    for key in (
+        "generated_utc",
+        "study",
+        "deterministic",
+        "model",
+        "n_scenarios",
+        "n_boot",
+        "seed",
+    ):
+        if key in meta:
+            provenance[key] = meta[key]
+    if isinstance(meta.get("experiment"), dict):
+        provenance["experiment"] = meta["experiment"]
+    if "generated_utc" not in provenance:
+        provenance["generated_at"] = generated_at
+    return provenance
+
+
+def save_record(directory: Path, filename: str, payload: Any) -> Path:
+    """Write ``payload`` as pretty JSON, wrapped with a small provenance header."""
+    result = jsonable(payload)
+    from ntqr import __version__
+
+    record = {
+        "generated_at": generated_at(),
+        "schema_version": 2,
+        "ntqr_version": __version__,
+        "result": result,
+    }
+    if (
+        filename.endswith(".data.json")
+        and isinstance(result, dict)
+        and ("figure" in result or "caption" in result)
+    ):
+        if result.get("caption"):
+            record["caption"] = result["caption"]
+        if isinstance(result.get("metadata"), dict):
+            record["metadata"] = result["metadata"]
+        provenance = result.get("provenance")
+        record["provenance"] = (
+            provenance
+            if isinstance(provenance, dict)
+            else _sidecar_provenance(filename, result, record["generated_at"])
+        )
+    path = directory / filename
+    return save_json(path, record)

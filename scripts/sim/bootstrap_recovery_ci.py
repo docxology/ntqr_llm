@@ -30,6 +30,9 @@ SEED = 9000
 LLM_OUT = _common.OUTPUTS_DIR / "llm" / "multi_llm_personas_evaluation"
 
 
+from ntqr.llm.supporting_figures import plot_bootstrap as _plot
+
+
 def _load_result(path: Path) -> dict:
     doc = json.loads(path.read_text())
     return doc.get("result", doc) if isinstance(doc, dict) else doc
@@ -46,67 +49,13 @@ def reconstruct_records(model: str) -> list[tuple[str, tuple]]:
     ``by_scenario`` votes; the persona order matches ``personas.PERSONAS``.
     """
     votes = _load_result(_model_dir(model) / "votes.json")["by_scenario"]
-    truth = {
-        s["id"]: personas.CALL_TO_LABEL[s["truth"]]
-        for s in personas.SCENARIOS
-    }
+    truth = {s["id"]: personas.CALL_TO_LABEL[s["truth"]] for s in personas.SCENARIOS}
     order = [p["key"] for p in personas.PERSONAS]
     records = []
     for sid, calls in votes.items():
         pattern = tuple(personas.CALL_TO_LABEL[calls[k]] for k in order)
         records.append((truth[sid], pattern))
     return records
-
-
-def _plot(summary: dict, out_dir: Path, footer: str) -> Path:
-    import matplotlib
-
-    matplotlib.use("Agg")
-    import matplotlib.pyplot as plt
-
-    plt.rcParams["text.usetex"] = False
-    mae = summary["recovery_mae"]
-    samples = summary["_mae_samples"]
-    point = summary["point_recovery_mae"]
-    floor = summary["sampling_noise_floor"]
-
-    fig, ax = plt.subplots(figsize=(7.6, 5.0))
-    ax.hist(samples, bins=40, color="#1f77b4", alpha=0.75, edgecolor="white")
-    ax.axvline(
-        point,
-        color="#d62728",
-        lw=2,
-        label=f"point estimate {point:.3f}",
-    )
-    ax.axvspan(
-        mae["ci_lo"],
-        mae["ci_hi"],
-        color="#2ca02c",
-        alpha=0.12,
-        label=f"95% CI [{mae['ci_lo']:.3f}, {mae['ci_hi']:.3f}]",
-    )
-    if floor is not None:
-        ax.axvline(
-            floor,
-            color="#7f7f7f",
-            ls="--",
-            lw=1.2,
-            label=f"sampling-noise floor {floor:.3f}",
-        )
-    ax.set_xlabel("Unsupervised recovery MAE (per scenario resample)")
-    ax.set_ylabel("Bootstrap resamples")
-    ax.set_title(
-        f"Recovery MAE is stable under scenario resampling\n"
-        f"({summary['n_boot']} resamples of {summary['n_scenarios']} scenarios; "
-        f"{summary['degenerate_rate'] * 100:.1f}% degenerate)"
-    )
-    ax.legend(frameon=False)
-    fig.text(0.5, 0.005, footer, ha="center", fontsize=6, color="#666666")
-    fig.tight_layout(rect=(0, 0.02, 1, 1))
-    path = out_dir / "bootstrap_recovery_mae.png"
-    fig.savefig(path, dpi=150)
-    plt.close(fig)
-    return path
 
 
 def main() -> int:

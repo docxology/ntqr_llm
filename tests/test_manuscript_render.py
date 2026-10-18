@@ -39,9 +39,7 @@ def _bib_keys() -> set[str]:
 
 
 def _template_citation_keys() -> set[str]:
-    text = "\n".join(
-        path.read_text() for path in sorted(TEMPLATES.glob("*.md.tmpl"))
-    )
+    text = "\n".join(path.read_text() for path in sorted(TEMPLATES.glob("*.md.tmpl")))
     keys = set(re.findall(r"(?<!\w)@([A-Za-z0-9_:-]+)", text))
     return {key for key in keys if ":" not in key}
 
@@ -97,16 +95,12 @@ def test_headline_numbers_match_artifacts():
     assert v["N_UNEVALUABLE"] == str(len(summary["failed_models"]))
     assert (
         v["DIAG_MATCHED"]
-        == str(
-            summary["evaluability_diagnostic"]["diagnostic_matched_outcome"]
-        ).lower()
+        == str(summary["evaluability_diagnostic"]["diagnostic_matched_outcome"]).lower()
     )
     assert (
         v["DIS_GATES"]
         == str(
-            summary["cross_model_statistics"][
-                "disagreement_gates_evaluability"
-            ]
+            summary["cross_model_statistics"]["disagreement_gates_evaluability"]
         ).lower()
     )
 
@@ -158,6 +152,7 @@ def test_rendered_manuscript_figure_inventory_has_sidecars():
     manuscript = render.render_all()[repo / "docs" / "manuscript" / "manuscript.md"]
     links = re.findall(r"!\[.*?\]\(([^)]+\.png)\)", manuscript, re.S)
     expected_sidecars = {
+        "../output/figures/physical_recovery_audit.png": "../output/figures/physical_recovery_audit.data.json",
         "../output/figures/evaluation_pipeline.png": "../output/figures/evaluation_pipeline.data.json",
         "../output/figures/disagreement_vs_evaluability.png": "../output/figures/disagreement_vs_evaluability.data.json",
         "../output/figures/best_model_recovery.png": "../output/figures/best_model_recovery.data.json",
@@ -175,7 +170,7 @@ def test_rendered_manuscript_figure_inventory_has_sidecars():
         "../output/figures/synthetic_mv_vs_ei.png": "../output/figures/synthetic_mv_vs_ei.data.json",
         "../output/figures/validation_matrix.png": "../output/figures/validation_matrix.data.json",
     }
-    assert len(links) == 16
+    assert len(links) == int(_values.compute_values(OUT)["N_EMBEDDED_FIGURES"])
     assert set(links) == set(expected_sidecars)
     if not (repo / "output" / "figures").exists():
         print("[SKIP] template figure hydration has not been run")
@@ -198,8 +193,7 @@ def test_nonzero_recovery_does_not_claim_exact_recovery():
     if v["REC_MAE"] == "0.000":
         return
     rendered = {
-        dest.name: " ".join(text.split())
-        for dest, text in render.render_all().items()
+        dest.name: " ".join(text.split()) for dest, text in render.render_all().items()
     }
     banned = {
         "README.md": [
@@ -234,14 +228,8 @@ def test_manuscript_has_reader_map_and_validation_matrix():
         "| Object | Observed without labels? | Validation-only? | Meaning in this study |"
         in manuscript
     )
-    assert (
-        "## Statistical validation matrix {#sec:validation-matrix}"
-        in manuscript
-    )
-    assert (
-        "## Evaluation object and data flow {#sec:method-data-flow}"
-        in manuscript
-    )
+    assert "## Statistical validation matrix {#sec:validation-matrix}" in manuscript
+    assert "## Evaluation object and data flow {#sec:method-data-flow}" in manuscript
     assert "evaluation_pipeline.png" in manuscript
     assert "validation_matrix.png" in manuscript
 
@@ -311,9 +299,7 @@ def test_public_release_metadata_files_match_config():
     assert zenodo_json["version"] == "1.0.0"
     assert zenodo_json["license"] == "Apache-2.0"
     assert codemeta_json["version"] == "1.0.0"
-    assert codemeta_json["codeRepository"] == (
-        "https://github.com/docxology/ntqr_llm"
-    )
+    assert codemeta_json["codeRepository"] == ("https://github.com/docxology/ntqr_llm")
     # Sidecars must carry the published concept DOI and agree with config.yaml.
     config_text = (repo / "docs" / "manuscript" / "config.yaml").read_text()
     concept_doi = "10.5281/zenodo.20498699"
@@ -406,7 +392,8 @@ def test_rendered_validation_sidecar_count_is_current():
     repo = SCRIPTS.parent
     manuscript = render.render_all()[repo / "docs" / "manuscript" / "manuscript.md"]
     assert "14/14 sidecars" not in manuscript
-    assert "16/16 sidecars" in manuscript
+    count = int(_values.compute_values(OUT)["N_EMBEDDED_FIGURES"])
+    assert f"{count}/{count} sidecars" in manuscript
 
 
 def test_no_stale_single_evaluable_claim_when_multiple_models_are_evaluable():
@@ -482,10 +469,8 @@ def test_template_crossref_syntax_is_present():
         return
     repo = SCRIPTS.parent
     manuscript = render.render_all()[repo / "docs" / "manuscript" / "manuscript.md"]
-    figure_labels = re.findall(
-        r"!\[.*?\]\([^)]+\.png\)\{#fig:[^}]+}", manuscript, re.S
-    )
-    assert len(figure_labels) == 16
+    figure_labels = re.findall(r"!\[.*?\]\([^)]+\.png\)\{#fig:[^}]+}", manuscript, re.S)
+    assert len(figure_labels) == int(_values.compute_values(OUT)["N_EMBEDDED_FIGURES"])
     assert "{#tbl:evaluation-objects}" in manuscript
     assert "{#tbl:scenario-examples}" in manuscript
     assert "{#tbl:model-lineup}" in manuscript
@@ -502,9 +487,7 @@ def test_template_crossref_syntax_is_present():
 
 def test_template_hydration_outputs_are_valid():
     out_dir = SCRIPTS.parent / "output" / "manuscript"
-    data_file = (
-        SCRIPTS.parent / "output" / "data" / "manuscript_variables.json"
-    )
+    data_file = SCRIPTS.parent / "output" / "data" / "manuscript_variables.json"
     if not out_dir.exists() or not data_file.exists():
         print("[SKIP] template hydration has not been run")
         return

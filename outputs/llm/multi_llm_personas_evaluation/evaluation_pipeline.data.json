@@ -1,5 +1,7 @@
 {
-  "generated_at": "2026-06-01T13:18:54",
+  "generated_at": "2026-10-18T00:10:47+00:00",
+  "schema_version": 2,
+  "ntqr_version": "0.9",
   "result": {
     "figure": "evaluation_pipeline.png",
     "title": "What enters the unsupervised solve, and what is validation-only",
@@ -65,7 +67,7 @@
       "recovery MAE"
     ],
     "metadata": {
-      "generated_utc": "2026-06-01T20:18:54.847939+00:00",
+      "generated_utc": "2026-10-18T00:10:46+00:00",
       "n_scenarios": 64,
       "n_personas": 3,
       "personas": [
@@ -87,15 +89,20 @@
         "n_models_evaluated": 5,
         "prompt_version": "v3_binary_schema",
         "prompt_hash": "4d157f84885a",
-        "baseline_summary": "baseline_t0.7_summary.json",
-        "date": "2026-06-01"
+        "date": "2026-06-01",
+        "figure_inputs_sha256": "653fb8dee1b203f871dc8fef8879561922945a258a04c09a0ae93d7213d0a065",
+        "collection": "recorded responses; no model calls"
       }
     },
-    "caption": "The NTQR solve sees only parsed votes summarized as unlabeled agreement counts. Authored truth is held out until after branch selection, where it scores recovery MAE for this controlled experiment."
+    "caption": "The NTQR solve sees only parsed votes summarized as unlabeled agreement counts. Authored truth is held out until after branch selection, where it scores recovery MAE for this controlled experiment.",
+    "exports": {
+      "raster": "evaluation_pipeline.png",
+      "vector": "evaluation_pipeline.svg"
+    }
   },
   "caption": "The NTQR solve sees only parsed votes summarized as unlabeled agreement counts. Authored truth is held out until after branch selection, where it scores recovery MAE for this controlled experiment.",
   "metadata": {
-    "generated_utc": "2026-06-01T20:18:54.847939+00:00",
+    "generated_utc": "2026-10-18T00:10:46+00:00",
     "n_scenarios": 64,
     "n_personas": 3,
     "personas": [
@@ -117,13 +124,14 @@
       "n_models_evaluated": 5,
       "prompt_version": "v3_binary_schema",
       "prompt_hash": "4d157f84885a",
-      "baseline_summary": "baseline_t0.7_summary.json",
-      "date": "2026-06-01"
+      "date": "2026-06-01",
+      "figure_inputs_sha256": "653fb8dee1b203f871dc8fef8879561922945a258a04c09a0ae93d7213d0a065",
+      "collection": "recorded responses; no model calls"
     }
   },
   "provenance": {
     "source_file": "evaluation_pipeline.data.json",
-    "generated_utc": "2026-06-01T20:18:54.847939+00:00",
+    "generated_utc": "2026-10-18T00:10:46+00:00",
     "n_scenarios": 64,
     "experiment": {
       "backend": "ollama",
@@ -135,8 +143,9 @@
       "n_models_evaluated": 5,
       "prompt_version": "v3_binary_schema",
       "prompt_hash": "4d157f84885a",
-      "baseline_summary": "baseline_t0.7_summary.json",
-      "date": "2026-06-01"
+      "date": "2026-06-01",
+      "figure_inputs_sha256": "653fb8dee1b203f871dc8fef8879561922945a258a04c09a0ae93d7213d0a065",
+      "collection": "recorded responses; no model calls"
     }
   }
 }

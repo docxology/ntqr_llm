@@ -1,5 +1,7 @@
 {
-  "generated_at": "2026-06-01T13:18:55",
+  "generated_at": "2026-10-18T00:10:58+00:00",
+  "schema_version": 2,
+  "ntqr_version": "0.9",
   "result": {
     "figure": "best_model_recovery.png",
     "title": "True vs recovered persona accuracy -- mistral:latest",
@@ -57,12 +59,12 @@
     "thresholds": [
       {
         "value": 0.10206207261596575,
-        "label": "sampling-noise floor",
-        "meaning": "per-term errors (d) at or below this are within the supervised estimate's own sampling error"
+        "label": "binomial SE reference",
+        "meaning": "worst-case Bernoulli proportion SE reference; not a lower bound or confidence interval for recovery MAE"
       }
     ],
     "metadata": {
-      "generated_utc": "2026-06-01T20:18:55.864304+00:00",
+      "generated_utc": "2026-10-18T00:10:57+00:00",
       "n_scenarios": 64,
       "n_personas": 3,
       "personas": [
@@ -84,8 +86,9 @@
         "n_models_evaluated": 5,
         "prompt_version": "v3_binary_schema",
         "prompt_hash": "4d157f84885a",
-        "baseline_summary": "baseline_t0.7_summary.json",
-        "date": "2026-06-01"
+        "date": "2026-06-01",
+        "figure_inputs_sha256": "653fb8dee1b203f871dc8fef8879561922945a258a04c09a0ae93d7213d0a065",
+        "collection": "recorded responses; no model calls"
       },
       "worst_term": {
         "persona": "Optimist",
@@ -93,11 +96,15 @@
         "abs_error": 0.03166666666666662
       }
     },
-    "caption": "d = |recovered - true| per term. With no answer key the algebra tracks all six per-persona accuracies closely, worst term Optimist / b off by 0.03 -- including a deliberately bad judge."
+    "caption": "d = |recovered - true| per term. With no answer key the algebra tracks all six per-persona accuracies closely, worst term Optimist / b off by 0.03 -- including a deliberately bad judge.",
+    "exports": {
+      "raster": "best_model_recovery.png",
+      "vector": "best_model_recovery.svg"
+    }
   },
   "caption": "d = |recovered - true| per term. With no answer key the algebra tracks all six per-persona accuracies closely, worst term Optimist / b off by 0.03 -- including a deliberately bad judge.",
   "metadata": {
-    "generated_utc": "2026-06-01T20:18:55.864304+00:00",
+    "generated_utc": "2026-10-18T00:10:57+00:00",
     "n_scenarios": 64,
     "n_personas": 3,
     "personas": [
@@ -119,8 +126,9 @@
       "n_models_evaluated": 5,
       "prompt_version": "v3_binary_schema",
       "prompt_hash": "4d157f84885a",
-      "baseline_summary": "baseline_t0.7_summary.json",
-      "date": "2026-06-01"
+      "date": "2026-06-01",
+      "figure_inputs_sha256": "653fb8dee1b203f871dc8fef8879561922945a258a04c09a0ae93d7213d0a065",
+      "collection": "recorded responses; no model calls"
     },
     "worst_term": {
       "persona": "Optimist",
@@ -130,7 +138,7 @@
   },
   "provenance": {
     "source_file": "best_model_recovery.data.json",
-    "generated_utc": "2026-06-01T20:18:55.864304+00:00",
+    "generated_utc": "2026-10-18T00:10:57+00:00",
     "n_scenarios": 64,
     "experiment": {
       "backend": "ollama",
@@ -142,8 +150,9 @@
       "n_models_evaluated": 5,
       "prompt_version": "v3_binary_schema",
       "prompt_hash": "4d157f84885a",
-      "baseline_summary": "baseline_t0.7_summary.json",
-      "date": "2026-06-01"
+      "date": "2026-06-01",
+      "figure_inputs_sha256": "653fb8dee1b203f871dc8fef8879561922945a258a04c09a0ae93d7213d0a065",
+      "collection": "recorded responses; no model calls"
     }
   }
 }

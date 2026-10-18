@@ -18,3 +18,5 @@ output/reports/
 output/web/
 outputs/**/logs/
 outputs/**/tmp/
+
+.venv315/

@@ -1,5 +1,7 @@
 {
-  "generated_at": "2026-06-01T13:18:55",
+  "generated_at": "2026-10-18T00:10:54+00:00",
+  "schema_version": 2,
+  "ntqr_version": "0.9",
   "result": {
     "figure": "recovered_vs_true_scatter.png",
     "title": "Recovered vs true persona accuracy",
@@ -226,7 +228,7 @@
       }
     ],
     "metadata": {
-      "generated_utc": "2026-06-01T20:18:55.541625+00:00",
+      "generated_utc": "2026-10-18T00:10:53+00:00",
       "n_scenarios": 64,
       "n_personas": 3,
       "personas": [
@@ -248,15 +250,20 @@
         "n_models_evaluated": 5,
         "prompt_version": "v3_binary_schema",
         "prompt_hash": "4d157f84885a",
-        "baseline_summary": "baseline_t0.7_summary.json",
-        "date": "2026-06-01"
+        "date": "2026-06-01",
+        "figure_inputs_sha256": "653fb8dee1b203f871dc8fef8879561922945a258a04c09a0ae93d7213d0a065",
+        "collection": "recorded responses; no model calls"
       }
     },
-    "caption": "One point per persona/label accuracy term. Points on the dashed line are perfectly recovered; inside the grey band they are within one-question sampling noise of the supervised truth."
+    "caption": "One point per persona/label accuracy term. Points on the dashed line are perfectly recovered; inside the grey band they are within one-question sampling noise of the supervised truth.",
+    "exports": {
+      "raster": "recovered_vs_true_scatter.png",
+      "vector": "recovered_vs_true_scatter.svg"
+    }
   },
   "caption": "One point per persona/label accuracy term. Points on the dashed line are perfectly recovered; inside the grey band they are within one-question sampling noise of the supervised truth.",
   "metadata": {
-    "generated_utc": "2026-06-01T20:18:55.541625+00:00",
+    "generated_utc": "2026-10-18T00:10:53+00:00",
     "n_scenarios": 64,
     "n_personas": 3,
     "personas": [
@@ -278,13 +285,14 @@
       "n_models_evaluated": 5,
       "prompt_version": "v3_binary_schema",
       "prompt_hash": "4d157f84885a",
-      "baseline_summary": "baseline_t0.7_summary.json",
-      "date": "2026-06-01"
+      "date": "2026-06-01",
+      "figure_inputs_sha256": "653fb8dee1b203f871dc8fef8879561922945a258a04c09a0ae93d7213d0a065",
+      "collection": "recorded responses; no model calls"
     }
   },
   "provenance": {
     "source_file": "recovered_vs_true_scatter.data.json",
-    "generated_utc": "2026-06-01T20:18:55.541625+00:00",
+    "generated_utc": "2026-10-18T00:10:53+00:00",
     "n_scenarios": 64,
     "experiment": {
       "backend": "ollama",
@@ -296,8 +304,9 @@
       "n_models_evaluated": 5,
       "prompt_version": "v3_binary_schema",
       "prompt_hash": "4d157f84885a",
-      "baseline_summary": "baseline_t0.7_summary.json",
-      "date": "2026-06-01"
+      "date": "2026-06-01",
+      "figure_inputs_sha256": "653fb8dee1b203f871dc8fef8879561922945a258a04c09a0ae93d7213d0a065",
+      "collection": "recorded responses; no model calls"
     }
   }
 }

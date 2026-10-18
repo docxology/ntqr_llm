@@ -1,8 +1,10 @@
 {
-  "generated_at": "2026-06-01T13:27:52",
+  "generated_at": "2026-10-18T00:17:48+00:00",
+  "schema_version": 2,
+  "ntqr_version": "0.9",
   "result": {
     "study": "statistical_validation",
-    "generated_utc": "2026-06-01T20:27:52.447745+00:00",
+    "generated_utc": "2026-10-18T00:17:48.763392+00:00",
     "n_checks": 9,
     "n_passed": 9,
     "n_failed": 0,
@@ -15,15 +17,15 @@
       },
       {
         "id": "real_recovery_within_noise_floor",
-        "label": "Real recovery is below sampling-noise floor",
+        "label": "Recorded recovery is below the binomial SE reference",
         "passed": true,
-        "evidence": "MAE 0.028 <= floor 0.102"
+        "evidence": "MAE 0.028 <= SE reference 0.102"
       },
       {
         "id": "bootstrap_ci_within_noise_floor",
-        "label": "Bootstrap CI remains below sampling-noise floor",
+        "label": "Recorded bootstrap interval is below the binomial SE reference",
         "passed": true,
-        "evidence": "CI_hi 0.038 <= floor 0.102"
+        "evidence": "CI_hi 0.038 <= SE reference 0.102"
       },
       {
         "id": "sqrt_q_convergence",
@@ -33,7 +35,7 @@
       },
       {
         "id": "alarm_false_positive_control",
-        "label": "Imaginary-root alarm has zero independent false alarms",
+        "label": "No false alarms observed in the selected independent runs",
         "passed": true,
         "evidence": "false alarm 0%"
       },
@@ -59,7 +61,7 @@
         "id": "figure_sidecars_complete",
         "label": "Every source data figure has a parseable sidecar",
         "passed": true,
-        "evidence": "16/16 sidecars parse"
+        "evidence": "17/17 sidecars parse"
       }
     ]
   }

@@ -358,7 +358,7 @@ refresh=true` run needs a live Ollama.
 
 ```bash
 # 1. Project test suite (no network, no Ollama, no TeX):
-.venv/bin/python -m pytest tests/ -q                      # 124 tests
+.venv/bin/python -m pytest tests/ -q                      # 129 tests
 #   or: cd python && ../.venv/bin/python -m pytest -q     # 22 library tests
 
 # 2. Regenerate the multi-LLM sweep from the cache (JSON + figures):

@@ -57,3 +57,13 @@ here.
 - [NTQR 0.9 migration](ntqr09.md): release provenance, sparse API changes, local fixes, and offline verification.
 
 - [Recovery validity and reliable artifacts](recovery_validity.md): physical solutions, a truth-free audit, atomic checkpoints, and render manifests.
+
+
+## Profiling and research integrity
+
+- [Runtime profiling](runtime_profiling.md): Python 3.15, workload contracts,
+  source-bound measurements, comparison rules and sampling availability.
+- [Research integrity](research_integrity.md): inference boundaries, publication
+  artifacts, bibliography checks and figure regeneration.
+- [Claim registry](research_map.json): structured evidence paths, reviewed primary
+  references and explicit limits.

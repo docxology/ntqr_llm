@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-18T00:10:58+00:00",
+  "schema_version": 2,
+  "ntqr_version": "0.9",
+  "result": {
+    "schema_version": 1,
+    "sha256": "653fb8dee1b203f871dc8fef8879561922945a258a04c09a0ae93d7213d0a065",
+    "files": {
+      "summary.json": "a0943e926292755f060dca288fd053b7bddcbe5a36af37af026cec923101ac01",
+      "models/granite4.1_3b/evaluability_diagnostic.json": "f08d54b5eb03439e1d404d8f5ce397db985c62f0d01168c75e246deee94bf550",
+      "models/granite4.1_3b/prompt_health.json": "8762798ec723b56cc3fda8169ff328ed1bce25ddf28b0d415f64d49d1acf8e0c",
+      "models/granite4.1_3b/votes.json": "38f7a74c21f96c3d086a419b210b6da83f2d57a99a41c010b953c978cd5ef0c3",
+      "models/granite4.1_3b/comparison.json": "4a2447c63ec25312ba590d669c9240ef46bf1a283bd4956f3b0fb18522ae8f10",
+      "models/mistral_latest/evaluability_diagnostic.json": "a198ef4cb599b191aba96933c7c057d568e68fbe3e7e9ba22d78e0c66948f5f2",
+      "models/mistral_latest/prompt_health.json": "30e5674ac7d9cce8d0e1e27aa56aea3a7a82968905e6c05e0b67d5759ffaf199",
+      "models/mistral_latest/votes.json": "1dfc55aba17b562e434109196c7ae9f73bdce668aa5ef510516f5a652523f994",
+      "models/mistral_latest/comparison.json": "c9879afe5b5df8d73f3f56b8994c50875b16d95d3d9daf16f87cef27157c2ed3",
+      "models/gemma2_2b/evaluability_diagnostic.json": "fd512e160bc3778670216e06502b1b564fc1a13c72e340a928d9a58be0abf5cf",
+      "models/gemma2_2b/prompt_health.json": "92ce8c84dfe5f37a233f85f397885ec97c6f35d9c82bee0f558366a14a1e59e5",
+      "models/gemma2_2b/votes.json": "d41b1b4d145cd0dbef996c2659d95c8fdcbbe5578abd64e491b23f6a3245b25e",
+      "models/gemma2_2b/comparison.json": "e1bd1ea849a609b0def6bd51b0aebd6597faa43e0a3444a3ca9f8d8da1873a73",
+      "models/gemma3_4b/evaluability_diagnostic.json": "dc1d176c1e328b589405f8702f70909abd2cca48dfbba8cf28c053451f3e1905",
+      "models/gemma3_4b/prompt_health.json": "f2b8f8773e3d02e59d8e36c6a751faea53be67afa3cfb9b7f05db34acf916224",
+      "models/gemma3_4b/votes.json": "3ac3062de6f62b9f65d4fec7b7349ddbc8fe9c640f9594e0668e0e6189fe40e4",
+      "models/gemma3_4b/comparison.json": "a64a4582f16255d43149f3d7c7665dfb0bf0397302e4bd17c3f3c6c75a8844d9",
+      "models/gemma4_latest/evaluability_diagnostic.json": "9a089f109604798537632069b31656ffad3b46f24827211901c6388840e0c180",
+      "models/gemma4_latest/prompt_health.json": "573091e48b73625143c26db4450ea62a7c94d1ccee433a304aa445aa1f031ce8",
+      "models/gemma4_latest/votes.json": "1c497269f83b727de2295aa4232a9a6d3bfae709c9e436fb9b3b203bd0999d59",
+      "models/gemma4_latest/comparison.json": "f4f05b15c7830a9298da3dece6480df7b4ff2aa5398c7ed90ce69d10dec74f57",
+      "models/smollm2_135m-instruct-q4_K_S/evaluability_diagnostic.json": "ec5afc01fbad4a298c7d4a6424c3a993a99460d5c94d78fe2d133b733e319376",
+      "models/smollm2_135m-instruct-q4_K_S/prompt_health.json": "9a927f6273abc409bd7db75b6150d7701c34794866690955dedab00f7887f8e6",
+      "models/smollm2_135m-instruct-q4_K_S/votes.json": "ecc8709ba8715504b3cd48066c48e4e93101cf7ed9673da8e234ce73700773d0",
+      "baseline_t0.7_summary.json": "f80e3203da58f9ee444f608a59c086dbf7f5afcbbe1c9626a780887a7fd78ca7"
+    }
+  }
+}

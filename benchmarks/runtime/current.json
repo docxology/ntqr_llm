@@ -1,0 +1,3078 @@
+{
+  "schema_version": 1,
+  "generated_utc": "2026-10-18T00:19:17.286970+00:00",
+  "runtime": {
+    "python": "3.15.0",
+    "implementation": "CPython",
+    "hash_seed": "0",
+    "build": "3.15.0 (main, Oct 14 2026, 00:56:12) [Clang 23.1.3 ]",
+    "cache_tag": "cpython-315",
+    "free_threaded_build": false,
+    "gil_enabled": true,
+    "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+    "machine": "arm64",
+    "packages": {
+      "PyYAML": "6.0.3",
+      "Pygments": "2.20.0",
+      "black": "26.5.1",
+      "click": "8.4.1",
+      "contourpy": "1.3.3",
+      "coverage": "7.13.5",
+      "cycler": "0.12.1",
+      "fonttools": "4.62.1",
+      "iniconfig": "2.3.0",
+      "kiwisolver": "1.5.0",
+      "llvmlite": "0.50.0",
+      "matplotlib": "3.11.2",
+      "mpmath": "1.3.0",
+      "mypy_extensions": "1.1.0",
+      "ntqr": "0.9",
+      "ntqr-llm-personas": "1.0.0",
+      "numba": "0.68.0",
+      "numpy": "2.5.4",
+      "packaging": "26.0",
+      "pathspec": "1.1.1",
+      "pillow": "12.1.1",
+      "platformdirs": "4.10.0",
+      "pluggy": "1.6.0",
+      "pyparsing": "3.3.2",
+      "pytest": "9.0.2",
+      "pytest-cov": "7.1.0",
+      "python-dateutil": "2.9.0.post0",
+      "pytokens": "0.4.1",
+      "ruff": "0.15.15",
+      "scipy": "1.18.1",
+      "six": "1.17.0",
+      "sympy": "1.14.0",
+      "typing_extensions": "4.16.0"
+    }
+  },
+  "source": {
+    "sha256": "01df0cba533cc9670fd7247d8409e4abafff15b8de363af8a8a21875ed4b3234",
+    "files": {
+      "python/src/ntqr/__init__.py": "5dea4b903b26323b05b0bbe12988031cd413e9a9b9adeecf3cbd0a8b73532754",
+      "python/src/ntqr/alarms.py": "5f0841828930ffd6512ce7c9d86c7b484374712947eeaa4a98221f1b13aa680a",
+      "python/src/ntqr/algebra.py": "2a30ee22553843fca48ccb095e252d56a378efd95ba455c2fc7a87dc3e7b5a9f",
+      "python/src/ntqr/evaluations.py": "9927e7d8b0f9df0d4b1f506f0d9271346145f8a6c61f4d24beb6bbe599c5e0a6",
+      "python/src/ntqr/labels.py": "045920435ff220b5237abb5cc47f6f2a56b637eaa12f92d935920cbf52f3559f",
+      "python/src/ntqr/llm/__init__.py": "035c0c126fe5f618eea53b8b2e61841ab90f578a4ee9c2f3876ecac1866934b4",
+      "python/src/ntqr/llm/alarm_demo.py": "530db658a11b5215187e041120b571b41b8160ac2c6220dd58f24f15fc43959b",
+      "python/src/ntqr/llm/analysis.py": "d89f1413f1dbf2a108e97a77f8f806ec306586ab8c5926ef62eb0bee6afaf4ca",
+      "python/src/ntqr/llm/artifacts.py": "963be7a5b3a0fb81c8ed3dba221ac63c96bd8e02897dd137d0d64d6bd497a713",
+      "python/src/ntqr/llm/bootstrap.py": "5393d61e32aa87af1346cd9383fd497f12fcfe9893aea86468c7aeab667f9c12",
+      "python/src/ntqr/llm/consistency.py": "49a66b0cca92ca6c4f76f9925bb8c10db00c988f29572afe41b7333b2f994e9d",
+      "python/src/ntqr/llm/figure_export.py": "5b5613339f46f89b1342e4aa53f08410a1dfa376eadc6daa92da1882a601d659",
+      "python/src/ntqr/llm/personas.py": "0ee8e8943c465f8fd7443eeb7aabe9c46c528f54bc5f652cca78448010064087",
+      "python/src/ntqr/llm/profile_workloads.py": "b170423770a815d7ec8d4fff259b2c9a88f5acd52078290c2da5d5a898447e55",
+      "python/src/ntqr/llm/recovery_scoring.py": "944fff3d7e288a8af205cabf49c6b6f4ed08585bc4f0af2e9d1e0a9b32399c0a",
+      "python/src/ntqr/llm/runtime_figure.py": "32d406f4aa51a466f8f6a4a5bb8e3e3b2b963066ead2793856ffeae197757e8f",
+      "python/src/ntqr/llm/runtime_profile.py": "e69f369e7e562a1dd2a123be9fd72f6eb2721d790f9d1cac827e70f6023d93ca",
+      "python/src/ntqr/llm/scholarship.py": "6c7daeb10e5f3490183249e475bf93e7ff0606f1ce3c7d6d6851fc7a1c731ea7",
+      "python/src/ntqr/llm/simulation.py": "9a723e55249f45eca0ce26af2200f08e930db066f82c5e2d246de0daf820b142",
+      "python/src/ntqr/llm/study_records.py": "5f15e55f9761d366f43687d0dfae362f2bdc996e4e064232336fd15f7de653f5",
+      "python/src/ntqr/llm/supporting_figures.py": "d3d03e704c7e79fa74474ba6054686e029b5b106c330e4c8ec2b0994f972308a",
+      "python/src/ntqr/llm/validity_audit.py": "58156d9eeb913a3ba095d0de55e604022874b27c6dc8100df49ca9b9a27123e8",
+      "python/src/ntqr/llm/validity_figure.py": "959b3e69892a77cc224191aecc40df4c80e81ce15881e149d7b506339d3c1a18",
+      "python/src/ntqr/llm/visualization.py": "ce4d3274cbd4fbcf0f07953eda83f6be81c05b230ebfe5986e6a685097fa04a6",
+      "python/src/ntqr/plots.py": "910b3001e0cea9f42f6ac6f0bec5c7ad7e04abc1fbe75132ce8270f29ee1a387",
+      "python/src/ntqr/r2/__init__.py": "41e2232c07901bbcffe761ff30c4e7d176618dc5f9255b30b96b8582a6892326",
+      "python/src/ntqr/r2/datasketches.py": "aa5628a7890a6a785267e6406c969282ef3482d74874626cb327aac58d66a376",
+      "python/src/ntqr/r2/evaluations.py": "4b04979de4c8de4884635b197dc979c5eea3b40d542ffa6b19a957a5ec099071",
+      "python/src/ntqr/r2/evaluators.py": "c64dd6383f72092e42018d18fdc66be8161f72817bc9993d7630d8dd896dad6c",
+      "python/src/ntqr/r2/examples.py": "8a5ac711f7fc16dda45ea8d62080feb2c7b0991e8c44ef51bac6660ef67ca5dd",
+      "python/src/ntqr/r2/paxioms.py": "8b07dc64cc3a975dce0b37ee2d4ad3881bcb83204937bcff5c6e76c94b9a5987",
+      "python/src/ntqr/r2/plots.py": "a7dd9edc9f118553bb881479c236ab97bdc33c3712cbcbf0fe2f6687d7012c96",
+      "python/src/ntqr/r2/raxioms.py": "ca68d0fef0855f7552ed99cba9cef249af3f5d2f6a42d75c3e2d0b0c3bf5ab68",
+      "python/src/ntqr/r2/uci_adult_20240415.py": "5a0eec0fd78aac133205faa36ee788326c67acf6336c3be5abce02c6cbe10176",
+      "python/src/ntqr/r3/__init__.py": "d36b0d834f8397783f1cd8dec2fb9bc4505e974237fbdff98a81cf3246f106f8",
+      "python/src/ntqr/r3/evaluations.py": "f2febd313baa8d5b2e054325bae4c5a5148171c5b62dc9d1aca14d8e7b8c6976",
+      "python/src/ntqr/r3/raxioms.py": "7b71d3efe401c66f249e3ae7a3a964936d98f527dc2e76a088f922eedb761313",
+      "python/src/ntqr/raxioms.py": "7fcf082375f241e5733b3b03409b7831cf96f09e9260ae0edc8fff61e4be0d62",
+      "python/src/ntqr/statistics.py": "23bd40c470dcf4f5e1ba5d6002de0d5c46afefc722ecc7f56d6fa392098579f2",
+      "python/src/ntqr/testsketches.py": "9dd9b54d1320f4ed069209b9ae62839408e31dc77187bf86372ae467f3c95e17",
+      "scripts/profile_runtime.py": "ed51356bb0feb39e1f3c53bcc8873ff746e87901a051bd879c738d854c8157e2",
+      "uv.lock": "420dfa1c514a5d9e46c75ea12e35705cb9653b4fbdfd81dba93a59ec69d3d9f3"
+    }
+  },
+  "measurement_design": "Warm up once; unprofiled timing, deterministic tracing, and memory in separate passes. Imports excluded.",
+  "workloads": [
+    {
+      "name": "recovery",
+      "description": "Real error-independent recovery from 96 seeded synthetic observations",
+      "input_sha256": "5f0f7fa3349c6480c08b80a4fce0d408e00bbe9c113a9f5dc8362d501d2ab309",
+      "warmups": 1,
+      "unprofiled_samples": [
+        {
+          "wall_ns": 583837417,
+          "cpu_ns": 69676000
+        },
+        {
+          "wall_ns": 371850667,
+          "cpu_ns": 62603000
+        },
+        {
+          "wall_ns": 418030750,
+          "cpu_ns": 69201000
+        },
+        {
+          "wall_ns": 448714833,
+          "cpu_ns": 64676000
+        },
+        {
+          "wall_ns": 449256375,
+          "cpu_ns": 65159000
+        }
+      ],
+      "wall_median_ns": 448714833,
+      "cpu_median_ns": 65159000,
+      "wall_min_ns": 371850667,
+      "wall_max_ns": 583837417,
+      "tracing": {
+        "backend": "profiling.tracing",
+        "total_calls": 336425,
+        "total_seconds": 1.43247025,
+        "functions": [
+          {
+            "file": "python/src/ntqr/llm/profile_workloads.py",
+            "line": 31,
+            "function": "<lambda>",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 1.1083e-05,
+            "cumulative_seconds": 1.432445541
+          },
+          {
+            "file": "python/src/ntqr/llm/simulation.py",
+            "line": 201,
+            "function": "solve_recovery",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 3.2709e-05,
+            "cumulative_seconds": 1.4324344580000001
+          },
+          {
+            "file": "python/src/ntqr/r2/evaluators.py",
+            "line": 376,
+            "function": "__init__",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 8.0875e-05,
+            "cumulative_seconds": 1.431231208
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/simplify/simplify.py",
+            "line": 435,
+            "function": "simplify",
+            "primitive_calls": 14,
+            "calls": 14,
+            "self_seconds": 0.001296896,
+            "cumulative_seconds": 1.323017751
+          },
+          {
+            "file": "python/src/ntqr/r2/evaluators.py",
+            "line": 505,
+            "function": "classifier_b_label_accuracy",
+            "primitive_calls": 6,
+            "calls": 6,
+            "self_seconds": 0.00011249400000000001,
+            "cumulative_seconds": 0.848031042
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/core/exprtools.py",
+            "line": 1160,
+            "function": "factor_terms",
+            "primitive_calls": 70,
+            "calls": 70,
+            "self_seconds": 0.00019307700000000002,
+            "cumulative_seconds": 0.5816357050000001
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/core/exprtools.py",
+            "line": 1221,
+            "function": "do",
+            "primitive_calls": 70,
+            "calls": 420,
+            "self_seconds": 0.010512078000000001,
+            "cumulative_seconds": 0.5813789580000001
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/polys/polytools.py",
+            "line": 7324,
+            "function": "cancel",
+            "primitive_calls": 42,
+            "calls": 42,
+            "self_seconds": 0.0011244360000000001,
+            "cumulative_seconds": 0.578794628
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/core/exprtools.py",
+            "line": 984,
+            "function": "gcd_terms",
+            "primitive_calls": 98,
+            "calls": 98,
+            "self_seconds": 0.0009048600000000001,
+            "cumulative_seconds": 0.5213912150000001
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/core/exprtools.py",
+            "line": 919,
+            "function": "_gcd_terms",
+            "primitive_calls": 98,
+            "calls": 98,
+            "self_seconds": 0.014822438,
+            "cumulative_seconds": 0.512107626
+          },
+          {
+            "file": "python/src/ntqr/r2/evaluators.py",
+            "line": 459,
+            "function": "classifier_a_label_accuracy",
+            "primitive_calls": 6,
+            "calls": 6,
+            "self_seconds": 0.00011508300000000001,
+            "cumulative_seconds": 0.417470208
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/core/exprtools.py",
+            "line": 293,
+            "function": "__init__",
+            "primitive_calls": 1708,
+            "calls": 1708,
+            "self_seconds": 0.121059304,
+            "cumulative_seconds": 0.37277708600000004
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/core/sympify.py",
+            "line": 124,
+            "function": "sympify",
+            "primitive_calls": 7404,
+            "calls": 8104,
+            "self_seconds": 0.149491865,
+            "cumulative_seconds": 0.35966614500000005
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/core/sympify.py",
+            "line": 514,
+            "function": "_sympify",
+            "primitive_calls": 4146,
+            "calls": 4146,
+            "self_seconds": 0.005505035,
+            "cumulative_seconds": 0.28034600000000004
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/core/numbers.py",
+            "line": 1965,
+            "function": "__eq__",
+            "primitive_calls": 3089,
+            "calls": 3089,
+            "self_seconds": 0.021355537,
+            "cumulative_seconds": 0.273634437
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/core/expr.py",
+            "line": 3810,
+            "function": "cancel",
+            "primitive_calls": 14,
+            "calls": 14,
+            "self_seconds": 8.1253e-05,
+            "cumulative_seconds": 0.261335711
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/core/numbers.py",
+            "line": 1622,
+            "function": "__eq__",
+            "primitive_calls": 3335,
+            "calls": 3335,
+            "self_seconds": 0.00315875,
+            "cumulative_seconds": 0.24901703600000002
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/core/exprtools.py",
+            "line": 814,
+            "function": "__init__",
+            "primitive_calls": 756,
+            "calls": 756,
+            "self_seconds": 0.0021514430000000003,
+            "cumulative_seconds": 0.216718703
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/core/exprtools.py",
+            "line": 871,
+            "function": "quo",
+            "primitive_calls": 196,
+            "calls": 196,
+            "self_seconds": 0.000555005,
+            "cumulative_seconds": 0.204827754
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/core/exprtools.py",
+            "line": 859,
+            "function": "mul",
+            "primitive_calls": 196,
+            "calls": 196,
+            "self_seconds": 0.000822744,
+            "cumulative_seconds": 0.185652421
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/core/cache.py",
+            "line": 69,
+            "function": "wrapper",
+            "primitive_calls": 17088,
+            "calls": 17088,
+            "self_seconds": 0.09426967900000001,
+            "cumulative_seconds": 0.151147622
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/core/containers.py",
+            "line": 337,
+            "function": "<lambda>",
+            "primitive_calls": 1708,
+            "calls": 1708,
+            "self_seconds": 0.013429814,
+            "cumulative_seconds": 0.146861288
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/core/exprtools.py",
+            "line": 457,
+            "function": "mul",
+            "primitive_calls": 448,
+            "calls": 448,
+            "self_seconds": 0.063728888,
+            "cumulative_seconds": 0.14609808300000002
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/core/decorators.py",
+            "line": 69,
+            "function": "__sympifyit_wrapper",
+            "primitive_calls": 3169,
+            "calls": 3474,
+            "self_seconds": 0.020764585000000002,
+            "cumulative_seconds": 0.14420781900000001
+          },
+          {
+            "file": "python/src/ntqr/r2/evaluators.py",
+            "line": 443,
+            "function": "alpha_prevalence_estimates",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 2.3956000000000002e-05,
+            "cumulative_seconds": 0.138928458
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/core/containers.py",
+            "line": 260,
+            "function": "__new__",
+            "primitive_calls": 1708,
+            "calls": 1708,
+            "self_seconds": 0.06607251800000001,
+            "cumulative_seconds": 0.133128249
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/core/mul.py",
+            "line": 2065,
+            "function": "as_content_primitive",
+            "primitive_calls": 124,
+            "calls": 148,
+            "self_seconds": 0.020556493000000002,
+            "cumulative_seconds": 0.127206916
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/simplify/simplify.py",
+            "line": 355,
+            "function": "signsimp",
+            "primitive_calls": 56,
+            "calls": 140,
+            "self_seconds": 0.000857738,
+            "cumulative_seconds": 0.12271254000000001
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/polys/rationaltools.py",
+            "line": 10,
+            "function": "together",
+            "primitive_calls": 28,
+            "calls": 28,
+            "self_seconds": 5.7046e-05,
+            "cumulative_seconds": 0.11855691800000001
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/polys/rationaltools.py",
+            "line": 63,
+            "function": "_together",
+            "primitive_calls": 28,
+            "calls": 196,
+            "self_seconds": 0.000359241,
+            "cumulative_seconds": 0.11847225
+          }
+        ],
+        "call_edges": [
+          {
+            "caller": {
+              "file": "python/src/ntqr/llm/profile_workloads.py",
+              "line": 31,
+              "function": "<lambda>"
+            },
+            "callee": {
+              "file": "python/src/ntqr/llm/simulation.py",
+              "line": 201,
+              "function": "solve_recovery"
+            },
+            "calls": 1,
+            "cumulative_seconds": 1.4324344580000001
+          },
+          {
+            "caller": {
+              "file": "python/src/ntqr/llm/simulation.py",
+              "line": 201,
+              "function": "solve_recovery"
+            },
+            "callee": {
+              "file": "python/src/ntqr/r2/evaluators.py",
+              "line": 376,
+              "function": "__init__"
+            },
+            "calls": 1,
+            "cumulative_seconds": 1.431231208
+          },
+          {
+            "caller": {
+              "file": "python/src/ntqr/r2/evaluators.py",
+              "line": 376,
+              "function": "__init__"
+            },
+            "callee": {
+              "file": "python/src/ntqr/r2/evaluators.py",
+              "line": 505,
+              "function": "classifier_b_label_accuracy"
+            },
+            "calls": 6,
+            "cumulative_seconds": 0.848031042
+          },
+          {
+            "caller": {
+              "file": "python/src/ntqr/r2/evaluators.py",
+              "line": 505,
+              "function": "classifier_b_label_accuracy"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/simplify/simplify.py",
+              "line": 435,
+              "function": "simplify"
+            },
+            "calls": 6,
+            "cumulative_seconds": 0.789687209
+          },
+          {
+            "caller": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/exprtools.py",
+              "line": 1160,
+              "function": "factor_terms"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/exprtools.py",
+              "line": 1221,
+              "function": "do"
+            },
+            "calls": 70,
+            "cumulative_seconds": 0.5813789580000001
+          },
+          {
+            "caller": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/exprtools.py",
+              "line": 984,
+              "function": "gcd_terms"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/exprtools.py",
+              "line": 919,
+              "function": "_gcd_terms"
+            },
+            "calls": 98,
+            "cumulative_seconds": 0.512107626
+          },
+          {
+            "caller": {
+              "file": "python/src/ntqr/r2/evaluators.py",
+              "line": 376,
+              "function": "__init__"
+            },
+            "callee": {
+              "file": "python/src/ntqr/r2/evaluators.py",
+              "line": 459,
+              "function": "classifier_a_label_accuracy"
+            },
+            "calls": 6,
+            "cumulative_seconds": 0.417470208
+          },
+          {
+            "caller": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/exprtools.py",
+              "line": 1221,
+              "function": "do"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/exprtools.py",
+              "line": 984,
+              "function": "gcd_terms"
+            },
+            "calls": 70,
+            "cumulative_seconds": 0.40358133900000004
+          },
+          {
+            "caller": {
+              "file": "python/src/ntqr/r2/evaluators.py",
+              "line": 459,
+              "function": "classifier_a_label_accuracy"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/simplify/simplify.py",
+              "line": 435,
+              "function": "simplify"
+            },
+            "calls": 6,
+            "cumulative_seconds": 0.395103417
+          },
+          {
+            "caller": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/simplify/simplify.py",
+              "line": 435,
+              "function": "simplify"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/polys/polytools.py",
+              "line": 7324,
+              "function": "cancel"
+            },
+            "calls": 28,
+            "cumulative_seconds": 0.31754017
+          },
+          {
+            "caller": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/polys/polytools.py",
+              "line": 7324,
+              "function": "cancel"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/exprtools.py",
+              "line": 1160,
+              "function": "factor_terms"
+            },
+            "calls": 42,
+            "cumulative_seconds": 0.308588332
+          },
+          {
+            "caller": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/sympify.py",
+              "line": 514,
+              "function": "_sympify"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/sympify.py",
+              "line": 124,
+              "function": "sympify"
+            },
+            "calls": 4146,
+            "cumulative_seconds": 0.274840965
+          },
+          {
+            "caller": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/simplify/simplify.py",
+              "line": 435,
+              "function": "simplify"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/exprtools.py",
+              "line": 1160,
+              "function": "factor_terms"
+            },
+            "calls": 28,
+            "cumulative_seconds": 0.27304737300000004
+          },
+          {
+            "caller": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/simplify/simplify.py",
+              "line": 435,
+              "function": "simplify"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/expr.py",
+              "line": 3810,
+              "function": "cancel"
+            },
+            "calls": 14,
+            "cumulative_seconds": 0.261335711
+          },
+          {
+            "caller": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/expr.py",
+              "line": 3810,
+              "function": "cancel"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/polys/polytools.py",
+              "line": 7324,
+              "function": "cancel"
+            },
+            "calls": 14,
+            "cumulative_seconds": 0.261254458
+          },
+          {
+            "caller": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/numbers.py",
+              "line": 1965,
+              "function": "__eq__"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/numbers.py",
+              "line": 1622,
+              "function": "__eq__"
+            },
+            "calls": 2235,
+            "cumulative_seconds": 0.24521651900000002
+          },
+          {
+            "caller": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/exprtools.py",
+              "line": 293,
+              "function": "__init__"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/numbers.py",
+              "line": 1965,
+              "function": "__eq__"
+            },
+            "calls": 1708,
+            "cumulative_seconds": 0.24431012300000002
+          },
+          {
+            "caller": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/numbers.py",
+              "line": 1622,
+              "function": "__eq__"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/sympify.py",
+              "line": 514,
+              "function": "_sympify"
+            },
+            "calls": 3335,
+            "cumulative_seconds": 0.244146667
+          },
+          {
+            "caller": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/exprtools.py",
+              "line": 919,
+              "function": "_gcd_terms"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/exprtools.py",
+              "line": 814,
+              "function": "__init__"
+            },
+            "calls": 266,
+            "cumulative_seconds": 0.21650579
+          },
+          {
+            "caller": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/exprtools.py",
+              "line": 919,
+              "function": "_gcd_terms"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/exprtools.py",
+              "line": 871,
+              "function": "quo"
+            },
+            "calls": 196,
+            "cumulative_seconds": 0.204827754
+          },
+          {
+            "caller": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/exprtools.py",
+              "line": 814,
+              "function": "__init__"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/exprtools.py",
+              "line": 293,
+              "function": "__init__"
+            },
+            "calls": 532,
+            "cumulative_seconds": 0.201966104
+          },
+          {
+            "caller": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/exprtools.py",
+              "line": 871,
+              "function": "quo"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/exprtools.py",
+              "line": 859,
+              "function": "mul"
+            },
+            "calls": 196,
+            "cumulative_seconds": 0.185652421
+          },
+          {
+            "caller": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/sympify.py",
+              "line": 124,
+              "function": "sympify"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/containers.py",
+              "line": 337,
+              "function": "<lambda>"
+            },
+            "calls": 1708,
+            "cumulative_seconds": 0.146861288
+          },
+          {
+            "caller": {
+              "file": "python/src/ntqr/r2/evaluators.py",
+              "line": 376,
+              "function": "__init__"
+            },
+            "callee": {
+              "file": "python/src/ntqr/r2/evaluators.py",
+              "line": 443,
+              "function": "alpha_prevalence_estimates"
+            },
+            "calls": 1,
+            "cumulative_seconds": 0.138928458
+          },
+          {
+            "caller": {
+              "file": "python/src/ntqr/r2/evaluators.py",
+              "line": 443,
+              "function": "alpha_prevalence_estimates"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/simplify/simplify.py",
+              "line": 435,
+              "function": "simplify"
+            },
+            "calls": 2,
+            "cumulative_seconds": 0.138227125
+          },
+          {
+            "caller": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/containers.py",
+              "line": 337,
+              "function": "<lambda>"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/containers.py",
+              "line": 260,
+              "function": "__new__"
+            },
+            "calls": 1708,
+            "cumulative_seconds": 0.133128249
+          },
+          {
+            "caller": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/simplify/simplify.py",
+              "line": 435,
+              "function": "simplify"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/polys/rationaltools.py",
+              "line": 10,
+              "function": "together"
+            },
+            "calls": 28,
+            "cumulative_seconds": 0.11855691800000001
+          },
+          {
+            "caller": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/polys/rationaltools.py",
+              "line": 10,
+              "function": "together"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/polys/rationaltools.py",
+              "line": 63,
+              "function": "_together"
+            },
+            "calls": 28,
+            "cumulative_seconds": 0.11847225
+          },
+          {
+            "caller": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/exprtools.py",
+              "line": 859,
+              "function": "mul"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/exprtools.py",
+              "line": 457,
+              "function": "mul"
+            },
+            "calls": 392,
+            "cumulative_seconds": 0.118115538
+          },
+          {
+            "caller": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/polys/rationaltools.py",
+              "line": 63,
+              "function": "_together"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/exprtools.py",
+              "line": 984,
+              "function": "gcd_terms"
+            },
+            "calls": 28,
+            "cumulative_seconds": 0.11780987600000001
+          }
+        ]
+      },
+      "memory": {
+        "method": "tracemalloc; Python allocations, not process RSS or native heaps",
+        "current_bytes": 186566,
+        "peak_bytes": 195318,
+        "allocation_sites": [
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/core/basic.py",
+            "line": 1766,
+            "function": "allocation",
+            "bytes": 48384,
+            "count": 288
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/core/exprtools.py",
+            "line": 1221,
+            "function": "allocation",
+            "bytes": 16552,
+            "count": 129
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/core/cache.py",
+            "line": 72,
+            "function": "allocation",
+            "bytes": 10472,
+            "count": 98
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/simplify/powsimp.py",
+            "line": 234,
+            "function": "allocation",
+            "bytes": 10080,
+            "count": 60
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/polys/rings.py",
+            "line": 216,
+            "function": "allocation",
+            "bytes": 9360,
+            "count": 39
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/polys/rings.py",
+            "line": 228,
+            "function": "allocation",
+            "bytes": 8424,
+            "count": 39
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/polys/polytools.py",
+            "line": 7363,
+            "function": "allocation",
+            "bytes": 7800,
+            "count": 195
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/simplify/simplify.py",
+            "line": 411,
+            "function": "allocation",
+            "bytes": 7120,
+            "count": 178
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/polys/rings.py",
+            "line": 274,
+            "function": "allocation",
+            "bytes": 6240,
+            "count": 39
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/polys/rationaltools.py",
+            "line": 63,
+            "function": "allocation",
+            "bytes": 6168,
+            "count": 51
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/polys/rings.py",
+            "line": 224,
+            "function": "allocation",
+            "bytes": 5896,
+            "count": 58
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/core/function.py",
+            "line": 2937,
+            "function": "allocation",
+            "bytes": 4800,
+            "count": 120
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/polys/rings.py",
+            "line": 606,
+            "function": "allocation",
+            "bytes": 4680,
+            "count": 39
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/simplify/simplify.py",
+            "line": 422,
+            "function": "allocation",
+            "bytes": 4080,
+            "count": 102
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/polys/rings.py",
+            "line": 211,
+            "function": "allocation",
+            "bytes": 3344,
+            "count": 38
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/simplify/simplify.py",
+            "line": 660,
+            "function": "allocation",
+            "bytes": 3120,
+            "count": 78
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/simplify/simplify.py",
+            "line": 741,
+            "function": "allocation",
+            "bytes": 2600,
+            "count": 65
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/simplify/simplify.py",
+            "line": 669,
+            "function": "allocation",
+            "bytes": 2600,
+            "count": 65
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/polys/rings.py",
+            "line": 230,
+            "function": "allocation",
+            "bytes": 2496,
+            "count": 78
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/simplify/powsimp.py",
+            "line": 108,
+            "function": "allocation",
+            "bytes": 2400,
+            "count": 60
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/simplify/hyperexpand.py",
+            "line": 2494,
+            "function": "allocation",
+            "bytes": 2080,
+            "count": 52
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/simplify/radsimp.py",
+            "line": 625,
+            "function": "allocation",
+            "bytes": 2000,
+            "count": 50
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/simplify/radsimp.py",
+            "line": 623,
+            "function": "allocation",
+            "bytes": 2000,
+            "count": 50
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/printing/printer.py",
+            "line": 329,
+            "function": "allocation",
+            "bytes": 1842,
+            "count": 34
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/mpmath/libmp/libmpf.py",
+            "line": 206,
+            "function": "allocation",
+            "bytes": 1680,
+            "count": 21
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/polys/rings.py",
+            "line": 218,
+            "function": "allocation",
+            "bytes": 1404,
+            "count": 39
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/polys/rings.py",
+            "line": 624,
+            "function": "allocation",
+            "bytes": 1248,
+            "count": 39
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/simplify/simplify.py",
+            "line": 630,
+            "function": "allocation",
+            "bytes": 960,
+            "count": 24
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/core/containers.py",
+            "line": 270,
+            "function": "allocation",
+            "bytes": 768,
+            "count": 12
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/printing/printer.py",
+            "line": 408,
+            "function": "allocation",
+            "bytes": 480,
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "name": "enumeration",
+      "description": "Exact consistent-set enumeration, counting without retaining sample points",
+      "input_sha256": "8cca71212ebb7eb460dfd15a8cad5ba36659441e61929909d2a48a8c4028465d",
+      "warmups": 1,
+      "unprofiled_samples": [
+        {
+          "wall_ns": 1732958,
+          "cpu_ns": 1651000
+        },
+        {
+          "wall_ns": 1764708,
+          "cpu_ns": 1698000
+        },
+        {
+          "wall_ns": 1589666,
+          "cpu_ns": 1536000
+        },
+        {
+          "wall_ns": 1418792,
+          "cpu_ns": 1421000
+        },
+        {
+          "wall_ns": 1232792,
+          "cpu_ns": 1234000
+        }
+      ],
+      "wall_median_ns": 1589666,
+      "cpu_median_ns": 1536000,
+      "wall_min_ns": 1232792,
+      "wall_max_ns": 1764708,
+      "tracing": {
+        "backend": "profiling.tracing",
+        "total_calls": 6145,
+        "total_seconds": 0.21278245800000006,
+        "functions": [
+          {
+            "file": "python/src/ntqr/llm/profile_workloads.py",
+            "line": 37,
+            "function": "<lambda>",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 1.1333000000000001e-05,
+            "cumulative_seconds": 0.212760958
+          },
+          {
+            "file": "python/src/ntqr/llm/consistency.py",
+            "line": 39,
+            "function": "summarize_sets",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 7.316500000000001e-05,
+            "cumulative_seconds": 0.21274962500000003
+          },
+          {
+            "file": "python/src/ntqr/evaluations.py",
+            "line": 524,
+            "function": "set_generator",
+            "primitive_calls": 4,
+            "calls": 4,
+            "self_seconds": 0.000133544,
+            "cumulative_seconds": 0.11093800000000001
+          },
+          {
+            "file": "python/src/ntqr/evaluations.py",
+            "line": 606,
+            "function": "<genexpr>",
+            "primitive_calls": 9,
+            "calls": 9,
+            "self_seconds": 5.5415000000000004e-05,
+            "cumulative_seconds": 0.110349
+          },
+          {
+            "file": "python/src/ntqr/evaluations.py",
+            "line": 102,
+            "function": "__init__",
+            "primitive_calls": 9,
+            "calls": 9,
+            "self_seconds": 0.033658038,
+            "cumulative_seconds": 0.10940962600000001
+          },
+          {
+            "file": "python/src/ntqr/evaluations.py",
+            "line": 1005,
+            "function": "is_valid_point",
+            "primitive_calls": 3,
+            "calls": 3,
+            "self_seconds": 0.005265542000000001,
+            "cumulative_seconds": 0.10144054200000001
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_compressed.py",
+            "line": 30,
+            "function": "__init__",
+            "primitive_calls": 21,
+            "calls": 21,
+            "self_seconds": 0.006604291,
+            "cumulative_seconds": 0.066479335
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_coo.py",
+            "line": 32,
+            "function": "__init__",
+            "primitive_calls": 15,
+            "calls": 15,
+            "self_seconds": 0.006613669000000001,
+            "cumulative_seconds": 0.062906499
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_coo.py",
+            "line": 203,
+            "function": "_check",
+            "primitive_calls": 15,
+            "calls": 15,
+            "self_seconds": 0.006454081,
+            "cumulative_seconds": 0.052286166
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_compressed.py",
+            "line": 492,
+            "function": "sum",
+            "primitive_calls": 6,
+            "calls": 6,
+            "self_seconds": 0.035686961,
+            "cumulative_seconds": 0.050011792000000006
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_csr.py",
+            "line": 63,
+            "function": "tocoo",
+            "primitive_calls": 9,
+            "calls": 9,
+            "self_seconds": 3.5374000000000004e-05,
+            "cumulative_seconds": 0.045458124
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_compressed.py",
+            "line": 995,
+            "function": "tocoo",
+            "primitive_calls": 9,
+            "calls": 9,
+            "self_seconds": 7.3001e-05,
+            "cumulative_seconds": 0.045409000000000005
+          },
+          {
+            "file": "python/src/ntqr/evaluations.py",
+            "line": 140,
+            "function": "__add__",
+            "primitive_calls": 3,
+            "calls": 3,
+            "self_seconds": 1.9457e-05,
+            "cumulative_seconds": 0.041857333000000004
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_base.py",
+            "line": 1695,
+            "function": "_get_index_dtype",
+            "primitive_calls": 51,
+            "calls": 51,
+            "self_seconds": 0.0029149640000000004,
+            "cumulative_seconds": 0.029653664000000003
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_csr.py",
+            "line": 55,
+            "function": "tocsr",
+            "primitive_calls": 12,
+            "calls": 12,
+            "self_seconds": 9.459e-06,
+            "cumulative_seconds": 0.024814876000000003
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_data.py",
+            "line": 94,
+            "function": "copy",
+            "primitive_calls": 9,
+            "calls": 9,
+            "self_seconds": 1.5918000000000002e-05,
+            "cumulative_seconds": 0.024805417000000003
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_compressed.py",
+            "line": 1189,
+            "function": "_with_data",
+            "primitive_calls": 9,
+            "calls": 9,
+            "self_seconds": 2.9625000000000002e-05,
+            "cumulative_seconds": 0.024769707000000002
+          },
+          {
+            "file": "<frozen importlib._bootstrap>",
+            "line": 687,
+            "function": "parent",
+            "primitive_calls": 66,
+            "calls": 66,
+            "self_seconds": 0.011287413000000001,
+            "cumulative_seconds": 0.017058993
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_base.py",
+            "line": 372,
+            "function": "nnz",
+            "primitive_calls": 165,
+            "calls": 165,
+            "self_seconds": 0.010942607,
+            "cumulative_seconds": 0.016963198000000002
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_base.py",
+            "line": 1439,
+            "function": "sum",
+            "primitive_calls": 6,
+            "calls": 6,
+            "self_seconds": 0.00017029500000000002,
+            "cumulative_seconds": 0.014317332
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/numpy/_core/fromnumeric.py",
+            "line": 2342,
+            "function": "sum",
+            "primitive_calls": 6,
+            "calls": 6,
+            "self_seconds": 7.337500000000001e-05,
+            "cumulative_seconds": 0.012299833000000001
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/numpy/_core/fromnumeric.py",
+            "line": 66,
+            "function": "_wrapreduction",
+            "primitive_calls": 6,
+            "calls": 6,
+            "self_seconds": 0.012046539,
+            "cumulative_seconds": 0.012222083
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<method 'reduce' of 'numpy.ufunc' objects>",
+            "primitive_calls": 70,
+            "calls": 70,
+            "self_seconds": 0.010054214,
+            "cumulative_seconds": 0.010060255
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_sputils.py",
+            "line": 263,
+            "function": "get_index_dtype",
+            "primitive_calls": 51,
+            "calls": 51,
+            "self_seconds": 0.009347548,
+            "cumulative_seconds": 0.009716707
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<method 'min' of 'numpy.ndarray' objects>",
+            "primitive_calls": 30,
+            "calls": 30,
+            "self_seconds": 1.7962000000000002e-05,
+            "cumulative_seconds": 0.008439543
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/numpy/_core/_methods.py",
+            "line": 43,
+            "function": "_amin",
+            "primitive_calls": 30,
+            "calls": 30,
+            "self_seconds": 9.831000000000001e-06,
+            "cumulative_seconds": 0.008421581000000001
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<built-in method builtins.len>",
+            "primitive_calls": 673,
+            "calls": 673,
+            "self_seconds": 0.007931612000000001,
+            "cumulative_seconds": 0.007931612000000001
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_coo.py",
+            "line": 414,
+            "function": "_coo_to_compressed",
+            "primitive_calls": 6,
+            "calls": 6,
+            "self_seconds": 0.006776122000000001,
+            "cumulative_seconds": 0.00790879
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_matrix.py",
+            "line": 23,
+            "function": "_coo_container",
+            "primitive_calls": 15,
+            "calls": 15,
+            "self_seconds": 0.007572753000000001,
+            "cumulative_seconds": 0.007617044000000001
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<built-in method numpy.asarray>",
+            "primitive_calls": 162,
+            "calls": 162,
+            "self_seconds": 0.006029411,
+            "cumulative_seconds": 0.006029411
+          }
+        ],
+        "call_edges": [
+          {
+            "caller": {
+              "file": "python/src/ntqr/llm/profile_workloads.py",
+              "line": 37,
+              "function": "<lambda>"
+            },
+            "callee": {
+              "file": "python/src/ntqr/llm/consistency.py",
+              "line": 39,
+              "function": "summarize_sets"
+            },
+            "calls": 1,
+            "cumulative_seconds": 0.21274962500000003
+          },
+          {
+            "caller": {
+              "file": "python/src/ntqr/llm/consistency.py",
+              "line": 39,
+              "function": "summarize_sets"
+            },
+            "callee": {
+              "file": "python/src/ntqr/evaluations.py",
+              "line": 524,
+              "function": "set_generator"
+            },
+            "calls": 4,
+            "cumulative_seconds": 0.11093800000000001
+          },
+          {
+            "caller": {
+              "file": "python/src/ntqr/evaluations.py",
+              "line": 524,
+              "function": "set_generator"
+            },
+            "callee": {
+              "file": "python/src/ntqr/evaluations.py",
+              "line": 606,
+              "function": "<genexpr>"
+            },
+            "calls": 9,
+            "cumulative_seconds": 0.110349
+          },
+          {
+            "caller": {
+              "file": "python/src/ntqr/llm/consistency.py",
+              "line": 39,
+              "function": "summarize_sets"
+            },
+            "callee": {
+              "file": "python/src/ntqr/evaluations.py",
+              "line": 1005,
+              "function": "is_valid_point"
+            },
+            "calls": 3,
+            "cumulative_seconds": 0.10144054200000001
+          },
+          {
+            "caller": {
+              "file": "python/src/ntqr/evaluations.py",
+              "line": 606,
+              "function": "<genexpr>"
+            },
+            "callee": {
+              "file": "python/src/ntqr/evaluations.py",
+              "line": 102,
+              "function": "__init__"
+            },
+            "calls": 6,
+            "cumulative_seconds": 0.068888292
+          },
+          {
+            "caller": {
+              "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_coo.py",
+              "line": 32,
+              "function": "__init__"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_coo.py",
+              "line": 203,
+              "function": "_check"
+            },
+            "calls": 15,
+            "cumulative_seconds": 0.052286166
+          },
+          {
+            "caller": {
+              "file": "python/src/ntqr/evaluations.py",
+              "line": 1005,
+              "function": "is_valid_point"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_compressed.py",
+              "line": 492,
+              "function": "sum"
+            },
+            "calls": 6,
+            "cumulative_seconds": 0.050011792000000006
+          },
+          {
+            "caller": {
+              "file": "python/src/ntqr/evaluations.py",
+              "line": 102,
+              "function": "__init__"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_csr.py",
+              "line": 63,
+              "function": "tocoo"
+            },
+            "calls": 9,
+            "cumulative_seconds": 0.045458124
+          },
+          {
+            "caller": {
+              "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_csr.py",
+              "line": 63,
+              "function": "tocoo"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_compressed.py",
+              "line": 995,
+              "function": "tocoo"
+            },
+            "calls": 9,
+            "cumulative_seconds": 0.045409000000000005
+          },
+          {
+            "caller": {
+              "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_compressed.py",
+              "line": 995,
+              "function": "tocoo"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_coo.py",
+              "line": 32,
+              "function": "__init__"
+            },
+            "calls": 9,
+            "cumulative_seconds": 0.045244582000000005
+          },
+          {
+            "caller": {
+              "file": "python/src/ntqr/evaluations.py",
+              "line": 1005,
+              "function": "is_valid_point"
+            },
+            "callee": {
+              "file": "python/src/ntqr/evaluations.py",
+              "line": 140,
+              "function": "__add__"
+            },
+            "calls": 3,
+            "cumulative_seconds": 0.041857333000000004
+          },
+          {
+            "caller": {
+              "file": "python/src/ntqr/evaluations.py",
+              "line": 606,
+              "function": "<genexpr>"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_compressed.py",
+              "line": 30,
+              "function": "__init__"
+            },
+            "calls": 6,
+            "cumulative_seconds": 0.041405293
+          },
+          {
+            "caller": {
+              "file": "python/src/ntqr/evaluations.py",
+              "line": 140,
+              "function": "__add__"
+            },
+            "callee": {
+              "file": "python/src/ntqr/evaluations.py",
+              "line": 102,
+              "function": "__init__"
+            },
+            "calls": 3,
+            "cumulative_seconds": 0.040521334
+          },
+          {
+            "caller": {
+              "file": "python/src/ntqr/evaluations.py",
+              "line": 102,
+              "function": "__init__"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_csr.py",
+              "line": 55,
+              "function": "tocsr"
+            },
+            "calls": 9,
+            "cumulative_seconds": 0.024814584
+          },
+          {
+            "caller": {
+              "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_csr.py",
+              "line": 55,
+              "function": "tocsr"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_data.py",
+              "line": 94,
+              "function": "copy"
+            },
+            "calls": 9,
+            "cumulative_seconds": 0.024805417000000003
+          },
+          {
+            "caller": {
+              "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_data.py",
+              "line": 94,
+              "function": "copy"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_compressed.py",
+              "line": 1189,
+              "function": "_with_data"
+            },
+            "calls": 9,
+            "cumulative_seconds": 0.024769707000000002
+          },
+          {
+            "caller": {
+              "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_compressed.py",
+              "line": 1189,
+              "function": "_with_data"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_compressed.py",
+              "line": 30,
+              "function": "__init__"
+            },
+            "calls": 9,
+            "cumulative_seconds": 0.024731875
+          },
+          {
+            "caller": {
+              "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_compressed.py",
+              "line": 30,
+              "function": "__init__"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_coo.py",
+              "line": 32,
+              "function": "__init__"
+            },
+            "calls": 6,
+            "cumulative_seconds": 0.017661917000000003
+          },
+          {
+            "caller": {
+              "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_base.py",
+              "line": 1695,
+              "function": "_get_index_dtype"
+            },
+            "callee": {
+              "file": "<frozen importlib._bootstrap>",
+              "line": 687,
+              "function": "parent"
+            },
+            "calls": 51,
+            "cumulative_seconds": 0.017014702
+          },
+          {
+            "caller": {
+              "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_compressed.py",
+              "line": 30,
+              "function": "__init__"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_base.py",
+              "line": 1695,
+              "function": "_get_index_dtype"
+            },
+            "calls": 12,
+            "cumulative_seconds": 0.016646209000000002
+          },
+          {
+            "caller": {
+              "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_coo.py",
+              "line": 203,
+              "function": "_check"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_base.py",
+              "line": 372,
+              "function": "nnz"
+            },
+            "calls": 15,
+            "cumulative_seconds": 0.016381038
+          },
+          {
+            "caller": {
+              "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_compressed.py",
+              "line": 492,
+              "function": "sum"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_base.py",
+              "line": 1439,
+              "function": "sum"
+            },
+            "calls": 6,
+            "cumulative_seconds": 0.014317332
+          },
+          {
+            "caller": {
+              "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_base.py",
+              "line": 1439,
+              "function": "sum"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/numpy/_core/fromnumeric.py",
+              "line": 2342,
+              "function": "sum"
+            },
+            "calls": 6,
+            "cumulative_seconds": 0.012299833000000001
+          },
+          {
+            "caller": {
+              "file": ".venv315/lib/python3.15/site-packages/numpy/_core/fromnumeric.py",
+              "line": 2342,
+              "function": "sum"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/numpy/_core/fromnumeric.py",
+              "line": 66,
+              "function": "_wrapreduction"
+            },
+            "calls": 6,
+            "cumulative_seconds": 0.012222083
+          },
+          {
+            "caller": {
+              "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_coo.py",
+              "line": 203,
+              "function": "_check"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_base.py",
+              "line": 1695,
+              "function": "_get_index_dtype"
+            },
+            "calls": 15,
+            "cumulative_seconds": 0.011557000000000001
+          },
+          {
+            "caller": {
+              "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_base.py",
+              "line": 1695,
+              "function": "_get_index_dtype"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_sputils.py",
+              "line": 263,
+              "function": "get_index_dtype"
+            },
+            "calls": 51,
+            "cumulative_seconds": 0.009716707
+          },
+          {
+            "caller": {
+              "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_coo.py",
+              "line": 203,
+              "function": "_check"
+            },
+            "callee": {
+              "file": "~",
+              "line": 0,
+              "function": "<method 'min' of 'numpy.ndarray' objects>"
+            },
+            "calls": 30,
+            "cumulative_seconds": 0.008439543
+          },
+          {
+            "caller": {
+              "file": "~",
+              "line": 0,
+              "function": "<method 'min' of 'numpy.ndarray' objects>"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/numpy/_core/_methods.py",
+              "line": 43,
+              "function": "_amin"
+            },
+            "calls": 30,
+            "cumulative_seconds": 0.008421581000000001
+          },
+          {
+            "caller": {
+              "file": ".venv315/lib/python3.15/site-packages/numpy/_core/_methods.py",
+              "line": 43,
+              "function": "_amin"
+            },
+            "callee": {
+              "file": "~",
+              "line": 0,
+              "function": "<method 'reduce' of 'numpy.ufunc' objects>"
+            },
+            "calls": 30,
+            "cumulative_seconds": 0.00841175
+          },
+          {
+            "caller": {
+              "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_compressed.py",
+              "line": 30,
+              "function": "__init__"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_coo.py",
+              "line": 414,
+              "function": "_coo_to_compressed"
+            },
+            "calls": 6,
+            "cumulative_seconds": 0.00790879
+          }
+        ]
+      },
+      "memory": {
+        "method": "tracemalloc; Python allocations, not process RSS or native heaps",
+        "current_bytes": 13210,
+        "peak_bytes": 26771,
+        "allocation_sites": [
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/core/symbol.py",
+            "line": 336,
+            "function": "allocation",
+            "bytes": 5288,
+            "count": 45
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/core/cache.py",
+            "line": 72,
+            "function": "allocation",
+            "bytes": 4568,
+            "count": 39
+          },
+          {
+            "file": "python/src/ntqr/evaluations.py",
+            "line": 113,
+            "function": "allocation",
+            "bytes": 1323,
+            "count": 27
+          },
+          {
+            "file": "python/src/ntqr/statistics.py",
+            "line": 351,
+            "function": "allocation",
+            "bytes": 392,
+            "count": 7
+          },
+          {
+            "file": "python/src/ntqr/statistics.py",
+            "line": 358,
+            "function": "allocation",
+            "bytes": 256,
+            "count": 4
+          },
+          {
+            "file": "python/src/ntqr/statistics.py",
+            "line": 324,
+            "function": "allocation",
+            "bytes": 256,
+            "count": 4
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_compressed.py",
+            "line": 1208,
+            "function": "allocation",
+            "bytes": 159,
+            "count": 3
+          },
+          {
+            "file": "python/src/ntqr/statistics.py",
+            "line": 320,
+            "function": "allocation",
+            "bytes": 128,
+            "count": 2
+          },
+          {
+            "file": "python/src/ntqr/statistics.py",
+            "line": 301,
+            "function": "allocation",
+            "bytes": 128,
+            "count": 2
+          },
+          {
+            "file": "lib/python3.15/random.py",
+            "line": 509,
+            "function": "allocation",
+            "bytes": 96,
+            "count": 4
+          },
+          {
+            "file": "python/src/ntqr/statistics.py",
+            "line": 289,
+            "function": "allocation",
+            "bytes": 64,
+            "count": 1
+          },
+          {
+            "file": "python/src/ntqr/statistics.py",
+            "line": 258,
+            "function": "allocation",
+            "bytes": 64,
+            "count": 1
+          },
+          {
+            "file": "python/src/ntqr/llm/consistency.py",
+            "line": 114,
+            "function": "allocation",
+            "bytes": 64,
+            "count": 1
+          },
+          {
+            "file": "python/src/ntqr/llm/consistency.py",
+            "line": 102,
+            "function": "allocation",
+            "bytes": 64,
+            "count": 1
+          },
+          {
+            "file": "python/src/ntqr/evaluations.py",
+            "line": 891,
+            "function": "allocation",
+            "bytes": 56,
+            "count": 1
+          },
+          {
+            "file": "python/src/ntqr/evaluations.py",
+            "line": 888,
+            "function": "allocation",
+            "bytes": 56,
+            "count": 1
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/core/symbol.py",
+            "line": 307,
+            "function": "allocation",
+            "bytes": 56,
+            "count": 1
+          },
+          {
+            "file": "lib/python3.15/tracemalloc.py",
+            "line": 551,
+            "function": "allocation",
+            "bytes": 56,
+            "count": 1
+          },
+          {
+            "file": "python/src/ntqr/evaluations.py",
+            "line": 110,
+            "function": "allocation",
+            "bytes": 32,
+            "count": 2
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_compressed.py",
+            "line": 1145,
+            "function": "allocation",
+            "bytes": 32,
+            "count": 2
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_compressed.py",
+            "line": 1001,
+            "function": "allocation",
+            "bytes": 32,
+            "count": 2
+          },
+          {
+            "file": "python/src/ntqr/llm/consistency.py",
+            "line": 30,
+            "function": "allocation",
+            "bytes": 24,
+            "count": 1
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/scipy/sparse/_compressed.py",
+            "line": 1144,
+            "function": "allocation",
+            "bytes": 16,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "name": "validity",
+      "description": "Answer-key-free physical audit of a seeded three-judge vote matrix",
+      "input_sha256": "b3dc49dc543aaebc8dfa1e63981f9f972fa50e5905541a9b6f9e532e1c68da8a",
+      "warmups": 1,
+      "unprofiled_samples": [
+        {
+          "wall_ns": 18197625,
+          "cpu_ns": 3920000
+        },
+        {
+          "wall_ns": 9877625,
+          "cpu_ns": 3490000
+        },
+        {
+          "wall_ns": 12943209,
+          "cpu_ns": 3901000
+        },
+        {
+          "wall_ns": 8314792,
+          "cpu_ns": 3994000
+        },
+        {
+          "wall_ns": 42092250,
+          "cpu_ns": 3068000
+        }
+      ],
+      "wall_median_ns": 12943209,
+      "cpu_median_ns": 3901000,
+      "wall_min_ns": 8314792,
+      "wall_max_ns": 42092250,
+      "tracing": {
+        "backend": "profiling.tracing",
+        "total_calls": 22763,
+        "total_seconds": 0.017891041999999996,
+        "functions": [
+          {
+            "file": "python/src/ntqr/llm/profile_workloads.py",
+            "line": 43,
+            "function": "<lambda>",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 6.0709000000000004e-05,
+            "cumulative_seconds": 0.017862709
+          },
+          {
+            "file": "python/src/ntqr/llm/validity_audit.py",
+            "line": 17,
+            "function": "audit_votes",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 0.007127644000000001,
+            "cumulative_seconds": 0.017802000000000002
+          },
+          {
+            "file": "python/src/ntqr/r2/evaluators.py",
+            "line": 376,
+            "function": "__init__",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 5.0959000000000005e-05,
+            "cumulative_seconds": 0.010431250000000001
+          },
+          {
+            "file": "python/src/ntqr/r2/datasketches.py",
+            "line": 475,
+            "function": "label_pairs_frequency_moments",
+            "primitive_calls": 26,
+            "calls": 26,
+            "self_seconds": 3.8543e-05,
+            "cumulative_seconds": 0.0058608770000000004
+          },
+          {
+            "file": "python/src/ntqr/r2/datasketches.py",
+            "line": 442,
+            "function": "pair_frequency_moment",
+            "primitive_calls": 78,
+            "calls": 78,
+            "self_seconds": 0.00013513000000000002,
+            "cumulative_seconds": 0.005822334
+          },
+          {
+            "file": "python/src/ntqr/r2/datasketches.py",
+            "line": 328,
+            "function": "classifier_label_frequency",
+            "primitive_calls": 231,
+            "calls": 231,
+            "self_seconds": 0.00023954100000000002,
+            "cumulative_seconds": 0.005273038000000001
+          },
+          {
+            "file": "python/src/ntqr/r2/evaluators.py",
+            "line": 459,
+            "function": "classifier_a_label_accuracy",
+            "primitive_calls": 6,
+            "calls": 6,
+            "self_seconds": 0.00010266700000000001,
+            "cumulative_seconds": 0.004828374000000001
+          },
+          {
+            "file": "python/src/ntqr/r2/evaluators.py",
+            "line": 505,
+            "function": "classifier_b_label_accuracy",
+            "primitive_calls": 6,
+            "calls": 6,
+            "self_seconds": 9.0302e-05,
+            "cumulative_seconds": 0.004612668
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/core/decorators.py",
+            "line": 69,
+            "function": "__sympifyit_wrapper",
+            "primitive_calls": 1105,
+            "calls": 1105,
+            "self_seconds": 0.000666103,
+            "cumulative_seconds": 0.004308432
+          },
+          {
+            "file": "python/src/ntqr/r2/datasketches.py",
+            "line": 484,
+            "function": "trio_frequency_moment",
+            "primitive_calls": 13,
+            "calls": 13,
+            "self_seconds": 5.0793000000000006e-05,
+            "cumulative_seconds": 0.004072374
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<built-in method builtins.sum>",
+            "primitive_calls": 324,
+            "calls": 324,
+            "self_seconds": 0.00037436,
+            "cumulative_seconds": 0.003608916
+          },
+          {
+            "file": "python/src/ntqr/r2/datasketches.py",
+            "line": 298,
+            "function": "to_frequencies_exact",
+            "primitive_calls": 310,
+            "calls": 310,
+            "self_seconds": 0.001037191,
+            "cumulative_seconds": 0.002124001
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/core/cache.py",
+            "line": 69,
+            "function": "wrapper",
+            "primitive_calls": 3455,
+            "calls": 3455,
+            "self_seconds": 0.0014104290000000002,
+            "cumulative_seconds": 0.0015380910000000001
+          },
+          {
+            "file": "python/src/ntqr/r2/datasketches.py",
+            "line": 384,
+            "function": "pair_label_frequency",
+            "primitive_calls": 78,
+            "calls": 78,
+            "self_seconds": 7.1705e-05,
+            "cumulative_seconds": 0.001426165
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/core/numbers.py",
+            "line": 1374,
+            "function": "_new",
+            "primitive_calls": 1136,
+            "calls": 1136,
+            "self_seconds": 0.00045134600000000004,
+            "cumulative_seconds": 0.001261456
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/core/sympify.py",
+            "line": 124,
+            "function": "sympify",
+            "primitive_calls": 467,
+            "calls": 467,
+            "self_seconds": 0.000669457,
+            "cumulative_seconds": 0.001119863
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/core/numbers.py",
+            "line": 1450,
+            "function": "__add__",
+            "primitive_calls": 645,
+            "calls": 645,
+            "self_seconds": 0.000495327,
+            "cumulative_seconds": 0.0010725020000000001
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<built-in method math.prod>",
+            "primitive_calls": 104,
+            "calls": 104,
+            "self_seconds": 8.1412e-05,
+            "cumulative_seconds": 0.000985208
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/core/numbers.py",
+            "line": 1898,
+            "function": "__radd__",
+            "primitive_calls": 463,
+            "calls": 463,
+            "self_seconds": 0.00033518400000000004,
+            "cumulative_seconds": 0.0009635830000000001
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/core/numbers.py",
+            "line": 1489,
+            "function": "__mul__",
+            "primitive_calls": 354,
+            "calls": 354,
+            "self_seconds": 0.00043612500000000004,
+            "cumulative_seconds": 0.0008442940000000001
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/core/numbers.py",
+            "line": 1397,
+            "function": "from_coprime_ints",
+            "primitive_calls": 1136,
+            "calls": 1136,
+            "self_seconds": 0.000399367,
+            "cumulative_seconds": 0.0008101100000000001
+          },
+          {
+            "file": "python/src/ntqr/r2/evaluators.py",
+            "line": 443,
+            "function": "alpha_prevalence_estimates",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 1.8208000000000003e-05,
+            "cumulative_seconds": 0.000657708
+          },
+          {
+            "file": "python/src/ntqr/r2/evaluators.py",
+            "line": 416,
+            "function": "alpha_prevalence_quadratic_terms",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 9.917e-06,
+            "cumulative_seconds": 0.000581667
+          },
+          {
+            "file": "python/src/ntqr/r2/datasketches.py",
+            "line": 89,
+            "function": "classifiers_labels_votes",
+            "primitive_calls": 78,
+            "calls": 78,
+            "self_seconds": 0.000127217,
+            "cumulative_seconds": 0.0005272930000000001
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/core/basic.py",
+            "line": 288,
+            "function": "__new__",
+            "primitive_calls": 1146,
+            "calls": 1146,
+            "self_seconds": 0.00026725100000000003,
+            "cumulative_seconds": 0.00041765600000000003
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/simplify/simplify.py",
+            "line": 435,
+            "function": "simplify",
+            "primitive_calls": 14,
+            "calls": 14,
+            "self_seconds": 0.000375409,
+            "cumulative_seconds": 0.00040279000000000004
+          },
+          {
+            "file": "python/src/ntqr/r2/datasketches.py",
+            "line": 59,
+            "function": "votes_match",
+            "primitive_calls": 624,
+            "calls": 624,
+            "self_seconds": 0.000324881,
+            "cumulative_seconds": 0.000400076
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/core/numbers.py",
+            "line": 1465,
+            "function": "__sub__",
+            "primitive_calls": 83,
+            "calls": 83,
+            "self_seconds": 0.00033615100000000003,
+            "cumulative_seconds": 0.00039562200000000004
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<built-in method builtins.isinstance>",
+            "primitive_calls": 3337,
+            "calls": 3337,
+            "self_seconds": 0.00038727300000000004,
+            "cumulative_seconds": 0.00038727300000000004
+          },
+          {
+            "file": "python/src/ntqr/r2/evaluators.py",
+            "line": 29,
+            "function": "turn_numerical",
+            "primitive_calls": 16,
+            "calls": 16,
+            "self_seconds": 1.0874000000000001e-05,
+            "cumulative_seconds": 0.000258707
+          }
+        ],
+        "call_edges": [
+          {
+            "caller": {
+              "file": "python/src/ntqr/llm/profile_workloads.py",
+              "line": 43,
+              "function": "<lambda>"
+            },
+            "callee": {
+              "file": "python/src/ntqr/llm/validity_audit.py",
+              "line": 17,
+              "function": "audit_votes"
+            },
+            "calls": 1,
+            "cumulative_seconds": 0.017802000000000002
+          },
+          {
+            "caller": {
+              "file": "python/src/ntqr/llm/validity_audit.py",
+              "line": 17,
+              "function": "audit_votes"
+            },
+            "callee": {
+              "file": "python/src/ntqr/r2/evaluators.py",
+              "line": 376,
+              "function": "__init__"
+            },
+            "calls": 1,
+            "cumulative_seconds": 0.010431250000000001
+          },
+          {
+            "caller": {
+              "file": "python/src/ntqr/r2/datasketches.py",
+              "line": 475,
+              "function": "label_pairs_frequency_moments"
+            },
+            "callee": {
+              "file": "python/src/ntqr/r2/datasketches.py",
+              "line": 442,
+              "function": "pair_frequency_moment"
+            },
+            "calls": 78,
+            "cumulative_seconds": 0.005822334
+          },
+          {
+            "caller": {
+              "file": "python/src/ntqr/r2/evaluators.py",
+              "line": 376,
+              "function": "__init__"
+            },
+            "callee": {
+              "file": "python/src/ntqr/r2/evaluators.py",
+              "line": 459,
+              "function": "classifier_a_label_accuracy"
+            },
+            "calls": 6,
+            "cumulative_seconds": 0.004828374000000001
+          },
+          {
+            "caller": {
+              "file": "python/src/ntqr/r2/evaluators.py",
+              "line": 376,
+              "function": "__init__"
+            },
+            "callee": {
+              "file": "python/src/ntqr/r2/evaluators.py",
+              "line": 505,
+              "function": "classifier_b_label_accuracy"
+            },
+            "calls": 6,
+            "cumulative_seconds": 0.004612668
+          },
+          {
+            "caller": {
+              "file": "python/src/ntqr/r2/datasketches.py",
+              "line": 442,
+              "function": "pair_frequency_moment"
+            },
+            "callee": {
+              "file": "python/src/ntqr/r2/datasketches.py",
+              "line": 328,
+              "function": "classifier_label_frequency"
+            },
+            "calls": 156,
+            "cumulative_seconds": 0.003448294
+          },
+          {
+            "caller": {
+              "file": "python/src/ntqr/r2/datasketches.py",
+              "line": 328,
+              "function": "classifier_label_frequency"
+            },
+            "callee": {
+              "file": "~",
+              "line": 0,
+              "function": "<built-in method builtins.sum>"
+            },
+            "calls": 231,
+            "cumulative_seconds": 0.003084874
+          },
+          {
+            "caller": {
+              "file": "python/src/ntqr/r2/datasketches.py",
+              "line": 484,
+              "function": "trio_frequency_moment"
+            },
+            "callee": {
+              "file": "python/src/ntqr/r2/datasketches.py",
+              "line": 475,
+              "function": "label_pairs_frequency_moments"
+            },
+            "calls": 13,
+            "cumulative_seconds": 0.002795627
+          },
+          {
+            "caller": {
+              "file": "~",
+              "line": 0,
+              "function": "<built-in method builtins.sum>"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/decorators.py",
+              "line": 69,
+              "function": "__sympifyit_wrapper"
+            },
+            "calls": 591,
+            "cumulative_seconds": 0.002211096
+          },
+          {
+            "caller": {
+              "file": "python/src/ntqr/r2/evaluators.py",
+              "line": 505,
+              "function": "classifier_b_label_accuracy"
+            },
+            "callee": {
+              "file": "python/src/ntqr/r2/datasketches.py",
+              "line": 484,
+              "function": "trio_frequency_moment"
+            },
+            "calls": 6,
+            "cumulative_seconds": 0.0021450830000000003
+          },
+          {
+            "caller": {
+              "file": "python/src/ntqr/r2/datasketches.py",
+              "line": 328,
+              "function": "classifier_label_frequency"
+            },
+            "callee": {
+              "file": "python/src/ntqr/r2/datasketches.py",
+              "line": 298,
+              "function": "to_frequencies_exact"
+            },
+            "calls": 231,
+            "cumulative_seconds": 0.001744125
+          },
+          {
+            "caller": {
+              "file": "python/src/ntqr/r2/evaluators.py",
+              "line": 459,
+              "function": "classifier_a_label_accuracy"
+            },
+            "callee": {
+              "file": "python/src/ntqr/r2/datasketches.py",
+              "line": 475,
+              "function": "label_pairs_frequency_moments"
+            },
+            "calls": 6,
+            "cumulative_seconds": 0.001692041
+          },
+          {
+            "caller": {
+              "file": "python/src/ntqr/r2/evaluators.py",
+              "line": 459,
+              "function": "classifier_a_label_accuracy"
+            },
+            "callee": {
+              "file": "python/src/ntqr/r2/datasketches.py",
+              "line": 484,
+              "function": "trio_frequency_moment"
+            },
+            "calls": 6,
+            "cumulative_seconds": 0.0016605410000000002
+          },
+          {
+            "caller": {
+              "file": "python/src/ntqr/r2/datasketches.py",
+              "line": 442,
+              "function": "pair_frequency_moment"
+            },
+            "callee": {
+              "file": "python/src/ntqr/r2/datasketches.py",
+              "line": 384,
+              "function": "pair_label_frequency"
+            },
+            "calls": 78,
+            "cumulative_seconds": 0.001426165
+          },
+          {
+            "caller": {
+              "file": "python/src/ntqr/r2/evaluators.py",
+              "line": 505,
+              "function": "classifier_b_label_accuracy"
+            },
+            "callee": {
+              "file": "python/src/ntqr/r2/datasketches.py",
+              "line": 475,
+              "function": "label_pairs_frequency_moments"
+            },
+            "calls": 6,
+            "cumulative_seconds": 0.0011352930000000001
+          },
+          {
+            "caller": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/decorators.py",
+              "line": 69,
+              "function": "__sympifyit_wrapper"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/numbers.py",
+              "line": 1450,
+              "function": "__add__"
+            },
+            "calls": 645,
+            "cumulative_seconds": 0.0010725020000000001
+          },
+          {
+            "caller": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/decorators.py",
+              "line": 69,
+              "function": "__sympifyit_wrapper"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/sympify.py",
+              "line": 124,
+              "function": "sympify"
+            },
+            "calls": 424,
+            "cumulative_seconds": 0.001063782
+          },
+          {
+            "caller": {
+              "file": "python/src/ntqr/r2/datasketches.py",
+              "line": 298,
+              "function": "to_frequencies_exact"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/cache.py",
+              "line": 69,
+              "function": "wrapper"
+            },
+            "calls": 2480,
+            "cumulative_seconds": 0.001041936
+          },
+          {
+            "caller": {
+              "file": "~",
+              "line": 0,
+              "function": "<built-in method builtins.sum>"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/numbers.py",
+              "line": 1898,
+              "function": "__radd__"
+            },
+            "calls": 463,
+            "cumulative_seconds": 0.0009635830000000001
+          },
+          {
+            "caller": {
+              "file": "~",
+              "line": 0,
+              "function": "<built-in method math.prod>"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/decorators.py",
+              "line": 69,
+              "function": "__sympifyit_wrapper"
+            },
+            "calls": 234,
+            "cumulative_seconds": 0.000903796
+          },
+          {
+            "caller": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/decorators.py",
+              "line": 69,
+              "function": "__sympifyit_wrapper"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/numbers.py",
+              "line": 1489,
+              "function": "__mul__"
+            },
+            "calls": 354,
+            "cumulative_seconds": 0.0008442940000000001
+          },
+          {
+            "caller": {
+              "file": "python/src/ntqr/r2/datasketches.py",
+              "line": 484,
+              "function": "trio_frequency_moment"
+            },
+            "callee": {
+              "file": "python/src/ntqr/r2/datasketches.py",
+              "line": 328,
+              "function": "classifier_label_frequency"
+            },
+            "calls": 39,
+            "cumulative_seconds": 0.000842203
+          },
+          {
+            "caller": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/numbers.py",
+              "line": 1374,
+              "function": "_new"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/numbers.py",
+              "line": 1397,
+              "function": "from_coprime_ints"
+            },
+            "calls": 1136,
+            "cumulative_seconds": 0.0008101100000000001
+          },
+          {
+            "caller": {
+              "file": "python/src/ntqr/r2/evaluators.py",
+              "line": 376,
+              "function": "__init__"
+            },
+            "callee": {
+              "file": "python/src/ntqr/r2/evaluators.py",
+              "line": 443,
+              "function": "alpha_prevalence_estimates"
+            },
+            "calls": 1,
+            "cumulative_seconds": 0.000657708
+          },
+          {
+            "caller": {
+              "file": "python/src/ntqr/r2/datasketches.py",
+              "line": 442,
+              "function": "pair_frequency_moment"
+            },
+            "callee": {
+              "file": "~",
+              "line": 0,
+              "function": "<built-in method math.prod>"
+            },
+            "calls": 78,
+            "cumulative_seconds": 0.0006507910000000001
+          },
+          {
+            "caller": {
+              "file": "python/src/ntqr/r2/evaluators.py",
+              "line": 443,
+              "function": "alpha_prevalence_estimates"
+            },
+            "callee": {
+              "file": "python/src/ntqr/r2/evaluators.py",
+              "line": 416,
+              "function": "alpha_prevalence_quadratic_terms"
+            },
+            "calls": 1,
+            "cumulative_seconds": 0.000581667
+          },
+          {
+            "caller": {
+              "file": "python/src/ntqr/r2/datasketches.py",
+              "line": 384,
+              "function": "pair_label_frequency"
+            },
+            "callee": {
+              "file": "python/src/ntqr/r2/datasketches.py",
+              "line": 89,
+              "function": "classifiers_labels_votes"
+            },
+            "calls": 78,
+            "cumulative_seconds": 0.0005272930000000001
+          },
+          {
+            "caller": {
+              "file": "python/src/ntqr/r2/evaluators.py",
+              "line": 505,
+              "function": "classifier_b_label_accuracy"
+            },
+            "callee": {
+              "file": ".venv315/lib/python3.15/site-packages/sympy/core/decorators.py",
+              "line": 69,
+              "function": "__sympifyit_wrapper"
+            },
+            "calls": 60,
+            "cumulative_seconds": 0.000517575
+          },
+          {
+            "caller": {
+              "file": "python/src/ntqr/r2/evaluators.py",
+              "line": 459,
+              "function": "classifier_a_label_accuracy"
+            },
+            "callee": {
+              "file": "python/src/ntqr/r2/datasketches.py",
+              "line": 328,
+              "function": "classifier_label_frequency"
+            },
+            "calls": 18,
+            "cumulative_seconds": 0.0005003750000000001
+          },
+          {
+            "caller": {
+              "file": "python/src/ntqr/r2/evaluators.py",
+              "line": 505,
+              "function": "classifier_b_label_accuracy"
+            },
+            "callee": {
+              "file": "python/src/ntqr/r2/datasketches.py",
+              "line": 328,
+              "function": "classifier_label_frequency"
+            },
+            "calls": 18,
+            "cumulative_seconds": 0.000482166
+          }
+        ]
+      },
+      "memory": {
+        "method": "tracemalloc; Python allocations, not process RSS or native heaps",
+        "current_bytes": 5632,
+        "peak_bytes": 12040,
+        "allocation_sites": [
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/simplify/simplify.py",
+            "line": 616,
+            "function": "allocation",
+            "bytes": 1440,
+            "count": 12
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/core/evalf.py",
+            "line": 1647,
+            "function": "allocation",
+            "bytes": 600,
+            "count": 5
+          },
+          {
+            "file": "python/src/ntqr/llm/recovery_scoring.py",
+            "line": 120,
+            "function": "allocation",
+            "bytes": 488,
+            "count": 5
+          },
+          {
+            "file": "python/src/ntqr/r2/evaluators.py",
+            "line": 406,
+            "function": "allocation",
+            "bytes": 384,
+            "count": 6
+          },
+          {
+            "file": "python/src/ntqr/r2/evaluators.py",
+            "line": 385,
+            "function": "allocation",
+            "bytes": 384,
+            "count": 6
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/core/numbers.py",
+            "line": 1457,
+            "function": "allocation",
+            "bytes": 224,
+            "count": 7
+          },
+          {
+            "file": "python/src/ntqr/llm/validity_audit.py",
+            "line": 54,
+            "function": "allocation",
+            "bytes": 184,
+            "count": 2
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/mpmath/libmp/libmpf.py",
+            "line": 198,
+            "function": "allocation",
+            "bytes": 160,
+            "count": 5
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/mpmath/libmp/libmpf.py",
+            "line": 186,
+            "function": "allocation",
+            "bytes": 160,
+            "count": 5
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/mpmath/libmp/libmpf.py",
+            "line": 478,
+            "function": "allocation",
+            "bytes": 144,
+            "count": 6
+          },
+          {
+            "file": "python/src/ntqr/r2/evaluators.py",
+            "line": 401,
+            "function": "allocation",
+            "bytes": 128,
+            "count": 2
+          },
+          {
+            "file": "python/src/ntqr/r2/evaluators.py",
+            "line": 400,
+            "function": "allocation",
+            "bytes": 128,
+            "count": 2
+          },
+          {
+            "file": "python/src/ntqr/r2/evaluators.py",
+            "line": 383,
+            "function": "allocation",
+            "bytes": 128,
+            "count": 2
+          },
+          {
+            "file": "python/src/ntqr/r2/evaluators.py",
+            "line": 382,
+            "function": "allocation",
+            "bytes": 128,
+            "count": 2
+          },
+          {
+            "file": "python/src/ntqr/llm/validity_audit.py",
+            "line": 64,
+            "function": "allocation",
+            "bytes": 128,
+            "count": 2
+          },
+          {
+            "file": "python/src/ntqr/llm/validity_audit.py",
+            "line": 45,
+            "function": "allocation",
+            "bytes": 120,
+            "count": 1
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/functions/elementary/miscellaneous.py",
+            "line": 152,
+            "function": "allocation",
+            "bytes": 120,
+            "count": 1
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/core/cache.py",
+            "line": 72,
+            "function": "allocation",
+            "bytes": 120,
+            "count": 1
+          },
+          {
+            "file": "python/src/ntqr/r2/datasketches.py",
+            "line": 307,
+            "function": "allocation",
+            "bytes": 64,
+            "count": 1
+          },
+          {
+            "file": "python/src/ntqr/r2/datasketches.py",
+            "line": 283,
+            "function": "allocation",
+            "bytes": 64,
+            "count": 1
+          },
+          {
+            "file": "python/src/ntqr/llm/validity_audit.py",
+            "line": 44,
+            "function": "allocation",
+            "bytes": 64,
+            "count": 1
+          },
+          {
+            "file": "python/src/ntqr/llm/validity_audit.py",
+            "line": 29,
+            "function": "allocation",
+            "bytes": 64,
+            "count": 1
+          },
+          {
+            "file": "python/src/ntqr/llm/runtime_profile.py",
+            "line": 143,
+            "function": "allocation",
+            "bytes": 32,
+            "count": 1
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/core/numbers.py",
+            "line": 1481,
+            "function": "allocation",
+            "bytes": 32,
+            "count": 1
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/sympy/core/numbers.py",
+            "line": 1392,
+            "function": "allocation",
+            "bytes": 32,
+            "count": 1
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/mpmath/libmp/libmpf.py",
+            "line": 239,
+            "function": "allocation",
+            "bytes": 32,
+            "count": 1
+          },
+          {
+            "file": ".venv315/lib/python3.15/site-packages/mpmath/libmp/libmpf.py",
+            "line": 189,
+            "function": "allocation",
+            "bytes": 32,
+            "count": 1
+          },
+          {
+            "file": "python/src/ntqr/llm/recovery_scoring.py",
+            "line": 114,
+            "function": "allocation",
+            "bytes": 24,
+            "count": 1
+          },
+          {
+            "file": "python/src/ntqr/llm/recovery_scoring.py",
+            "line": 109,
+            "function": "allocation",
+            "bytes": 24,
+            "count": 1
+          }
+        ]
+      }
+    }
+  ],
+  "sampling": {
+    "status": "unavailable",
+    "returncode": 1,
+    "artifact": null,
+    "detail": "🔒 Permission Error: Unable to access process memory on macOS\n\nTachyon needs elevated permissions to profile processes. Try one of these solutions:\n\n1. Try running again with elevated permissions by running 'sudo -E !!'.\n\n2. If targeting system Python processes:\n   Note: Apple's System Integrity Protection (SIP) may block access to system\n   Python binaries. Consider using a user-installed Python instead.\n\n"
+  },
+  "cold_imports": {
+    "status": "available",
+    "returncode": 0,
+    "largest_cumulative": [
+      {
+        "self_us": 260,
+        "cumulative_us": 1566619,
+        "module": "ntqr.llm.consistency"
+      },
+      {
+        "self_us": 17763,
+        "cumulative_us": 1566360,
+        "module": "ntqr.evaluations"
+      },
+      {
+        "self_us": 783,
+        "cumulative_us": 1202076,
+        "module": "ntqr.llm.profile_workloads"
+      },
+      {
+        "self_us": 581,
+        "cumulative_us": 1142701,
+        "module": "ntqr.llm"
+      },
+      {
+        "self_us": 522,
+        "cumulative_us": 1142121,
+        "module": "ntqr"
+      },
+      {
+        "self_us": 245,
+        "cumulative_us": 1105040,
+        "module": "ntqr.r2.examples"
+      },
+      {
+        "self_us": 1326,
+        "cumulative_us": 1104519,
+        "module": "ntqr.r2.datasketches"
+      },
+      {
+        "self_us": 1233,
+        "cumulative_us": 1101326,
+        "module": "sympy"
+      },
+      {
+        "self_us": 732,
+        "cumulative_us": 802132,
+        "module": "scipy.sparse"
+      },
+      {
+        "self_us": 1044,
+        "cumulative_us": 744750,
+        "module": "numba"
+      },
+      {
+        "self_us": 543,
+        "cumulative_us": 617672,
+        "module": "sympy.polys"
+      },
+      {
+        "self_us": 2929,
+        "cumulative_us": 523792,
+        "module": "scipy.sparse._csr"
+      },
+      {
+        "self_us": 816,
+        "cumulative_us": 494472,
+        "module": "scipy.sparse._compressed"
+      },
+      {
+        "self_us": 740,
+        "cumulative_us": 492727,
+        "module": "scipy._lib._util"
+      },
+      {
+        "self_us": 960,
+        "cumulative_us": 491987,
+        "module": "scipy._lib._array_api"
+      },
+      {
+        "self_us": 400,
+        "cumulative_us": 445471,
+        "module": "numba.core.decorators"
+      },
+      {
+        "self_us": 801,
+        "cumulative_us": 445071,
+        "module": "numba.stencils.stencil"
+      },
+      {
+        "self_us": 1287,
+        "cumulative_us": 349760,
+        "module": "scipy._external.array_api_compat.numpy"
+      },
+      {
+        "self_us": 776,
+        "cumulative_us": 314280,
+        "module": "sympy.polys.polyfuncs"
+      },
+      {
+        "self_us": 401,
+        "cumulative_us": 313504,
+        "module": "sympy.polys.specialpolys"
+      },
+      {
+        "self_us": 1018,
+        "cumulative_us": 307113,
+        "module": "sympy.polys.rings"
+      },
+      {
+        "self_us": 451,
+        "cumulative_us": 304079,
+        "module": "sympy.printing.defaults"
+      },
+      {
+        "self_us": 566,
+        "cumulative_us": 303629,
+        "module": "sympy.printing"
+      },
+      {
+        "self_us": 703,
+        "cumulative_us": 281337,
+        "module": "sympy.printing.pycode"
+      },
+      {
+        "self_us": 486,
+        "cumulative_us": 280635,
+        "module": "sympy.printing.codeprinter"
+      },
+      {
+        "self_us": 33,
+        "cumulative_us": 280150,
+        "module": "sympy.functions.elementary.complexes"
+      },
+      {
+        "self_us": 28,
+        "cumulative_us": 280118,
+        "module": "sympy.functions.elementary"
+      },
+      {
+        "self_us": 475,
+        "cumulative_us": 280091,
+        "module": "sympy.functions"
+      },
+      {
+        "self_us": 921,
+        "cumulative_us": 274801,
+        "module": "numba.core.ir_utils"
+      },
+      {
+        "self_us": 529,
+        "cumulative_us": 271843,
+        "module": "numba.core.extending"
+      }
+    ]
+  },
+  "comparison": {
+    "before_source": "13aa53359c407c5871413fdc2414a0f947752356935685fcdde5b2639780cc5c",
+    "after_source": "01df0cba533cc9670fd7247d8409e4abafff15b8de363af8a8a21875ed4b3234",
+    "interpretation": "Descriptive ratios on one host; no significance, cross-runtime speedup, or generalization claim.",
+    "workloads": [
+      {
+        "name": "recovery",
+        "comparable": true,
+        "reasons": [],
+        "cpu_ratio_after_over_before": 1.2436347673397716,
+        "wall_ratio_after_over_before": 0.6462878981040557
+      },
+      {
+        "name": "enumeration",
+        "comparable": true,
+        "reasons": [],
+        "cpu_ratio_after_over_before": 1.7434733257661748,
+        "wall_ratio_after_over_before": 1.805242663099333
+      },
+      {
+        "name": "validity",
+        "comparable": true,
+        "reasons": [],
+        "cpu_ratio_after_over_before": 2.1143631436314365,
+        "wall_ratio_after_over_before": 7.022586069102694
+      }
+    ]
+  }
+}

@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="936.72pt" height="412.8663pt" viewBox="0 0 936.72 412.8663" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <title>evaluation pipeline</title>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title>evaluation pipeline</dc:title>
+    <dc:description>The NTQR solve sees only parsed votes summarized as unlabeled agreement counts. Authored truth is held out until after branch selection, where it scores recovery MAE for this controlled experiment.</dc:description>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>NTQR research figure pipeline</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 412.8663 
+L 936.72 412.8663 
+L 936.72 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 45.93744 135.949724 
+L 199.04256 135.949724 
+Q 217.48896 135.949724 217.48896 130.521564 
+L 217.48896 82.753756 
+Q 217.48896 77.325596 199.04256 77.325596 
+L 45.93744 77.325596 
+Q 27.49104 77.325596 27.49104 82.753756 
+L 27.49104 130.521564 
+Q 27.49104 135.949724 45.93744 135.949724 
+z
+" clip-path="url(#p68873dbb39)" style="fill: #dbeafe; stroke: #334155; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 276.51744 135.949724 
+L 429.62256 135.949724 
+Q 448.06896 135.949724 448.06896 130.521564 
+L 448.06896 82.753756 
+Q 448.06896 77.325596 429.62256 77.325596 
+L 276.51744 77.325596 
+Q 258.07104 77.325596 258.07104 82.753756 
+L 258.07104 130.521564 
+Q 258.07104 135.949724 276.51744 135.949724 
+z
+" clip-path="url(#p68873dbb39)" style="fill: #e0f2fe; stroke: #334155; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 507.09744 135.949724 
+L 660.20256 135.949724 
+Q 678.64896 135.949724 678.64896 130.521564 
+L 678.64896 82.753756 
+Q 678.64896 77.325596 660.20256 77.325596 
+L 507.09744 77.325596 
+Q 488.65104 77.325596 488.65104 82.753756 
+L 488.65104 130.521564 
+Q 488.65104 135.949724 507.09744 135.949724 
+z
+" clip-path="url(#p68873dbb39)" style="fill: #dcfce7; stroke: #334155; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 737.67744 135.949724 
+L 890.78256 135.949724 
+Q 909.22896 135.949724 909.22896 130.521564 
+L 909.22896 82.753756 
+Q 909.22896 77.325596 890.78256 77.325596 
+L 737.67744 77.325596 
+Q 719.23104 77.325596 719.23104 82.753756 
+L 719.23104 130.521564 
+Q 719.23104 135.949724 737.67744 135.949724 
+z
+" clip-path="url(#p68873dbb39)" style="fill: #fde68a; stroke: #334155; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 507.09744 239.084764 
+L 660.20256 239.084764 
+Q 678.64896 239.084764 678.64896 233.656604 
+L 678.64896 185.888796 
+Q 678.64896 180.460636 660.20256 180.460636 
+L 507.09744 180.460636 
+Q 488.65104 180.460636 488.65104 185.888796 
+L 488.65104 233.656604 
+Q 488.65104 239.084764 507.09744 239.084764 
+z
+" clip-path="url(#p68873dbb39)" style="fill: #fef3c7; stroke: #334155; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 276.51744 239.084764 
+L 429.62256 239.084764 
+Q 448.06896 239.084764 448.06896 233.656604 
+L 448.06896 185.888796 
+Q 448.06896 180.460636 429.62256 180.460636 
+L 276.51744 180.460636 
+Q 258.07104 180.460636 258.07104 185.888796 
+L 258.07104 233.656604 
+Q 258.07104 239.084764 276.51744 239.084764 
+z
+" clip-path="url(#p68873dbb39)" style="fill: #ede9fe; stroke: #334155; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 45.93744 239.084764 
+L 199.04256 239.084764 
+Q 217.48896 239.084764 217.48896 233.656604 
+L 217.48896 185.888796 
+Q 217.48896 180.460636 199.04256 180.460636 
+L 45.93744 180.460636 
+Q 27.49104 180.460636 27.49104 185.888796 
+L 27.49104 233.656604 
+Q 27.49104 239.084764 45.93744 239.084764 
+z
+" clip-path="url(#p68873dbb39)" style="fill: #fce7f3; stroke: #334155; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #111827" transform="translate(85.252734 103.064174)">Scenario facts</text>
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #111827" transform="translate(60.370195 115.667045)">(authored truth hidden)</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #111827" transform="translate(306.173555 103.064174)">v3 binary schema</text>
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #111827" transform="translate(275.742422 115.667045)">model must choose one label</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #111827" transform="translate(520.499063 103.064174)">Parse + one repair retry</text>
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #111827" transform="translate(520.088086 115.667045)">no local vote fabrication</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #111827" transform="translate(756.868828 103.064174)">Complete vote matrix</text>
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #111827" transform="translate(748.066875 115.667045)">3 personas x Q scenarios</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #111827" transform="translate(516.276914 206.199214)">Unlabeled TrioVoteCounts</text>
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #111827" transform="translate(523.334062 218.802085)">agreement sketch only</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #111827" transform="translate(316.208438 206.199214)">NTQR EI solve</text>
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #111827" transform="translate(304.79625 218.802085)">two roots or alarm</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #111827" transform="translate(45.121406 206.199214)">Branch selection + validation</text>
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #111827" transform="translate(62.442305 218.802085)">MAE scored after solve</text>
+   </g>
+   <g id="patch_9">
+    <path d="M 204.890825 106.63766 
+Q 237.78214 106.63766 269.108207 106.63766 
+" style="fill: none; stroke: #475569; stroke-width: 1.4; stroke-linecap: round"/>
+    <path d="M 263.908207 104.03766 
+L 269.108207 106.63766 
+L 263.908207 109.23766 
+z
+" style="fill: #475569; stroke: #475569; stroke-width: 1.4; stroke-linecap: round"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 435.470825 106.63766 
+Q 468.36214 106.63766 499.688207 106.63766 
+" style="fill: none; stroke: #475569; stroke-width: 1.4; stroke-linecap: round"/>
+    <path d="M 494.488207 104.03766 
+L 499.688207 106.63766 
+L 494.488207 109.23766 
+z
+" style="fill: #475569; stroke: #475569; stroke-width: 1.4; stroke-linecap: round"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 666.050825 106.63766 
+Q 698.94214 106.63766 730.268207 106.63766 
+" style="fill: none; stroke: #475569; stroke-width: 1.4; stroke-linecap: round"/>
+    <path d="M 725.068207 104.03766 
+L 730.268207 106.63766 
+L 725.068207 109.23766 
+z
+" style="fill: #475569; stroke: #475569; stroke-width: 1.4; stroke-linecap: round"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 810.335163 131.981277 
+Q 698.938236 158.205595 589.064907 184.071239 
+" style="fill: none; stroke: #475569; stroke-width: 1.4; stroke-linecap: round"/>
+    <path d="M 594.72233 185.41048 
+L 589.064907 184.071239 
+L 593.530754 180.348845 
+z
+" style="fill: #475569; stroke: #475569; stroke-width: 1.4; stroke-linecap: round"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 501.249175 193.16253 
+Q 468.35786 193.16253 437.031793 193.16253 
+" style="fill: none; stroke: #475569; stroke-width: 1.4; stroke-linecap: round"/>
+    <path d="M 442.231793 195.76253 
+L 437.031793 193.16253 
+L 442.231793 190.56253 
+z
+" style="fill: #475569; stroke: #475569; stroke-width: 1.4; stroke-linecap: round"/>
+   </g>
+   <g id="patch_14">
+    <path d="M 270.669175 193.16253 
+Q 237.77786 193.16253 206.451793 193.16253 
+" style="fill: none; stroke: #475569; stroke-width: 1.4; stroke-linecap: round"/>
+    <path d="M 211.651793 195.76253 
+L 206.451793 193.16253 
+L 211.651793 190.56253 
+z
+" style="fill: #475569; stroke: #475569; stroke-width: 1.4; stroke-linecap: round"/>
+   </g>
+   <g id="patch_15">
+    <path d="M 122.49 133.062171 
+Q 122.49 158.20365 122.49 182.003488 
+" style="fill: none; stroke-dasharray: 4.44,1.92; stroke-dashoffset: 0; stroke: #be185d; stroke-width: 1.2; stroke-linecap: round"/>
+    <path d="M 125.09 176.803488 
+L 122.49 182.003488 
+L 119.89 176.803488 
+z
+" style="fill: #be185d; stroke-dasharray: 4.44,1.92; stroke-dashoffset: 0; stroke: #be185d; stroke-width: 1.2; stroke-linecap: round"/>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9d174d" transform="translate(163.9944 168.712592)">authored truth is held out</text>
+    <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9d174d" transform="translate(163.9944 179.515053)">until validation</text>
+   </g>
+   <g id="text_9">
+    <text style="font-weight: 700; font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle" x="468.36" y="19.3575" transform="rotate(-0 468.36 19.3575)">What enters the unsupervised solve, and what is validation-only</text>
+   </g>
+  </g>
+  <g id="text_10">
+   <text style="font-style: italic; font-size: 11.5px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #222222" transform="translate(18.999297 349.803042)">The NTQR solve sees only parsed votes summarized as unlabeled agreement counts. Authored truth is held out until after branch selection, where it scores</text>
+   <text style="font-style: italic; font-size: 11.5px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #222222" transform="translate(339.208711 363.606186)">recovery MAE for this controlled experiment.</text>
+  </g>
+  <g id="text_11">
+   <text style="font-size: 8.5px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #555555" x="468.36" y="403.624308" transform="rotate(-0 468.36 403.624308)">backend=ollama  •  T=0.1  •  N=3  •  Q=64  •  R=2  •  5/6 evaluable  •  ntqr EI  •  2026-06-01</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p68873dbb39">
+   <rect x="7.2" y="33.3575" width="922.32" height="271.408"/>
+  </clipPath>
+ </defs>
+</svg>

@@ -49,15 +49,9 @@ CORRELATION_CONFIGS = [
     sim.CorrelationConfig("common-mode 0.2", common_mode=0.2),
     sim.CorrelationConfig("common-mode 0.3", common_mode=0.3),
     sim.CorrelationConfig("common-mode 0.4", common_mode=0.4),
-    sim.CorrelationConfig(
-        "anti-pair 0.2", anti_pair=(0, 1), anti_strength=0.2
-    ),
-    sim.CorrelationConfig(
-        "anti-pair 0.3", anti_pair=(0, 1), anti_strength=0.3
-    ),
-    sim.CorrelationConfig(
-        "anti-pair 0.4", anti_pair=(0, 1), anti_strength=0.4
-    ),
+    sim.CorrelationConfig("anti-pair 0.2", anti_pair=(0, 1), anti_strength=0.2),
+    sim.CorrelationConfig("anti-pair 0.3", anti_pair=(0, 1), anti_strength=0.3),
+    sim.CorrelationConfig("anti-pair 0.4", anti_pair=(0, 1), anti_strength=0.4),
 ]
 
 # Tie-break sweep: judges held symmetric so mean accuracy is the only varying
@@ -96,6 +90,14 @@ MVEI_ACCURACIES = [0.90, 0.82, 0.74, 0.66, 0.58]
 MVEI_Q = 512
 MVEI_N_TRIALS = 150
 MVEI_SEED = 8000
+
+
+from ntqr.llm.supporting_figures import (
+    plot_convergence as _plot_convergence,
+    plot_alarm as _plot_alarm,
+    plot_tiebreak as _plot_tiebreak,
+    plot_mv_vs_ei as _plot_mv_vs_ei,
+)
 
 
 def _ensemble_block() -> dict:
@@ -143,9 +145,7 @@ def run_study() -> dict:
         MVEI_SEED,
     )
 
-    independent = next(
-        r for r in correlation_rows if r["label"] == "independent"
-    )
+    independent = next(r for r in correlation_rows if r["label"] == "independent")
     common = [r for r in correlation_rows if r["label"].startswith("common")]
     anti = [r for r in correlation_rows if r["label"].startswith("anti")]
     best_row = min(
@@ -194,17 +194,11 @@ def run_study() -> dict:
             "rows": tiebreak_rows,
             # the lowest accuracy that still resolves cleanly (rate < 1%) ...
             "safe_accuracy": min(
-                (
-                    r["accuracy"]
-                    for r in tiebreak_rows
-                    if r["catastrophic_rate"] < 0.01
-                ),
+                (r["accuracy"] for r in tiebreak_rows if r["catastrophic_rate"] < 0.01),
                 default=None,
             ),
             # ... and the worst observed inversion rate as judges approach random
-            "max_catastrophic_rate": max(
-                r["catastrophic_rate"] for r in tiebreak_rows
-            ),
+            "max_catastrophic_rate": max(r["catastrophic_rate"] for r in tiebreak_rows),
         },
         "robustness": {
             "q_values": ROBUSTNESS_Q_VALUES,
@@ -239,8 +233,7 @@ def _mv_vs_ei_block(rows: list[dict]) -> dict:
             "ei_mae_mean": best_ei["ei_mae_mean"],
             "mv_mae_mean": best_ei["mv_mae_mean"],
             "ei_win_rate": best_ei["ei_win_rate"],
-            "ratio_mv_over_ei": best_ei["mv_mae_mean"]
-            / best_ei["ei_mae_mean"],
+            "ratio_mv_over_ei": best_ei["mv_mae_mean"] / best_ei["ei_mae_mean"],
         },
         "mv_best_cell": {
             "prevalence_a": best_mv["prevalence_a"],
@@ -255,8 +248,7 @@ def _mv_vs_ei_block(rows: list[dict]) -> dict:
 def _provenance(summary: dict) -> str:
     e = summary["ensemble"]
     accs = ", ".join(
-        f"J{j['judge']}({j['alpha']:.2f},{j['beta']:.2f})"
-        for j in e["accuracies"]
+        f"J{j['judge']}({j['alpha']:.2f},{j['beta']:.2f})" for j in e["accuracies"]
     )
     return (
         f"synthetic NTQR study | p_a={e['prevalence_a']:.2f} | {accs} | "
@@ -400,258 +392,6 @@ def _annotate_sidecars(summary: dict) -> None:
     )
 
 
-def _plot_convergence(summary: dict, out_dir: Path, footer: str) -> Path:
-    import matplotlib
-
-    matplotlib.use("Agg")
-    import matplotlib.pyplot as plt
-
-    plt.rcParams["text.usetex"] = False
-    rows = [
-        r for r in summary["convergence"]["rows"] if r["accuracy_mae_mean"]
-    ]
-    qs = [r["q"] for r in rows]
-    acc = [r["accuracy_mae_mean"] for r in rows]
-    acc_sd = [r["accuracy_mae_sd"] for r in rows]
-    prev = [r["prevalence_abs_error_mean"] for r in rows]
-    fit = summary["convergence"]["sqrt_q_fit_accuracy"]
-
-    fig, ax = plt.subplots(figsize=(7.2, 5.0))
-    ax.errorbar(
-        qs,
-        acc,
-        yerr=acc_sd,
-        fmt="o-",
-        capsize=3,
-        color="#1f77b4",
-        label="accuracy MAE (mean ± sd)",
-    )
-    ax.plot(qs, prev, "s--", color="#2ca02c", label="prevalence abs. error")
-    # reference 1/sqrt(Q) anchored at the first point
-    ref = [acc[0] * (qs[0] / q) ** 0.5 for q in qs]
-    ax.plot(
-        qs, ref, ":", color="#888888", label=r"$\propto 1/\sqrt{Q}$ reference"
-    )
-    ax.set_xscale("log", base=2)
-    ax.set_yscale("log")
-    ax.set_xlabel("Test size Q (log scale)")
-    ax.set_ylabel("Unsupervised recovery error (log scale)")
-    ax.set_title(
-        "NTQR recovery error falls like sampling noise\n"
-        f"(fitted slope {fit['slope']:.2f}, "
-        f"$R^2$={fit['r_squared']:.3f}; ideal $-0.5$)"
-    )
-    ax.legend(frameon=False)
-    ax.grid(True, which="both", alpha=0.25)
-    fig.text(0.5, 0.005, footer, ha="center", fontsize=6, color="#666666")
-    fig.tight_layout(rect=(0, 0.02, 1, 1))
-    path = out_dir / "synthetic_convergence.png"
-    fig.savefig(path, dpi=150)
-    plt.close(fig)
-    return path
-
-
-def _plot_alarm(summary: dict, out_dir: Path, footer: str) -> Path:
-    """Two panels: alarm rate per config, and the common-mode blind-spot mechanism.
-
-    Left: how often the imaginary-prevalence alarm fires under each dependence
-    structure (independent control, positive common-mode, anti-correlated pair).
-    Right: the mechanism behind the blind spot -- as common-mode correlation
-    strengthens, the discriminant ``D`` falls toward 0 but never below (so the
-    alarm stays silent) while the recovery error climbs (so accuracy silently
-    degrades). The anti-correlation discriminant is heavy-tailed, so its firing
-    is read from the *rate* (left), not a mean; we keep the right panel to the
-    monotone common-mode story to avoid implying a clean mean there.
-    """
-    import matplotlib
-
-    matplotlib.use("Agg")
-    import matplotlib.pyplot as plt
-
-    plt.rcParams["text.usetex"] = False
-    rows = summary["correlation"]["rows"]
-    labels = [r["label"] for r in rows]
-    rates = [100 * r["alarm_rate"] for r in rows]
-
-    def _color(label: str) -> str:
-        if label.startswith("independent"):
-            return "#2ca02c"
-        if label.startswith("common"):
-            return "#ff7f0e"
-        return "#d62728"
-
-    colors = [_color(label) for label in labels]
-    x = range(len(labels))
-
-    # Common-mode blind-spot series: independent (strength 0) + common-mode rows.
-    blind = [
-        r for r in rows if r["label"].startswith(("independent", "common"))
-    ]
-    strengths = [r["common_mode"] for r in blind]
-    discs = [r["discriminant_mean"] for r in blind]
-    silent_err = [r["silent_prevalence_abs_error_mean"] for r in blind]
-
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12.0, 5.2))
-    ax1.bar(x, rates, color=colors)
-    ax1.set_xticks(list(x))
-    ax1.set_xticklabels(labels, rotation=40, ha="right", fontsize=8)
-    ax1.set_ylabel("Imaginary-prevalence alarm fires (% of trials)")
-    ax1.set_title(
-        "The alarm trips on anti-correlation,\nnot on common-mode correlation"
-    )
-    ax1.set_ylim(0, 105)
-
-    ax2.axhspan(-1, 0, color="#d62728", alpha=0.07)
-    ax2.plot(
-        strengths,
-        discs,
-        "o-",
-        color="#ff7f0e",
-        label="discriminant $D$ (mean)",
-    )
-    ax2.axhline(
-        0, color="#d62728", lw=1.2, ls="--", label="alarm threshold $D=0$"
-    )
-    ax2.set_xlabel("Common-mode error-correlation strength")
-    ax2.set_ylabel("Mean prevalence discriminant  $D = 1 - 4c/a$")
-    ax2.set_ylim(min(0, min(discs)) - 0.004, max(discs) + 0.006)
-    ax2b = ax2.twinx()
-    ax2b.plot(
-        strengths,
-        silent_err,
-        "s--",
-        color="#1f77b4",
-        label="recovery error (silent)",
-    )
-    ax2b.set_ylabel("Prevalence abs. error (alarm silent)", color="#1f77b4")
-    ax2b.tick_params(axis="y", labelcolor="#1f77b4")
-    ax2.set_title(
-        "Blind spot: D approaches 0 but never crosses,\n"
-        "while recovery silently degrades"
-    )
-    lines1, lab1 = ax2.get_legend_handles_labels()
-    lines2, lab2 = ax2b.get_legend_handles_labels()
-    ax2.legend(
-        lines1 + lines2,
-        lab1 + lab2,
-        frameon=False,
-        fontsize=8,
-        loc="center right",
-    )
-
-    fig.text(0.5, 0.005, footer, ha="center", fontsize=6, color="#666666")
-    fig.tight_layout(rect=(0, 0.03, 1, 1))
-    path = out_dir / "synthetic_alarm.png"
-    fig.savefig(path, dpi=150)
-    plt.close(fig)
-    return path
-
-
-def _plot_tiebreak(summary: dict, out_dir: Path, footer: str) -> Path:
-    """The better-than-random tie-break's safe region vs judge accuracy."""
-    import matplotlib
-
-    matplotlib.use("Agg")
-    import matplotlib.pyplot as plt
-
-    plt.rcParams["text.usetex"] = False
-    rows = summary["tie_break"]["rows"]
-    acc = [r["accuracy"] for r in rows]
-    cat = [100 * r["catastrophic_rate"] for r in rows]
-    perr = [r["prevalence_abs_error_mean"] for r in rows]
-
-    fig, ax = plt.subplots(figsize=(7.6, 5.0))
-    ax.plot(
-        acc,
-        cat,
-        "o-",
-        color="#d62728",
-        label="catastrophic mirror-selection (%)",
-    )
-    ax.axvline(0.5, color="#7f7f7f", ls=":", lw=1, label="random ($acc=0.5$)")
-    safe = summary["tie_break"]["safe_accuracy"]
-    if safe is not None:
-        ax.axvline(
-            safe,
-            color="#2ca02c",
-            ls="--",
-            lw=1.2,
-            label=f"clean down to acc={safe:.2f}",
-        )
-    ax.set_xlabel("Per-label judge accuracy (symmetric trio)")
-    ax.set_ylabel("Catastrophic mirror-selection (% of trials)")
-    ax.set_ylim(-3, 103)
-    ax.invert_xaxis()  # strong judges on the left, approaching random rightward
-    ax2 = ax.twinx()
-    ax2.plot(
-        acc,
-        perr,
-        "s--",
-        color="#1f77b4",
-        label="mean prevalence error",
-    )
-    ax2.set_ylabel("Mean prevalence abs. error", color="#1f77b4")
-    ax2.tick_params(axis="y", labelcolor="#1f77b4")
-    ax.set_title(
-        "The better-than-random tie-break is safe for strong judges\n"
-        "and inverts as the ensemble approaches random"
-    )
-    lines1, lab1 = ax.get_legend_handles_labels()
-    lines2, lab2 = ax2.get_legend_handles_labels()
-    ax.legend(lines1 + lines2, lab1 + lab2, frameon=False, fontsize=8)
-    fig.text(0.5, 0.005, footer, ha="center", fontsize=6, color="#666666")
-    fig.tight_layout(rect=(0, 0.02, 1, 1))
-    path = out_dir / "synthetic_tiebreak.png"
-    fig.savefig(path, dpi=150)
-    plt.close(fig)
-    return path
-
-
-def _plot_mv_vs_ei(summary: dict, out_dir: Path, footer: str) -> Path:
-    """EI vs MV recovery MAE across accuracy, one panel per prevalence."""
-    import matplotlib
-
-    matplotlib.use("Agg")
-    import matplotlib.pyplot as plt
-
-    plt.rcParams["text.usetex"] = False
-    block = summary["mv_vs_ei"]
-    prevalences = block["prevalences"]
-    rows = block["rows"]
-
-    fig, axes = plt.subplots(
-        1, len(prevalences), figsize=(4.2 * len(prevalences), 4.8), sharey=True
-    )
-    if len(prevalences) == 1:
-        axes = [axes]
-    for ax, prev in zip(axes, prevalences):
-        cells = [r for r in rows if r["prevalence_a"] == prev]
-        accs = [r["accuracy"] for r in cells]
-        ei = [r["ei_mae_mean"] for r in cells]
-        mv = [r["mv_mae_mean"] for r in cells]
-        ax.plot(accs, ei, "o-", color="#1f77b4", label="error-independent")
-        ax.plot(accs, mv, "s--", color="#ff7f0e", label="majority-voting")
-        ax.invert_xaxis()  # strong judges left, approaching random rightward
-        ax.set_yscale("log")
-        ax.set_title(f"prevalence {prev:.2f}")
-        ax.set_xlabel("Per-label judge accuracy")
-        ax.grid(True, which="both", alpha=0.2)
-    axes[0].set_ylabel("Recovery MAE (log)")
-    axes[0].legend(frameon=False, fontsize=8)
-    fig.suptitle(
-        "Error-independent algebra is more accurate when its assumption holds;\n"
-        "majority voting is more robust in the tie-break danger zone "
-        "(weak judges, extreme prevalence)",
-        fontsize=11,
-    )
-    fig.text(0.5, 0.005, footer, ha="center", fontsize=6, color="#666666")
-    fig.tight_layout(rect=(0, 0.02, 1, 0.93))
-    path = out_dir / "synthetic_mv_vs_ei.png"
-    fig.savefig(path, dpi=150)
-    plt.close(fig)
-    return path
-
-
 def main() -> int:
     out_dir = _common.output_dir("sim", "synthetic_recovery_study")
     _common.banner("Synthetic NTQR recovery study (deterministic)")
@@ -667,15 +407,9 @@ def main() -> int:
     corr_path = _common.save_json(
         out_dir, "correlation.data.json", summary["correlation"]
     )
-    tb_path = _common.save_json(
-        out_dir, "tiebreak.data.json", summary["tie_break"]
-    )
-    rob_path = _common.save_json(
-        out_dir, "robustness.data.json", summary["robustness"]
-    )
-    mvei_path = _common.save_json(
-        out_dir, "mv_vs_ei.data.json", summary["mv_vs_ei"]
-    )
+    tb_path = _common.save_json(out_dir, "tiebreak.data.json", summary["tie_break"])
+    rob_path = _common.save_json(out_dir, "robustness.data.json", summary["robustness"])
+    mvei_path = _common.save_json(out_dir, "mv_vs_ei.data.json", summary["mv_vs_ei"])
     fig1 = _plot_convergence(summary, out_dir, footer)
     fig2 = _plot_alarm(summary, out_dir, footer)
     fig3 = _plot_tiebreak(summary, out_dir, footer)

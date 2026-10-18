@@ -1,5 +1,7 @@
 {
-  "generated_at": "2026-06-01T13:18:55",
+  "generated_at": "2026-10-18T00:10:53+00:00",
+  "schema_version": 2,
+  "ntqr_version": "0.9",
   "result": {
     "figure": "recovery_mae_by_model.png",
     "title": "Unsupervised accuracy recovery error, by model",
@@ -12,7 +14,7 @@
       },
       {
         "value": 0.10206207261596575,
-        "label": "sampling-noise floor",
+        "label": "binomial SE reference",
         "meaning": "worst-case binomial SE of a per-label accuracy from the minority label's 24 questions; at or below this, recovery error is inside the conservative finite-deck noise reference"
       }
     ],
@@ -69,7 +71,7 @@
       }
     ],
     "metadata": {
-      "generated_utc": "2026-06-01T20:18:55.468103+00:00",
+      "generated_utc": "2026-10-18T00:10:52+00:00",
       "n_scenarios": 64,
       "n_personas": 3,
       "personas": [
@@ -91,15 +93,20 @@
         "n_models_evaluated": 5,
         "prompt_version": "v3_binary_schema",
         "prompt_hash": "4d157f84885a",
-        "baseline_summary": "baseline_t0.7_summary.json",
-        "date": "2026-06-01"
+        "date": "2026-06-01",
+        "figure_inputs_sha256": "653fb8dee1b203f871dc8fef8879561922945a258a04c09a0ae93d7213d0a065",
+        "collection": "recorded responses; no model calls"
       }
     },
-    "caption": "Each bar is one model's mean |recovered - true| persona accuracy, recovered with no answer key. Left of the red line the error is within the conservative binomial sampling-noise reference for the minority label (24 of 64 questions)."
+    "caption": "Each bar is one model's mean |recovered - true| persona accuracy, recovered with no answer key. Left of the red line the error is within the conservative binomial sampling-noise reference for the minority label (24 of 64 questions).",
+    "exports": {
+      "raster": "recovery_mae_by_model.png",
+      "vector": "recovery_mae_by_model.svg"
+    }
   },
   "caption": "Each bar is one model's mean |recovered - true| persona accuracy, recovered with no answer key. Left of the red line the error is within the conservative binomial sampling-noise reference for the minority label (24 of 64 questions).",
   "metadata": {
-    "generated_utc": "2026-06-01T20:18:55.468103+00:00",
+    "generated_utc": "2026-10-18T00:10:52+00:00",
     "n_scenarios": 64,
     "n_personas": 3,
     "personas": [
@@ -121,13 +128,14 @@
       "n_models_evaluated": 5,
       "prompt_version": "v3_binary_schema",
       "prompt_hash": "4d157f84885a",
-      "baseline_summary": "baseline_t0.7_summary.json",
-      "date": "2026-06-01"
+      "date": "2026-06-01",
+      "figure_inputs_sha256": "653fb8dee1b203f871dc8fef8879561922945a258a04c09a0ae93d7213d0a065",
+      "collection": "recorded responses; no model calls"
     }
   },
   "provenance": {
     "source_file": "recovery_mae_by_model.data.json",
-    "generated_utc": "2026-06-01T20:18:55.468103+00:00",
+    "generated_utc": "2026-10-18T00:10:52+00:00",
     "n_scenarios": 64,
     "experiment": {
       "backend": "ollama",
@@ -139,8 +147,9 @@
       "n_models_evaluated": 5,
       "prompt_version": "v3_binary_schema",
       "prompt_hash": "4d157f84885a",
-      "baseline_summary": "baseline_t0.7_summary.json",
-      "date": "2026-06-01"
+      "date": "2026-06-01",
+      "figure_inputs_sha256": "653fb8dee1b203f871dc8fef8879561922945a258a04c09a0ae93d7213d0a065",
+      "collection": "recorded responses; no model calls"
     }
   }
 }

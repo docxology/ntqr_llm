@@ -1,0 +1,3 @@
+
+# Matplotlib emits significant SVG path formatting with trailing spaces.
+*.svg -whitespace

@@ -35,19 +35,12 @@ RECOVERY_MAE_EXCELLENT = 0.05
 
 
 def sampling_noise_floor(n_questions, n_labels=2, min_label_count=None):
-    """Worst-case binomial SE of a per-label accuracy estimate.
+    """Worst-case Bernoulli proportion SE reference, using the minority label.
 
-    A persona's per-label accuracy is estimated from the subset of questions
-    carrying that label. The standard error of a proportion peaks at p=0.5,
-    giving ``sqrt(0.25 / k)`` where ``k`` is the number of questions backing the
-    estimate. A recovery MAE at or below this is within the noise of the
-    supervised estimate it is being compared to, so no method (supervised or
-    not) could reliably do better on this much data.
-
-    For an evenly split deck ``k`` is ``n_questions / n_labels``. When the deck
-    is imbalanced, the *minority* label backs the weakest estimate, so pass its
-    count as ``min_label_count`` to get the conservative (largest) floor rather
-    than the optimistic balanced one.
+    The historical API name is retained for compatibility. ``sqrt(0.25/k)``
+    is a descriptive scale under a Bernoulli sampling model, not a lower bound
+    on recovery MAE, a confidence interval for that error, or uncertainty in
+    exact supervised scores on a fixed finite deck. Label imbalance reduces k.
     """
     if min_label_count is not None:
         per_label = min_label_count
@@ -62,7 +55,7 @@ def min_truth_label_count():
     """Smallest per-label count in the authored answer key.
 
     The minority label backs the weakest per-label accuracy estimate, so this
-    is what sets the conservative sampling-noise floor for an imbalanced deck.
+    is what sets the conservative binomial SE reference for an imbalanced deck.
     """
     counts: dict[str, int] = {}
     for scenario in personas.SCENARIOS:

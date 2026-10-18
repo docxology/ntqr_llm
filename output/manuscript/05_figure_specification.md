@@ -24,7 +24,7 @@ below is specified as **claim -> encoding -> reference lines -> data source**.
 - `fig:best-model-recovery` (`best_model_recovery.png`;
   `best_model_recovery.data.json`) supports [@sec:recovery-result]. It uses
   grouped bars for recovered vs. true per-(persona, label) accuracy, with the
-  sampling-noise floor.
+  binomial SE reference.
 - `fig:recovered-vs-true` (`recovered_vs_true_scatter.png`;
   `recovered_vs_true_scatter.data.json`) supports [@sec:recovery-result]. It
   plots true accuracy against recovered accuracy with the $y=x$ identity line.
@@ -63,7 +63,7 @@ below is specified as **claim -> encoding -> reference lines -> data source**.
 - `fig:bootstrap-recovery` (`bootstrap_recovery_mae.png`;
   `bootstrap_recovery_mae.data.json`) supports [@sec:recovery-result]. It shows
   2000 scenario-resampled recovery-MAE draws, with the point estimate, 95%
-  CI, and 0.102 sampling-noise floor.
+  CI, and 0.102 binomial SE reference.
 - `fig:synthetic-tiebreak` (`synthetic_tiebreak.png`;
   `synthetic_tiebreak.data.json`) supports [@sec:tiebreak-boundary]. It shows
   catastrophic mirror-selection and prevalence error as judge accuracy approaches
@@ -78,8 +78,8 @@ below is specified as **claim -> encoding -> reference lines -> data source**.
 The figures are mutually reinforcing: [@fig:evaluation-pipeline] defines the
 experimental boundary, [@fig:disagreement-vs-evaluability] states the thesis on
 the right axes, [@fig:evaluability-diagnostic] shows the
-per-judge mechanism that gates it, [@fig:best-model-recovery] and
+necessary per-judge variation screen, [@fig:best-model-recovery] and
 [@fig:recovered-vs-true] show the positive recovery when the gate is cleared,
 [@fig:validation-accuracy-heatmap] explains what was actually recovered across
 models, and [@fig:recovery-mae-scorecard] scores how close that recovery is to
-the 0.102 sampling-noise floor.
+the 0.102 binomial SE reference.

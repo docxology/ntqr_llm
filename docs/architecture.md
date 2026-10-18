@@ -22,7 +22,7 @@ computed from the run, never typed by hand.
         ├── cache.json            (resumable vote cache)       ▼
         ├── models/<m>/*.json     (votes, diagnostics, recovery, comparison)
         ├── summary.json          (cross-model ranking + stats)   ◀── orchestrator
-        └── *.png + *.data.json   (10 method/LLM figures, each with a data sidecar)
+        └── *.png + *.svg + *.data.json   (10 method/LLM figures, each with a data sidecar)
                      │
                      ├──▶  scripts/sim/*.py
                      │     outputs/sim/          (bootstrap + synthetic checks)
@@ -115,3 +115,29 @@ machine-readable.
 run from `scripts/`, not an importable distribution. Run everything with
 `.venv/bin/python` directly (the vendored `ntqr` is the only editable install).
 See [VERIFICATION.md](VERIFICATION.md).
+
+
+## Composable publication and evidence layer
+
+```mermaid
+flowchart LR
+    V[Recorded votes] --> E[Assumed-model NTQR solve]
+    E --> P[Physical-root checks]
+    P --> S[Recovery scoring]
+    T[Authored truth] --> S
+    S --> A[Recorded summaries]
+    A --> F[Independent figure builders]
+    F --> X[Atomic PNG and SVG exports]
+    A --> M[Token-rendered manuscript]
+    X --> M
+    R[Claim registry and bibliography] --> C[Offline integrity gate]
+```
+
+`visualization.py` exposes independent model-figure builders and a subset
+orchestrator. `supporting_figures.py` handles simulation/bootstrap/validation
+views. `study_records.py` loads the current recorded study status and input
+hashes, and `validity_figure.py` renders the independent physical-solution audit.
+`figure_export.py` and `artifacts.py` own publication and serialization.
+`runtime_profile.py` owns performance evidence, and `scholarship.py` checks
+bibliography/citation/claim-map integrity. The CLI scripts delegate to these
+modules; offline figure generation never imports an LLM client.

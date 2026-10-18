@@ -1,15 +1,17 @@
 {
-  "generated_at": "2026-06-01T13:18:55",
+  "generated_at": "2026-10-18T00:10:48+00:00",
+  "schema_version": 2,
+  "ntqr_version": "0.9",
   "result": {
     "figure": "disagreement_vs_evaluability.png",
-    "title": "Disagreement does not gate evaluability -- per-judge variation does",
+    "title": "Variation is a necessary screen; physical roots need verification",
     "x_label": "per-judge concentration (max modal-vote fraction; 1.0 = constant judge)",
     "y_label": "ensemble mean pairwise disagreement",
     "thresholds": [
       {
         "value": 1.0,
         "label": "constant-judge boundary",
-        "meaning": "at x = 1.0 some judge never varied; the error-independent algebra is unsolvable -> unevaluable, at any disagreement level"
+        "meaning": "at x = 1.0 some judge never varied; the implemented prevalence quadratic is nonidentifying; passing variation still needs a physical solve"
       }
     ],
     "points": [
@@ -61,7 +63,7 @@
       }
     ],
     "metadata": {
-      "generated_utc": "2026-06-01T20:18:54.949148+00:00",
+      "generated_utc": "2026-10-18T00:10:47+00:00",
       "n_scenarios": 64,
       "n_personas": 3,
       "personas": [
@@ -83,15 +85,20 @@
         "n_models_evaluated": 5,
         "prompt_version": "v3_binary_schema",
         "prompt_hash": "4d157f84885a",
-        "baseline_summary": "baseline_t0.7_summary.json",
-        "date": "2026-06-01"
+        "date": "2026-06-01",
+        "figure_inputs_sha256": "653fb8dee1b203f871dc8fef8879561922945a258a04c09a0ae93d7213d0a065",
+        "collection": "recorded responses; no model calls"
       }
     },
-    "caption": "Each marker is one model. Green circles are evaluable; red crosses failed; 5/6 models are evaluable. The split is purely horizontal: any model at x = 1.0 has at least one constant judge, regardless of its ensemble disagreement (y)."
+    "caption": "Each marker is one model. Green circles are evaluable; red crosses failed; 5/6 models are evaluable. Passing the variation screen is not sufficient. A model at x = 1.0 has at least one constant judge, regardless of its ensemble disagreement (y).",
+    "exports": {
+      "raster": "disagreement_vs_evaluability.png",
+      "vector": "disagreement_vs_evaluability.svg"
+    }
   },
-  "caption": "Each marker is one model. Green circles are evaluable; red crosses failed; 5/6 models are evaluable. The split is purely horizontal: any model at x = 1.0 has at least one constant judge, regardless of its ensemble disagreement (y).",
+  "caption": "Each marker is one model. Green circles are evaluable; red crosses failed; 5/6 models are evaluable. Passing the variation screen is not sufficient. A model at x = 1.0 has at least one constant judge, regardless of its ensemble disagreement (y).",
   "metadata": {
-    "generated_utc": "2026-06-01T20:18:54.949148+00:00",
+    "generated_utc": "2026-10-18T00:10:47+00:00",
     "n_scenarios": 64,
     "n_personas": 3,
     "personas": [
@@ -113,13 +120,14 @@
       "n_models_evaluated": 5,
       "prompt_version": "v3_binary_schema",
       "prompt_hash": "4d157f84885a",
-      "baseline_summary": "baseline_t0.7_summary.json",
-      "date": "2026-06-01"
+      "date": "2026-06-01",
+      "figure_inputs_sha256": "653fb8dee1b203f871dc8fef8879561922945a258a04c09a0ae93d7213d0a065",
+      "collection": "recorded responses; no model calls"
     }
   },
   "provenance": {
     "source_file": "disagreement_vs_evaluability.data.json",
-    "generated_utc": "2026-06-01T20:18:54.949148+00:00",
+    "generated_utc": "2026-10-18T00:10:47+00:00",
     "n_scenarios": 64,
     "experiment": {
       "backend": "ollama",
@@ -131,8 +139,9 @@
       "n_models_evaluated": 5,
       "prompt_version": "v3_binary_schema",
       "prompt_hash": "4d157f84885a",
-      "baseline_summary": "baseline_t0.7_summary.json",
-      "date": "2026-06-01"
+      "date": "2026-06-01",
+      "figure_inputs_sha256": "653fb8dee1b203f871dc8fef8879561922945a258a04c09a0ae93d7213d0a065",
+      "collection": "recorded responses; no model calls"
     }
   }
 }

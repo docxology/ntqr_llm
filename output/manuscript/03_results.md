@@ -58,12 +58,12 @@ re-run the *same* unsupervised solve on each resample (2000 resamples, no
 new model calls). The point estimate is 0.012, with a 95% bootstrap
 CI of **[0.000, 0.038]** for the recovery MAE and
 [0.000, 0.047] for the prevalence error — the entire
-interval sits well below the 0.102 sampling-noise floor ([@fig:bootstrap-recovery]). In
+interval sits well below the 0.102 binomial SE reference ([@fig:bootstrap-recovery]). In
 2% of resamples a persona happened to collapse to a constant
 classifier and the solve was unavailable, a concrete measure of how the
 evaluability condition (not the recovery accuracy) is the fragile part.
 
-![Bootstrap distribution of the unsupervised recovery MAE over 2000 scenario resamples of `mistral:latest`. The point estimate (0.012) and the 95% CI [0.000, 0.038] both sit far below the 0.102 sampling-noise floor; 2% of resamples were degenerate.](../figures/bootstrap_recovery_mae.png){#fig:bootstrap-recovery width=90%}
+![Bootstrap distribution of the unsupervised recovery MAE over 2000 scenario resamples of `mistral:latest`. The point estimate (0.012) and the 95% CI [0.000, 0.038] both sit far below the 0.102 binomial SE reference; 2% of resamples were degenerate.](../figures/bootstrap_recovery_mae.png){#fig:bootstrap-recovery width=90%}
 
 ## Failure modes: constant classifiers and non-compliance {#sec:failure-modes}
 
@@ -178,7 +178,7 @@ accuracy.
 
 ## Reading the figure suite together {#sec:figure-suite}
 
-The 16 embedded figures tell the paper's arc in one pass.
+The 17 embedded figures tell the paper's arc in one pass.
 [@fig:evaluation-pipeline] fixes the data boundary: votes enter the
 unsupervised solve, and authored truth enters only for validation.
 [@fig:disagreement-vs-evaluability] is the thesis: evaluability separates along
@@ -220,11 +220,10 @@ average 200 independent draws at each test size.
 0.123 to 0.007 ([@tbl:synthetic-convergence]). A log–log fit of error
 against `Q` has slope **-0.58** (R² = 0.989; the prevalence error
 scales the same way, slope -0.55) — close to the −0.5 of an
-unbiased, sampling-noise-limited estimator. So the algebra
-carries no persistent bias: the only thing between the unsupervised recovery and
-the truth is finite-sample noise, and the real `mistral:latest` result (recovery MAE
-0.012 at `Q = 64`) sits squarely on this curve rather than being a
-fortunate one-off.
+sampling-rate reference. This is consistent with decreasing finite-sample
+error on these selected independent ensembles. It does not prove an unbiased
+estimator, exclude persistent error near singularities, or establish that the
+recorded LLM recovery is explained only by finite-sample noise.
 
 | Q | Accuracy MAE | Prevalence error | Trials solved |
 |---|---|---|---|
@@ -245,8 +244,9 @@ fortunate one-off.
 across 4 deliberately different ensembles — varied prevalence
 (0.50–0.70) and accuracy spread — keeps every fitted slope in a tight band
 **[-0.60, -0.50]** around the ideal −0.5
-([@tbl:synthetic-robustness]), so the sampling-noise-limited behaviour is a property of the algebra,
-not of the particular judges we chose.
+([@tbl:synthetic-robustness]), which supports the sampling-rate pattern on these selected ensembles.
+It does not establish a uniform convergence theorem over all judges or
+near-singular parameter settings.
 
 | Ensemble | Prevalence | Fitted slope | $R^2$ |
 |---|---|---|---|
@@ -257,10 +257,12 @@ not of the particular judges we chose.
 
 : The `1/√Q` convergence slope is stable across diverse ensembles, each fitted over the same `Q` grid. All slopes cluster near the ideal −0.5. {#tbl:synthetic-robustness}
 
-**The alarm is sound but has a blind spot.** The error-independent solve carries
+**The alarm detects an incompatibility but has a blind spot.** The error-independent solve carries
 a built-in failure detector: when the prevalence quadratic's discriminant
 `D = 1 − 4c/a` goes negative the prevalence root is imaginary — an answer-key-free
-signal that error-independence is violated. We characterised it by injecting two
+signal that the empirical vote table is incompatible with this exact
+error-independent model. Sampling variation can cause such incompatibility
+even when a population generator is conditionally independent. We characterised it by injecting two
 kinds of dependence at `Q = 1024` ([@tbl:synthetic-correlation],
 [@fig:synthetic-alarm]). On genuinely
 error-independent draws the alarm fired in **0%** of trials — no
@@ -287,10 +289,12 @@ error rising from 0.016 under independence to
 
 ![Left: the imaginary-prevalence alarm fires only under anti-correlation, never on independent or common-mode data. Right: the mechanism — as common-mode correlation strengthens, the discriminant `D` falls toward the `D = 0` alarm threshold but never crosses it, while the un-warned recovery error climbs.](../figures/synthetic_alarm.png){#fig:synthetic-alarm width=95%}
 
-This sharpens the safety claim honestly: the imaginary-prevalence alarm is a
-*sufficient*, never-false-positive detector of violated error-independence, but
-it is **not necessary** — the most realistic LLM failure, positively-correlated
-errors from shared pre-training, is exactly the regime it can miss. The
+The imaginary-prevalence alarm rejects the exact empirical model; it is not a
+calibrated test with a proven zero false-positive rate for independently sampled
+generators. The selected runs observed no false positives. It also missed the
+positive common-mode settings tested here; that synthetic mechanism motivates
+concern about shared model errors but does not establish how pre-training
+induces dependence in deployed LLMs. The
 per-judge evaluability diagnostic ([@sec:evaluability-diagnostic]) and this alarm are complementary
 screens, and neither is a substitute for a held-out check when correlated errors
 are plausible.
@@ -390,15 +394,25 @@ sidecar completeness.
 | Check | Result | Evidence |
 |---|---|---|
 | Label-free diagnostic matches solver outcome | PASS | predicted 5; evaluated 5 |
-| Real recovery is below sampling-noise floor | PASS | MAE 0.028 <= floor 0.102 |
-| Bootstrap CI remains below sampling-noise floor | PASS | CI_hi 0.038 <= floor 0.102 |
+| Recorded recovery is below the binomial SE reference | PASS | MAE 0.028 <= SE reference 0.102 |
+| Recorded bootstrap interval is below the binomial SE reference | PASS | CI_hi 0.038 <= SE reference 0.102 |
 | Synthetic recovery follows 1/sqrt(Q) | PASS | slope -0.585; R2 0.989 |
-| Imaginary-root alarm has zero independent false alarms | PASS | false alarm 0% |
+| No false alarms observed in the selected independent runs | PASS | false alarm 0% |
 | Common-mode dependence is reported as a blind spot | PASS | alarm 0%; silent error 0.042 |
 | Better-than-random tie-break boundary is quantified | PASS | safe to 0.82; max inversion 85% |
 | EI-vs-MV trade-off has both regimes | PASS | EI win 79%; danger-zone EI win 18% |
-| Every source data figure has a parseable sidecar | PASS | 16/16 sidecars parse |
+| Every source data figure has a parseable sidecar | PASS | 17/17 sidecars parse |
 
 : Offline validation checks for the manuscript's load-bearing claims. Each row is computed from generated JSON artifacts, not hand-audited numbers in prose. {#tbl:validation-matrix}
 
 ![Validation matrix for the statistical claims. Green rows are checks that passed against the generated artifacts; the evidence labels show the actual thresholds or counts used by each check.](../figures/validation_matrix.png){#fig:validation-matrix width=95%}
+
+## Physical recovery audit of the recorded votes {#sec:physical-recovery-audit}
+
+The separate answer-key-free audit distinguishes missing votes, constant
+classifiers, singular moments, nonfinite roots, nonphysical roots, and physical
+solutions. These statuses are model-consistency checks rather than proof of
+independence or future predictive performance. Input hashes link each result
+to the corresponding recorded vote file.
+
+![Physical-recovery status for each recorded model. Status labels are direct and redundant with color; passing checks probability constraints but does not prove error independence or orient the label mirror.](../figures/physical_recovery_audit.png){#fig:physical-recovery-audit width=95%}

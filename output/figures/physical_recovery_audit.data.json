@@ -1,0 +1,62 @@
+{
+  "generated_at": "2026-10-18T00:12:49+00:00",
+  "schema_version": 2,
+  "ntqr_version": "0.9",
+  "result": {
+    "figure": "physical_recovery_audit.png",
+    "caption": "Recorded votes only; no answer key or new model calls. Each status is labeled directly; color is redundant.",
+    "models": [
+      {
+        "model": "gemma2:2b",
+        "status": "physical_solution",
+        "source_sha256": "d41b1b4d145cd0dbef996c2659d95c8fdcbbe5578abd64e491b23f6a3245b25e"
+      },
+      {
+        "model": "gemma3:4b",
+        "status": "physical_solution",
+        "source_sha256": "3ac3062de6f62b9f65d4fec7b7349ddbc8fe9c640f9594e0668e0e6189fe40e4"
+      },
+      {
+        "model": "gemma4:latest",
+        "status": "physical_solution",
+        "source_sha256": "1c497269f83b727de2295aa4232a9a6d3bfae709c9e436fb9b3b203bd0999d59"
+      },
+      {
+        "model": "granite4.1:3b",
+        "status": "physical_solution",
+        "source_sha256": "38f7a74c21f96c3d086a419b210b6da83f2d57a99a41c010b953c978cd5ef0c3"
+      },
+      {
+        "model": "mistral:latest",
+        "status": "physical_solution",
+        "source_sha256": "1dfc55aba17b562e434109196c7ae9f73bdce668aa5ef510516f5a652523f994"
+      },
+      {
+        "model": "smollm2:135m-instruct-q4_K_S",
+        "status": "constant_classifier",
+        "source_sha256": "ecc8709ba8715504b3cd48066c48e4e93101cf7ed9673da8e234ce73700773d0"
+      }
+    ],
+    "uses_answer_key": false,
+    "metadata": {
+      "study": "recorded-physical-recovery-audit",
+      "n_models": 6,
+      "uses_answer_key": false
+    },
+    "exports": {
+      "raster": "physical_recovery_audit.png",
+      "vector": "physical_recovery_audit.svg"
+    }
+  },
+  "caption": "Recorded votes only; no answer key or new model calls. Each status is labeled directly; color is redundant.",
+  "metadata": {
+    "study": "recorded-physical-recovery-audit",
+    "n_models": 6,
+    "uses_answer_key": false
+  },
+  "provenance": {
+    "source_file": "physical_recovery_audit.data.json",
+    "study": "recorded-physical-recovery-audit",
+    "generated_at": "2026-10-18T00:12:49+00:00"
+  }
+}

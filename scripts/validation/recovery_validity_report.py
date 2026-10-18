@@ -43,6 +43,15 @@ def main(argv=None) -> None:
     out = args.output_dir or _common.output_dir(
         "validation", "recovery_validity_report"
     )
+    report = {
+        "uses_answer_key": False,
+        "n_models": len(audits),
+        "status_counts": dict(Counter(row["status"] for row in audits)),
+        "models": audits,
+    }
+    from ntqr.llm.validity_figure import plot_validity_report
+
+    plot_validity_report(report, out)
     _common.save_json(
         out,
         "summary.json",

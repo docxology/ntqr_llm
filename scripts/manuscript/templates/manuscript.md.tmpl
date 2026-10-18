@@ -6,8 +6,9 @@
 
 # Abstract {#sec:abstract}
 
-Algebraic (NTQR) evaluation infers how accurate a group of noisy classifiers
-was on a finite test **using only their responses — no answer key**. We test
+Under an error-independence model and a justified label orientation, algebraic
+(NTQR) evaluation estimates classifier accuracy from their joint responses
+without using an answer key in the solve. We test
 this end to end on real large language models. Three trader "personas"
 (optimistic, neutral, pessimistic), instantiated as system prompts, each make a
 binary `bullish`/`bearish` call on the same {{Q}} market scenarios; we run the
@@ -20,19 +21,18 @@ On {{EVAL_MODEL_PHRASE}} ({{EVAL_SET}}), the unsupervised algebra
 {{ABSTRACT_RECOVERY}}. {{ABSTRACT_FAILURE}}
 
 The central, non-obvious result: **inter-judge disagreement does not imply
-evaluability.** {{ABSTRACT_DISAGREEMENT}}. What gates
-evaluation is a *per-judge* condition — every judge must vary (and answer) — not
-an *ensemble* one. We formalize this as a label-free **evaluability diagnostic**
+evaluability.** {{ABSTRACT_DISAGREEMENT}}. A necessary *per-judge* condition is that every judge varies and answers.
+Passing that screen still requires checking singular moments and physical roots. We formalize this as a label-free **evaluability diagnostic**
 (a judge whose modal-vote fraction reaches 1.0 is a constant classifier; an
 unparseable vote is an abstention) that predicted exactly which models would be
-evaluable, before any solve and without ground truth. This is a concrete
-instance of the safety property the NTQR logic promises: it warns you when an
-ensemble is not good enough to be evaluated. A scenario bootstrap puts a 95% CI
+evaluable, before any solve and without ground truth. This screen identifies a concrete nonidentifying case in the implemented
+algebra; it does not certify an ensemble that passes. A scenario bootstrap puts a 95% CI
 of [{{BOOT_MAE_CI_LO}}, {{BOOT_MAE_CI_HI}}] on the recovery MAE (well inside the
-{{FLOOR}} noise floor), and a deterministic synthetic study generalizes the
-recovery beyond {{REAL_MODEL_GENERALIZATION}} — error falls like `1/√Q` (slope
+{{FLOOR}} SE reference), and a deterministic synthetic study extends the tests beyond
+{{REAL_MODEL_GENERALIZATION}} — error falls like `1/√Q` (slope
 {{SIM_SLOPE}}, stable across ensembles) — while mapping two honest limits: the
-built-in failure alarm catches anti-correlated judges with no false positives yet
+built-in failure alarm detects injected anti-correlation with no observed
+false positives on the selected independent draws, yet
 can miss positively-correlated (shared-training) errors, and the two-solution
 tie-break inverts once judges are no longer clearly better than random — exactly
 where simple majority-voting evaluation, though biased, is the more robust
@@ -404,14 +404,14 @@ discriminant, and the two mirror-image roots resolving to the truth.
 - **Recovery MAE** (headline): mean absolute error between recovered and true
   per-persona, per-label accuracies. We also report it split by label.
 - **Prevalence absolute error**: |recovered − true| prevalence of label `a`.
-- **Sampling-noise floor**: a reference scale for the recovery MAE. A per-label
+- **Binomial SE reference**: a reference scale for the recovery MAE. A per-label
   accuracy is estimated from only the questions carrying that label; the
   worst-case binomial standard error of such a proportion is `sqrt(0.25 / k)`,
   where `k` is the minority label's question count (here `k = {{MIN_LABEL_COUNT}}`,
-  giving a floor of **{{FLOOR}}**). A recovery MAE at or below this floor is
-  smaller than the worst-case uncertainty of the supervised estimate it is
-  compared against. We use it as a scale reference, not as a formal hypothesis
-  test.
+  giving a reference value of **{{FLOOR}}**). This is a descriptive scale
+  under a Bernoulli sampling model. It is not an information-theoretic lower
+  bound, a confidence interval for recovery MAE, or uncertainty in the exact
+  supervised accuracy of the fixed authored deck.
 - **Degeneracy guard**: a constant classifier makes the algebra unsolvable and
   yields a SymPy `nan`; because `float(nan)` succeeds, we reject non-finite
   values explicitly (`math.isfinite`) and report the model as a *named failure*
@@ -493,12 +493,12 @@ re-run the *same* unsupervised solve on each resample ({{BOOT_N}} resamples, no
 new model calls). The point estimate is {{BOOT_POINT_MAE}}, with a 95% bootstrap
 CI of **[{{BOOT_MAE_CI_LO}}, {{BOOT_MAE_CI_HI}}]** for the recovery MAE and
 [{{BOOT_PREV_CI_LO}}, {{BOOT_PREV_CI_HI}}] for the prevalence error — the entire
-interval sits well below the {{FLOOR}} sampling-noise floor ([@fig:bootstrap-recovery]). In
+interval sits well below the {{FLOOR}} binomial SE reference ([@fig:bootstrap-recovery]). In
 {{BOOT_DEGENERATE}} of resamples a persona happened to collapse to a constant
 classifier and the solve was unavailable, a concrete measure of how the
 evaluability condition (not the recovery accuracy) is the fragile part.
 
-![Bootstrap distribution of the unsupervised recovery MAE over {{BOOT_N}} scenario resamples of `{{BEST_MODEL}}`. The point estimate ({{BOOT_POINT_MAE}}) and the 95% CI [{{BOOT_MAE_CI_LO}}, {{BOOT_MAE_CI_HI}}] both sit far below the {{FLOOR}} sampling-noise floor; {{BOOT_DEGENERATE}} of resamples were degenerate.](../output/figures/bootstrap_recovery_mae.png){#fig:bootstrap-recovery width=90%}
+![Bootstrap distribution of the unsupervised recovery MAE over {{BOOT_N}} scenario resamples of `{{BEST_MODEL}}`. The point estimate ({{BOOT_POINT_MAE}}) and the 95% CI [{{BOOT_MAE_CI_LO}}, {{BOOT_MAE_CI_HI}}] both sit far below the {{FLOOR}} binomial SE reference; {{BOOT_DEGENERATE}} of resamples were degenerate.](../output/figures/bootstrap_recovery_mae.png){#fig:bootstrap-recovery width=90%}
 
 ## Failure modes: constant classifiers and non-compliance {#sec:failure-modes}
 
@@ -622,11 +622,10 @@ average {{SIM_N_TRIALS}} independent draws at each test size.
 {{SIM_ACC_MAE_QMIN}} to {{SIM_ACC_MAE_QMAX}} ([@tbl:synthetic-convergence]). A log–log fit of error
 against `Q` has slope **{{SIM_SLOPE}}** (R² = {{SIM_R2}}; the prevalence error
 scales the same way, slope {{SIM_PREV_SLOPE}}) — close to the −0.5 of an
-unbiased, sampling-noise-limited estimator. So the algebra
-carries no persistent bias: the only thing between the unsupervised recovery and
-the truth is finite-sample noise, and the real `{{BEST_MODEL}}` result (recovery MAE
-{{REC_MAE}} at `Q = {{Q}}`) sits squarely on this curve rather than being a
-fortunate one-off.
+sampling-rate reference. This is consistent with decreasing finite-sample
+error on these selected independent ensembles. It does not prove an unbiased
+estimator, exclude persistent error near singularities, or establish that the
+recorded LLM recovery is explained only by finite-sample noise.
 
 {{SIM_TABLE_CONVERGENCE}}
 
@@ -638,17 +637,20 @@ fortunate one-off.
 across {{SIM_ROBUST_N}} deliberately different ensembles — varied prevalence
 (0.50–0.70) and accuracy spread — keeps every fitted slope in a tight band
 **[{{SIM_ROBUST_SLOPE_LO}}, {{SIM_ROBUST_SLOPE_HI}}]** around the ideal −0.5
-([@tbl:synthetic-robustness]), so the sampling-noise-limited behaviour is a property of the algebra,
-not of the particular judges we chose.
+([@tbl:synthetic-robustness]), which supports the sampling-rate pattern on these selected ensembles.
+It does not establish a uniform convergence theorem over all judges or
+near-singular parameter settings.
 
 {{SIM_TABLE_ROBUSTNESS}}
 
 : The `1/√Q` convergence slope is stable across diverse ensembles, each fitted over the same `Q` grid. All slopes cluster near the ideal −0.5. {#tbl:synthetic-robustness}
 
-**The alarm is sound but has a blind spot.** The error-independent solve carries
+**The alarm detects an incompatibility but has a blind spot.** The error-independent solve carries
 a built-in failure detector: when the prevalence quadratic's discriminant
 `D = 1 − 4c/a` goes negative the prevalence root is imaginary — an answer-key-free
-signal that error-independence is violated. We characterised it by injecting two
+signal that the empirical vote table is incompatible with this exact
+error-independent model. Sampling variation can cause such incompatibility
+even when a population generator is conditionally independent. We characterised it by injecting two
 kinds of dependence at `Q = {{SIM_CORR_Q}}` ([@tbl:synthetic-correlation],
 [@fig:synthetic-alarm]). On genuinely
 error-independent draws the alarm fired in **{{SIM_FALSE_ALARM}}** of trials — no
@@ -666,10 +668,12 @@ error rising from {{SIM_INDEP_SILENT_ERR}} under independence to
 
 ![Left: the imaginary-prevalence alarm fires only under anti-correlation, never on independent or common-mode data. Right: the mechanism — as common-mode correlation strengthens, the discriminant `D` falls toward the `D = 0` alarm threshold but never crosses it, while the un-warned recovery error climbs.](../output/figures/synthetic_alarm.png){#fig:synthetic-alarm width=95%}
 
-This sharpens the safety claim honestly: the imaginary-prevalence alarm is a
-*sufficient*, never-false-positive detector of violated error-independence, but
-it is **not necessary** — the most realistic LLM failure, positively-correlated
-errors from shared pre-training, is exactly the regime it can miss. The
+The imaginary-prevalence alarm rejects the exact empirical model; it is not a
+calibrated test with a proven zero false-positive rate for independently sampled
+generators. The selected runs observed no false positives. It also missed the
+positive common-mode settings tested here; that synthetic mechanism motivates
+concern about shared model errors but does not establish how pre-training
+induces dependence in deployed LLMs. The
 per-judge evaluability diagnostic ([@sec:evaluability-diagnostic]) and this alarm are complementary
 screens, and neither is a substitute for a held-out check when correlated errors
 are plausible.
@@ -747,6 +751,16 @@ sidecar completeness.
 : Offline validation checks for the manuscript's load-bearing claims. Each row is computed from generated JSON artifacts, not hand-audited numbers in prose. {#tbl:validation-matrix}
 
 ![Validation matrix for the statistical claims. Green rows are checks that passed against the generated artifacts; the evidence labels show the actual thresholds or counts used by each check.](../output/figures/validation_matrix.png){#fig:validation-matrix width=95%}
+
+## Physical recovery audit of the recorded votes {#sec:physical-recovery-audit}
+
+The separate answer-key-free audit distinguishes missing votes, constant
+classifiers, singular moments, nonfinite roots, nonphysical roots, and physical
+solutions. These statuses are model-consistency checks rather than proof of
+independence or future predictive performance. Input hashes link each result
+to the corresponding recorded vote file.
+
+![Physical-recovery status for each recorded model. Status labels are direct and redundant with color; passing checks probability constraints but does not prove error independence or orient the label mirror.](../output/figures/physical_recovery_audit.png){#fig:physical-recovery-audit width=95%}
 
 # Discussion {#sec:discussion}
 
@@ -842,6 +856,28 @@ base models) and predict the resulting recovery bias.
 
 ---
 
+## Identifiability and reproducible computation {#sec:identifiability-and-computation}
+
+Latent-class theory distinguishes generic identifiability from identifiability
+at every parameter value [@allman2009]. Here, variation is only a necessary
+screen; physical-root checks enforce the probability constraints of the fitted
+model, and a better-than-random assumption orients its label mirror. A physical
+solution cannot verify the independence assumption that generated it.
+
+The supervised scores are exact for the authored finite deck. Scenario
+bootstrap intervals describe the stated resampling procedure conditional on
+that deck and the recorded responses; they do not include prompt-selection,
+model-selection, model-update, or market-population uncertainty.
+
+Runtime profiles in `benchmarks/runtime/` use Python 3.15, deterministic inputs,
+unprofiled timing samples, and separate tracing and memory passes. Native
+sampling availability is recorded explicitly. Computational improvements and
+figure regeneration do not add model observations to the empirical study.
+`docs/research_map.json` links scoped claims to their sources and artifacts;
+the offline checker guards reference integrity rather than certifying claims.
+
+
+
 # Figures — formal specification {#sec:figure-specification}
 
 Every figure is regenerated by the pipeline — the real-sweep figures into
@@ -868,7 +904,7 @@ below is specified as **claim -> encoding -> reference lines -> data source**.
 - `fig:best-model-recovery` (`best_model_recovery.png`;
   `best_model_recovery.data.json`) supports [@sec:recovery-result]. It uses
   grouped bars for recovered vs. true per-(persona, label) accuracy, with the
-  sampling-noise floor.
+  binomial SE reference.
 - `fig:recovered-vs-true` (`recovered_vs_true_scatter.png`;
   `recovered_vs_true_scatter.data.json`) supports [@sec:recovery-result]. It
   plots true accuracy against recovered accuracy with the $y=x$ identity line.
@@ -907,7 +943,7 @@ below is specified as **claim -> encoding -> reference lines -> data source**.
 - `fig:bootstrap-recovery` (`bootstrap_recovery_mae.png`;
   `bootstrap_recovery_mae.data.json`) supports [@sec:recovery-result]. It shows
   {{BOOT_N}} scenario-resampled recovery-MAE draws, with the point estimate, 95%
-  CI, and {{FLOOR}} sampling-noise floor.
+  CI, and {{FLOOR}} binomial SE reference.
 - `fig:synthetic-tiebreak` (`synthetic_tiebreak.png`;
   `synthetic_tiebreak.data.json`) supports [@sec:tiebreak-boundary]. It shows
   catastrophic mirror-selection and prevalence error as judge accuracy approaches
@@ -922,11 +958,11 @@ below is specified as **claim -> encoding -> reference lines -> data source**.
 The figures are mutually reinforcing: [@fig:evaluation-pipeline] defines the
 experimental boundary, [@fig:disagreement-vs-evaluability] states the thesis on
 the right axes, [@fig:evaluability-diagnostic] shows the
-per-judge mechanism that gates it, [@fig:best-model-recovery] and
+necessary per-judge variation screen, [@fig:best-model-recovery] and
 [@fig:recovered-vs-true] show the positive recovery when the gate is cleared,
 [@fig:validation-accuracy-heatmap] explains what was actually recovered across
 models, and [@fig:recovery-mae-scorecard] scores how close that recovery is to
-the {{FLOOR}} sampling-noise floor.
+the {{FLOOR}} binomial SE reference.
 
 # References {#sec:references}
 

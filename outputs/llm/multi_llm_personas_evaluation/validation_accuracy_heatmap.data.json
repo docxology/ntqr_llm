@@ -1,5 +1,7 @@
 {
-  "generated_at": "2026-06-01T13:18:55",
+  "generated_at": "2026-10-18T00:10:56+00:00",
+  "schema_version": 2,
+  "ntqr_version": "0.9",
   "result": {
     "figure": "validation_accuracy_heatmap.png",
     "title": "Validation-only accuracy landscape across evaluable models",
@@ -276,12 +278,12 @@
     "thresholds": [
       {
         "value": 0.10206207261596575,
-        "label": "sampling-noise floor",
+        "label": "binomial SE reference",
         "meaning": "right-panel color scale is capped at this finite-deck uncertainty reference"
       }
     ],
     "metadata": {
-      "generated_utc": "2026-06-01T20:18:55.638069+00:00",
+      "generated_utc": "2026-10-18T00:10:55+00:00",
       "n_scenarios": 64,
       "n_personas": 3,
       "personas": [
@@ -303,15 +305,20 @@
         "n_models_evaluated": 5,
         "prompt_version": "v3_binary_schema",
         "prompt_hash": "4d157f84885a",
-        "baseline_summary": "baseline_t0.7_summary.json",
-        "date": "2026-06-01"
+        "date": "2026-06-01",
+        "figure_inputs_sha256": "653fb8dee1b203f871dc8fef8879561922945a258a04c09a0ae93d7213d0a065",
+        "collection": "recorded responses; no model calls"
       }
     },
-    "caption": "Left panel: supervised accuracies computed only after the unlabeled solve. Right panel: absolute recovery error for the same model/persona/label terms. The heatmap shows whether a model is useful because its judges are genuinely accurate, because NTQR can recover their weaknesses, or both."
+    "caption": "Left panel: supervised accuracies computed only after the unlabeled solve. Right panel: absolute recovery error for the same model/persona/label terms. The heatmap shows whether a model is useful because its judges are genuinely accurate, because NTQR can recover their weaknesses, or both.",
+    "exports": {
+      "raster": "validation_accuracy_heatmap.png",
+      "vector": "validation_accuracy_heatmap.svg"
+    }
   },
   "caption": "Left panel: supervised accuracies computed only after the unlabeled solve. Right panel: absolute recovery error for the same model/persona/label terms. The heatmap shows whether a model is useful because its judges are genuinely accurate, because NTQR can recover their weaknesses, or both.",
   "metadata": {
-    "generated_utc": "2026-06-01T20:18:55.638069+00:00",
+    "generated_utc": "2026-10-18T00:10:55+00:00",
     "n_scenarios": 64,
     "n_personas": 3,
     "personas": [
@@ -333,13 +340,14 @@
       "n_models_evaluated": 5,
       "prompt_version": "v3_binary_schema",
       "prompt_hash": "4d157f84885a",
-      "baseline_summary": "baseline_t0.7_summary.json",
-      "date": "2026-06-01"
+      "date": "2026-06-01",
+      "figure_inputs_sha256": "653fb8dee1b203f871dc8fef8879561922945a258a04c09a0ae93d7213d0a065",
+      "collection": "recorded responses; no model calls"
     }
   },
   "provenance": {
     "source_file": "validation_accuracy_heatmap.data.json",
-    "generated_utc": "2026-06-01T20:18:55.638069+00:00",
+    "generated_utc": "2026-10-18T00:10:55+00:00",
     "n_scenarios": 64,
     "experiment": {
       "backend": "ollama",
@@ -351,8 +359,9 @@
       "n_models_evaluated": 5,
       "prompt_version": "v3_binary_schema",
       "prompt_hash": "4d157f84885a",
-      "baseline_summary": "baseline_t0.7_summary.json",
-      "date": "2026-06-01"
+      "date": "2026-06-01",
+      "figure_inputs_sha256": "653fb8dee1b203f871dc8fef8879561922945a258a04c09a0ae93d7213d0a065",
+      "collection": "recorded responses; no model calls"
     }
   }
 }

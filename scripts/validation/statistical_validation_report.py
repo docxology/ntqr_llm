@@ -28,6 +28,9 @@ VALIDATION_SIDECAR = Path(
 )
 
 
+from ntqr.llm.supporting_figures import plot_validation_matrix as _plot
+
+
 def _load(path: Path):
     doc = json.loads(path.read_text())
     return doc.get("result", doc) if isinstance(doc, dict) else doc
@@ -104,8 +107,7 @@ def build_report(repo: Path | str = _common.REPO_ROOT) -> dict:
             "diagnostic_matches_solve",
             "Label-free diagnostic matches solver outcome",
             diag["diagnostic_matched_outcome"]
-            and sorted(diag["predicted_evaluable"])
-            == sorted(llm["evaluated_models"]),
+            and sorted(diag["predicted_evaluable"]) == sorted(llm["evaluated_models"]),
             (
                 f"predicted {len(diag['predicted_evaluable'])}; "
                 f"evaluated {len(llm['evaluated_models'])}"
@@ -113,18 +115,18 @@ def build_report(repo: Path | str = _common.REPO_ROOT) -> dict:
         ),
         _check(
             "real_recovery_within_noise_floor",
-            "Real recovery is below sampling-noise floor",
+            "Recorded recovery is below the binomial SE reference",
             llm["mean_recovery_mae"] <= cms["sampling_noise_floor"],
             (
                 f"MAE {llm['mean_recovery_mae']:.3f} <= "
-                f"floor {cms['sampling_noise_floor']:.3f}"
+                f"SE reference {cms['sampling_noise_floor']:.3f}"
             ),
         ),
         _check(
             "bootstrap_ci_within_noise_floor",
-            "Bootstrap CI remains below sampling-noise floor",
+            "Recorded bootstrap interval is below the binomial SE reference",
             boot_hi <= noise_floor,
-            f"CI_hi {boot_hi:.3f} <= floor {noise_floor:.3f}",
+            f"CI_hi {boot_hi:.3f} <= SE reference {noise_floor:.3f}",
         ),
         _check(
             "sqrt_q_convergence",
@@ -134,7 +136,7 @@ def build_report(repo: Path | str = _common.REPO_ROOT) -> dict:
         ),
         _check(
             "alarm_false_positive_control",
-            "Imaginary-root alarm has zero independent false alarms",
+            "No false alarms observed in the selected independent runs",
             corr["independent_false_alarm_rate"] == 0.0,
             f"false alarm {corr['independent_false_alarm_rate']:.0%}",
         ),
@@ -152,8 +154,7 @@ def build_report(repo: Path | str = _common.REPO_ROOT) -> dict:
         _check(
             "tie_break_boundary",
             "Better-than-random tie-break boundary is quantified",
-            tie["safe_accuracy"] >= 0.8
-            and tie["max_catastrophic_rate"] >= 0.5,
+            tie["safe_accuracy"] >= 0.8 and tie["max_catastrophic_rate"] >= 0.5,
             (
                 f"safe to {tie['safe_accuracy']:.2f}; "
                 f"max inversion {tie['max_catastrophic_rate']:.0%}"
@@ -190,93 +191,18 @@ def build_report(repo: Path | str = _common.REPO_ROOT) -> dict:
     }
 
 
-def _plot(summary: dict, out_dir: Path) -> Path:
-    import matplotlib
-
-    matplotlib.use("Agg")
-    import matplotlib.pyplot as plt
-
-    checks = summary["checks"]
-    labels = [row["label"] for row in checks]
-    y = list(range(len(checks)))[::-1]
-    colors = ["#16A34A" if row["passed"] else "#DC2626" for row in checks]
-
-    fig, ax = plt.subplots(figsize=(13.4, 7.0))
-    ax.barh(y, [1] * len(checks), color=colors, alpha=0.88)
-    for yi, row in zip(y, checks):
-        status = "PASS" if row["passed"] else "FAIL"
-        ax.text(
-            0.02,
-            yi,
-            status,
-            va="center",
-            ha="left",
-            color="white",
-            weight="bold",
-            fontsize=10,
-        )
-        ax.text(
-            1.03,
-            yi,
-            row["evidence"],
-            va="center",
-            ha="left",
-            fontsize=8.6,
-            color="#222222",
-        )
-    ax.set_yticks(y)
-    ax.set_yticklabels(labels, fontsize=10)
-    ax.set_xlim(0, 1.95)
-    ax.set_xticks([])
-    ax.set_title(
-        "Statistical validation matrix",
-        fontsize=15,
-        weight="bold",
-    )
-    ax.spines[["top", "right", "bottom"]].set_visible(False)
-    ax.tick_params(axis="y", length=0)
-    fig.text(
-        0.5,
-        0.012,
-        f"{summary['n_passed']}/{summary['n_checks']} checks passed | "
-        f"generated {datetime.now(timezone.utc).date()}",
-        ha="center",
-        fontsize=8,
-        color="#666666",
-    )
-    fig.text(
-        0.5,
-        0.94,
-        "Every load-bearing statistical claim is checked against generated artifacts",
-        ha="center",
-        fontsize=10,
-        color="#333333",
-    )
-    fig.tight_layout(rect=(0, 0.03, 1, 0.94))
-    path = out_dir / "validation_matrix.png"
-    fig.savefig(path, dpi=150, bbox_inches="tight", pad_inches=0.15)
-    plt.close(fig)
-    return path
-
-
 def write_report(
     repo: Path | str = _common.REPO_ROOT,
     out_dir: Path | None = None,
 ) -> tuple[Path, Path, Path]:
     repo = Path(repo)
-    out_dir = out_dir or _common.output_dir(
-        "validation", "statistical_validation"
-    )
+    out_dir = out_dir or _common.output_dir("validation", "statistical_validation")
     out_dir.mkdir(parents=True, exist_ok=True)
     summary = build_report(repo)
     summary_path = _common.save_json(out_dir, "summary.json", summary)
     figure_path = _plot(summary, out_dir)
     figure_inventory_count = len(
-        [
-            sidecar
-            for _, sidecar in manuscript_variables.FIGURES
-            if sidecar is not None
-        ]
+        [sidecar for _, sidecar in manuscript_variables.FIGURES if sidecar is not None]
     )
     sidecar_path = _common.save_json(
         out_dir,

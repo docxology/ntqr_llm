@@ -254,14 +254,14 @@ discriminant, and the two mirror-image roots resolving to the truth.
 - **Recovery MAE** (headline): mean absolute error between recovered and true
   per-persona, per-label accuracies. We also report it split by label.
 - **Prevalence absolute error**: |recovered − true| prevalence of label `a`.
-- **Sampling-noise floor**: a reference scale for the recovery MAE. A per-label
+- **Binomial SE reference**: a reference scale for the recovery MAE. A per-label
   accuracy is estimated from only the questions carrying that label; the
   worst-case binomial standard error of such a proportion is `sqrt(0.25 / k)`,
   where `k` is the minority label's question count (here `k = 24`,
-  giving a floor of **0.102**). A recovery MAE at or below this floor is
-  smaller than the worst-case uncertainty of the supervised estimate it is
-  compared against. We use it as a scale reference, not as a formal hypothesis
-  test.
+  giving a reference value of **0.102**). This is a descriptive scale
+  under a Bernoulli sampling model. It is not an information-theoretic lower
+  bound, a confidence interval for recovery MAE, or uncertainty in the exact
+  supervised accuracy of the fixed authored deck.
 - **Degeneracy guard**: a constant classifier makes the algebra unsolvable and
   yields a SymPy `nan`; because `float(nan)` succeeds, we reject non-finite
   values explicitly (`math.isfinite`) and report the model as a *named failure*
@@ -291,7 +291,7 @@ Computed from the votes alone — no answer key, no solve:
 
 Everything is exact and offline-reproducible from the cached votes. The numeric
 core (`python/src/ntqr/llm/`) is pure — no I/O, no plotting — and covered by
-124 unit tests that run with no network and no Ollama. The
+129 unit tests that run with no network and no Ollama. The
 manuscript itself is *generated*: every number below is injected from
 `summary.json` by `scripts/manuscript/render.py`, so the prose cannot drift from
 the data. Exact commands are in [@sec:reproduction].

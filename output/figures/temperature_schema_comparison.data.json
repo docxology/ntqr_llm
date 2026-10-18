@@ -1,5 +1,7 @@
 {
-  "generated_at": "2026-06-01T13:18:55",
+  "generated_at": "2026-10-18T00:10:50+00:00",
+  "schema_version": 2,
+  "ntqr_version": "0.9",
   "result": {
     "figure": "temperature_schema_comparison.png",
     "title": "Temperature/schema comparison: parseability and evaluability",
@@ -146,7 +148,7 @@
       ]
     },
     "metadata": {
-      "generated_utc": "2026-06-01T20:18:55.145351+00:00",
+      "generated_utc": "2026-10-18T00:10:49+00:00",
       "n_scenarios": 64,
       "n_personas": 3,
       "personas": [
@@ -168,15 +170,20 @@
         "n_models_evaluated": 5,
         "prompt_version": "v3_binary_schema",
         "prompt_hash": "4d157f84885a",
-        "baseline_summary": "baseline_t0.7_summary.json",
-        "date": "2026-06-01"
+        "date": "2026-06-01",
+        "figure_inputs_sha256": "653fb8dee1b203f871dc8fef8879561922945a258a04c09a0ae93d7213d0a065",
+        "collection": "recorded responses; no model calls"
       }
     },
-    "caption": "The old temperature-0.7 prompt is retained as a stress-test baseline. The new temperature-0.1 schema run is the headline experiment: parseability should approach 100%, leaving genuine vote-matrix evaluability as the object of study. E marks an ensemble that the ntqr solve could evaluate."
+    "caption": "The old temperature-0.7 prompt is retained as a stress-test baseline. The new temperature-0.1 schema run is the headline experiment: parseability should approach 100%, leaving genuine vote-matrix evaluability as the object of study. E marks an ensemble that the ntqr solve could evaluate.",
+    "exports": {
+      "raster": "temperature_schema_comparison.png",
+      "vector": "temperature_schema_comparison.svg"
+    }
   },
   "caption": "The old temperature-0.7 prompt is retained as a stress-test baseline. The new temperature-0.1 schema run is the headline experiment: parseability should approach 100%, leaving genuine vote-matrix evaluability as the object of study. E marks an ensemble that the ntqr solve could evaluate.",
   "metadata": {
-    "generated_utc": "2026-06-01T20:18:55.145351+00:00",
+    "generated_utc": "2026-10-18T00:10:49+00:00",
     "n_scenarios": 64,
     "n_personas": 3,
     "personas": [
@@ -198,13 +205,14 @@
       "n_models_evaluated": 5,
       "prompt_version": "v3_binary_schema",
       "prompt_hash": "4d157f84885a",
-      "baseline_summary": "baseline_t0.7_summary.json",
-      "date": "2026-06-01"
+      "date": "2026-06-01",
+      "figure_inputs_sha256": "653fb8dee1b203f871dc8fef8879561922945a258a04c09a0ae93d7213d0a065",
+      "collection": "recorded responses; no model calls"
     }
   },
   "provenance": {
     "source_file": "temperature_schema_comparison.data.json",
-    "generated_utc": "2026-06-01T20:18:55.145351+00:00",
+    "generated_utc": "2026-10-18T00:10:49+00:00",
     "n_scenarios": 64,
     "experiment": {
       "backend": "ollama",
@@ -216,8 +224,9 @@
       "n_models_evaluated": 5,
       "prompt_version": "v3_binary_schema",
       "prompt_hash": "4d157f84885a",
-      "baseline_summary": "baseline_t0.7_summary.json",
-      "date": "2026-06-01"
+      "date": "2026-06-01",
+      "figure_inputs_sha256": "653fb8dee1b203f871dc8fef8879561922945a258a04c09a0ae93d7213d0a065",
+      "collection": "recorded responses; no model calls"
     }
   }
 }

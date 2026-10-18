@@ -1,5 +1,7 @@
 {
-  "generated_at": "2026-06-01T13:18:55",
+  "generated_at": "2026-10-18T00:10:57+00:00",
+  "schema_version": 2,
+  "ntqr_version": "0.9",
   "result": {
     "figure": "evaluability_diagnostic.png",
     "title": "Evaluability diagnostic: vote concentration by persona and model",
@@ -13,7 +15,7 @@
       {
         "value": 0.5,
         "label": "balanced",
-        "meaning": "evenly split votes -- the most informative case for recovering accuracy"
+        "meaning": "evenly split votes; neither identifiability nor physical recovery follows from balance alone"
       }
     ],
     "series": [
@@ -365,7 +367,7 @@
       }
     ],
     "metadata": {
-      "generated_utc": "2026-06-01T20:18:55.775408+00:00",
+      "generated_utc": "2026-10-18T00:10:56+00:00",
       "n_scenarios": 64,
       "n_personas": 3,
       "personas": [
@@ -387,15 +389,20 @@
         "n_models_evaluated": 5,
         "prompt_version": "v3_binary_schema",
         "prompt_hash": "4d157f84885a",
-        "baseline_summary": "baseline_t0.7_summary.json",
-        "date": "2026-06-01"
+        "date": "2026-06-01",
+        "figure_inputs_sha256": "653fb8dee1b203f871dc8fef8879561922945a258a04c09a0ae93d7213d0a065",
+        "collection": "recorded responses; no model calls"
       }
     },
-    "caption": "A judge at 1.0 is a constant classifier: it casts the same vote on every parseable call, carrying zero error signal. That removes a degree of freedom from the 3-judge system, so the error-independent algebra becomes unsolvable and the model is excluded -- read off the votes alone, with no answer key."
+    "caption": "A judge at 1.0 is a constant classifier: it casts the same vote on every parseable call. The implemented prevalence quadratic is then nonidentifying. Variation is necessary; passing this screen does not guarantee a physical recovery. No answer key enters this screen.",
+    "exports": {
+      "raster": "evaluability_diagnostic.png",
+      "vector": "evaluability_diagnostic.svg"
+    }
   },
-  "caption": "A judge at 1.0 is a constant classifier: it casts the same vote on every parseable call, carrying zero error signal. That removes a degree of freedom from the 3-judge system, so the error-independent algebra becomes unsolvable and the model is excluded -- read off the votes alone, with no answer key.",
+  "caption": "A judge at 1.0 is a constant classifier: it casts the same vote on every parseable call. The implemented prevalence quadratic is then nonidentifying. Variation is necessary; passing this screen does not guarantee a physical recovery. No answer key enters this screen.",
   "metadata": {
-    "generated_utc": "2026-06-01T20:18:55.775408+00:00",
+    "generated_utc": "2026-10-18T00:10:56+00:00",
     "n_scenarios": 64,
     "n_personas": 3,
     "personas": [
@@ -417,13 +424,14 @@
       "n_models_evaluated": 5,
       "prompt_version": "v3_binary_schema",
       "prompt_hash": "4d157f84885a",
-      "baseline_summary": "baseline_t0.7_summary.json",
-      "date": "2026-06-01"
+      "date": "2026-06-01",
+      "figure_inputs_sha256": "653fb8dee1b203f871dc8fef8879561922945a258a04c09a0ae93d7213d0a065",
+      "collection": "recorded responses; no model calls"
     }
   },
   "provenance": {
     "source_file": "evaluability_diagnostic.data.json",
-    "generated_utc": "2026-06-01T20:18:55.775408+00:00",
+    "generated_utc": "2026-10-18T00:10:56+00:00",
     "n_scenarios": 64,
     "experiment": {
       "backend": "ollama",
@@ -435,8 +443,9 @@
       "n_models_evaluated": 5,
       "prompt_version": "v3_binary_schema",
       "prompt_hash": "4d157f84885a",
-      "baseline_summary": "baseline_t0.7_summary.json",
-      "date": "2026-06-01"
+      "date": "2026-06-01",
+      "figure_inputs_sha256": "653fb8dee1b203f871dc8fef8879561922945a258a04c09a0ae93d7213d0a065",
+      "collection": "recorded responses; no model calls"
     }
   }
 }

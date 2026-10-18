@@ -33,6 +33,12 @@ import render  # noqa: E402
 FIGURES: tuple[tuple[Path, Path | None], ...] = (
     (
         ROOT
+        / "outputs/validation/recovery_validity_report/physical_recovery_audit.png",
+        ROOT
+        / "outputs/validation/recovery_validity_report/physical_recovery_audit.data.json",
+    ),
+    (
+        ROOT
         / "outputs"
         / "llm"
         / "multi_llm_personas_evaluation"
@@ -248,6 +254,12 @@ def figure_payloads(figures=FIGURES) -> dict[Path, bytes]:
         if image_target in payloads:
             raise ValueError(f"duplicate generated figure filename: {image.name}")
         payloads[image_target] = image.read_bytes()
+        vector = image.with_suffix(".svg")
+        if vector.is_file():
+            vector_target = OUTPUT_FIGURES / vector.name
+            if vector_target in payloads:
+                raise ValueError(f"duplicate generated vector filename: {vector.name}")
+            payloads[vector_target] = vector.read_bytes()
         if sidecar is not None:
             source = sidecar.read_bytes()
             json.loads(source)

@@ -147,3 +147,7 @@ Online documentation now looks much better.
 
 
 
+
+## Unreleased research-harness maintenance
+
+Python 3.15 default and CI; source-bound runtime tracing, memory and import diagnostics; scoped agreement/enumeration optimizations; composable offline model/supporting figure builders; selectable SVG exports; bibliography/evidence registry checks; clarified identifiability, finite-deck, SE-reference and alarm claims. Upstream NTQR remains 0.9.

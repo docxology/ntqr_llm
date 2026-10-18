@@ -6,7 +6,7 @@
   "identifier": "https://doi.org/10.5281/zenodo.20498699",
   "license": "https://spdx.org/licenses/Apache-2.0",
   "codeRepository": "https://github.com/docxology/ntqr_llm",
-  "dateModified": "2026-06-01",
+  "dateModified": "2026-10-17",
   "keywords": [
     "algebraic evaluation",
     "NTQR",
@@ -26,5 +26,10 @@
         "name": "Active Inference Institute"
       }
     }
+  ],
+  "runtimePlatform": "Python >=3.12; project default CPython 3.15",
+  "softwareRequirements": [
+    "NTQR 0.9",
+    "Locked scientific Python environment in uv.lock"
   ]
 }

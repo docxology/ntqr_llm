@@ -38,3 +38,5 @@ token map (`manuscript/_values.py`).
 Do not put business logic here. Verify: uv run pytest tests/ -v
 
 Upstream policy: see `../AGENTS.md` and /Volumes/external_drive/Git/template/projects/ongoing/AGENTS.md for repo-wide conventions; do not duplicate them here.
+
+Additional thin entry points: `profile_runtime.py` (runtime_profile/profile_workloads), `check_research.py` (scholarship). See docs/runtime_profiling.md and docs/research_integrity.md.
