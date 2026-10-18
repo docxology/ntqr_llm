@@ -73,3 +73,5 @@ cost. This work preserves the exact upstream algebra rather than substituting
 an unchecked numerical approximation. Seeded reservoir tests verify retained
 samples and counts. Counting-only runs skip conversions whose results would
 otherwise be discarded.
+
+The final Linux-compatible lock includes Pillow 13.0 wheels for CPython 3.15. Earlier Pillow 12.1 profiling receipts remain as separately named historical observations; current/baseline comparisons use the final dependency context.
