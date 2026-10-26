@@ -13,7 +13,9 @@ to build nothing; the vendored `ntqr` is the only editable install).
 
 Expected: `tests/` all pass (`test_llm_analysis.py`, `test_recovery.py`,
 `test_simulation.py`, `test_bootstrap.py`, `test_validation_report.py`,
-`test_manuscript_render.py`); `python/` all pass. The shared scoring core
+`test_recovery_validity.py`, `test_research_tools.py`, `test_artifact_io.py`,
+`test_modular_figures.py`, `test_ntqr09.py`, `test_manuscript_render.py`);
+`python/` all pass. The shared scoring core
 (`ntqr.llm.recovery_scoring`), the LLM numeric core (`ntqr.llm.analysis`), the
 synthetic harness (`ntqr.llm.simulation`), the scenario bootstrap
 (`ntqr.llm.bootstrap`), the offline validation report, and the renderer are all
@@ -85,11 +87,12 @@ for path in [Path("docs/manuscript/manuscript.md"), Path("docs/manuscript/supple
     assert not re.findall(r"\{\{[A-Z0-9_]+\}\}", path.read_text()), path
 print("OK no unresolved manuscript tokens")
 PY
-grep -c '!\[' docs/manuscript/manuscript.md                             # expect 16 (figures embedded)
+grep -c '!\[' docs/manuscript/manuscript.md                             # expect 17 (figures embedded)
 for f in evaluation_pipeline best_model_recovery recovered_vs_true_scatter \
          evaluability_diagnostic disagreement_vs_evaluability \
          recovery_mae_by_model prompt_compliance \
-         temperature_schema_comparison scenario_hardness; do
+         temperature_schema_comparison scenario_hardness \
+         validation_accuracy_heatmap; do
   test -f output/figures/$f.png && echo "OK $f" || echo "MISSING $f"
 done
 for f in synthetic_convergence synthetic_alarm synthetic_tiebreak synthetic_mv_vs_ei; do
@@ -103,6 +106,10 @@ test -f output/figures/validation_matrix.png \
   && echo "OK validation matrix" || echo "MISSING validation matrix"
 test -f output/figures/validation_matrix.data.json \
   && echo "OK validation sidecar" || echo "MISSING validation sidecar"
+test -f output/figures/physical_recovery_audit.png \
+  && echo "OK physical audit" || echo "MISSING physical audit"
+test -f output/figures/physical_recovery_audit.data.json \
+  && echo "OK physical audit sidecar" || echo "MISSING physical audit sidecar"
 ```
 
 ## Checklist
@@ -113,7 +120,7 @@ test -f output/figures/validation_matrix.data.json \
 | Lint | ruff clean; black clean (`-l 79`) |
 | Render gate | `render.py --check` → "OK — 3 … match the data" |
 | No leftover tokens | `grep -c '{{'` is 0 in all three rendered files |
-| Figures embedded | 16 `![]()` in `manuscript.md`; 10 method/LLM + 4 synthetic + 1 bootstrap + 1 validation PNG in `output/figures/`, with parseable data sidecars |
+| Figures embedded | 17 `![]()` in `manuscript.md`; 10 method/LLM + 4 synthetic + 1 bootstrap + 1 validation + 1 physical-recovery audit PNG in `output/figures/`, with parseable data sidecars |
 | Validation matrix | `scripts/validation/statistical_validation_report.py` reports 9/9 checks passed |
 | Models | `summary.json` `requested_models` are pulled in Ollama |
 | Template PDF | `output/pdf/ntqr_llm_personas_combined.pdf` exists after the targeted template render, has no unresolved `{{TOKEN}}` text, uses red hyperlinks, and uses the compact `margin=0.58in` geometry from `docs/manuscript/config.yaml` |

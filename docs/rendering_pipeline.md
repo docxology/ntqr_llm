@@ -58,7 +58,7 @@ without a re-render, `--check` exits non-zero and names the drifted files.
 `z_generate_manuscript_variables.py` is the bridge to the sibling
 `docxology/template` renderer. It uses the same value map as `render.py`, writes
 `output/data/manuscript_variables.json`, emits section files such as
-`00_abstract.md` and `03_results.md`, and copies all 16 embedded figure PNGs and
+`00_abstract.md` and `03_results.md`, and copies all 17 embedded figure PNGs and
 their data sidecars into `output/figures/`. The template renderer then supplies
 the cover page and resolves Pandoc-crossref labels for figures, tables,
 equations, and sections.

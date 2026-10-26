@@ -6,8 +6,8 @@ labels itself 0.8 at migration time (2026-10-17); it is useful conceptual backgr
 
 `uv sync --locked --extra dev` now installs `python/` editable as a declared
 `ntqr==0.9` dependency, including SciPy, Numba and typing_extensions. Root pytest
-collects both study and library suites. `.python-version` selects Python 3.12;
-CI also checks 3.13. Scripts consistently use the source in this checkout and
+collects both study and library suites. `.python-version` selects Python 3.15;
+CI also checks 3.12 and 3.13. Scripts consistently use the source in this checkout and
 reject an already-imported different NTQR package.
 
 `python/UPSTREAM.json` records the published wheel SHA-256 and every imported

@@ -53,8 +53,5 @@ exclude_lines = [
     "raise NotImplementedError",
 ]
 
-[tool.uv]
-# Inherits workspace settings from root pyproject.toml
-
 [tool.uv.sources]
 ntqr = { path = "python", editable = true }

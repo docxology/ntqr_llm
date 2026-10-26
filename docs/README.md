@@ -51,7 +51,7 @@ here.
   (proved in manuscript §2.5, shown on real votes in Supplemental §S1.5).
 - **No fabrication** — unparseable replies are abstentions; non-compliant models
   are named, never solved on invented votes.
-- **Sixteen embedded figures**, each with a parseable data sidecar so every
+- **Seventeen embedded figures**, each with a parseable data sidecar so every
   plotted value is machine-readable.
 
 - [NTQR 0.9 migration](ntqr09.md): release provenance, sparse API changes, local fixes, and offline verification.

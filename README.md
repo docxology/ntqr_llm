@@ -84,7 +84,7 @@ checks:
 | `outputs/sim/bootstrap_recovery_ci/` | scenario-bootstrap CI on the real recovery MAE (`summary.json` + histogram figure + `.data.json` sidecar) |
 | `outputs/validation/statistical_validation/` | generated validation report, sidecar, and validation-matrix figure |
 | `docs/essays/` | conceptual essays on algebraic evaluation |
-| `tests/` | `test_llm_analysis.py`, `test_recovery.py`, `test_simulation.py`, `test_bootstrap.py`, `test_validation_report.py`, `test_manuscript_render.py` |
+| `tests/` | scripts-layer suite (11 files): `test_llm_analysis.py`, `test_recovery.py`, `test_simulation.py`, `test_bootstrap.py`, `test_validation_report.py`, `test_recovery_validity.py`, `test_artifact_io.py`, `test_modular_figures.py`, `test_manuscript_render.py`, `test_research_tools.py`, `test_ntqr09.py` |
 
 ## Reproduce
 

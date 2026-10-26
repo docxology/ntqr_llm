@@ -65,7 +65,12 @@ longer matches the artifacts fails the build.
 | `tests/test_simulation.py` | the synthetic harness against the *real* ntqr solver: vote-count conservation, seeded reproducibility, exact sample truth, recovery on error-independent data, the `~1/√Q` convergence fit and its robustness across ensembles, the imaginary-root alarm (anti-correlation fires, common-mode blind spot, no false alarm), the tie-break inversion toward random, and the EI-vs-majority-voting trade-off (EI wins for strong judges, MV more robust in the danger zone) |
 | `tests/test_bootstrap.py` | the scenario bootstrap: count conservation, point estimate equals the full-sample solve, well-formed CIs and degenerate counts, and seed reproducibility |
 | `tests/test_validation_report.py` | the offline validation matrix: every load-bearing statistical check passes, and the report writes a parseable summary, sidecar, and figure |
-| `tests/test_manuscript_render.py` | `_values.compute_values` shape, the renderer's fail-closed token contract, no render drift, template cross-reference syntax, hydrated `output/manuscript/`, 16 embedded figures, public NTQR citation, and parseable sidecars |
+| `tests/test_manuscript_render.py` | `_values.compute_values` shape, the renderer's fail-closed token contract, no render drift, template cross-reference syntax, hydrated `output/manuscript/`, 17 embedded figures, public NTQR citation, and parseable sidecars |
+| `tests/test_recovery_validity.py` | the physical-solution audit on real sparse/dense vote sketches and persisted model votes |
+| `tests/test_research_tools.py` | profiling, publication and scholarship boundaries on real computation |
+| `tests/test_artifact_io.py` | atomic artifact writes, deterministic encoding, and publication preflight |
+| `tests/test_modular_figures.py` | independently selectable figure builders over recorded model evidence |
+| `tests/test_ntqr09.py` | the vendored NTQR 0.9 sparse-set/API regressions and reproducibility |
 | `python/` (vendored `ntqr`) | the algebra itself: evaluators, data sketches, axioms |
 
 ## Adding tests
