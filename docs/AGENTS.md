@@ -4,4 +4,4 @@ Layout: essays/ (conceptual background - Dawid-Skene confusion, Regnault's radic
 
 Gotchas: docs describe the software layer; the science lives in ../manuscript/manuscript.md. Keep the README index table in sync when adding documents. Essays are static prose - nothing regenerates them.
 
-Upstream policy: see `../AGENTS.md` and /Volumes/external_drive/Git/template/projects/ongoing/AGENTS.md for repo-wide conventions; do not duplicate them here.
+Upstream policy: see `../AGENTS.md` for this repository's conventions. The shared policy that governs template projects is maintained in the template repository, not restated here.

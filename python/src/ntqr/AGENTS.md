@@ -4,6 +4,6 @@ Child dirs: llm/ (LLM-persona study modules: analysis, recovery_scoring, validit
 
 Verify: uv run pytest python/tests/ -v
 
-Upstream policy: see `../AGENTS.md` and /Volumes/external_drive/Git/template/projects/ongoing/AGENTS.md for repo-wide conventions; do not duplicate them here.
+Upstream policy: see `../AGENTS.md` for this repository's conventions. The shared policy that governs template projects is maintained in the template repository, not restated here.
 
 Research tooling: runtime_profile/profile_workloads/runtime_figure, figure_export and scholarship provide reusable APIs; CLI files only orchestrate them.

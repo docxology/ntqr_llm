@@ -4,4 +4,4 @@ Child dirs: docs/ (technical docs + essays; has its own AGENTS.md), figures/ (st
 
 Invariants: thin-orchestrator layout - business logic lives in python/src/ntqr/, scripts only orchestrate. outputs/ is fully regenerable via the documented refresh chain (see outputs/AGENTS.md); output/ is rendered, not hand-edited. The manuscript's numbers are injected via {{TOKEN}} placeholders; never hard-code a generated number into manuscript prose. Verify: uv run pytest tests/ -v && uv run pytest python/tests/ -v
 
-Upstream policy: see `../AGENTS.md` and /Volumes/external_drive/Git/template/projects/ongoing/AGENTS.md for repo-wide conventions; do not duplicate them here.
+Upstream policy: this repository follows the shared conventions for template projects, which are maintained in the template repository, not restated here.

@@ -7,4 +7,4 @@ their computation from `python/src/ntqr/llm/` (`ntqr.llm.simulation`,
 
 Verify: uv run pytest tests/test_simulation.py tests/test_bootstrap.py -q
 
-Upstream policy: see `../AGENTS.md` and /Volumes/external_drive/Git/template/projects/ongoing/AGENTS.md for repo-wide conventions; do not duplicate them here.
+Upstream policy: see `../AGENTS.md` for this repository's conventions. The shared policy that governs template projects is maintained in the template repository, not restated here.
