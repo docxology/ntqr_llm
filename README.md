@@ -163,7 +163,7 @@ model collection; these checks require no model calls.
 
 ## Python 3.15, profiling and publication workflows
 
-The default runtime is Python 3.15; CI also checks Python 3.12 and 3.13.
+The default runtime is the one `.python-version` pins; CI also checks Python 3.12 and 3.13.
 Use `uv sync --locked --extra dev`, then `uv run python scripts/profile_runtime.py`
 for bounded real-workload profiling and `uv run python scripts/check_research.py`
 for offline reference/evidence integrity checks.
