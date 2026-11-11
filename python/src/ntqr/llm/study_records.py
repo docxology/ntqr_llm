@@ -11,6 +11,29 @@ from pathlib import Path
 from . import personas
 
 
+def model_dirname(model: str) -> str:
+    """Return the historical artifact directory name for a model identifier."""
+    return model.replace(":", "_").replace("/", "_")
+
+
+def ensure_unique_model_dirnames(models) -> None:
+    """Reject distinct model identifiers that would share an artifact directory."""
+    by_dirname = {}
+    for model in models:
+        by_dirname.setdefault(model_dirname(model), set()).add(model)
+    collisions = {
+        dirname: sorted(names)
+        for dirname, names in by_dirname.items()
+        if len(names) > 1
+    }
+    if collisions:
+        details = "; ".join(
+            f"{dirname!r}: {', '.join(repr(name) for name in names)}"
+            for dirname, names in collisions.items()
+        )
+        raise ValueError(f"model directory collision(s): {details}")
+
+
 def load_recorded_study(directory):
     directory = Path(directory)
     inputs = {}
@@ -31,7 +54,7 @@ def load_recorded_study(directory):
     }
     rows = []
     for model in summary["requested_models"]:
-        model_dir = directory / "models" / model.replace(":", "_").replace("/", "_")
+        model_dir = directory / "models" / model_dirname(model)
         if not (model_dir / "votes.json").is_file():
             continue
         diagnostic = read(model_dir / "evaluability_diagnostic.json")

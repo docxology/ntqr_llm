@@ -1,6 +1,6 @@
 {
   "files": {
-    "output/data/manuscript_variables.json": "1253c10699e14e4fb8165a7a814a756f5810756724c4968ea6c14467171f6387",
+    "output/data/manuscript_variables.json": "122a47f5cd5d9204d4f95e51e270d41538e59879d8665ccb3e185e88072f8928",
     "output/figures/best_model_recovery.data.json": "d8f59c1b094a6fa422cf22dc1c848ddc8118e7105b6ea6d5d299154cd9e6d487",
     "output/figures/best_model_recovery.png": "8a54fa39e2a39c04f48a378172c0e2b4c38de82af09ff6a1a208a1e4e9074aa9",
     "output/figures/best_model_recovery.svg": "d39f94ff3cdb1ea5fc117f48870a363c5adb40ef1ee50746b328204a7a06e6d0",
@@ -54,12 +54,12 @@
     "output/figures/validation_matrix.svg": "c995af92cff5867a118bae53ee4fb8a54ff95243b0be69246d0def8e0efe5629",
     "output/manuscript/00_abstract.md": "ba46b4b3ab763f0dbe4aa151836b64520c6ccf4a588fe11ed575bd3bfd310f75",
     "output/manuscript/01_introduction.md": "f28e7b518dc2ab9617c43e3a96b390a1fc021db4a40eca2ff741d47ca1344e7c",
-    "output/manuscript/02_methods.md": "67634460358df0bad98e87aba6c02c8a4082498b3c6db645a4462d0100a4ec0d",
+    "output/manuscript/02_methods.md": "eede83812876d61b5bc4966dff6999ab8dfd96115f61cf82e3402fff720f8f9b",
     "output/manuscript/03_results.md": "e5b312203c8572cf8c0b038e35a00a88ad71f03a659f12a6acbc141936f4574d",
     "output/manuscript/04_discussion.md": "1e41bf35c647b835a912f9f5808471649967cb0bdd69f4acc1dd309773359f5b",
     "output/manuscript/05_figure_specification.md": "aba0c12714d0376ea665e0ffb3ef67bcd69057b744f49273d919838be2bacdc9",
     "output/manuscript/99_references.md": "c093d34915420757b2234985381742685b27abd3ba26a49bd7a17636ca91f10b",
-    "output/manuscript/S01_supplemental.md": "3577dbf932be54b401408e6620bec9806945053ddbdae0f9b034fdec220b575d",
+    "output/manuscript/S01_supplemental.md": "623c5522f2898063cea22ea7ee07a44d8dd217f3d6026d70b8718e88e25f70f9",
     "output/manuscript/config.yaml": "7002a2f002224ffd126bc448fcb8cb9e56ffc47a50208e99246c834079c230b2",
     "output/manuscript/preamble.md": "5b4c67f3dff56e94c8cf4dc873442f60b5a548b185f0c32f8cc618da9335dd95",
     "output/manuscript/references.bib": "34fd861417d916df70130c9872c506a6d77fbf0367889d1bc7f9f04e2be21107"
