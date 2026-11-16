@@ -17,6 +17,8 @@ For publication metadata, the manuscript cites the public
 [NTQR 0.9 release](https://pypi.org/project/ntqr/0.9/) as the package
 authority. See [the migration notes](docs/ntqr09.md) for source provenance and local fixes.
 
+![ntqr_llm_personas Architecture Overview](docs/assets/architecture-overview.svg)
+
 ## The study in one paragraph
 
 Three trader "personas" (optimist / neutral / pessimist), instantiated as
