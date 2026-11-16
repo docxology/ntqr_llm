@@ -13,6 +13,7 @@
 \usepackage{array}
 \usepackage{graphicx}
 \usepackage{float}
+\floatplacement{figure}{H}
 
 % Cross-references and citations
 \usepackage{hyperref}

@@ -80,6 +80,12 @@ cross-reference, citation, and URL hyperlinks to red. These are copied into
 `output/manuscript/` by `z_generate_manuscript_variables.py` before the template
 renderer runs.
 
+The preamble uses the existing `float` package's `H` placement for figures.
+Figures and captions stay with their source text instead of entering a pending
+float queue around long tables. PDF qualification must find all 17 numbered
+captions and the complete results prose, with no `Overfull \vbox` diagnostics;
+an API success or an asset-loading count alone does not prove complete pages.
+
 ### Released PDF producer
 
 The published `docxology/template` v5.0.0 release provides

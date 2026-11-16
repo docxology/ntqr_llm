@@ -40,6 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Hydration regression writes only to an isolated output fixture, preserving original recorded evidence and directory guides during offline qualification.
 - The `ntqr-docs` CLI returns a nonzero status on copy failure and never overwrites an existing notebook destination.
 - Recorded supporting-figure exports use a separate derived directory, preserve original sidecar bytes, and bind their exact input hashes.
+- Project-local fixed figure placement prevents clipped captions and results prose in the released Template v5.0.0 PDF path, without changing scientific inputs.
 
 ### Changed
 
