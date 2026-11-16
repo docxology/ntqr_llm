@@ -27,7 +27,9 @@ def ensure_ntqr_importable() -> None:
 
     expected = (_PACKAGE_SRC / "ntqr" / "__init__.py").resolve()
     if Path(ntqr.__file__).resolve() != expected or ntqr.__version__ != "0.9":
-        raise RuntimeError("run with this checkout's NTQR 0.9: uv sync --extra dev")
+        raise RuntimeError(
+            "run with this checkout's NTQR 0.9: uv sync --extra dev"
+        )
 
 
 def output_dir(category: str, name: str) -> Path:

@@ -54,7 +54,11 @@ def main(argv: list[str] | None = None) -> None:
     n_samples = config.get("n_samples", DEFAULTS["n_samples"])
 
     summary = summarize_sets(
-        labels, classifiers, ql, seed, n_samples,
+        labels,
+        classifiers,
+        ql,
+        seed,
+        n_samples,
         config.get("max_allocations", DEFAULTS["max_allocations"]),
         config.get("max_events", DEFAULTS["max_events"]),
     )

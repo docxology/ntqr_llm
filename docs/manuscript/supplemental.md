@@ -137,7 +137,9 @@ Two consequences, both visible in [@sec:synthetic-validation]:
    errors only push every $\delta_{(i,j)}$ **more** positive, enlarging the
    denominator and driving $D \to 0^{+}$ without ever crossing it — precisely the
    [@sec:synthetic-validation] curve where recovery degraded from 0.016 to
-   0.042 while the alarm never sounded. The real worked
+   0.042 while the alarm never sounded. That curve is a
+   forced-error stress test that also lowers effective judge accuracy, not an
+   isolated correlation-only effect at fixed skill. The real worked
    example above sits in this safe regime: all three $\delta_{(i,j)}$ are
    positive, so $D = 0.0479 > 0$.
 
@@ -358,8 +360,8 @@ refresh=true` run needs a live Ollama.
 
 ```bash
 # 1. Project test suite (no network, no Ollama, no TeX):
-.venv/bin/python -m pytest tests/ -q                      # 132 tests
-#   or: cd python && ../.venv/bin/python -m pytest -q     # 22 library tests
+.venv/bin/python -m pytest tests/ -q                      # 152 tests
+#   or: cd python && ../.venv/bin/python -m pytest -q     # 23 library tests
 
 # 2. Regenerate the multi-LLM sweep from the cache (JSON + figures):
 .venv/bin/python scripts/llm/multi_llm_personas_evaluation.py
@@ -460,10 +462,13 @@ emit the recovery files, because there is no finite solution to record.
 
 Additional generated artifacts:
 
-- `outputs/sim/synthetic_recovery_study/` — deterministic convergence,
-  dependence/alarm, tie-break, robustness, and EI-vs-MV sweeps; each embedded
-  figure has a parseable `.data.json` sidecar.
-- `outputs/sim/bootstrap_recovery_ci/` — scenario-bootstrap summary,
+- `outputs/sim/synthetic_recovery_study/` — preserved deterministic convergence,
+  dependence/alarm, tie-break, robustness, and EI-vs-MV summaries and sidecars.
+- `outputs/sim/bootstrap_recovery_ci/` — preserved scenario-bootstrap summary,
   `bootstrap_recovery_mae.png`, and `bootstrap_recovery_mae.data.json`.
-- `outputs/validation/statistical_validation/` — offline validation report
-  (`summary.json`), validation-matrix figure, and `validation_matrix.data.json`.
+- `outputs/validation/statistical_validation/` — preserved offline validation
+  report (`summary.json`), validation matrix, and `validation_matrix.data.json`.
+- `outputs/validation/render_supporting_figures/` — corrected supporting artwork
+  derived only from those recorded inputs, byte-identical copies of their
+  scientific sidecars, and a source-bound rendering manifest. Original producer
+  artifacts are not overwritten; rendering is not a new scientific experiment.

@@ -34,6 +34,22 @@ def _records(n=256, seed=1):
     return records
 
 
+def test_percentile_linearly_interpolates_two_values():
+    xs = [0.0, 10.0]
+    assert B._percentile(xs, 0.025) == pytest.approx(0.25)
+    assert B._percentile(xs, 0.975) == pytest.approx(9.75)
+    summary = B._summary(xs)
+    assert summary["ci_lo"] <= summary["median"] <= summary["ci_hi"]
+
+
+def test_percentile_linearly_interpolates_three_values():
+    xs = [0.0, 10.0, 20.0]
+    assert B._percentile(xs, 0.025) == pytest.approx(0.5)
+    assert B._percentile(xs, 0.975) == pytest.approx(19.5)
+    assert B._percentile(xs, 0.25) == pytest.approx(5.0)
+    assert B._percentile(xs, 0.75) == pytest.approx(15.0)
+
+
 def test_label_counts_from_records_conserves():
     recs = _records(120, seed=3)
     lc = B.label_counts_from_records(recs)
@@ -45,6 +61,21 @@ def test_point_estimate_matches_full_sample_solve():
     out = B.bootstrap_recovery(recs, n_boot=50, base_seed=100)
     direct = sim.solve_recovery(B.label_counts_from_records(recs))
     assert out["point_recovery_mae"] == pytest.approx(direct["accuracy_mae"])
+
+
+def test_bootstrap_excludes_resamples_without_physical_solution():
+    records = [("a", ("a", "a", "a"))] * 3 + [
+        ("b", pattern)
+        for pattern in (("a", "b", "b"), ("b", "b", "b"), ("b", "a", "b"))
+    ]
+    # Seed 24 reproduces the full sample's counts. Both finite algebraic roots
+    # are nonphysical, so this resample must not contribute numeric errors.
+    out = B.bootstrap_recovery(records, n_boot=1, base_seed=24)
+    assert out["degenerate_count"] == 1
+    assert out["degenerate_rate"] == 1
+    assert out["mae_samples"] == []
+    assert out["recovery_mae"]["n"] == 0
+    assert out["prevalence_abs_error"]["n"] == 0
 
 
 def test_ci_brackets_and_rates_well_formed():

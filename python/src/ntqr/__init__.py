@@ -13,6 +13,7 @@ Misc variables:
 
 import shutil
 import os
+import sys
 from importlib import resources
 
 __version__ = "0.9"
@@ -31,20 +32,14 @@ from ntqr.r2.evaluators import (
 from ntqr.labels import Label, Labels
 
 
-def copy_notebooks():
-    # 1. Get the path to the notebooks folder inside the package
-    # 'ntqr' is your package name, 'notebooks' is the subfolder
+def copy_notebooks() -> int:
+    """Copy tutorials without overwriting an existing user destination."""
     try:
         source_path = resources.files("ntqr").joinpath("notebooks")
-
         destination = os.path.join(os.getcwd(), "ntqr_notebooks")
-
-        if not os.path.exists(destination):
-            # shutil.copytree needs a string path, so we cast the PosixPath
-            shutil.copytree(str(source_path), destination)
-            print(f"✅ Notebooks copied to: {destination}")
-        else:
-            print(f"❌ Folder '{destination}' already exists!")
-
-    except Exception as e:
-        print(f"Error finding notebooks: {e}")
+        shutil.copytree(str(source_path), destination)
+    except OSError as error:
+        print(f"Unable to copy notebooks: {error}", file=sys.stderr)
+        return 1
+    print(f"Notebooks copied to: {destination}")
+    return 0

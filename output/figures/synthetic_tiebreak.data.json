@@ -1,5 +1,7 @@
 {
-  "generated_at": "2026-06-01T13:27:45",
+  "generated_at": "2026-11-11T00:55:43+00:00",
+  "schema_version": 2,
+  "ntqr_version": "0.9",
   "result": {
     "prevalence_a": 0.6,
     "q": 256,
@@ -54,7 +56,7 @@
         "catastrophic_rate": 0.71,
         "degenerate_count": 19,
         "degenerate_rate": 0.095,
-        "prevalence_abs_error_mean": 0.4214799761905717
+        "prevalence_abs_error_mean": 0.4226022137596325
       },
       {
         "accuracy": 0.56,
@@ -64,7 +66,7 @@
         "catastrophic_rate": 0.85,
         "degenerate_count": 14,
         "degenerate_rate": 0.07,
-        "prevalence_abs_error_mean": 0.48498887896733595
+        "prevalence_abs_error_mean": 0.4871730187522822
       },
       {
         "accuracy": 0.52,
@@ -92,7 +94,7 @@
       }
     ],
     "metadata": {
-      "generated_utc": "2026-06-01T20:27:45.942596+00:00",
+      "generated_utc": "2026-11-11T00:55:43.557272+00:00",
       "study": "synthetic_recovery_study",
       "deterministic": true,
       "ensemble": {
@@ -122,7 +124,7 @@
   },
   "caption": "The unsupervised branch rule is stable for strong judges and fails as symmetric judge accuracy approaches random guessing.",
   "metadata": {
-    "generated_utc": "2026-06-01T20:27:45.942596+00:00",
+    "generated_utc": "2026-11-11T00:55:43.557272+00:00",
     "study": "synthetic_recovery_study",
     "deterministic": true,
     "ensemble": {
@@ -151,7 +153,7 @@
   },
   "provenance": {
     "source_file": "tiebreak.data.json",
-    "generated_utc": "2026-06-01T20:27:45.942596+00:00",
+    "generated_utc": "2026-11-11T00:55:43.557272+00:00",
     "study": "synthetic_recovery_study",
     "deterministic": true,
     "seed": 4000

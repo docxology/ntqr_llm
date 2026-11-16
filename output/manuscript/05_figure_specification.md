@@ -54,8 +54,9 @@ below is specified as **claim -> encoding -> reference lines -> data source**.
   0.102 sampling-noise reference lines.
 - `fig:synthetic-convergence` (`synthetic_convergence.png`;
   `synthetic_convergence.data.json`) supports [@sec:synthetic-validation]. It
-  plots recovery error against test size on log-log axes, with the `1/sqrt(Q)`
-  reference and fitted slope -0.58.
+  plots conditional recovery error against test size on log-log axes, with
+  complete-physical / attempted support per point, the `1/sqrt(Q)` reference and
+  fitted conditional slope -0.45.
 - `fig:synthetic-alarm` (`synthetic_alarm.png`;
   `synthetic_alarm.data.json`) supports [@sec:synthetic-validation]. It shows
   alarm rate, discriminant behavior, and silent recovery error by error
@@ -74,6 +75,14 @@ below is specified as **claim -> encoding -> reference lines -> data source**.
 - `fig:validation-matrix` (`validation_matrix.png`;
   `validation_matrix.data.json`) supports [@sec:validation-matrix]. It reports
   generated checks for the manuscript's load-bearing statistical claims.
+
+The six supporting figures above are rendered from preserved recorded summaries
+into `outputs/validation/render_supporting_figures/`, without new simulations,
+bootstrap resampling, or model calls. Their scientific sidecars are copied
+byte-for-byte from the original producer directories; the rendering manifest
+binds the derivative artwork to those inputs and the rendering source. The
+`output/figures/` publication projection uses the image-stem sidecar names listed
+above.
 
 The figures are mutually reinforcing: [@fig:evaluation-pipeline] defines the
 experimental boundary, [@fig:disagreement-vs-evaluability] states the thesis on

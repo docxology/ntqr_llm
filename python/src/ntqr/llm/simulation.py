@@ -15,13 +15,13 @@ truth is set by construction:
 It answers two questions the single real model cannot:
 
 1. **Does recovery track the truth across many ensembles, and how does its error
-   scale with test size Q?** (``convergence_sweep``) -- the recovery MAE should
-   fall like sampling noise, ~1/sqrt(Q), with no persistent bias.
+   scale with test size Q?** (``convergence_sweep``) -- recovery errors and their
+   fitted slopes are conditional on complete physical recoveries; ``n_solved``
+   records their support out of ``n_trials`` attempts at each Q.
 2. **When does the imaginary-prevalence alarm fire?** (``correlation_sweep``) --
-   the alarm is an *iron-clad sufficient* signal of violated error-independence,
-   but this study characterises its blind spot: positive common-mode correlation
-   (the realistic shared-training-data failure for LLMs) can evade it, while an
-   anti-correlated pair (negative pairwise vote-moment product) trips it.
+   a negative discriminant rejects the exact empirical error-independent model,
+   not necessarily an independently sampled population generator. Positive
+   common-mode correlation can evade it, while anti-correlated pairs can trip it.
 
 Everything here is pure (seeded ``random.Random``, no network, no matplotlib, no
 TeX); the orchestrator (``scripts/sim/synthetic_recovery_study.py``) handles I/O
@@ -36,7 +36,12 @@ import math
 import random
 from dataclasses import dataclass
 
-from ntqr.llm.recovery_scoring import accuracy_abs_errors, safe_float, select_best
+from ntqr.llm.recovery_scoring import (
+    accuracy_abs_errors,
+    safe_float,
+    select_best,
+    select_physical,
+)
 
 # A judge's accuracy is (alpha, beta): P(correct | true label a), P(correct | b).
 JudgeAccuracy = tuple[float, float]
@@ -67,16 +72,20 @@ class Ensemble:
 
 @dataclass
 class CorrelationConfig:
-    """How the synthetic judges' errors are coupled, beyond independence.
+    """How the synthetic judges' independent correctness is corrupted.
+
+    ``ensemble.accuracies`` are pre-corruption per-label accuracies.
 
     * ``common_mode`` -- probability that a shared latent event forces *all*
-      three judges to err together on an item (positive error correlation, the
-      shared-training-data analogue for LLMs).
+      three judges to err together. This multiplies every effective accuracy by
+      ``1 - common_mode``.
     * ``anti_pair`` -- an optional ``(i, j)`` judge-index pair to anti-correlate.
     * ``anti_strength`` -- probability that judge ``j`` mirrors the *opposite* of
-      judge ``i``'s correctness (driving their pairwise vote-moment negative).
+      judge ``i``'s post-common-mode correctness. This changes judge ``j``'s
+      effective marginal while leaving the other judges' marginals unchanged.
 
     ``CorrelationConfig()`` with all defaults is exact error-independence.
+    :func:`effective_accuracies` reports the resulting configured marginals.
     """
 
     label: str = "independent"
@@ -111,10 +120,14 @@ def generate_label_counts(
 
     Returns ``{"a": {pattern: count}, "b": {...}}`` ready for ntqr's
     ``TrioLabelVoteCounts``. ``Q_a = round(prevalence_a * Q)`` items carry truth
-    ``a``; the rest carry ``b``. For each item every judge votes correctly with
-    its per-label accuracy, then the optional correlation structure is applied.
-    No vote is ever fabricated or dropped -- each item contributes exactly one
-    length-3 pattern, so the counts sum to ``q``.
+    ``a``; the rest carry ``b``. Each judge first draws independent correctness
+    using its configured pre-corruption per-label accuracy. Common-mode events
+    then force all three judges wrong, and anti-pair events replace judge ``j``
+    with the opposite of judge ``i``'s correctness. These corruptions change the
+    effective marginals reported by :func:`effective_accuracies`. The independent
+    configuration retains its historical RNG stream. No vote is fabricated or
+    dropped -- each item contributes exactly one length-3 pattern, so the counts
+    sum to ``q``.
     """
     if type(q) is not int or q < 1:
         raise ValueError("q must be a positive integer")
@@ -145,6 +158,34 @@ def generate_label_counts(
         bucket[pattern] = bucket.get(pattern, 0) + 1
 
     return counts
+
+
+def effective_accuracies(
+    ensemble: Ensemble, config: CorrelationConfig
+) -> list[dict[str, float]]:
+    """Return each judge's per-label accuracy after configured corruption.
+
+    Common mode first multiplies every base accuracy by ``1 - common_mode``.
+    For an anti pair ``(i, j)``, only judge ``j`` then becomes the mixture
+    ``(1-s) * acc_j + s * (1-acc_i)``, using post-common-mode values on both
+    sides. The row shape matches :func:`sample_truth`'s ``accuracies`` value.
+    """
+    rows = [
+        {
+            "a": (1.0 - config.common_mode) * alpha,
+            "b": (1.0 - config.common_mode) * beta,
+        }
+        for alpha, beta in ensemble.accuracies
+    ]
+    if config.anti_pair is not None:
+        i, j = config.anti_pair
+        strength = config.anti_strength
+        rows[j] = {
+            label: (1.0 - strength) * rows[j][label]
+            + strength * (1.0 - rows[i][label])
+            for label in ("a", "b")
+        }
+    return rows
 
 
 def sample_truth(label_counts: dict) -> dict:
@@ -198,15 +239,20 @@ def prevalence_discriminant(evaluator) -> float:
     return 1 - 4 * c_coeff / a_coeff
 
 
-def solve_recovery(label_counts: dict) -> dict:
+def solve_recovery(label_counts: dict, *, physical_only: bool = True) -> dict:
     """Run the real ntqr error-independent solve and score it against truth.
 
     Builds the same ``TrioLabelVoteCounts -> ErrorIndependentEvaluation`` chain
-    the LLM study uses, selects the better-than-random branch of the two
-    solutions (shared ``_recovery.select_best``), and reports the recovery error
-    against ``sample_truth``. When the prevalence root is imaginary (``alarm``)
-    the recovery is undefined and the error fields are ``None`` -- the honest
-    outcome, never a fabricated number.
+    the LLM study uses. By default, select the better-than-random branch among
+    complete physical solutions. ``physical_only=False`` preserves the historical
+    raw finite-root experiment: ``select_best`` chooses by mean accuracy and
+    finite roots are scored even when their probabilities are nonphysical.
+    Raw algebraic roots remain available in ``roots`` in both modes.
+
+    ``alarm`` means the selected recovery is unavailable: the prevalence is
+    imaginary, degenerate, or nonfinite, or the default physical selection has
+    no admissible solution. Every alarm clears the recovered prevalence and both
+    error fields rather than returning partial or nonphysical scores.
     """
     from ntqr.r2.datasketches import TrioLabelVoteCounts
     from ntqr.r2.evaluators import ErrorIndependentEvaluation
@@ -217,8 +263,8 @@ def solve_recovery(label_counts: dict) -> dict:
     discriminant = prevalence_discriminant(evaluator)
 
     solutions = evaluator.evaluation_float
-    best = select_best(solutions)
-    rec_prev = safe_float(best["prevalence"]["a"])
+    best = select_physical(solutions) if physical_only else select_best(solutions)
+    rec_prev = safe_float(best["prevalence"]["a"]) if best is not None else None
     alarm = (
         not math.isfinite(discriminant) or discriminant < 0 or rec_prev is None
     )
@@ -229,11 +275,18 @@ def solve_recovery(label_counts: dict) -> dict:
         if v is not None
     )
 
+    if alarm:
+        rec_prev = None
     prevalence_abs_error = (
-        abs(rec_prev - truth["prevalence_a"]) if rec_prev is not None else None
+        abs(rec_prev - truth["prevalence_a"])
+        if not alarm and rec_prev is not None
+        else None
     )
-
-    abs_errors = accuracy_abs_errors(best, truth["accuracies"])
+    abs_errors = (
+        accuracy_abs_errors(best, truth["accuracies"])
+        if not alarm and best is not None
+        else []
+    )
     accuracy_mae = sum(abs_errors) / len(abs_errors) if len(abs_errors) == 6 else None
 
     return {
@@ -266,9 +319,11 @@ def convergence_sweep(
     """Mean +/- sd recovery error vs test size ``Q`` over independent replicas.
 
     For each ``Q`` we draw ``n_trials`` independent error-independent tests
-    (distinct seeds, fully reproducible) and average the prevalence error and the
-    accuracy MAE. The expected signature of an unbiased estimator limited only by
-    sampling noise is ``error ~ C / sqrt(Q)`` -- see :func:`sqrt_q_fit`.
+    (distinct seeds, fully reproducible). Both error means and standard deviations
+    use only the same ``n_solved`` complete physical recoveries. The remaining
+    ``n_trials - n_solved`` attempts are unavailable, not zero-error observations
+    or necessarily imaginary-root alarms. Fits over these means describe a
+    conditional estimand, not full-cohort recovery or proof of error-independence.
     """
     rows = []
     for q in q_values:
@@ -277,10 +332,12 @@ def convergence_sweep(
             rng = random.Random(base_seed + q * 100_003 + trial)
             counts = generate_label_counts(ensemble, q, rng)
             result = solve_recovery(counts)
-            if result["alarm"]:
+            prev_err = result["prevalence_abs_error"]
+            acc_mae = result["accuracy_mae"]
+            if result["alarm"] or prev_err is None or acc_mae is None:
                 continue
-            prev_errs.append(result["prevalence_abs_error"])
-            acc_maes.append(result["accuracy_mae"])
+            prev_errs.append(prev_err)
+            acc_maes.append(acc_mae)
         prev_mean, prev_sd = _mean_sd(prev_errs)
         acc_mean, acc_sd = _mean_sd(acc_maes)
         rows.append(
@@ -300,9 +357,10 @@ def convergence_sweep(
 def sqrt_q_fit(rows: list[dict], key: str = "accuracy_mae_mean") -> dict:
     """Least-squares slope of ``log(error)`` vs ``log(Q)``.
 
-    A slope near ``-0.5`` confirms the recovery error falls like sampling noise
-    (``error ~ Q**slope``). Returns the slope, intercept, the implied exponent,
-    and ``r_squared`` of the log-log fit. Needs at least two solved rows.
+    A slope near ``-0.5`` is consistent with sampling-rate error decay
+    (``error ~ Q**slope``) on the supplied support. For convergence rows this is
+    conditional on complete physical recovery, not proof of an unbiased estimator.
+    Returns the slope, intercept and ``r_squared``. Needs two solved rows.
     """
     pts = [
         (math.log(r["q"]), math.log(r[key]))
@@ -347,9 +405,12 @@ def correlation_sweep(
 
     For each config we draw ``n_trials`` reproducible tests and record how often
     the imaginary-prevalence alarm fires, the discriminant distribution, and --
-    among the silent (non-alarm) trials -- the residual recovery error. The
-    independent config doubles as a false-alarm control: a correct alarm never
-    fires on a genuinely error-independent ensemble.
+    among the silent (non-alarm) trials -- the residual recovery error. Recovery
+    explicitly uses raw finite-root mode so rejecting a nonphysical solution is
+    never mislabeled as an imaginary-prevalence alarm. The independent config
+    doubles as an empirical false-alarm control. A negative discriminant rejects
+    the exact empirical model; sampling variation can still produce one under an
+    independent population generator. Effective marginals accompany each config.
     """
     rows = []
     for cfg_index, config in enumerate(configs):
@@ -358,7 +419,7 @@ def correlation_sweep(
         for trial in range(n_trials):
             rng = random.Random(base_seed + cfg_index * 1_000_003 + trial)
             counts = generate_label_counts(ensemble, q, rng, config)
-            result = solve_recovery(counts)
+            result = solve_recovery(counts, physical_only=False)
             disc = result["discriminant"]
             if math.isfinite(disc):
                 discs.append(disc)
@@ -376,6 +437,7 @@ def correlation_sweep(
                     list(config.anti_pair) if config.anti_pair else None
                 ),
                 "anti_strength": config.anti_strength,
+                "effective_accuracies": effective_accuracies(ensemble, config),
                 "q": q,
                 "n_trials": n_trials,
                 "alarm_count": alarms,
@@ -407,11 +469,14 @@ def tie_break_sweep(
     ``select_best`` resolves the two-solution ambiguity by assuming the judges
     are better than random. That assumption weakens as accuracy falls toward 0.5:
     finite-sample noise can make the *mirror* solution score higher, and recovery
-    catastrophically inverts. For each mean per-label ``accuracy`` (judges held
-    symmetric so accuracy is the only varying factor) we draw ``n_trials`` tests
-    and report the catastrophic-inversion rate (``prevalence_abs_error`` above
-    ``catastrophe_threshold``), the mean prevalence error, and the degenerate
-    rate. This quantifies the §S1 tie-break assumption rather than asserting it.
+    catastrophically inverts. This sweep intentionally uses ``physical_only=False``
+    to preserve that historical raw-finite-root danger-zone experiment, rather
+    than measuring the default physical-filtered recovery. For each mean
+    per-label ``accuracy`` (judges held symmetric so accuracy is the only varying
+    factor) we draw ``n_trials`` tests and report the catastrophic-inversion rate
+    (``prevalence_abs_error`` above ``catastrophe_threshold``), the mean
+    prevalence error, and the degenerate rate. This quantifies the §S1 tie-break
+    assumption rather than asserting it.
     """
     rows = []
     for acc_index, accuracy in enumerate(accuracies):
@@ -422,7 +487,7 @@ def tie_break_sweep(
         for trial in range(n_trials):
             rng = random.Random(base_seed + acc_index * 100_003 + trial)
             counts = generate_label_counts(ensemble, q, rng)
-            result = solve_recovery(counts)
+            result = solve_recovery(counts, physical_only=False)
             if result["alarm"] or result["prevalence_abs_error"] is None:
                 degenerate += 1
                 continue

@@ -37,6 +37,15 @@ scripts/z_generate_manuscript_variables.py
 output/manuscript/*.md + output/figures/*.png           (template renderer input)
 ```
 
+Recorded supporting artwork is exported separately by
+`scripts/validation/render_supporting_figures.py` into
+`outputs/validation/render_supporting_figures/`. It reads the preserved
+simulation/bootstrap/validation summaries, copies scientific sidecars
+byte-for-byte, and writes a new input-hash manifest. This step renders existing
+data; it does not resample scenarios, rerun simulations or call models.
+The manuscript and bridge consume these derived figures, not overwritten
+producer artwork.
+
 `render.py` is ~110 lines and does exactly three things: load values, substitute
 tokens with a strict regex (`\{\{([A-Z0-9_]+)\}\}`), and write (or, with
 `--check`, diff) the targets. Token resolution is **fail-closed**: an unknown
@@ -56,7 +65,9 @@ CI / pre-commit gate: if `manuscript.md` was hand-edited, or the data changed
 without a re-render, `--check` exits non-zero and names the drifted files.
 
 `z_generate_manuscript_variables.py` is the bridge to the sibling
-`docxology/template` renderer. It uses the same value map as `render.py`, writes
+`docxology/template` renderer. Within each bridge invocation it computes the value
+map once and passes that identical mapping to `render_all`, so the variables JSON
+and prose cannot come from different artifact snapshots. It writes
 `output/data/manuscript_variables.json`, emits section files such as
 `00_abstract.md` and `03_results.md`, and copies all 17 embedded figure PNGs and
 their data sidecars into `output/figures/`. The template renderer then supplies
@@ -68,6 +79,53 @@ PDF style is project-local: `docs/manuscript/config.yaml` sets the compact
 cross-reference, citation, and URL hyperlinks to red. These are copied into
 `output/manuscript/` by `z_generate_manuscript_variables.py` before the template
 renderer runs.
+
+The preamble uses the existing `float` package's `H` placement for figures.
+Figures and captions stay with their source text instead of entering a pending
+float queue around long tables. PDF qualification must find all 17 numbered
+captions and the complete results prose, with no `Overfull \vbox` diagnostics;
+an API success or an asset-loading count alone does not prove complete pages.
+
+### Released PDF producer
+
+The published `docxology/template` v5.0.0 release provides
+`infrastructure.rendering.RenderManager.render_combined_pdf`.
+Its annotated tag resolves to commit
+`e932a5d2a4f5c75f354352b43e54039eac9f63cf`. Bind that released source,
+its installed environment and native Pandoc/TeX toolchain separately from this
+project's source gates; a working checkout advertising a newer version is not
+release evidence. No unrelated template release blocks the offline gates.
+
+From that admitted release environment, with explicit `SOURCE_ROOT` and a new
+`DESTINATION_ROOT`, the direct API needs no project registration or analysis run:
+
+```python
+import os
+from pathlib import Path
+import shutil
+from infrastructure.rendering import (
+    RenderingConfig, RenderManager, discover_manuscript_files,
+)
+
+root = Path(os.environ["SOURCE_ROOT"]).resolve()
+target = Path(os.environ["DESTINATION_ROOT"]).resolve()
+manuscript = root / "output/manuscript"
+figures = target / "figures"
+shutil.copytree(root / "output/figures", figures)
+config = RenderingConfig(
+    manuscript_dir=str(manuscript), figures_dir=str(figures),
+    output_dir=str(target), pdf_dir=str(target / "pdf"),
+)
+pdf = RenderManager(config).render_combined_pdf(
+    discover_manuscript_files(manuscript), manuscript, "ntqr_llm_personas",
+)
+print(pdf)
+```
+
+The adjacent `figures/` staging copy is required by combined PDF relative image
+paths. Keep original PDFs and evidence untouched. A successful API return alone
+does not qualify scientific claims: inspect the actual PDF for all figures,
+resolved tokens/references, red links and the project-local margin geometry.
 
 ## Token kinds
 

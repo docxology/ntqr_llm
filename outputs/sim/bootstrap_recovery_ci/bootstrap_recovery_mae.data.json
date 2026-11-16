@@ -1,5 +1,7 @@
 {
-  "generated_at": "2026-06-01T13:27:52",
+  "generated_at": "2026-11-10T23:57:14+00:00",
+  "schema_version": 2,
+  "ntqr_version": "0.9",
   "result": {
     "figure": "bootstrap_recovery_mae.png",
     "title": "Recovery MAE under scenario resampling",
@@ -1972,7 +1974,7 @@
       "mean": 0.0117550335852485,
       "median": 0.011758947986924395,
       "ci_lo": 0.0,
-      "ci_hi": 0.03778869147928804
+      "ci_hi": 0.03778918304509012
     },
     "prevalence_abs_error": {
       "n": 1958,
@@ -1991,7 +1993,7 @@
       }
     ],
     "metadata": {
-      "generated_utc": "2026-06-01T20:27:52.316868+00:00",
+      "generated_utc": "2026-11-10T23:57:14.558626+00:00",
       "model": "mistral:latest",
       "n_scenarios": 64,
       "n_boot": 2000,
@@ -2000,7 +2002,7 @@
   },
   "caption": "Scenario bootstrap distribution for the headline recovery MAE; the confidence interval remains below the conservative sampling-noise floor.",
   "metadata": {
-    "generated_utc": "2026-06-01T20:27:52.316868+00:00",
+    "generated_utc": "2026-11-10T23:57:14.558626+00:00",
     "model": "mistral:latest",
     "n_scenarios": 64,
     "n_boot": 2000,
@@ -2008,7 +2010,7 @@
   },
   "provenance": {
     "source_file": "bootstrap_recovery_mae.data.json",
-    "generated_utc": "2026-06-01T20:27:52.316868+00:00",
+    "generated_utc": "2026-11-10T23:57:14.558626+00:00",
     "model": "mistral:latest",
     "n_scenarios": 64,
     "n_boot": 2000,

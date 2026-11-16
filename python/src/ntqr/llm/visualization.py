@@ -13,6 +13,7 @@ from pathlib import Path
 from . import analysis, personas
 from .artifacts import generated_at, save_record
 from .figure_export import export_figure, publication_figure
+from .study_records import model_dirname
 
 DEFAULT_MODELS = [
     "granite4.1:3b",
@@ -23,10 +24,6 @@ DEFAULT_MODELS = [
     "smollm2:135m-instruct-q4_K_S",
 ]
 BASELINE_SUMMARY = "baseline_t0.7_summary.json"
-
-
-def _model_dirname(model):
-    return model.replace(":", "_").replace("/", "_")
 
 
 def _result_body(path):
@@ -368,7 +365,7 @@ def plot_concentration(context: FigureContext):
     concentration = []
     for r in rows:
         diag_path = (
-            out / "models" / _model_dirname(r["model"]) / "evaluability_diagnostic.json"
+            out / "models" / model_dirname(r["model"]) / "evaluability_diagnostic.json"
         )
         if not diag_path.exists() or r.get("mean_pairwise_disagreement") is None:
             continue
@@ -771,7 +768,7 @@ def plot_hardness(context: FigureContext):
     for scenario in personas.SCENARIOS:
         calls = []
         for r in rows:
-            votes_path = out / "models" / _model_dirname(r["model"]) / "votes.json"
+            votes_path = out / "models" / model_dirname(r["model"]) / "votes.json"
             if not votes_path.exists():
                 continue
             payload = json.loads(votes_path.read_text())
@@ -1254,7 +1251,7 @@ def plot_variation(context: FigureContext):
     diagnosed = []
     for r in rows:
         diag_path = (
-            out / "models" / _model_dirname(r["model"]) / "evaluability_diagnostic.json"
+            out / "models" / model_dirname(r["model"]) / "evaluability_diagnostic.json"
         )
         if not diag_path.exists():
             continue

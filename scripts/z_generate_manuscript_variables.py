@@ -160,53 +160,73 @@ FIGURES: tuple[tuple[Path, Path | None], ...] = (
     (
         ROOT
         / "outputs"
-        / "sim"
-        / "synthetic_recovery_study"
+        / "validation"
+        / "render_supporting_figures"
         / "synthetic_convergence.png",
-        ROOT / "outputs" / "sim" / "synthetic_recovery_study" / "convergence.data.json",
-    ),
-    (
-        ROOT / "outputs" / "sim" / "synthetic_recovery_study" / "synthetic_alarm.png",
-        ROOT / "outputs" / "sim" / "synthetic_recovery_study" / "correlation.data.json",
+        ROOT
+        / "outputs"
+        / "validation"
+        / "render_supporting_figures"
+        / "convergence.data.json",
     ),
     (
         ROOT
         / "outputs"
-        / "sim"
-        / "bootstrap_recovery_ci"
+        / "validation"
+        / "render_supporting_figures"
+        / "synthetic_alarm.png",
+        ROOT
+        / "outputs"
+        / "validation"
+        / "render_supporting_figures"
+        / "correlation.data.json",
+    ),
+    (
+        ROOT
+        / "outputs"
+        / "validation"
+        / "render_supporting_figures"
         / "bootstrap_recovery_mae.png",
         ROOT
         / "outputs"
-        / "sim"
-        / "bootstrap_recovery_ci"
+        / "validation"
+        / "render_supporting_figures"
         / "bootstrap_recovery_mae.data.json",
     ),
     (
         ROOT
         / "outputs"
-        / "sim"
-        / "synthetic_recovery_study"
+        / "validation"
+        / "render_supporting_figures"
         / "synthetic_tiebreak.png",
-        ROOT / "outputs" / "sim" / "synthetic_recovery_study" / "tiebreak.data.json",
-    ),
-    (
         ROOT
         / "outputs"
-        / "sim"
-        / "synthetic_recovery_study"
-        / "synthetic_mv_vs_ei.png",
-        ROOT / "outputs" / "sim" / "synthetic_recovery_study" / "mv_vs_ei.data.json",
+        / "validation"
+        / "render_supporting_figures"
+        / "tiebreak.data.json",
     ),
     (
         ROOT
         / "outputs"
         / "validation"
-        / "statistical_validation"
+        / "render_supporting_figures"
+        / "synthetic_mv_vs_ei.png",
+        ROOT
+        / "outputs"
+        / "validation"
+        / "render_supporting_figures"
+        / "mv_vs_ei.data.json",
+    ),
+    (
+        ROOT
+        / "outputs"
+        / "validation"
+        / "render_supporting_figures"
         / "validation_matrix.png",
         ROOT
         / "outputs"
         / "validation"
-        / "statistical_validation"
+        / "render_supporting_figures"
         / "validation_matrix.data.json",
     ),
 )
@@ -226,7 +246,9 @@ TOKEN_RE = re.compile(r"\{\{[A-Z0-9_]+\}\}")
 
 
 def _template_path_text(text: str) -> str:
-    return text.replace("../output/figures/", "../figures/")
+    return text.replace("../output/figures/", "../figures/").replace(
+        "../outputs/validation/render_supporting_figures/", "../figures/"
+    )
 
 
 def _split_main(text: str) -> dict[str, str]:
@@ -252,13 +274,17 @@ def figure_payloads(figures=FIGURES) -> dict[Path, bytes]:
     for image, sidecar in figures:
         image_target = OUTPUT_FIGURES / image.name
         if image_target in payloads:
-            raise ValueError(f"duplicate generated figure filename: {image.name}")
+            raise ValueError(
+                f"duplicate generated figure filename: {image.name}"
+            )
         payloads[image_target] = image.read_bytes()
         vector = image.with_suffix(".svg")
         if vector.is_file():
             vector_target = OUTPUT_FIGURES / vector.name
             if vector_target in payloads:
-                raise ValueError(f"duplicate generated vector filename: {vector.name}")
+                raise ValueError(
+                    f"duplicate generated vector filename: {vector.name}"
+                )
             payloads[vector_target] = vector.read_bytes()
         if sidecar is not None:
             source = sidecar.read_bytes()
@@ -283,7 +309,7 @@ def main(argv=None) -> int:
     from ntqr.llm.artifacts import atomic_write_bytes
 
     values = _values.compute_values(OUT_DIR)
-    rendered = render.render_all()
+    rendered = render.render_all(values=values)
     main_text = rendered[MANUSCRIPT_DIR / "manuscript.md"]
     supplemental = rendered[MANUSCRIPT_DIR / "supplemental.md"]
     payloads = figure_payloads()
@@ -298,9 +324,13 @@ def main(argv=None) -> int:
     supp_body = _template_path_text(supplemental.strip() + "\n")
     if TOKEN_RE.search(supp_body):
         raise KeyError("unresolved token in generated supplemental")
-    payloads[OUTPUT_MANUSCRIPT / "S01_supplemental.md"] = supp_body.encode("utf-8")
+    payloads[OUTPUT_MANUSCRIPT / "S01_supplemental.md"] = supp_body.encode(
+        "utf-8"
+    )
     for name in ("config.yaml", "preamble.md", "references.bib"):
-        payloads[OUTPUT_MANUSCRIPT / name] = (MANUSCRIPT_DIR / name).read_bytes()
+        payloads[OUTPUT_MANUSCRIPT / name] = (
+            MANUSCRIPT_DIR / name
+        ).read_bytes()
     manifest = {
         "schema_version": 1,
         "files": {
@@ -318,7 +348,10 @@ def main(argv=None) -> int:
             if not path.is_file() or path.read_bytes() != source
         ]
         if stale:
-            print("Stale generated artifacts: " + ", ".join(stale), file=sys.stderr)
+            print(
+                "Stale generated artifacts: " + ", ".join(stale),
+                file=sys.stderr,
+            )
             return 1
         print(f"OK — {len(payloads)} generated artifacts match their sources.")
         return 0

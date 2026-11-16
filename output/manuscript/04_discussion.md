@@ -85,8 +85,9 @@ distribution; extend beyond the trio (larger `N`, `R>2`); test whether a
 softened persona prompt (or light temperature) restores variation in the
 collapsed judges and thereby restores evaluability. The synthetic study
 ([@sec:synthetic-validation])
-begins the last of these — it shows positive common-mode correlation silently
-degrades recovery without tripping the alarm — and a natural next step is to
+begins the last of these — it shows forced common-mode errors silently
+degrading recovery without tripping the alarm, while also lowering effective
+judge accuracy in this stress design — and a natural next step is to
 *measure* the realized error-correlation of real LLM juries (e.g. from shared
 base models) and predict the resulting recovery bias.
 

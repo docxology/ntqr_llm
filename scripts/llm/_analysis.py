@@ -69,7 +69,9 @@ def collect_votes(
     temperature, so one cache file holds many runs without collision. Cache
     entries are backward-compatible records. New records additionally retain
     ``raw``, ``parse_method``, ``prompt_version``, and ``prompt_hash`` so prompt
-    failures can be audited after the sweep.
+    failures can be audited after the sweep. Cached records marked
+    ``parse_method="unavailable"`` are transient transport abstentions and are
+    retried even when ``refresh`` is false; genuine parse failures stay cached.
 
     ``on_error`` governs an unreachable model (timeout / connection failure):
 
@@ -88,8 +90,12 @@ def collect_votes(
         user = _personas.USER_TEMPLATE.format(scenario=scenario["text"])
         for persona in _personas.PERSONAS:
             key = cache_key(client, persona["key"], scenario["id"])
+            record = None
             if not refresh and key in cache:
-                record = normalize_cache_record(cache[key])
+                cached = normalize_cache_record(cache[key])
+                if cached["parse_method"] != "unavailable":
+                    record = cached
+            if record is not None:
                 call = record["call"]
                 cell_unparsed = bool(record["unparsed"])
             else:
@@ -134,5 +140,3 @@ def collect_votes(
                 unparsed += 1
             votes[scenario["id"]][persona["key"]] = call
     return votes, unparsed, cache
-
-

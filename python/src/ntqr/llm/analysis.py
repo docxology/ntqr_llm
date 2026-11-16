@@ -68,9 +68,12 @@ def descriptive_stats(values):
     """n / min / max / mean / median / std / spread of a list of numbers.
 
     Population standard deviation (ddof=0). ``None`` entries are dropped first;
-    an empty list yields all-``None`` so callers can serialize it unconditionally.
+    nonfinite numbers are rejected rather than counted as observations. An empty
+    list yields all-``None`` so callers can serialize it unconditionally.
     """
     xs = sorted(v for v in values if v is not None)
+    if any(not math.isfinite(value) for value in xs):
+        raise ValueError("descriptive statistics require finite values or None")
     n = len(xs)
     if n == 0:
         return {
@@ -210,28 +213,35 @@ def normalize_cache_record(record) -> dict[str, object]:
     """Return a backward-compatible cache record with diagnostic fields."""
     if isinstance(record, dict):
         call = record.get("call")
-        unparsed = bool(record.get("unparsed", call is None))
+        call = call if call in personas.CALL_TO_LABEL else None
+        # Cached flags are untrusted historical input. An invalid label or an
+        # explicit abstention must never normalize into a compliant None vote.
+        unparsed = call is None or bool(record.get("unparsed", False))
+        if unparsed:
+            call = None
         attempts = record.get("attempts") or []
         first_attempt = attempts[0] if attempts else {}
         return {
-            "call": call if call in personas.CALL_TO_LABEL else None,
+            "call": call,
             "unparsed": unparsed,
             "raw": record.get("raw"),
             "parse_method": record.get(
                 "parse_method", "none" if unparsed else "legacy"
             ),
-            "schema_valid": bool(record.get("schema_valid", not unparsed)),
+            "schema_valid": call is not None
+            and bool(record.get("schema_valid", True)),
             "invalid_reason": record.get("invalid_reason"),
             "attempts": attempts,
             "repair_used": bool(record.get("repair_used", False)),
             "n_attempts": int(record.get("n_attempts", len(attempts) or 1)),
-            "primary_parse_valid": bool(
+            "primary_parse_valid": call is not None
+            and bool(
                 record.get(
                     "primary_parse_valid",
-                    first_attempt.get("schema_valid", not unparsed),
+                    first_attempt.get("schema_valid", True),
                 )
             ),
-            "final_parse_valid": bool(record.get("final_parse_valid", not unparsed)),
+            "final_parse_valid": call is not None,
             "prompt_version": record.get("prompt_version"),
             "prompt_hash": record.get("prompt_hash"),
         }

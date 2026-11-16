@@ -10,6 +10,7 @@ import os
 from pathlib import Path
 import stat
 import tempfile
+from typing import Any
 
 
 def generated_at() -> str:
@@ -91,15 +92,16 @@ def atomic_write_text(path: Path, content: str) -> Path:
     return atomic_write_bytes(path, content.encode("utf-8"))
 
 
-def save_json(path: Path, record) -> Path:
+def _write_normalized_json(path: Path, record) -> Path:
+    """Write a record whose contents have already passed through ``jsonable``."""
     encoded = (
-        json.dumps(jsonable(record), indent=2, ensure_ascii=False, allow_nan=False)
-        + "\n"
+        json.dumps(record, indent=2, ensure_ascii=False, allow_nan=False) + "\n"
     )
     return atomic_write_text(path, encoded)
 
 
-from typing import Any
+def save_json(path: Path, record) -> Path:
+    return _write_normalized_json(path, jsonable(record))
 
 
 def _sidecar_provenance(
@@ -155,4 +157,4 @@ def save_record(directory: Path, filename: str, payload: Any) -> Path:
             else _sidecar_provenance(filename, result, record["generated_at"])
         )
     path = directory / filename
-    return save_json(path, record)
+    return _write_normalized_json(path, record)

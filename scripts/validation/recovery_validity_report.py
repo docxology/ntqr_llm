@@ -13,15 +13,17 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import _common
 
 _common.ensure_ntqr_importable()
-from ntqr.llm.validity_audit import audit_persona_records
 
 
 def main(argv=None) -> None:
+    from ntqr.llm.validity_audit import audit_persona_records
+
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--models-dir",
         type=Path,
-        default=_common.REPO_ROOT / "outputs/llm/multi_llm_personas_evaluation/models",
+        default=_common.REPO_ROOT
+        / "outputs/llm/multi_llm_personas_evaluation/models",
     )
     parser.add_argument("--output-dir", type=Path)
     args = parser.parse_args(argv)

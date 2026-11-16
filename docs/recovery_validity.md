@@ -15,17 +15,34 @@ probabilities, their sum, the three binary classifier rows, finiteness, and the
 `select_physical(solutions)` returns the higher-mean-accuracy admissible branch,
 or `None` when no complete physical branch is available.
 
-`select_best` remains the raw algebraic selection API for reproducing historical
-synthetic error experiments. A finite root from that API is not automatically
-a probability: some historical danger-zone experiments intentionally report
-raw algebraic errors even when estimated accuracies leave [0, 1]. Partial
-solutions no longer outrank complete recoveries, and `recovery_stats` reserves
+`select_best` remains available only for callers explicitly reproducing historical
+raw algebraic experiments. The maintained `solve_recovery` path uses
+`select_physical`: nonphysical roots make recovery unavailable, and convergence
+and bootstrap summaries include only complete physical recoveries on the same
+resample support. A finite root from the raw API is not automatically a
+probability. Partial solutions no longer outrank complete recoveries, and
+`recovery_stats` reserves
 `recovery_mae` for complete finite comparisons. `available_terms_mae` explicitly
 labels a partial diagnostic rather than presenting it as a complete recovery.
 
-Future live evaluations require a physical solution via
+Live evaluations require a physical solution via
 `build_comparison(..., physical_only=True)`. Failure of the majority-voting
-baseline does not erase a successful error-independent recovery.
+baseline does not erase a successful error-independent recovery. Historical
+imaginary-alarm and tie-break sweeps pass `physical_only=False` to preserve their
+raw-finite-root measurements.
+
+## Synthetic dependence
+
+The study's configured accuracies are pre-corruption parameters. A common-mode
+event forces all three judges to err, multiplying each post-common accuracy by
+`1 - common_mode`. For an anti pair `(i, j)`, judge `j` mirrors the opposite of
+judge `i` with probability `anti_strength`, so its effective accuracy is
+`(1-s) * acc_j + s * (1-acc_i)` after applying the common-mode adjustment to
+both terms. `correlation_sweep` serializes these `effective_accuracies` for every
+row rather than presenting dependence and marginal-skill changes as one effect.
+Independent generation retains its historical seeded RNG stream. The alarm
+sweep explicitly uses raw mode so its rate counts imaginary roots, not physical
+solution unavailability.
 
 ## Audit recorded votes without an answer key
 

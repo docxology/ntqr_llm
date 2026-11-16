@@ -55,8 +55,9 @@ checks:
   (`~1/√Q`), with the slope stable across diverse prevalences and accuracies.
 - **Two honest failure boundaries**: the imaginary-root alarm is *sufficient but
   not necessary* — it catches an anti-correlated judge pair with zero false
-  positives, yet positive **common-mode** correlation (the shared-pre-training
-  analogue) silently degrades recovery without tripping it (§3.7); and the
+  positives, yet forced **common-mode** errors (the shared-pre-training analogue)
+  silently degrade recovery without tripping it; this stress design also lowers
+  effective judge accuracy, which is reported per configuration (§3.7); and the
   two-solution tie-break inverts once judges are no longer clearly better than
   random (§3.8).
 - **A method trade-off, not a winner** (§3.9): the exact error-independent algebra
@@ -84,7 +85,7 @@ checks:
 | `outputs/sim/bootstrap_recovery_ci/` | scenario-bootstrap CI on the real recovery MAE (`summary.json` + histogram figure + `.data.json` sidecar) |
 | `outputs/validation/statistical_validation/` | generated validation report, sidecar, and validation-matrix figure |
 | `docs/essays/` | conceptual essays on algebraic evaluation |
-| `tests/` | scripts-layer suite (11 files): `test_llm_analysis.py`, `test_recovery.py`, `test_simulation.py`, `test_bootstrap.py`, `test_validation_report.py`, `test_recovery_validity.py`, `test_artifact_io.py`, `test_modular_figures.py`, `test_manuscript_render.py`, `test_research_tools.py`, `test_ntqr09.py` |
+| `tests/` | scripts-layer suite (12 files): `test_llm_analysis.py`, `test_multi_llm_evaluation.py`, `test_recovery.py`, `test_simulation.py`, `test_bootstrap.py`, `test_validation_report.py`, `test_recovery_validity.py`, `test_artifact_io.py`, `test_modular_figures.py`, `test_manuscript_render.py`, `test_research_tools.py`, `test_ntqr09.py` |
 
 ## Reproduce
 
@@ -107,17 +108,21 @@ uv sync --locked --extra dev
 
 # 3. Regenerate the offline validation matrix
 .venv/bin/python scripts/validation/statistical_validation_report.py
+.venv/bin/python scripts/validation/render_supporting_figures.py
 
 # 4. Render the manuscript from templates + data (numbers are injected, never typed)
 .venv/bin/python scripts/manuscript/render.py
 .venv/bin/python scripts/z_generate_manuscript_variables.py
-(cd "${TEMPLATE_DIR:-../template}" && \
-  uv run python scripts/03_render_pdf.py --project ntqr_llm_personas)
 
 # 5. Verify the prose has not drifted from the data, and run the suite
 .venv/bin/python scripts/manuscript/render.py --check
 .venv/bin/python -m pytest -q
 ```
+
+PDF production uses the released template API, not the removed
+`scripts/03_render_pdf.py`; see [the rendering pipeline](docs/rendering_pipeline.md).
+Offline source verification does not replay models or require an in-progress
+template release.
 
 The manuscript is a **generated artifact**: every numeric claim is a `{{TOKEN}}`
 filled from generated JSON artifacts, so the prose can never silently drift from

@@ -11,8 +11,8 @@ to build nothing; the vendored `ntqr` is the only editable install).
 .venv/bin/python -m pytest python/ -q         # vendored ntqr library
 ```
 
-Expected: `tests/` all pass (`test_llm_analysis.py`, `test_recovery.py`,
-`test_simulation.py`, `test_bootstrap.py`, `test_validation_report.py`,
+Expected: `tests/` all pass (`test_llm_analysis.py`, `test_multi_llm_evaluation.py`,
+`test_recovery.py`, `test_simulation.py`, `test_bootstrap.py`, `test_validation_report.py`,
 `test_recovery_validity.py`, `test_research_tools.py`, `test_artifact_io.py`,
 `test_modular_figures.py`, `test_ntqr09.py`, `test_manuscript_render.py`);
 `python/` all pass. The shared scoring core
@@ -39,7 +39,21 @@ on-disk manuscript drifted from a fresh render — re-run `render.py` (and edit 
 `.tmpl`, never the `.md`). This is the single most important gate: it proves
 every number in the prose still equals the data.
 
+Also run the read-only bridge check:
+
+```bash
+.venv/bin/python scripts/z_generate_manuscript_variables.py --check
+```
+
+These offline gates qualify source and derivation from recorded data, not new
+model observations or a PDF. Tests must direct generated output to temporary
+fixtures, leaving original votes, caches, sidecars and receipts unchanged.
+
 ## 4. Data regeneration (needs a running Ollama)
+
+This is a separate data-production operation, not a routine verification step.
+Do not replay models merely to confirm a recorded result. Preserve the original
+artifacts before any explicitly authorized regeneration.
 
 ```bash
 # resumes from prompt-versioned cache.json; writes summary.json + 10 method/LLM figures
@@ -54,11 +68,14 @@ back) with:
 .venv/bin/python scripts/sim/synthetic_recovery_study.py   # convergence/alarm/tie-break/robustness
 .venv/bin/python scripts/sim/bootstrap_recovery_ci.py      # CI on the real recovery MAE
 .venv/bin/python scripts/validation/statistical_validation_report.py  # offline claim checks
+.venv/bin/python scripts/validation/render_supporting_figures.py  # distinct recorded-data exports
 .venv/bin/python scripts/manuscript/render.py
 .venv/bin/python scripts/z_generate_manuscript_variables.py  # template output tree
-(cd "${TEMPLATE_DIR:-../template}" && \
-  uv run python scripts/03_render_pdf.py --project ntqr_llm_personas)
 ```
+
+PDF production is separate: use the released producer API and distinct staging
+layout described in [rendering_pipeline.md](rendering_pipeline.md). The removed
+`scripts/03_render_pdf.py` is not a supported invocation.
 
 To restrict to specific models (e.g. only those with cached votes):
 

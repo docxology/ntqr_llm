@@ -28,6 +28,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
        and labels. Varieties up to m=2 are now computable.
 
 
+### Fixed
+
+- Cached vote normalization now fails closed on invalid labels and contradictory abstention flags; transient transport abstentions retry while genuine parse failures remain cached.
+- Anthropic transport failures use the same `LLMUnavailable` tolerance boundary as Ollama.
+- Descriptive statistics reject nonfinite observations instead of counting them in NaN summaries.
+- Synthetic recovery selects only complete physical solutions by default, with explicit raw mode for historical alarm/tie-break studies; convergence and bootstrap summaries share complete-recovery support, and bootstrap quantiles use linear interpolation.
+- Correlation sweeps now report effective post-corruption judge/label accuracies and keep imaginary-root alarm measurement separate from physical-solution filtering.
+- Majority-baseline constructor failures no longer erase successful EI results, and colliding model-directory names fail before discovery or writes.
+- Manuscript rendering reuses one computed value snapshot, label-vote-count JSON is strict and atomic, and artifact records are normalized only once.
+- Hydration regression writes only to an isolated output fixture, preserving original recorded evidence and directory guides during offline qualification.
+- The `ntqr-docs` CLI returns a nonzero status on copy failure and never overwrites an existing notebook destination.
+- Recorded supporting-figure exports use a separate derived directory, preserve original sidecar bytes, and bind their exact input hashes.
+- Project-local fixed figure placement prevents clipped captions and results prose in the released Template v5.0.0 PDF path, without changing scientific inputs.
+
 ### Changed
 
 ### Removed

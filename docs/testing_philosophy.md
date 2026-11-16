@@ -37,6 +37,9 @@ not just in tests:
 
 - An unparseable model reply is an **abstention** (`None`), never an invented
   vote. (`_analysis.parse_call`).
+- Cached records fail closed: invalid labels and contradictory abstention flags
+  normalize to abstentions, and nonfinite numbers are rejected by descriptive
+  statistics rather than included as observations.
 - A model with *any* unparseable response is reported **non-compliant** and
   excluded from the unsupervised solve — it still contributes its parsed votes to
   the disagreement comparison. (`evaluate_model`).
@@ -44,6 +47,9 @@ not just in tests:
   `float(nan)` succeeds, `safe_float()` rejects non-finite values explicitly so a
   `NaN` is never averaged into a statistic — the model is named as a failure
   instead.
+- Finite but nonphysical roots are excluded from maintained synthetic recovery
+  and bootstrap summaries. Historical imaginary-alarm and tie-break experiments
+  are isolated behind an explicit `physical_only=False` mode.
 
 The consequence: every solved row in `summary.json` rests on real, parsed model
 responses, and every number in the manuscript traces to one of them.
@@ -60,7 +66,8 @@ longer matches the artifacts fails the build.
 
 | Suite | Covers |
 |-------|--------|
-| `tests/test_llm_analysis.py` | the pure numeric core: label counts, vote variation, pairwise disagreement, the evaluability diagnostic, recovery statistics, the sampling-noise floor |
+| `tests/test_llm_analysis.py` | the pure numeric core: label counts, vote variation, pairwise disagreement, the evaluability diagnostic, recovery statistics, the sampling-noise floor, transport retry, and fail-closed caches |
+| `tests/test_multi_llm_evaluation.py` | majority-baseline failure isolation and model-directory collision preflight on real recorded votes |
 | `tests/test_recovery.py` | the shared scoring core (`ntqr.llm.recovery_scoring`): the finite-float guard, mean accuracy, the better-than-random tie-break, and per-term absolute errors |
 | `tests/test_simulation.py` | the synthetic harness against the *real* ntqr solver: vote-count conservation, seeded reproducibility, exact sample truth, recovery on error-independent data, the `~1/√Q` convergence fit and its robustness across ensembles, the imaginary-root alarm (anti-correlation fires, common-mode blind spot, no false alarm), the tie-break inversion toward random, and the EI-vs-majority-voting trade-off (EI wins for strong judges, MV more robust in the danger zone) |
 | `tests/test_bootstrap.py` | the scenario bootstrap: count conservation, point estimate equals the full-sample solve, well-formed CIs and degenerate counts, and seed reproducibility |
