@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T00:17:49+00:00",
+  "generated_at": "2026-11-11T00:55:57+00:00",
   "schema_version": 2,
   "ntqr_version": "0.9",
   "result": {
@@ -29,7 +29,7 @@
         "id": "sqrt_q_convergence",
         "label": "Synthetic recovery follows 1/sqrt(Q)",
         "passed": true,
-        "evidence": "slope -0.585; R2 0.989"
+        "evidence": "slope -0.455; R2 0.996"
       },
       {
         "id": "alarm_false_positive_control",
@@ -70,7 +70,7 @@
       }
     ],
     "metadata": {
-      "generated_utc": "2026-10-18T00:17:48.763392+00:00",
+      "generated_utc": "2026-11-11T00:55:56.882029+00:00",
       "n_checks": 9,
       "n_passed": 9,
       "n_failed": 0,
@@ -79,7 +79,7 @@
   },
   "caption": "Offline validation matrix checking the manuscript's load-bearing claims against generated artifacts, including the complete 17-figure sidecar inventory.",
   "metadata": {
-    "generated_utc": "2026-10-18T00:17:48.763392+00:00",
+    "generated_utc": "2026-11-11T00:55:56.882029+00:00",
     "n_checks": 9,
     "n_passed": 9,
     "n_failed": 0,
@@ -87,6 +87,6 @@
   },
   "provenance": {
     "source_file": "validation_matrix.data.json",
-    "generated_utc": "2026-10-18T00:17:48.763392+00:00"
+    "generated_utc": "2026-11-11T00:55:56.882029+00:00"
   }
 }

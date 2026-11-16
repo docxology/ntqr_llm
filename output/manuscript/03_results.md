@@ -213,66 +213,79 @@ seeded, reproducible). A trio with prevalence 0.55 and per-judge
 `(a, b)` accuracies (0.90, 0.80), (0.85, 0.75), (0.70, 0.95) is sampled under error-independence, its votes
 are fed through the **identical** `ErrorIndependentEvaluation` used on the LLM
 votes, and the unsupervised recovery is scored against the sample truth. We
-average 200 independent draws at each test size.
+attempt 200 independent draws at each test size, but average errors
+only over **successful complete physical recoveries** (`n_solved`). At
+`Q = 32`, only **70/200** attempts qualify and
+**130/200** are unavailable; at `Q = 4096`,
+200/200 qualify. Both errors and their fitted slopes are
+**conditional on this support**, not full-cohort recovery estimates. The table
+reports every row's successful and unavailable counts against its attempted
+denominator. Physical admissibility does not establish error-independence.
 
-**Recovery error falls like sampling noise.** As the test grows from
-`Q = 32` to `Q = 4096`, the mean recovery MAE drops from
-0.123 to 0.007 ([@tbl:synthetic-convergence]). A log–log fit of error
-against `Q` has slope **-0.58** (R² = 0.989; the prevalence error
-scales the same way, slope -0.55) — close to the −0.5 of an
-sampling-rate reference. This is consistent with decreasing finite-sample
-error on these selected independent ensembles. It does not prove an unbiased
-estimator, exclude persistent error near singularities, or establish that the
+**Conditional recovery error follows a sampling-rate pattern.** As the test grows
+from `Q = 32` to `Q = 4096`, the conditional mean recovery MAE
+drops from 0.060 to 0.007
+([@tbl:synthetic-convergence]). A log–log fit of these conditional means against
+`Q` has slope **-0.45** (R² = 0.996; prevalence-error slope
+-0.45) — near the −0.5 sampling-rate reference. Support changes with
+`Q`, so this does not prove an unbiased estimator or successful recovery on all
+draws, exclude persistent error near singularities, or establish that the
 recorded LLM recovery is explained only by finite-sample noise.
 
-| Q | Accuracy MAE | Prevalence error | Trials solved |
-|---|---|---|---|
-| 32 | 0.123 | 0.117 | 200/200 |
-| 64 | 0.073 | 0.074 | 200/200 |
-| 128 | 0.040 | 0.048 | 200/200 |
-| 256 | 0.029 | 0.036 | 200/200 |
-| 512 | 0.019 | 0.023 | 200/200 |
-| 1024 | 0.013 | 0.016 | 200/200 |
-| 2048 | 0.009 | 0.011 | 200/200 |
-| 4096 | 0.007 | 0.008 | 200/200 |
+| Q | Accuracy MAE (conditional) | Prevalence error (conditional) | Complete physical / attempted | Unavailable / attempted |
+|---|---|---|---|---|
+| 32 | 0.060 | 0.070 | 70/200 | 130/200 |
+| 64 | 0.047 | 0.054 | 102/200 | 98/200 |
+| 128 | 0.035 | 0.041 | 156/200 | 44/200 |
+| 256 | 0.027 | 0.034 | 180/200 | 20/200 |
+| 512 | 0.019 | 0.023 | 193/200 | 7/200 |
+| 1024 | 0.013 | 0.016 | 199/200 | 1/200 |
+| 2048 | 0.009 | 0.011 | 200/200 | 0/200 |
+| 4096 | 0.007 | 0.008 | 200/200 | 0/200 |
 
-: Synthetic recovery error vs. test size, averaged over 200 error-independent ensembles per row. Every draw solved cleanly — no spurious alarms. {#tbl:synthetic-convergence}
+: Synthetic recovery error vs. test size, conditional on successful complete physical recovery. The complete and unavailable counts each use all attempted draws as denominator; unavailable attempts are excluded from both error means, not counted as zero error or necessarily imaginary-root alarms. {#tbl:synthetic-convergence}
 
-![Unsupervised recovery error vs. test size `Q` on log–log axes, over 200 synthetic error-independent ensembles per point (accuracy MAE with ±1 sd error bars; prevalence error overlaid). The dotted line is a `1/√Q` reference; the fitted slope -0.58 (R² = 0.989) matches the −0.5 of a sampling-noise-limited estimator.](../figures/synthetic_convergence.png){#fig:synthetic-convergence width=90%}
+![Conditional unsupervised recovery error vs. test size `Q` on log–log axes, from 200 attempted synthetic error-independent ensembles per point. Both errors use only the complete physical recoveries counted below each `Q` (accuracy MAE with ±1 sd error bars; prevalence error overlaid); remaining attempts are unavailable. The dotted line is a `1/√Q` reference; the conditional fitted slope is -0.45 (R² = 0.996), not a full-cohort success or independence guarantee.](../figures/synthetic_convergence.png){#fig:synthetic-convergence width=90%}
 
-**The scaling is not an artifact of one ensemble.** Repeating the convergence fit
-across 4 deliberately different ensembles — varied prevalence
+**The conditional pattern is not limited to one ensemble.** Repeating the
+convergence fit with the same complete-physical conditioning across
+4 deliberately different ensembles — varied prevalence
 (0.50–0.70) and accuracy spread — keeps every fitted slope in a tight band
-**[-0.60, -0.50]** around the ideal −0.5
+**[-0.46, -0.40]** around the ideal −0.5
 ([@tbl:synthetic-robustness]), which supports the sampling-rate pattern on these selected ensembles.
 It does not establish a uniform convergence theorem over all judges or
 near-singular parameter settings.
 
 | Ensemble | Prevalence | Fitted slope | $R^2$ |
 |---|---|---|---|
-| balanced p=0.50 | 0.50 | -0.55 | 0.999 |
-| tilted p=0.70 | 0.70 | -0.51 | 0.995 |
-| strong p=0.55 | 0.55 | -0.50 | 0.997 |
-| modest p=0.65 | 0.65 | -0.60 | 0.986 |
+| balanced p=0.50 | 0.50 | -0.45 | 0.984 |
+| tilted p=0.70 | 0.70 | -0.42 | 0.986 |
+| strong p=0.55 | 0.55 | -0.46 | 0.993 |
+| modest p=0.65 | 0.65 | -0.40 | 0.961 |
 
-: The `1/√Q` convergence slope is stable across diverse ensembles, each fitted over the same `Q` grid. All slopes cluster near the ideal −0.5. {#tbl:synthetic-robustness}
+: Convergence slopes on complete physical support across diverse ensembles, each fitted over the same `Q` grid. These conditional slopes cluster near the −0.5 sampling-rate reference. {#tbl:synthetic-robustness}
 
 **The alarm detects an incompatibility but has a blind spot.** The error-independent solve carries
 a built-in failure detector: when the prevalence quadratic's discriminant
 `D = 1 − 4c/a` goes negative the prevalence root is imaginary — an answer-key-free
 signal that the empirical vote table is incompatible with this exact
 error-independent model. Sampling variation can cause such incompatibility
-even when a population generator is conditionally independent. We characterised it by injecting two
-kinds of dependence at `Q = 1024` ([@tbl:synthetic-correlation],
-[@fig:synthetic-alarm]). On genuinely
+even when a population generator is conditionally independent. We characterised
+it in a **separate raw-finite-root experiment** by injecting two kinds of
+dependence at `Q = 1024` ([@tbl:synthetic-correlation],
+[@fig:synthetic-alarm]). The physical-support exclusions above are not counted as
+imaginary-root alarms in this experiment. On genuinely
 error-independent draws the alarm fired in **0%** of trials — no
 false positives. An **anti-correlated** judge pair (which drives a pairwise
 vote-moment negative) tripped it in up to **94%** of trials. But
-positive **common-mode** correlation — all judges sharing a forced error, the
+positive **common-mode** coupling — all judges sharing a forced error, the
 natural analogue of shared training data — never tripped it (**0%**),
 even as it silently worsened the recovery it failed to warn about (prevalence
 error rising from 0.016 under independence to
-0.042 at the strongest common-mode setting).
+0.042 at the strongest common-mode setting). This stress
+design changes both dependence and effective judge skill; it is not an isolated
+correlation-only contrast at fixed accuracy. Each row's effective post-corruption
+per-judge, per-label accuracies are serialized in `correlation.data.json`.
 
 | Error structure | Alarm fires | Mean $D$ | Recovery error (alarm silent) |
 |---|---|---|---|
@@ -285,9 +298,9 @@ error rising from 0.016 under independence to
 | anti-pair 0.3 | 40% | 0.0962 | 0.204 |
 | anti-pair 0.4 | 94% | -0.0726 | 0.407 |
 
-: Alarm-firing rate by error structure at `Q = 1024` (200 trials each). `D` is the mean prevalence discriminant; the last column is the recovery error on the trials where the alarm stayed silent. {#tbl:synthetic-correlation}
+: Alarm-firing rate by error structure at `Q = 1024` (200 trials each), using the historical raw-root rule rather than convergence's physical-support filter. `D` is the mean prevalence discriminant; the last column is the recovery error on the trials where the alarm stayed silent. {#tbl:synthetic-correlation}
 
-![Left: the imaginary-prevalence alarm fires only under anti-correlation, never on independent or common-mode data. Right: the mechanism — as common-mode correlation strengthens, the discriminant `D` falls toward the `D = 0` alarm threshold but never crosses it, while the un-warned recovery error climbs.](../figures/synthetic_alarm.png){#fig:synthetic-alarm width=95%}
+![Left: in the recorded raw-root experiment, the imaginary-prevalence alarm fires only under anti-correlation, never on independent or common-mode data. Right: the mechanism — as common-mode correlation strengthens, the discriminant `D` falls toward the `D = 0` alarm threshold but never crosses it, while the un-warned recovery error climbs.](../figures/synthetic_alarm.png){#fig:synthetic-alarm width=95%}
 
 The imaginary-prevalence alarm rejects the exact empirical model; it is not a
 calibrated test with a proven zero false-positive rate for independently sampled
@@ -322,13 +335,13 @@ and silently inverted.
 | 0.82 | 0% | 0.039 |
 | 0.76 | 4% | 0.093 |
 | 0.70 | 26% | 0.185 |
-| 0.62 | 71% | 0.421 |
-| 0.56 | 85% | 0.485 |
+| 0.62 | 71% | 0.423 |
+| 0.56 | 85% | 0.487 |
 | 0.52 | 82% | 0.487 |
 
-: Catastrophic mirror-selection (prevalence error > 0.25) vs. mean judge accuracy at prevalence 0.60, `Q = 256`, 200 trials each. {#tbl:tiebreak}
+: Catastrophic mirror-selection (prevalence error > 0.25) vs. mean judge accuracy at prevalence 0.60, `Q = 256`, 200 trials each, preserving the historical raw-root rule. {#tbl:tiebreak}
 
-![The better-than-random tie-break is flawless for strong judges and inverts as the ensemble approaches random: catastrophic mirror-selection climbs from 0% to 85% and the mean prevalence error rises with it.](../figures/synthetic_tiebreak.png){#fig:synthetic-tiebreak width=90%}
+![The better-than-random tie-break is flawless for strong judges in this recorded raw-root experiment and inverts as the ensemble approaches random: catastrophic mirror-selection climbs from 0% to 85% and the mean prevalence error rises with it.](../figures/synthetic_tiebreak.png){#fig:synthetic-tiebreak width=90%}
 
 ## Error-independent vs. majority-voting: exactness vs. robustness {#sec:mv-ei-synthetic}
 
@@ -336,9 +349,12 @@ and silently inverted.
 majority-voting (MV) evaluators returned the same recovery — explicitly *"a
 property of this particular vote pattern, not a general theorem."* The synthetic
 harness settles the general question by running **both** evaluators on the same
-draws across a prevalence × accuracy grid (`Q = 512`;
-[@tbl:mv-ei], [@fig:synthetic-mv-vs-ei]). The answer is a clean trade-off,
-not a winner:
+draws across a prevalence × accuracy grid (`Q = 512`,
+150 trials per cell; [@tbl:mv-ei],
+[@fig:synthetic-mv-vs-ei]). Unlike convergence, this historical grid scores raw
+finite algebraic roots, including nonphysical values; its MAE is not a
+bounded-probability recovery-error statistic. The answer is a trade-off, not a
+winner:
 
 - **EI is more accurate where its assumption holds.** For clearly-better-than-
   random judges the exact algebra beats majority voting — e.g. at prevalence
@@ -376,9 +392,9 @@ conditions are in doubt — and report both, as we do per run.
 | 0.85 | 0.66 | 1.589 | 0.109 | 25% |
 | 0.85 | 0.58 | 1.432 | 0.173 | 20% |
 
-: Error-independent vs. majority-voting recovery MAE across a prevalence × accuracy grid (`Q = 512`, 200 trials per cell). "EI wins" is the fraction of draws where the exact algebra's MAE was lower. {#tbl:mv-ei}
+: Error-independent vs. majority-voting recovery MAE across a prevalence × accuracy grid (`Q = 512`, 150 trials per cell), using raw finite roots. "EI wins" is the fraction of jointly scored draws where the exact algebra's MAE was lower. {#tbl:mv-ei}
 
-![Recovery MAE of the error-independent algebra vs. majority-voting as judge accuracy falls from strong to near-random, one panel per prevalence. EI is lower while judges are strong, then crosses above and diverges as its tie-break inverts; MV stays bounded throughout.](../figures/synthetic_mv_vs_ei.png){#fig:synthetic-mv-vs-ei width=95%}
+![Raw-root recovery MAE of the error-independent algebra vs. majority-voting as judge accuracy falls from strong to near-random, one panel per recorded prevalence, with 150 trials per cell. EI is lower while judges are strong, then crosses above and diverges as its tie-break inverts; MV stays bounded throughout.](../figures/synthetic_mv_vs_ei.png){#fig:synthetic-mv-vs-ei width=95%}
 
 ## Statistical validation matrix {#sec:validation-matrix}
 
@@ -396,7 +412,7 @@ sidecar completeness.
 | Label-free diagnostic matches solver outcome | PASS | predicted 5; evaluated 5 |
 | Recorded recovery is below the binomial SE reference | PASS | MAE 0.028 <= SE reference 0.102 |
 | Recorded bootstrap interval is below the binomial SE reference | PASS | CI_hi 0.038 <= SE reference 0.102 |
-| Synthetic recovery follows 1/sqrt(Q) | PASS | slope -0.585; R2 0.989 |
+| Synthetic recovery follows 1/sqrt(Q) | PASS | slope -0.455; R2 0.996 |
 | No false alarms observed in the selected independent runs | PASS | false alarm 0% |
 | Common-mode dependence is reported as a blind spot | PASS | alarm 0%; silent error 0.042 |
 | Better-than-random tie-break boundary is quantified | PASS | safe to 0.82; max inversion 85% |

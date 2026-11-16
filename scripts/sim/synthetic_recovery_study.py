@@ -9,12 +9,15 @@ Unlike the LLM sweep, this study needs **no network and no Ollama** -- it is a
 seeded, fully reproducible companion that generalises the finite real-model
 ranking to a controlled family of ensembles:
 
-1. **Convergence** -- recovery error vs test size ``Q`` over many independent
-   error-independent ensembles; the fitted log-log slope shows the error falls
-   like sampling noise (~1/sqrt(Q)).
+1. **Convergence** -- recovery error vs test size ``Q``, conditional on successful
+   complete physical recoveries. Each row records their ``n_solved/n_trials``
+   support; the fitted slope does not describe failed attempts.
 2. **Alarm characterisation** -- how often the imaginary-prevalence alarm fires
-   under independence (false-alarm control), positive common-mode correlation
-   (its blind spot), and an anti-correlated pair (which trips it).
+   under independence (an empirical control), positive common-mode coupling (its
+   blind spot), and an anti-correlated pair (which trips it). Every row reports
+   effective post-corruption judge/label accuracies. Alarm, tie-break and
+   EI-versus-MV studies explicitly preserve their historical raw-root rules;
+   physical admissibility alone does not establish error-independence.
 
 Run:
     .venv/bin/python scripts/sim/synthetic_recovery_study.py
@@ -32,6 +35,12 @@ import _common  # noqa: E402
 _common.ensure_ntqr_importable()
 
 from ntqr.llm import simulation as sim  # noqa: E402
+from ntqr.llm.supporting_figures import (  # noqa: E402
+    plot_convergence as _plot_convergence,
+    plot_alarm as _plot_alarm,
+    plot_tiebreak as _plot_tiebreak,
+    plot_mv_vs_ei as _plot_mv_vs_ei,
+)
 
 # --- canonical, frozen study parameters (change here, never in prose) ---
 ENSEMBLE = sim.Ensemble(
@@ -49,9 +58,15 @@ CORRELATION_CONFIGS = [
     sim.CorrelationConfig("common-mode 0.2", common_mode=0.2),
     sim.CorrelationConfig("common-mode 0.3", common_mode=0.3),
     sim.CorrelationConfig("common-mode 0.4", common_mode=0.4),
-    sim.CorrelationConfig("anti-pair 0.2", anti_pair=(0, 1), anti_strength=0.2),
-    sim.CorrelationConfig("anti-pair 0.3", anti_pair=(0, 1), anti_strength=0.3),
-    sim.CorrelationConfig("anti-pair 0.4", anti_pair=(0, 1), anti_strength=0.4),
+    sim.CorrelationConfig(
+        "anti-pair 0.2", anti_pair=(0, 1), anti_strength=0.2
+    ),
+    sim.CorrelationConfig(
+        "anti-pair 0.3", anti_pair=(0, 1), anti_strength=0.3
+    ),
+    sim.CorrelationConfig(
+        "anti-pair 0.4", anti_pair=(0, 1), anti_strength=0.4
+    ),
 ]
 
 # Tie-break sweep: judges held symmetric so mean accuracy is the only varying
@@ -90,14 +105,6 @@ MVEI_ACCURACIES = [0.90, 0.82, 0.74, 0.66, 0.58]
 MVEI_Q = 512
 MVEI_N_TRIALS = 150
 MVEI_SEED = 8000
-
-
-from ntqr.llm.supporting_figures import (
-    plot_convergence as _plot_convergence,
-    plot_alarm as _plot_alarm,
-    plot_tiebreak as _plot_tiebreak,
-    plot_mv_vs_ei as _plot_mv_vs_ei,
-)
 
 
 def _ensemble_block() -> dict:
@@ -145,7 +152,9 @@ def run_study() -> dict:
         MVEI_SEED,
     )
 
-    independent = next(r for r in correlation_rows if r["label"] == "independent")
+    independent = next(
+        r for r in correlation_rows if r["label"] == "independent"
+    )
     common = [r for r in correlation_rows if r["label"].startswith("common")]
     anti = [r for r in correlation_rows if r["label"].startswith("anti")]
     best_row = min(
@@ -194,11 +203,17 @@ def run_study() -> dict:
             "rows": tiebreak_rows,
             # the lowest accuracy that still resolves cleanly (rate < 1%) ...
             "safe_accuracy": min(
-                (r["accuracy"] for r in tiebreak_rows if r["catastrophic_rate"] < 0.01),
+                (
+                    r["accuracy"]
+                    for r in tiebreak_rows
+                    if r["catastrophic_rate"] < 0.01
+                ),
                 default=None,
             ),
             # ... and the worst observed inversion rate as judges approach random
-            "max_catastrophic_rate": max(r["catastrophic_rate"] for r in tiebreak_rows),
+            "max_catastrophic_rate": max(
+                r["catastrophic_rate"] for r in tiebreak_rows
+            ),
         },
         "robustness": {
             "q_values": ROBUSTNESS_Q_VALUES,
@@ -233,7 +248,8 @@ def _mv_vs_ei_block(rows: list[dict]) -> dict:
             "ei_mae_mean": best_ei["ei_mae_mean"],
             "mv_mae_mean": best_ei["mv_mae_mean"],
             "ei_win_rate": best_ei["ei_win_rate"],
-            "ratio_mv_over_ei": best_ei["mv_mae_mean"] / best_ei["ei_mae_mean"],
+            "ratio_mv_over_ei": best_ei["mv_mae_mean"]
+            / best_ei["ei_mae_mean"],
         },
         "mv_best_cell": {
             "prevalence_a": best_mv["prevalence_a"],
@@ -245,15 +261,14 @@ def _mv_vs_ei_block(rows: list[dict]) -> dict:
     }
 
 
-def _provenance(summary: dict) -> str:
-    e = summary["ensemble"]
-    accs = ", ".join(
-        f"J{j['judge']}({j['alpha']:.2f},{j['beta']:.2f})" for j in e["accuracies"]
-    )
+def render_figures(summary: dict, out_dir: Path) -> tuple[Path, ...]:
+    """Render recorded results only; do not run or annotate scientific studies."""
+    footer = "Recorded synthetic study; no new experiments or model calls"
     return (
-        f"synthetic NTQR study | p_a={e['prevalence_a']:.2f} | {accs} | "
-        f"{summary['convergence']['n_trials']} trials/point | "
-        f"{datetime.now(timezone.utc).date()}"
+        _plot_convergence(summary, out_dir, footer),
+        _plot_alarm(summary, out_dir, footer),
+        _plot_tiebreak(summary, out_dir, footer),
+        _plot_mv_vs_ei(summary, out_dir, footer),
     )
 
 
@@ -264,18 +279,18 @@ def _annotate_sidecars(summary: dict) -> None:
         "generated_utc": generated,
         "study": summary["study"],
         "deterministic": summary["deterministic"],
-        "ensemble": summary["ensemble"],
     }
     summary["convergence"].update(
         {
             "figure": "synthetic_convergence.png",
             "title": "Synthetic convergence of NTQR recovery error",
             "caption": (
-                "Synthetic error-independent ensembles show accuracy MAE "
-                "falling close to the expected 1/sqrt(Q) sampling-noise rate."
+                "Recovery errors and fitted slopes are conditional on complete "
+                "physical recoveries (n_solved of n_trials at each Q); remaining "
+                "attempts are unavailable, not necessarily imaginary alarms."
             ),
-            "x_label": "Test size Q (log scale)",
-            "y_label": "Unsupervised recovery error (log scale)",
+            "x_label": "Test size Q; complete physical / attempted",
+            "y_label": "Conditional recovery error (log scale)",
             "thresholds": [
                 {
                     "label": "sampling-noise slope",
@@ -285,6 +300,7 @@ def _annotate_sidecars(summary: dict) -> None:
             ],
             "metadata": {
                 **common_metadata,
+                "ensemble": summary["ensemble"],
                 "n_trials_per_q": summary["convergence"]["n_trials"],
                 "seed": summary["convergence"]["seed"],
             },
@@ -313,6 +329,7 @@ def _annotate_sidecars(summary: dict) -> None:
             ],
             "metadata": {
                 **common_metadata,
+                "ensemble": summary["ensemble"],
                 "q": summary["correlation"]["q"],
                 "n_trials": summary["correlation"]["n_trials"],
                 "seed": summary["correlation"]["seed"],
@@ -341,6 +358,7 @@ def _annotate_sidecars(summary: dict) -> None:
             ],
             "metadata": {
                 **common_metadata,
+                "prevalence_a": summary["tie_break"]["prevalence_a"],
                 "q": summary["tie_break"]["q"],
                 "n_trials": summary["tie_break"]["n_trials"],
                 "seed": summary["tie_break"]["seed"],
@@ -384,6 +402,8 @@ def _annotate_sidecars(summary: dict) -> None:
             ],
             "metadata": {
                 **common_metadata,
+                "prevalences": summary["mv_vs_ei"]["prevalences"],
+                "accuracies": summary["mv_vs_ei"]["accuracies"],
                 "q": summary["mv_vs_ei"]["q"],
                 "n_trials": summary["mv_vs_ei"]["n_trials"],
                 "seed": summary["mv_vs_ei"]["seed"],
@@ -398,7 +418,6 @@ def main() -> int:
 
     summary = run_study()
     _annotate_sidecars(summary)
-    footer = _provenance(summary)
 
     summary_path = _common.save_json(out_dir, "summary.json", summary)
     conv_path = _common.save_json(
@@ -407,17 +426,21 @@ def main() -> int:
     corr_path = _common.save_json(
         out_dir, "correlation.data.json", summary["correlation"]
     )
-    tb_path = _common.save_json(out_dir, "tiebreak.data.json", summary["tie_break"])
-    rob_path = _common.save_json(out_dir, "robustness.data.json", summary["robustness"])
-    mvei_path = _common.save_json(out_dir, "mv_vs_ei.data.json", summary["mv_vs_ei"])
-    fig1 = _plot_convergence(summary, out_dir, footer)
-    fig2 = _plot_alarm(summary, out_dir, footer)
-    fig3 = _plot_tiebreak(summary, out_dir, footer)
-    fig4 = _plot_mv_vs_ei(summary, out_dir, footer)
+    tb_path = _common.save_json(
+        out_dir, "tiebreak.data.json", summary["tie_break"]
+    )
+    rob_path = _common.save_json(
+        out_dir, "robustness.data.json", summary["robustness"]
+    )
+    mvei_path = _common.save_json(
+        out_dir, "mv_vs_ei.data.json", summary["mv_vs_ei"]
+    )
+    figures = render_figures(summary, out_dir)
 
     fit = summary["convergence"]["sqrt_q_fit_accuracy"]
     print(
-        f"convergence: acc-MAE slope {fit['slope']:.3f} "
+        f"convergence (complete physical support only): acc-MAE slope "
+        f"{fit['slope']:.3f} "
         f"(R^2={fit['r_squared']:.4f}); "
         f"Q={summary['convergence']['q_min']} -> "
         f"{summary['convergence']['smallest_q_acc_mae']:.4f}, "
@@ -452,10 +475,7 @@ def main() -> int:
         tb_path,
         rob_path,
         mvei_path,
-        fig1,
-        fig2,
-        fig3,
-        fig4,
+        *figures,
     ):
         print(str(path))
     return 0

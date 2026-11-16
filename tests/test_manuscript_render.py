@@ -39,7 +39,9 @@ def _bib_keys() -> set[str]:
 
 
 def _template_citation_keys() -> set[str]:
-    text = "\n".join(path.read_text() for path in sorted(TEMPLATES.glob("*.md.tmpl")))
+    text = "\n".join(
+        path.read_text() for path in sorted(TEMPLATES.glob("*.md.tmpl"))
+    )
     keys = set(re.findall(r"(?<!\w)@([A-Za-z0-9_:-]+)", text))
     return {key for key in keys if ":" not in key}
 
@@ -95,14 +97,101 @@ def test_headline_numbers_match_artifacts():
     assert v["N_UNEVALUABLE"] == str(len(summary["failed_models"]))
     assert (
         v["DIAG_MATCHED"]
-        == str(summary["evaluability_diagnostic"]["diagnostic_matched_outcome"]).lower()
+        == str(
+            summary["evaluability_diagnostic"]["diagnostic_matched_outcome"]
+        ).lower()
     )
     assert (
         v["DIS_GATES"]
         == str(
-            summary["cross_model_statistics"]["disagreement_gates_evaluability"]
+            summary["cross_model_statistics"][
+                "disagreement_gates_evaluability"
+            ]
         ).lower()
     )
+
+
+def test_convergence_prose_reports_conditional_complete_physical_support():
+    v = _values_or_skip()
+    if v is None:
+        print("[SKIP] no summary.json — run the sweep first")
+        return
+    sim_dir = SCRIPTS.parent / "outputs/sim/synthetic_recovery_study"
+    conv = _values._load(sim_dir / "summary.json")["convergence"]
+    cells = [
+        [cell.strip() for cell in line.strip("|").split("|")]
+        for line in v["SIM_TABLE_CONVERGENCE"].splitlines()[2:]
+    ]
+    for actual, row in zip(cells, conv["rows"], strict=True):
+        assert actual == [
+            str(row["q"]),
+            _values.f3(row["accuracy_mae_mean"]),
+            _values.f3(row["prevalence_abs_error_mean"]),
+            f"{row['n_solved']}/{row['n_trials']}",
+            f"{row['n_trials'] - row['n_solved']}/{row['n_trials']}",
+        ]
+    first = min(conv["rows"], key=lambda row: row["q"])
+    last = max(conv["rows"], key=lambda row: row["q"])
+    assert v["SIM_SUPPORT_QMIN"] == f"{first['n_solved']}/{first['n_trials']}"
+    assert v["SIM_UNAVAILABLE_QMIN"] == (
+        f"{first['n_trials'] - first['n_solved']}/{first['n_trials']}"
+    )
+    assert v["SIM_SUPPORT_QMAX"] == f"{last['n_solved']}/{last['n_trials']}"
+    manuscript = render.render_all(values=v)[
+        SCRIPTS.parent / "docs/manuscript/manuscript.md"
+    ]
+    section = " ".join(
+        _section(
+            manuscript,
+            "## Synthetic validation:",
+            "## The two-solution tie-break",
+        ).split()
+    )
+    assert f"**{v['SIM_SUPPORT_QMIN']}**" in section
+    assert f"**{v['SIM_UNAVAILABLE_QMIN']}**" in section
+    assert "conditional on this support" in section
+    assert "Unavailable / attempted" in section
+    assert "separate raw-finite-root experiment" in section
+    assert (
+        "Physical admissibility does not establish error-independence."
+        in section
+    )
+    assert "Every draw solved cleanly" not in section
+
+
+def test_synthetic_prose_uses_each_studys_recorded_trial_count():
+    v = _values_or_skip()
+    if v is None:
+        print("[SKIP] no summary.json — run the sweep first")
+        return
+    sim_dir = SCRIPTS.parent / "outputs/sim/synthetic_recovery_study"
+    summary = _values._load(sim_dir / "summary.json")
+    for token, study in (
+        ("SIM_CORR_N_TRIALS", "correlation"),
+        ("SIM_TIEBREAK_N_TRIALS", "tie_break"),
+        ("SIM_MVEI_N_TRIALS", "mv_vs_ei"),
+    ):
+        assert v[token] == str(summary[study]["n_trials"])
+    manuscript = render.render_all(values=v)[
+        SCRIPTS.parent / "docs/manuscript/manuscript.md"
+    ]
+    tiebreak = " ".join(
+        _section(
+            manuscript,
+            "## The two-solution tie-break",
+            "## Error-independent vs. majority-voting:",
+        ).split()
+    )
+    comparison = " ".join(
+        _section(
+            manuscript,
+            "## Error-independent vs. majority-voting:",
+            "## Statistical validation matrix",
+        ).split()
+    )
+    assert f"prevalence {v['SIM_TIEBREAK_PREV']}" in tiebreak
+    assert f"{v['SIM_TIEBREAK_N_TRIALS']} trials each" in tiebreak
+    assert f"{v['SIM_MVEI_N_TRIALS']} trials per cell" in comparison
 
 
 def test_headline_run_is_low_temperature_schema_contract():
@@ -149,8 +238,11 @@ def test_rendered_manuscript_figure_inventory_has_sidecars():
         print("[SKIP] no summary.json — run the sweep first")
         return
     repo = SCRIPTS.parent
-    manuscript = render.render_all()[repo / "docs" / "manuscript" / "manuscript.md"]
+    manuscript = render.render_all()[
+        repo / "docs" / "manuscript" / "manuscript.md"
+    ]
     links = re.findall(r"!\[.*?\]\(([^)]+\.png)\)", manuscript, re.S)
+    supporting = "../outputs/validation/render_supporting_figures"
     expected_sidecars = {
         "../output/figures/physical_recovery_audit.png": "../output/figures/physical_recovery_audit.data.json",
         "../output/figures/evaluation_pipeline.png": "../output/figures/evaluation_pipeline.data.json",
@@ -163,12 +255,24 @@ def test_rendered_manuscript_figure_inventory_has_sidecars():
         "../output/figures/temperature_schema_comparison.png": "../output/figures/temperature_schema_comparison.data.json",
         "../output/figures/scenario_hardness.png": "../output/figures/scenario_hardness.data.json",
         "../output/figures/recovery_mae_by_model.png": "../output/figures/recovery_mae_by_model.data.json",
-        "../output/figures/synthetic_convergence.png": "../output/figures/synthetic_convergence.data.json",
-        "../output/figures/synthetic_alarm.png": "../output/figures/synthetic_alarm.data.json",
-        "../output/figures/bootstrap_recovery_mae.png": "../output/figures/bootstrap_recovery_mae.data.json",
-        "../output/figures/synthetic_tiebreak.png": "../output/figures/synthetic_tiebreak.data.json",
-        "../output/figures/synthetic_mv_vs_ei.png": "../output/figures/synthetic_mv_vs_ei.data.json",
-        "../output/figures/validation_matrix.png": "../output/figures/validation_matrix.data.json",
+        f"{supporting}/synthetic_convergence.png": (
+            f"{supporting}/convergence.data.json"
+        ),
+        f"{supporting}/synthetic_alarm.png": (
+            f"{supporting}/correlation.data.json"
+        ),
+        f"{supporting}/bootstrap_recovery_mae.png": (
+            f"{supporting}/bootstrap_recovery_mae.data.json"
+        ),
+        f"{supporting}/synthetic_tiebreak.png": (
+            f"{supporting}/tiebreak.data.json"
+        ),
+        f"{supporting}/synthetic_mv_vs_ei.png": (
+            f"{supporting}/mv_vs_ei.data.json"
+        ),
+        f"{supporting}/validation_matrix.png": (
+            f"{supporting}/validation_matrix.data.json"
+        ),
     }
     assert len(links) == int(_values.compute_values(OUT)["N_EMBEDDED_FIGURES"])
     assert set(links) == set(expected_sidecars)
@@ -193,7 +297,8 @@ def test_nonzero_recovery_does_not_claim_exact_recovery():
     if v["REC_MAE"] == "0.000":
         return
     rendered = {
-        dest.name: " ".join(text.split()) for dest, text in render.render_all().items()
+        dest.name: " ".join(text.split())
+        for dest, text in render.render_all().items()
     }
     banned = {
         "README.md": [
@@ -219,7 +324,9 @@ def test_manuscript_has_reader_map_and_validation_matrix():
         print("[SKIP] no summary.json — run the sweep first")
         return
     repo = SCRIPTS.parent
-    manuscript = render.render_all()[repo / "docs" / "manuscript" / "manuscript.md"]
+    manuscript = render.render_all()[
+        repo / "docs" / "manuscript" / "manuscript.md"
+    ]
     assert (
         "## Reader map: what is observed, recovered, and checked {#sec:reader-map}"
         in manuscript
@@ -228,8 +335,14 @@ def test_manuscript_has_reader_map_and_validation_matrix():
         "| Object | Observed without labels? | Validation-only? | Meaning in this study |"
         in manuscript
     )
-    assert "## Statistical validation matrix {#sec:validation-matrix}" in manuscript
-    assert "## Evaluation object and data flow {#sec:method-data-flow}" in manuscript
+    assert (
+        "## Statistical validation matrix {#sec:validation-matrix}"
+        in manuscript
+    )
+    assert (
+        "## Evaluation object and data flow {#sec:method-data-flow}"
+        in manuscript
+    )
     assert "evaluation_pipeline.png" in manuscript
     assert "validation_matrix.png" in manuscript
 
@@ -239,7 +352,9 @@ def test_public_ntqr_citation_is_present():
         print("[SKIP] no summary.json — run the sweep first")
         return
     repo = SCRIPTS.parent
-    manuscript = render.render_all()[repo / "docs" / "manuscript" / "manuscript.md"]
+    manuscript = render.render_all()[
+        repo / "docs" / "manuscript" / "manuscript.md"
+    ]
     references = REFERENCES.read_text()
     assert "ntqr_0_9_docs" in references
     assert "NTQR 0.9: Software and Documentation" in references
@@ -299,7 +414,9 @@ def test_public_release_metadata_files_match_config():
     assert zenodo_json["version"] == "1.0.0"
     assert zenodo_json["license"] == "Apache-2.0"
     assert codemeta_json["version"] == "1.0.0"
-    assert codemeta_json["codeRepository"] == ("https://github.com/docxology/ntqr_llm")
+    assert codemeta_json["codeRepository"] == (
+        "https://github.com/docxology/ntqr_llm"
+    )
     # Sidecars must carry the published concept DOI and agree with config.yaml.
     config_text = (repo / "docs" / "manuscript" / "config.yaml").read_text()
     concept_doi = "10.5281/zenodo.20498699"
@@ -390,7 +507,9 @@ def test_rendered_validation_sidecar_count_is_current():
         print("[SKIP] no summary.json — run the sweep first")
         return
     repo = SCRIPTS.parent
-    manuscript = render.render_all()[repo / "docs" / "manuscript" / "manuscript.md"]
+    manuscript = render.render_all()[
+        repo / "docs" / "manuscript" / "manuscript.md"
+    ]
     assert "14/14 sidecars" not in manuscript
     count = int(_values.compute_values(OUT)["N_EMBEDDED_FIGURES"])
     assert f"{count}/{count} sidecars" in manuscript
@@ -418,7 +537,9 @@ def test_required_context_citations_are_in_rendered_sections():
         print("[SKIP] no summary.json — run the sweep first")
         return
     repo = SCRIPTS.parent
-    manuscript = render.render_all()[repo / "docs" / "manuscript" / "manuscript.md"]
+    manuscript = render.render_all()[
+        repo / "docs" / "manuscript" / "manuscript.md"
+    ]
     introduction = _section(manuscript, "# Introduction", "# Methods")
     methods = _section(manuscript, "# Methods", "# Results")
     discussion = _section(manuscript, "# Discussion", "---")
@@ -468,9 +589,15 @@ def test_template_crossref_syntax_is_present():
         print("[SKIP] no summary.json — run the sweep first")
         return
     repo = SCRIPTS.parent
-    manuscript = render.render_all()[repo / "docs" / "manuscript" / "manuscript.md"]
-    figure_labels = re.findall(r"!\[.*?\]\([^)]+\.png\)\{#fig:[^}]+}", manuscript, re.S)
-    assert len(figure_labels) == int(_values.compute_values(OUT)["N_EMBEDDED_FIGURES"])
+    manuscript = render.render_all()[
+        repo / "docs" / "manuscript" / "manuscript.md"
+    ]
+    figure_labels = re.findall(
+        r"!\[.*?\]\([^)]+\.png\)\{#fig:[^}]+}", manuscript, re.S
+    )
+    assert len(figure_labels) == int(
+        _values.compute_values(OUT)["N_EMBEDDED_FIGURES"]
+    )
     assert "{#tbl:evaluation-objects}" in manuscript
     assert "{#tbl:scenario-examples}" in manuscript
     assert "{#tbl:model-lineup}" in manuscript
@@ -487,7 +614,9 @@ def test_template_crossref_syntax_is_present():
 
 def test_template_hydration_outputs_are_valid():
     out_dir = SCRIPTS.parent / "output" / "manuscript"
-    data_file = SCRIPTS.parent / "output" / "data" / "manuscript_variables.json"
+    data_file = (
+        SCRIPTS.parent / "output" / "data" / "manuscript_variables.json"
+    )
     if not out_dir.exists() or not data_file.exists():
         print("[SKIP] template hydration has not been run")
         return

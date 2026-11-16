@@ -1,6 +1,6 @@
 # AGENTS.md - tests
 
-Leaf: scripts-layer tests - test_llm_analysis.py, test_recovery.py, test_bootstrap.py, test_simulation.py, test_manuscript_render.py, test_validation_report.py. Package tests live in python/tests/. Zero-mock philosophy per docs/testing_philosophy.md.
+Leaf: scripts-layer tests - test_llm_analysis.py, test_multi_llm_evaluation.py, test_recovery.py, test_bootstrap.py, test_simulation.py, test_manuscript_render.py, test_validation_report.py. Package tests live in python/tests/. Zero-mock philosophy per docs/testing_philosophy.md.
 
 Verify: uv run pytest tests/ -v
 

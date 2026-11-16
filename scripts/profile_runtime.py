@@ -11,16 +11,17 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "python/src"))
-from ntqr.llm.runtime_profile import (
-    measure,
-    runtime_context,
-    source_binding,
-    compare_reports,
-)
-from ntqr.llm.profile_workloads import workloads
 
 
 def main(argv=None):
+    from ntqr.llm.runtime_profile import (
+        measure,
+        runtime_context,
+        source_binding,
+        compare_reports,
+    )
+    from ntqr.llm.profile_workloads import workloads
+
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--output", type=Path, default=ROOT / "benchmarks/runtime/current.json"
@@ -29,10 +30,14 @@ def main(argv=None):
     parser.add_argument("--workload", action="append")
     parser.add_argument("--compare", type=Path)
     parser.add_argument("--sample", action="store_true")
-    parser.add_argument("--workload-only", action="store_true", help=argparse.SUPPRESS)
+    parser.add_argument(
+        "--workload-only", action="store_true", help=argparse.SUPPRESS
+    )
     args = parser.parse_args(argv)
     selected = [
-        work for work in workloads() if not args.workload or work.name in args.workload
+        work
+        for work in workloads()
+        if not args.workload or work.name in args.workload
     ]
     if not selected:
         parser.error("no matching workload")
@@ -58,7 +63,9 @@ def main(argv=None):
     }
     reference = ROOT / "PROFILE_REFERENCE.json"
     if reference.is_file():
-        report["baseline_reference"] = json.loads(reference.read_text(encoding="utf-8"))
+        report["baseline_reference"] = json.loads(
+            reference.read_text(encoding="utf-8")
+        )
     if args.sample:
         args.output.parent.mkdir(parents=True, exist_ok=True)
         sample = args.output.with_suffix(".flamegraph.html")
@@ -128,7 +135,9 @@ def main(argv=None):
                 except (ValueError, IndexError):
                     pass
         report["cold_imports"] = {
-            "status": "available" if imported.returncode == 0 else "unavailable",
+            "status": (
+                "available" if imported.returncode == 0 else "unavailable"
+            ),
             "returncode": imported.returncode,
             "largest_cumulative": sorted(
                 imports, key=lambda row: -row["cumulative_us"]
@@ -153,7 +162,8 @@ def main(argv=None):
     from ntqr.llm.artifacts import atomic_write_bytes
 
     atomic_write_bytes(
-        args.output.with_suffix(".md"), render_profile_markdown(report).encode("utf-8")
+        args.output.with_suffix(".md"),
+        render_profile_markdown(report).encode("utf-8"),
     )
     print(args.output)
     return 0

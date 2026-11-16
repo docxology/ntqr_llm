@@ -21,7 +21,11 @@ def test_sparse_generator_matches_exhaustive_allocations(ql):
     actual = set()
     for point in cs.set_generator(ql):
         assert cs.is_valid_point(point, ql)[0]
-        actual.add(tuple(tuple(int(v) for v in row.toarray().ravel()) for row in point))
+        actual.add(
+            tuple(
+                tuple(int(v) for v in row.toarray().ravel()) for row in point
+            )
+        )
     expected = {
         ((a, b), (3 - a, 1 - b))
         for a, b in product(range(4), range(2))
@@ -32,7 +36,10 @@ def test_sparse_generator_matches_exhaustive_allocations(ql):
 
 def test_exact_correct_cuboid_handles_sparse_rows():
     cs = ConsistentSet(("a", "b"), ("i",), {("a",): 3, ("b",): 1})
-    assert set(cs.correct_cuboid_generator((2, 2))) == {((1,), (0,)), ((2,), (1,))}
+    assert set(cs.correct_cuboid_generator((2, 2))) == {
+        ((1,), (0,)),
+        ((2,), (1,)),
+    }
 
 
 def test_09_response_mappings_use_observation_values():
@@ -62,7 +69,10 @@ def test_seeded_sparse_example_is_repeatable_and_conserves_counts():
 
 def test_sampling_count_and_budget_are_bounded():
     args = (("a", "b"), ("i",), (1, 0))
-    assert len(summarize_sets(*args, n_samples=99)["consistent_random_points"]) == 1
+    assert (
+        len(summarize_sets(*args, n_samples=99)["consistent_random_points"])
+        == 1
+    )
     assert summarize_sets(*args, n_samples=0)["consistent_random_points"] == []
     with pytest.raises(ValueError, match="max_allocations"):
         summarize_sets(*args, max_allocations=1)
@@ -82,12 +92,16 @@ def test_alarm_demo_guards_expensive_and_malformed_inputs():
         "factors": [2, 2],
         "responses": [[1, 1]],
     }
-    result = run_alarm(spec, SingleClassifierAxioms, SingleClassifierEvaluations)
+    result = run_alarm(
+        spec, SingleClassifierAxioms, SingleClassifierEvaluations
+    )
     assert isinstance(result["are_misaligned"], bool)
     for changes in ({"Q": 31}, {"responses": [[1, 0]]}, {"factors": [0, 2]}):
         with pytest.raises(ValueError):
             run_alarm(
-                {**spec, **changes}, SingleClassifierAxioms, SingleClassifierEvaluations
+                {**spec, **changes},
+                SingleClassifierAxioms,
+                SingleClassifierEvaluations,
             )
 
 
@@ -98,32 +112,52 @@ def test_sparse_generator_rejects_invalid_label_totals(ql):
         list(cs.set_generator(ql))
 
 
-def test_hydration_preserves_directory_guides():
-    import subprocess
-    import sys
+def test_hydration_preserves_directory_guides(tmp_path, monkeypatch):
     from pathlib import Path
+
+    import z_generate_manuscript_variables as bridge
 
     root = Path(__file__).resolve().parents[1]
     paths = [
-        root / "output" / folder / filename
+        Path("output") / folder / filename
         for folder in ("figures", "manuscript")
         for filename in ("README.md", "AGENTS.md")
     ]
-    before = {path: path.read_bytes() for path in paths}
-    subprocess.run(
-        [sys.executable, "scripts/z_generate_manuscript_variables.py"],
-        cwd=root,
-        check=True,
-        capture_output=True,
-        text=True,
+    before = {path: (root / path).read_bytes() for path in paths}
+    for path, content in before.items():
+        target = tmp_path / path
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes(content)
+    monkeypatch.setattr(bridge, "ROOT", tmp_path)
+    monkeypatch.setattr(
+        bridge, "OUTPUT_MANUSCRIPT", tmp_path / "output/manuscript"
     )
-    assert {path: path.read_bytes() for path in paths} == before
+    monkeypatch.setattr(bridge, "OUTPUT_DATA", tmp_path / "output/data")
+    monkeypatch.setattr(bridge, "OUTPUT_FIGURES", tmp_path / "output/figures")
+
+    assert bridge.main([]) == 0
+    assert {path: (tmp_path / path).read_bytes() for path in paths} == before
+    manuscript = tmp_path / "output/manuscript"
+    published = "\n".join(
+        path.read_text() for path in manuscript.glob("[0-9]*.md")
+    )
+    for filename in (
+        "synthetic_convergence.png",
+        "synthetic_alarm.png",
+        "synthetic_tiebreak.png",
+        "synthetic_mv_vs_ei.png",
+        "bootstrap_recovery_mae.png",
+        "validation_matrix.png",
+    ):
+        assert f"(../figures/{filename})" in published
+        assert (manuscript / "../figures" / filename).is_file()
 
 
 def test_hashable_points_have_value_semantics_across_storage_formats():
     from ntqr.evaluations import HashablePoint
     from scipy.sparse import csr_array
     import numpy as np
+
     original = np.array([[1, 0, 2]], dtype=np.int32)
     dense = HashablePoint(original)
     numeric = HashablePoint(original.astype(float))
@@ -140,7 +174,8 @@ def test_hashable_points_have_value_semantics_across_storage_formats():
 
 def test_consistency_budget_precedes_large_simulation_or_symbol_construction():
     from ntqr.llm.consistency import summarize_sets
+
     with pytest.raises(ValueError, match="max_events"):
         summarize_sets(("a", "b"), tuple(str(i) for i in range(30)), (1, 1))
     with pytest.raises(ValueError, match="max_allocations"):
-        summarize_sets(("a", "b"), ("i",), (10 ** 9, 0))
+        summarize_sets(("a", "b"), ("i",), (10**9, 0))

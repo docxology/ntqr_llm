@@ -1415,7 +1415,7 @@ L 892.218438 87.844297
    <text style="font-size: 11px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif" transform="translate(187.041797 29.862363)">majority voting is more robust in the tie-break danger zone (weak judges, extreme prevalence)</text>
   </g>
   <g id="text_35">
-   <text style="font-size: 6px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #666666" x="449.418438" y="344.16" transform="rotate(-0 449.418438 344.16)">Recorded synthetic study; no new experiments or model calls</text>
+   <text style="font-size: 6px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #666666" x="449.418438" y="344.16" transform="rotate(-0 449.418438 344.16)">synthetic NTQR study | p_a=0.55 | J0(0.90,0.80), J1(0.85,0.75), J2(0.70,0.95) | 200 trials/point | 2026-11-11</text>
   </g>
  </g>
  <defs>

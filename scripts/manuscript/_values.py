@@ -22,6 +22,7 @@ from pathlib import Path
 NTQR_SRC = Path(__file__).resolve().parents[2] / "python" / "src"
 sys.path.insert(0, str(NTQR_SRC))
 from ntqr.llm import personas  # noqa: E402
+from ntqr.llm.study_records import model_dirname  # noqa: E402
 
 # Persona display order, matching ntqr.llm.personas.PERSONAS.
 PERSONA_ORDER = ["Optimist", "Neutral", "Pessimist"]
@@ -35,10 +36,6 @@ def _load(path: Path) -> dict | None:
         return None
     doc = json.loads(path.read_text())
     return doc.get("result", doc) if isinstance(doc, dict) else doc
-
-
-def _model_dirname(model: str) -> str:
-    return model.replace(":", "_").replace("/", "_")
 
 
 def f3(x: float | None) -> str:
@@ -62,12 +59,14 @@ def frac(x: float | None, max_den: int = 64) -> str:
         return "n/a"
     fr = Fraction(x).limit_denominator(max_den)
     return (
-        str(fr.numerator) if fr.denominator == 1 else f"{fr.numerator}/{fr.denominator}"
+        str(fr.numerator)
+        if fr.denominator == 1
+        else f"{fr.numerator}/{fr.denominator}"
     )
 
 
 def _model_dir(out: Path, model: str) -> Path:
-    return out / "models" / _model_dirname(model)
+    return out / "models" / model_dirname(model)
 
 
 def _diag(out: Path, model: str) -> dict | None:
@@ -232,7 +231,7 @@ def compute_values(out: Path) -> dict[str, str]:
 
     # --- best-model recovery headline ---
     v["BEST_MODEL"] = best_model
-    v["BEST_MODEL_DIR"] = _model_dirname(best_model)
+    v["BEST_MODEL_DIR"] = model_dirname(best_model)
     v["REC_MAE"] = f3(stats["recovery_mae"])
     v["REC_MAE4"] = f4(stats["recovery_mae"])
     v["REC_MAE_A"] = f3(stats["recovery_mae_by_label"]["a"])
@@ -248,7 +247,10 @@ def compute_values(out: Path) -> dict[str, str]:
     v["PESS_TRUE_A"] = f2(pess["true_accuracy"]["a"])
     v["PESS_REC_A"] = f2(pess["recovered_accuracy_unsupervised"]["a"])
     v["PESS_ABS_A"] = f3(
-        abs(pess["recovered_accuracy_unsupervised"]["a"] - pess["true_accuracy"]["a"])
+        abs(
+            pess["recovered_accuracy_unsupervised"]["a"]
+            - pess["true_accuracy"]["a"]
+        )
     )
 
     # --- recovery-quality prose (tracks the actual MAE: exact vs approximate)
@@ -260,7 +262,9 @@ def compute_values(out: Path) -> dict[str, str]:
         within = f", within the {v['FLOOR']} sampling-noise floor"
     if mae is not None and mae == 0:
         v["RECOVERY_VERB"] = "reproduced the authored truth exactly"
-        v["BYLABEL_SUFFIX"] = f" -- exact on all {v['N_TERMS_W']} accuracy terms"
+        v["BYLABEL_SUFFIX"] = (
+            f" -- exact on all {v['N_TERMS_W']} accuracy terms"
+        )
         v["PESS_RECOVERED_PHRASE"] = f"as exactly {v['PESS_REC_A']}"
         v["EXACTNESS_NOTE"] = (
             f" The recovery is *exact* here (recovery MAE {v['REC_MAE']}) "
@@ -354,7 +358,9 @@ def compute_values(out: Path) -> dict[str, str]:
             f"Among {v['N_EVALUABLE_W']} evaluable models, {best_model} "
             "recovered the authored truth most closely."
         )
-        v["REAL_MODEL_GENERALIZATION"] = "the finite set of real evaluable models"
+        v["REAL_MODEL_GENERALIZATION"] = (
+            "the finite set of real evaluable models"
+        )
         v["SYNTHETIC_VALIDATION_SCOPE"] = (
             f"The {v['N_EVALUABLE_W']} evaluable real models give a finite "
             "empirical ranking, not a population estimate."
@@ -439,7 +445,11 @@ def compute_values(out: Path) -> dict[str, str]:
                 mult = (
                     "nearly twice"
                     if 1.7 <= ratio <= 2.3
-                    else ("more than twice" if ratio > 2.3 else f"about {ratio:.1f}×")
+                    else (
+                        "more than twice"
+                        if ratio > 2.3
+                        else f"about {ratio:.1f}×"
+                    )
                 )
                 contrast = (
                     f"`{top_m}` disagreed {mult} as much ({f2(top_d)}) as "
@@ -475,7 +485,11 @@ def compute_values(out: Path) -> dict[str, str]:
     # --- §3.5 majority-voting vs error-independent (do/don't coincide) ---
     mv_mae = mv_stats["recovery_mae"]
     ei_mae = stats["recovery_mae"]
-    coincide = mv_mae is not None and ei_mae is not None and abs(mv_mae - ei_mae) < 5e-4
+    coincide = (
+        mv_mae is not None
+        and ei_mae is not None
+        and abs(mv_mae - ei_mae) < 5e-4
+    )
     if coincide:
         v["MV_EI_HEADING"] = (
             "Majority voting and error-independent recovery coincided here"
@@ -515,12 +529,15 @@ def compute_values(out: Path) -> dict[str, str]:
         rel = "scored against the sampling-noise floor"
     plural = "model sits" if n_eval == 1 else "models sit"
     v["FIG4_SENTENCE"] = (
-        f"the {eval_word} evaluable {plural} at recovery MAE {v['REC_MAE']}, " f"{rel}"
+        f"the {eval_word} evaluable {plural} at recovery MAE {v['REC_MAE']}, "
+        f"{rel}"
     )
 
     # --- diagnostic ---
     v["DIAG_MATCHED"] = str(diag_block["diagnostic_matched_outcome"]).lower()
-    v["PRED_EVAL_SET"] = ", ".join(f"`{m}`" for m in diag_block["predicted_evaluable"])
+    v["PRED_EVAL_SET"] = ", ".join(
+        f"`{m}`" for m in diag_block["predicted_evaluable"]
+    )
     v["EVAL_SET"] = ", ".join(f"`{m}`" for m in evaluated)
     v["FAILED_SET"] = ", ".join(f"`{m}`" for m in failed)
 
@@ -546,7 +563,9 @@ def compute_values(out: Path) -> dict[str, str]:
     v["N_NONCOMPLIANT"] = str(len(noncompliant))
     total_calls = n_scen * 3
     if noncompliant:
-        parts = ", ".join(f"`{m}` ({u}/{total_calls})" for m, u in noncompliant)
+        parts = ", ".join(
+            f"`{m}` ({u}/{total_calls})" for m, u in noncompliant
+        )
         v["NONCOMPLIANCE_NOTE"] = (
             f"At temperature {v['TEMP']}, {_word(len(noncompliant))} "
             f"model(s) emitted at least one unparseable response and were "
@@ -600,7 +619,9 @@ def compute_values(out: Path) -> dict[str, str]:
             "a matrix-completeness failure rather than inventing a label."
         )
     else:
-        v["WARNING_NOT_DISAGREE_CLAIM"] = "*not* an ensemble-disagreement threshold."
+        v["WARNING_NOT_DISAGREE_CLAIM"] = (
+            "*not* an ensemble-disagreement threshold."
+        )
         v["S6_DISAGREEMENT_TEXT"] = (
             "Disagreement is descriptive; evaluability is determined by "
             "per-judge variation and complete parseable votes."
@@ -633,8 +654,12 @@ def compute_values(out: Path) -> dict[str, str]:
     if _eval_d and _uneval_d:
         lo_un, hi_un = min(_uneval_d), max(_uneval_d)
         lo_ev, hi_ev = min(_eval_d), max(_eval_d)
-        eval_span = f2(lo_ev) if len(_eval_d) == 1 else f"{f2(lo_ev)}–{f2(hi_ev)}"
-        uneval_span = f2(lo_un) if lo_un == hi_un else f"{f2(lo_un)}–{f2(hi_un)}"
+        eval_span = (
+            f2(lo_ev) if len(_eval_d) == 1 else f"{f2(lo_ev)}–{f2(hi_ev)}"
+        )
+        uneval_span = (
+            f2(lo_un) if lo_un == hi_un else f"{f2(lo_un)}–{f2(hi_un)}"
+        )
         uneval_noun = "model" if len(_uneval_d) == 1 else "models"
         if hi_ev < lo_un:
             v["ABSTRACT_DISAGREEMENT"] = (
@@ -734,12 +759,16 @@ def compute_values(out: Path) -> dict[str, str]:
         )
 
     # --- tie-break mean accuracies (selected vs mirror) ---
-    eei = _load(_model_dir(out, best_model) / "evaluation_error_independent.json")
+    eei = _load(
+        _model_dir(out, best_model) / "evaluation_error_independent.json"
+    )
     sols = eei["float"]
 
     def _mean_acc(sol):
         vals = [
-            sol["accuracy"][i][lab]["float"] for i in range(3) for lab in ("a", "b")
+            sol["accuracy"][i][lab]["float"]
+            for i in range(3)
+            for lab in ("a", "b")
         ]
         return sum(vals) / len(vals)
 
@@ -762,7 +791,9 @@ def compute_values(out: Path) -> dict[str, str]:
     v["TABLE_RECOVERY_RANKING"] = _recovery_ranking_table(summary)
     v["TABLE_CONSTANTS"] = _constants_table(out, requested, evaluated)
     v["TABLE_DISAGREEMENT"] = _disagreement_table(out, requested, evaluated)
-    v["TABLE_S6_DISAGREEMENT"] = _s6_disagreement_table(out, requested, evaluated)
+    v["TABLE_S6_DISAGREEMENT"] = _s6_disagreement_table(
+        out, requested, evaluated
+    )
     v["TABLE_EVALUATION_OBJECTS"] = _evaluation_objects_table()
     v["TABLE_SCENARIO_EXAMPLES"] = _scenario_examples_table()
     v["TABLE_SCENARIOS_FULL"] = _scenario_table()
@@ -794,7 +825,11 @@ def compute_values(out: Path) -> dict[str, str]:
         + len(sorted((sim_root / "bootstrap_recovery_ci").glob("*.png")))
         + len(sorted(validation_root.glob("*.png")))
         + len(
-            sorted((validation_root.parent / "recovery_validity_report").glob("*.png"))
+            sorted(
+                (validation_root.parent / "recovery_validity_report").glob(
+                    "*.png"
+                )
+            )
         )
     )
     v["N_EMBEDDED_FIGURES"] = str(embedded_figures)
@@ -1081,10 +1116,10 @@ def _simulation_values(sim_dir: Path) -> dict[str, str]:
     """Tokens for the synthetic NTQR validation study (§3.7).
 
     Reads the deterministic summary written by
-    ``scripts/sim/synthetic_recovery_study.py`` and formats its convergence fit,
-    alarm-rate characterisation, and two markdown tables. Fails loudly if the
-    summary is absent: the study is fully reproducible with no network, so a
-    missing artifact means the generator simply has not been run yet.
+    ``scripts/sim/synthetic_recovery_study.py``. Convergence errors and fitted
+    slopes are conditional on the recorded complete physical support; report
+    successful and unavailable attempts with each row's original denominator.
+    Alarm, tie-break and EI-versus-MV retain their separate raw-root protocols.
     """
     summary = _load(sim_dir / "summary.json")
     if summary is None:
@@ -1097,21 +1132,27 @@ def _simulation_values(sim_dir: Path) -> dict[str, str]:
     ens = summary["ensemble"]
     fit = conv["sqrt_q_fit_accuracy"]
     fit_prev = conv["sqrt_q_fit_prevalence"]
+    first_row = min(conv["rows"], key=lambda row: row["q"])
+    last_row = max(conv["rows"], key=lambda row: row["q"])
 
     def _pct(x: float | None) -> str:
         return "n/a" if x is None else f"{x * 100:.0f}%"
 
-    accs = ", ".join(f"({j['alpha']:.2f}, {j['beta']:.2f})" for j in ens["accuracies"])
+    accs = ", ".join(
+        f"({j['alpha']:.2f}, {j['beta']:.2f})" for j in ens["accuracies"]
+    )
 
     conv_tab = [
-        "| Q | Accuracy MAE | Prevalence error | Trials solved |",
-        "|---|---|---|---|",
+        "| Q | Accuracy MAE (conditional) | Prevalence error (conditional) | "
+        "Complete physical / attempted | Unavailable / attempted |",
+        "|---|---|---|---|---|",
     ]
     for r in conv["rows"]:
         conv_tab.append(
             f"| {r['q']} | {f3(r['accuracy_mae_mean'])} | "
             f"{f3(r['prevalence_abs_error_mean'])} | "
-            f"{r['n_solved']}/{r['n_trials']} |"
+            f"{r['n_solved']}/{r['n_trials']} | "
+            f"{r['n_trials'] - r['n_solved']}/{r['n_trials']} |"
         )
 
     corr_tab = [
@@ -1126,7 +1167,9 @@ def _simulation_values(sim_dir: Path) -> dict[str, str]:
             f"{f3(silent) if silent is not None else 'n/a'} |"
         )
 
-    indep = next(r for r in corr["rows"] if r["label"].startswith("independent"))
+    indep = next(
+        r for r in corr["rows"] if r["label"].startswith("independent")
+    )
 
     tie = summary["tie_break"]
     rob = summary["robustness"]
@@ -1166,7 +1209,14 @@ def _simulation_values(sim_dir: Path) -> dict[str, str]:
         "SIM_N_TRIALS": str(conv["n_trials"]),
         "SIM_Q_MIN": str(conv["q_min"]),
         "SIM_Q_MAX": str(conv["q_max"]),
+        "SIM_SUPPORT_QMIN": f"{first_row['n_solved']}/{first_row['n_trials']}",
+        "SIM_UNAVAILABLE_QMIN": (
+            f"{first_row['n_trials'] - first_row['n_solved']}/"
+            f"{first_row['n_trials']}"
+        ),
+        "SIM_SUPPORT_QMAX": f"{last_row['n_solved']}/{last_row['n_trials']}",
         "SIM_CORR_Q": str(corr["q"]),
+        "SIM_CORR_N_TRIALS": str(corr["n_trials"]),
         "SIM_ACC_MAE_QMIN": f3(conv["smallest_q_acc_mae"]),
         "SIM_ACC_MAE_QMAX": f3(conv["largest_q_acc_mae"]),
         "SIM_SLOPE": f2(fit["slope"]),
@@ -1189,11 +1239,13 @@ def _simulation_values(sim_dir: Path) -> dict[str, str]:
         # tie-break safe region
         "SIM_TIEBREAK_Q": str(tie["q"]),
         "SIM_TIEBREAK_PREV": f2(tie["prevalence_a"]),
+        "SIM_TIEBREAK_N_TRIALS": str(tie["n_trials"]),
         "SIM_TIEBREAK_SAFE_ACC": f2(tie["safe_accuracy"]),
         "SIM_TIEBREAK_MAX_CAT": _pct(tie["max_catastrophic_rate"]),
         "SIM_TABLE_TIEBREAK": "\n".join(tie_tab),
         # EI vs majority-voting: exactness vs robustness
         "SIM_MVEI_Q": str(mvei["q"]),
+        "SIM_MVEI_N_TRIALS": str(mvei["n_trials"]),
         "SIM_MVEI_EI_PREV": f2(ei_c["prevalence_a"]),
         "SIM_MVEI_EI_ACC": f2(ei_c["accuracy"]),
         "SIM_MVEI_EI_EIMAE": f3(ei_c["ei_mae_mean"]),
@@ -1254,7 +1306,8 @@ def _worked_example(out: Path, best_model: str, comp: dict) -> dict[str, str]:
         f_bbb = float(freqs[("b", "b", "b")])
         m = float(tvc.trio_frequency_moment())
         pm = {
-            p: float(val) for p, val in tvc.label_pairs_frequency_moments("b").items()
+            p: float(val)
+            for p, val in tvc.label_pairs_frequency_moments("b").items()
         }
         prod = pm[(0, 1)] * pm[(0, 2)] * pm[(1, 2)]
         ei = ErrorIndependentEvaluation(tvc)
@@ -1306,7 +1359,9 @@ def _s3_recovery_table(comp: dict) -> str:
             tv = r["true_accuracy"][lab]
             rv = r["recovered_accuracy_unsupervised"][lab]
             err = abs(rv - tv) if tv is not None and rv is not None else None
-            rows.append(f"| {r['persona']} | {lab} | {f4(tv)} | {f4(rv)} | {f4(err)} |")
+            rows.append(
+                f"| {r['persona']} | {lab} | {f4(tv)} | {f4(rv)} | {f4(err)} |"
+            )
     return "\n".join(rows)
 
 
@@ -1395,7 +1450,9 @@ def _s2_sections(out: Path, requested, evaluated, failed) -> dict[str, str]:
                 f"**no constant classifier**."
             )
         else:
-            kind = "constant" if len(consts) == 1 else "two constant classifiers"
+            kind = (
+                "constant" if len(consts) == 1 else "two constant classifiers"
+            )
             head = (
                 f"**`{m}`** — "
                 + " *and* ".join(consts)
@@ -1412,7 +1469,9 @@ def _s2_sections(out: Path, requested, evaluated, failed) -> dict[str, str]:
     # template needs ONE slot regardless of how many models the run contained
     # (the per-model S2_<i> tokens are retained for backward compatibility).
     blocks["S2_ALL"] = "\n\n".join(
-        blocks[f"S2_{i}"] for i in range(1, len(ordered) + 1) if f"S2_{i}" in blocks
+        blocks[f"S2_{i}"]
+        for i in range(1, len(ordered) + 1)
+        if f"S2_{i}" in blocks
     )
     return blocks
 

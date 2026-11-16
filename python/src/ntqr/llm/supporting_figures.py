@@ -3,7 +3,38 @@
 from __future__ import annotations
 from pathlib import Path
 from .figure_export import export_figure, publication_figure
-from .artifacts import generated_at
+
+
+def _synthetic_footer(summary: dict, study: str, context: str) -> str:
+    """Describe the plotted experiment, not another block in the same summary."""
+    block = summary[study]
+    if study == "mv_vs_ei":
+        prevalences = ", ".join(f"{p:.2f}" for p in block["prevalences"])
+        prevalence = f"p_a={{{prevalences}}}"
+        judges = "symmetric judges"
+    elif study == "tie_break":
+        prevalence = f"p_a={block['prevalence_a']:.2f}"
+        judges = "symmetric judges"
+    else:
+        ensemble = summary["ensemble"]
+        prevalence = f"p_a={ensemble['prevalence_a']:.2f}"
+        judges = ", ".join(
+            f"J{j['judge']}({j['alpha']:.2f},{j['beta']:.2f})"
+            for j in ensemble["accuracies"]
+        )
+    units = {
+        "convergence": "attempts/Q; errors conditional on complete physical support",
+        "correlation": "trials/condition; raw roots",
+        "tie_break": "trials/accuracy; raw roots",
+        "mv_vs_ei": "trials/cell; raw roots",
+    }
+    settings = [prevalence, judges]
+    if "q" in block:
+        settings.insert(0, f"Q={block['q']}")
+    settings.extend(
+        [f"{block['n_trials']} {units[study]}", f"seed={block['seed']}"]
+    )
+    return context + "\n" + " | ".join(settings)
 
 
 @publication_figure
@@ -29,25 +60,50 @@ def plot_convergence(summary: dict, out_dir: Path, footer: str) -> Path:
         fmt="o-",
         capsize=3,
         color="#1f77b4",
-        label="accuracy MAE (mean ± sd)",
+        label="accuracy MAE (conditional mean ± sd)",
     )
-    ax.plot(qs, prev, "s--", color="#2ca02c", label="prevalence abs. error")
+    ax.plot(
+        qs,
+        prev,
+        "s--",
+        color="#2ca02c",
+        label="conditional prevalence abs. error",
+    )
     # reference 1/sqrt(Q) anchored at the first point
     ref = [acc[0] * (qs[0] / q) ** 0.5 for q in qs]
     ax.plot(qs, ref, ":", color="#888888", label=r"$\propto 1/\sqrt{Q}$ reference")
     ax.set_xscale("log", base=2)
     ax.set_yscale("log")
-    ax.set_xlabel("Test size Q (log scale)")
-    ax.set_ylabel("Unsupervised recovery error (log scale)")
+    ax.set_xticks(
+        [r["q"] for r in summary["convergence"]["rows"]],
+        [
+            f"{r['q']}\n{r['n_solved']}/{r['n_trials']}"
+            for r in summary["convergence"]["rows"]
+        ],
+        fontsize=8,
+    )
+    ax.set_xlabel(
+        "Test size Q (log scale)\n"
+        "complete physical / attempted; remaining attempts unavailable"
+    )
+    ax.set_ylabel("Conditional recovery error (log scale)")
     ax.set_title(
-        "NTQR recovery error falls like sampling noise\n"
+        "NTQR recovery error on complete physical support\n"
         f"(fitted slope {fit['slope']:.2f}, "
         f"$R^2$={fit['r_squared']:.3f}; ideal $-0.5$)"
     )
     ax.legend(frameon=False)
     ax.grid(True, which="both", alpha=0.25)
-    fig.text(0.5, 0.005, footer, ha="center", fontsize=6, color="#666666")
-    fig.tight_layout(rect=(0, 0.02, 1, 1))
+    fig.text(
+        0.5,
+        0.005,
+        _synthetic_footer(summary, "convergence", footer),
+        ha="center",
+        va="bottom",
+        fontsize=6,
+        color="#666666",
+    )
+    fig.tight_layout(rect=(0, 0.06, 1, 1))
     path = out_dir / "synthetic_convergence.png"
     export_figure(
         fig,
@@ -143,8 +199,16 @@ def plot_alarm(summary: dict, out_dir: Path, footer: str) -> Path:
         loc="center right",
     )
 
-    fig.text(0.5, 0.005, footer, ha="center", fontsize=6, color="#666666")
-    fig.tight_layout(rect=(0, 0.03, 1, 1))
+    fig.text(
+        0.5,
+        0.005,
+        _synthetic_footer(summary, "correlation", footer),
+        ha="center",
+        va="bottom",
+        fontsize=6,
+        color="#666666",
+    )
+    fig.tight_layout(rect=(0, 0.06, 1, 1))
     path = out_dir / "synthetic_alarm.png"
     export_figure(
         fig,
@@ -208,8 +272,16 @@ def plot_tiebreak(summary: dict, out_dir: Path, footer: str) -> Path:
     lines1, lab1 = ax.get_legend_handles_labels()
     lines2, lab2 = ax2.get_legend_handles_labels()
     ax.legend(lines1 + lines2, lab1 + lab2, frameon=False, fontsize=8)
-    fig.text(0.5, 0.005, footer, ha="center", fontsize=6, color="#666666")
-    fig.tight_layout(rect=(0, 0.02, 1, 1))
+    fig.text(
+        0.5,
+        0.005,
+        _synthetic_footer(summary, "tie_break", footer),
+        ha="center",
+        va="bottom",
+        fontsize=6,
+        color="#666666",
+    )
+    fig.tight_layout(rect=(0, 0.06, 1, 1))
     path = out_dir / "synthetic_tiebreak.png"
     export_figure(
         fig,
@@ -258,8 +330,16 @@ def plot_mv_vs_ei(summary: dict, out_dir: Path, footer: str) -> Path:
         "(weak judges, extreme prevalence)",
         fontsize=11,
     )
-    fig.text(0.5, 0.005, footer, ha="center", fontsize=6, color="#666666")
-    fig.tight_layout(rect=(0, 0.02, 1, 0.93))
+    fig.text(
+        0.5,
+        0.005,
+        _synthetic_footer(summary, "mv_vs_ei", footer),
+        ha="center",
+        va="bottom",
+        fontsize=6,
+        color="#666666",
+    )
+    fig.tight_layout(rect=(0, 0.06, 1, 0.93))
     path = out_dir / "synthetic_mv_vs_ei.png"
     export_figure(
         fig,
@@ -376,7 +456,7 @@ def plot_validation_matrix(summary: dict, out_dir: Path) -> Path:
         0.5,
         0.012,
         f"{summary['n_passed']}/{summary['n_checks']} checks passed | "
-        f"generated {generated_at()[:10]}",
+        "recorded summary; no new experiments",
         ha="center",
         fontsize=8,
         color="#666666",

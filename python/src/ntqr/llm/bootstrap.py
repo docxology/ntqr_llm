@@ -33,11 +33,14 @@ def label_counts_from_records(records):
 
 
 def _percentile(sorted_xs: list[float], p: float) -> float:
-    """Lower-rank percentile of an already-sorted list (p in [0, 1])."""
+    """Linearly interpolated empirical quantile of sorted values (p in [0, 1])."""
     if not sorted_xs:
         return float("nan")
-    idx = int(p * (len(sorted_xs) - 1))
-    return sorted_xs[idx]
+    position = p * (len(sorted_xs) - 1)
+    lower = int(position)
+    upper = min(lower + 1, len(sorted_xs) - 1)
+    fraction = position - lower
+    return sorted_xs[lower] + fraction * (sorted_xs[upper] - sorted_xs[lower])
 
 
 def _summary(values: list[float]) -> dict:
@@ -68,9 +71,10 @@ def bootstrap_recovery(records, n_boot: int, base_seed: int) -> dict:
 
     Returns the point estimate (the full sample), the 95% percentile CIs for the
     recovery MAE and the prevalence absolute error over ``n_boot`` resamples, and
-    the fraction of resamples that turned degenerate (a persona collapsed to a
-    constant classifier in the draw, so the solve was unavailable) — itself a
-    measure of how fragile evaluability is to the scenario sample.
+    the fraction of resamples for which recovery was unavailable (an alarm or
+    missing complete physical solution) — itself a measure of how fragile
+    evaluability is to the scenario sample. Both error summaries use the same
+    complete-recovery resamples.
     """
     import random
 
@@ -87,12 +91,15 @@ def bootstrap_recovery(records, n_boot: int, base_seed: int) -> dict:
         rng = random.Random(base_seed + b)
         resample = [records[rng.randrange(n)] for _ in range(n)]
         result = solve_recovery(label_counts_from_records(resample))
-        if result["alarm"] or result["accuracy_mae"] is None:
+        if (
+            result["alarm"]
+            or result["prevalence_abs_error"] is None
+            or result["accuracy_mae"] is None
+        ):
             degenerate += 1
             continue
         maes.append(result["accuracy_mae"])
-        if result["prevalence_abs_error"] is not None:
-            prev_errs.append(result["prevalence_abs_error"])
+        prev_errs.append(result["prevalence_abs_error"])
 
     return {
         "n_scenarios": n,

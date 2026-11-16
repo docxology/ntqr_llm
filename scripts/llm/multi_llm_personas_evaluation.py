@@ -62,7 +62,21 @@ import _analysis  # noqa: E402  (thin collect-votes glue)
 import _llm  # noqa: E402
 from ntqr.llm import analysis  # noqa: E402
 from ntqr.llm import personas  # noqa: E402
+from ntqr.llm.study_records import (  # noqa: E402
+    ensure_unique_model_dirnames,
+    model_dirname,
+)
 
+# A spread of locally-runnable chat models, small to large, so the sweep spans
+# a range of capabilities. Votes are never fabricated: a model that emits an
+# unparseable reply on any scenario is reported non-compliant (see
+# evaluate_model), so every solved row rests on real, parsed model responses.
+from ntqr.llm.visualization import (  # noqa: E402
+    BASELINE_SUMMARY,
+    DEFAULT_MODELS,
+    plot_models as _plot,
+    rank_models as _rank,
+)
 from ntqr.r2.datasketches import TrioLabelVoteCounts  # noqa: E402
 from ntqr.r2.evaluators import (  # noqa: E402
     ErrorIndependentEvaluation,
@@ -71,21 +85,6 @@ from ntqr.r2.evaluators import (  # noqa: E402
 )
 
 REQUIRES = ["ollama"]
-
-# A spread of locally-runnable chat models, small to large, so the sweep spans
-# a range of capabilities. Votes are never fabricated: a model that emits an
-# unparseable reply on any scenario is reported non-compliant (see
-# evaluate_model), so every solved row rests on real, parsed model responses.
-from ntqr.llm.visualization import (
-    BASELINE_SUMMARY,
-    DEFAULT_MODELS,
-    plot_models as _plot,
-    rank_models as _rank,
-)
-
-
-def _model_dirname(model: str) -> str:
-    return model.replace(":", "_").replace("/", "_")
 
 
 def _ollama_has(available: list[str], model: str) -> bool:
@@ -152,7 +151,9 @@ def evaluate_model(client, cache, refresh, out_dir, cache_path=None):
     records = analysis.response_records(client, cache)
     prompt_health = analysis.prompt_health(votes, records)
     label_counts = analysis.build_label_counts(votes)
-    _config.save_label_vote_counts(out_dir / "label_vote_counts.json", label_counts)
+    _config.save_label_vote_counts(
+        out_dir / "label_vote_counts.json", label_counts
+    )
     _common.save_json(
         out_dir,
         "votes.json",
@@ -180,7 +181,9 @@ def evaluate_model(client, cache, refresh, out_dir, cache_path=None):
         "unparsed_responses": unparsed,
         "predicted_evaluable": diagnostic["predicted_evaluable"],
         "constant_classifiers": diagnostic["constant_classifiers"],
-        "mean_pairwise_disagreement": (diagnostic["mean_pairwise_disagreement"]),
+        "mean_pairwise_disagreement": (
+            diagnostic["mean_pairwise_disagreement"]
+        ),
         "prompt_health": prompt_health,
     }
 
@@ -206,7 +209,9 @@ def evaluate_model(client, cache, refresh, out_dir, cache_path=None):
             supervised, error_independent, physical_only=True
         )
         stats = analysis.recovery_stats(comparison)
-    except Exception as exc:  # invalid or singular votes -> unavailable EI evaluation
+    except (
+        Exception
+    ) as exc:  # invalid or singular votes -> unavailable EI evaluation
         return {**base, "error": repr(exc)}
     # A baseline failure does not erase a complete physical EI recovery.
     try:
@@ -216,8 +221,14 @@ def evaluate_model(client, cache, refresh, out_dir, cache_path=None):
         )
         mv_stats = analysis.recovery_stats(mv_comparison)
     except ValueError as exc:
+        mv_evaluation = {"error": str(exc)}
         mv_comparison = {"error": str(exc)}
         mv_stats = {"recovery_mae": None, "error": str(exc)}
+    else:
+        mv_evaluation = {
+            "exact": majority.evaluation_exact,
+            "float": majority.evaluation_float,
+        }
 
     _common.save_json(
         out_dir,
@@ -230,10 +241,7 @@ def evaluate_model(client, cache, refresh, out_dir, cache_path=None):
     _common.save_json(
         out_dir,
         "evaluation_majority_voting.json",
-        {
-            "exact": majority.evaluation_exact,
-            "float": majority.evaluation_float,
-        },
+        mv_evaluation,
     )
     _common.save_json(
         out_dir,
@@ -245,7 +253,9 @@ def evaluate_model(client, cache, refresh, out_dir, cache_path=None):
     )
     _common.save_json(out_dir, "comparison.json", comparison)
     _common.save_json(out_dir, "recovery_stats.json", stats)
-    _common.save_json(out_dir, "comparison_majority_voting.json", mv_comparison)
+    _common.save_json(
+        out_dir, "comparison_majority_voting.json", mv_comparison
+    )
     _common.save_json(out_dir, "recovery_stats_majority_voting.json", mv_stats)
 
     if stats["recovery_mae"] is None:
@@ -285,12 +295,13 @@ def main(argv: list[str] | None = None) -> None:
         },
         argv=argv,
     )
-    out = _common.output_dir(config.category, config.name)
     backend = config.get("backend", "ollama")
     models = config.get("models", DEFAULT_MODELS)
     temperature = config.get("temperature", 0.0)
     refresh = bool(config.get("refresh", False))
     timeout = float(config.get("timeout", 300.0))
+    ensure_unique_model_dirnames(models)
+    out = _common.output_dir(config.category, config.name)
 
     present, missing = _select_models(backend, models)
     if not present:
@@ -310,7 +321,7 @@ def main(argv: list[str] | None = None) -> None:
             temperature=temperature,
             timeout=timeout,
         )
-        model_dir = out / "models" / _model_dirname(model)
+        model_dir = out / "models" / model_dirname(model)
         model_dir.mkdir(parents=True, exist_ok=True)
         try:
             client.preflight()
@@ -347,7 +358,8 @@ def main(argv: list[str] | None = None) -> None:
     dis_eval = [
         r["mean_pairwise_disagreement"]
         for r in rows
-        if r["model"] in evaluated and r.get("mean_pairwise_disagreement") is not None
+        if r["model"] in evaluated
+        and r.get("mean_pairwise_disagreement") is not None
     ]
     dis_uneval = [
         r["mean_pairwise_disagreement"]
@@ -357,7 +369,9 @@ def main(argv: list[str] | None = None) -> None:
         and r.get("mean_pairwise_disagreement") is not None
     ]
     disagreement_gates = (
-        bool(dis_eval) and bool(dis_uneval) and (min(dis_eval) >= max(dis_uneval))
+        bool(dis_eval)
+        and bool(dis_uneval)
+        and (min(dis_eval) >= max(dis_uneval))
     )
     if disagreement_gates:
         disagreement_note = (
@@ -415,7 +429,9 @@ def main(argv: list[str] | None = None) -> None:
             ),
             "predicted_evaluable": sorted(predicted),
             "actually_evaluated": sorted(evaluated & diagnosed),
-            "diagnostic_matched_outcome": (predicted == (evaluated & diagnosed)),
+            "diagnostic_matched_outcome": (
+                predicted == (evaluated & diagnosed)
+            ),
         },
         "ranking_by_recovery_mae": table,
     }
@@ -456,7 +472,9 @@ def main(argv: list[str] | None = None) -> None:
                 f"unparsed={r['unparsed_responses']}{tail}"
             )
     if ranked:
-        print(f"best: {ranked[0]['model']} (MAE {ranked[0]['recovery_mae']:.3f})")
+        print(
+            f"best: {ranked[0]['model']} (MAE {ranked[0]['recovery_mae']:.3f})"
+        )
     for p in plots:
         print(f"-> plot {p.name}")
     print(f"-> wrote results to {out}")

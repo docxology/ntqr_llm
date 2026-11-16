@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-10-18T00:17:48+00:00",
+  "generated_at": "2026-11-11T00:55:56+00:00",
   "schema_version": 2,
   "ntqr_version": "0.9",
   "result": {
     "study": "statistical_validation",
-    "generated_utc": "2026-10-18T00:17:48.763392+00:00",
+    "generated_utc": "2026-11-11T00:55:56.882029+00:00",
     "n_checks": 9,
     "n_passed": 9,
     "n_failed": 0,
@@ -31,7 +31,7 @@
         "id": "sqrt_q_convergence",
         "label": "Synthetic recovery follows 1/sqrt(Q)",
         "passed": true,
-        "evidence": "slope -0.585; R2 0.989"
+        "evidence": "slope -0.455; R2 0.996"
       },
       {
         "id": "alarm_false_positive_control",

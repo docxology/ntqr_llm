@@ -1,5 +1,7 @@
 {
-  "generated_at": "2026-06-01T13:27:45",
+  "generated_at": "2026-11-11T00:55:43+00:00",
+  "schema_version": 2,
+  "ntqr_version": "0.9",
   "result": {
     "q": 1024,
     "n_trials": 200,
@@ -10,6 +12,20 @@
         "common_mode": 0.0,
         "anti_pair": null,
         "anti_strength": 0.0,
+        "effective_accuracies": [
+          {
+            "a": 0.9,
+            "b": 0.8
+          },
+          {
+            "a": 0.85,
+            "b": 0.75
+          },
+          {
+            "a": 0.7,
+            "b": 0.95
+          }
+        ],
         "q": 1024,
         "n_trials": 200,
         "alarm_count": 0,
@@ -24,6 +40,20 @@
         "common_mode": 0.1,
         "anti_pair": null,
         "anti_strength": 0.0,
+        "effective_accuracies": [
+          {
+            "a": 0.81,
+            "b": 0.7200000000000001
+          },
+          {
+            "a": 0.765,
+            "b": 0.675
+          },
+          {
+            "a": 0.63,
+            "b": 0.855
+          }
+        ],
         "q": 1024,
         "n_trials": 200,
         "alarm_count": 0,
@@ -38,6 +68,20 @@
         "common_mode": 0.2,
         "anti_pair": null,
         "anti_strength": 0.0,
+        "effective_accuracies": [
+          {
+            "a": 0.7200000000000001,
+            "b": 0.6400000000000001
+          },
+          {
+            "a": 0.68,
+            "b": 0.6000000000000001
+          },
+          {
+            "a": 0.5599999999999999,
+            "b": 0.76
+          }
+        ],
         "q": 1024,
         "n_trials": 200,
         "alarm_count": 0,
@@ -52,6 +96,20 @@
         "common_mode": 0.3,
         "anti_pair": null,
         "anti_strength": 0.0,
+        "effective_accuracies": [
+          {
+            "a": 0.63,
+            "b": 0.5599999999999999
+          },
+          {
+            "a": 0.595,
+            "b": 0.5249999999999999
+          },
+          {
+            "a": 0.48999999999999994,
+            "b": 0.6649999999999999
+          }
+        ],
         "q": 1024,
         "n_trials": 200,
         "alarm_count": 0,
@@ -66,6 +124,20 @@
         "common_mode": 0.4,
         "anti_pair": null,
         "anti_strength": 0.0,
+        "effective_accuracies": [
+          {
+            "a": 0.54,
+            "b": 0.48
+          },
+          {
+            "a": 0.51,
+            "b": 0.44999999999999996
+          },
+          {
+            "a": 0.42,
+            "b": 0.57
+          }
+        ],
         "q": 1024,
         "n_trials": 200,
         "alarm_count": 0,
@@ -83,6 +155,20 @@
           1
         ],
         "anti_strength": 0.2,
+        "effective_accuracies": [
+          {
+            "a": 0.9,
+            "b": 0.8
+          },
+          {
+            "a": 0.7000000000000001,
+            "b": 0.6400000000000001
+          },
+          {
+            "a": 0.7,
+            "b": 0.95
+          }
+        ],
         "q": 1024,
         "n_trials": 200,
         "alarm_count": 0,
@@ -100,6 +186,20 @@
           1
         ],
         "anti_strength": 0.3,
+        "effective_accuracies": [
+          {
+            "a": 0.9,
+            "b": 0.8
+          },
+          {
+            "a": 0.625,
+            "b": 0.5849999999999999
+          },
+          {
+            "a": 0.7,
+            "b": 0.95
+          }
+        ],
         "q": 1024,
         "n_trials": 200,
         "alarm_count": 80,
@@ -117,6 +217,20 @@
           1
         ],
         "anti_strength": 0.4,
+        "effective_accuracies": [
+          {
+            "a": 0.9,
+            "b": 0.8
+          },
+          {
+            "a": 0.55,
+            "b": 0.5299999999999999
+          },
+          {
+            "a": 0.7,
+            "b": 0.95
+          }
+        ],
         "q": 1024,
         "n_trials": 200,
         "alarm_count": 188,
@@ -144,7 +258,7 @@
       }
     ],
     "metadata": {
-      "generated_utc": "2026-06-01T20:27:45.942596+00:00",
+      "generated_utc": "2026-11-11T00:55:43.557272+00:00",
       "study": "synthetic_recovery_study",
       "deterministic": true,
       "ensemble": {
@@ -174,7 +288,7 @@
   },
   "caption": "The alarm has zero false positives under independence and fires on anti-correlated errors, while positive common-mode dependence remains a documented blind spot.",
   "metadata": {
-    "generated_utc": "2026-06-01T20:27:45.942596+00:00",
+    "generated_utc": "2026-11-11T00:55:43.557272+00:00",
     "study": "synthetic_recovery_study",
     "deterministic": true,
     "ensemble": {
@@ -203,7 +317,7 @@
   },
   "provenance": {
     "source_file": "correlation.data.json",
-    "generated_utc": "2026-06-01T20:27:45.942596+00:00",
+    "generated_utc": "2026-11-11T00:55:43.557272+00:00",
     "study": "synthetic_recovery_study",
     "deterministic": true,
     "seed": 5000

@@ -1,0 +1,92 @@
+{
+  "generated_at": "2026-11-11T00:55:57+00:00",
+  "schema_version": 2,
+  "ntqr_version": "0.9",
+  "result": {
+    "figure": "validation_matrix.png",
+    "title": "Statistical validation matrix",
+    "caption": "Offline validation matrix checking the manuscript's load-bearing claims against generated artifacts, including the complete 17-figure sidecar inventory.",
+    "checks": [
+      {
+        "id": "diagnostic_matches_solve",
+        "label": "Label-free diagnostic matches solver outcome",
+        "passed": true,
+        "evidence": "predicted 5; evaluated 5"
+      },
+      {
+        "id": "real_recovery_within_noise_floor",
+        "label": "Recorded recovery is below the binomial SE reference",
+        "passed": true,
+        "evidence": "MAE 0.028 <= SE reference 0.102"
+      },
+      {
+        "id": "bootstrap_ci_within_noise_floor",
+        "label": "Recorded bootstrap interval is below the binomial SE reference",
+        "passed": true,
+        "evidence": "CI_hi 0.038 <= SE reference 0.102"
+      },
+      {
+        "id": "sqrt_q_convergence",
+        "label": "Synthetic recovery follows 1/sqrt(Q)",
+        "passed": true,
+        "evidence": "slope -0.455; R2 0.996"
+      },
+      {
+        "id": "alarm_false_positive_control",
+        "label": "No false alarms observed in the selected independent runs",
+        "passed": true,
+        "evidence": "false alarm 0%"
+      },
+      {
+        "id": "common_mode_blind_spot",
+        "label": "Common-mode dependence is reported as a blind spot",
+        "passed": true,
+        "evidence": "alarm 0%; silent error 0.042"
+      },
+      {
+        "id": "tie_break_boundary",
+        "label": "Better-than-random tie-break boundary is quantified",
+        "passed": true,
+        "evidence": "safe to 0.82; max inversion 85%"
+      },
+      {
+        "id": "ei_mv_tradeoff",
+        "label": "EI-vs-MV trade-off has both regimes",
+        "passed": true,
+        "evidence": "EI win 79%; danger-zone EI win 18%"
+      },
+      {
+        "id": "figure_sidecars_complete",
+        "label": "Every source data figure has a parseable sidecar",
+        "passed": true,
+        "evidence": "17/17 sidecars parse"
+      }
+    ],
+    "thresholds": [
+      {
+        "label": "pass threshold",
+        "value": "all checks pass",
+        "meaning": "The report is considered green only when every load-bearing claim check passes."
+      }
+    ],
+    "metadata": {
+      "generated_utc": "2026-11-11T00:55:56.882029+00:00",
+      "n_checks": 9,
+      "n_passed": 9,
+      "n_failed": 0,
+      "figure_inventory_count": 17
+    }
+  },
+  "caption": "Offline validation matrix checking the manuscript's load-bearing claims against generated artifacts, including the complete 17-figure sidecar inventory.",
+  "metadata": {
+    "generated_utc": "2026-11-11T00:55:56.882029+00:00",
+    "n_checks": 9,
+    "n_passed": 9,
+    "n_failed": 0,
+    "figure_inventory_count": 17
+  },
+  "provenance": {
+    "source_file": "validation_matrix.data.json",
+    "generated_utc": "2026-11-11T00:55:56.882029+00:00"
+  }
+}

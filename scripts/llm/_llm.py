@@ -170,13 +170,14 @@ class LLMClient:
             "anthropic-version": "2023-06-01",
             "content-type": "application/json",
         }
-        data = _post_json(
-            "https://api.anthropic.com/v1/messages",
-            payload,
-            headers,
-            self.timeout,
-        )
+        try:
+            data = _post_json(
+                "https://api.anthropic.com/v1/messages",
+                payload,
+                headers,
+                self.timeout,
+            )
+        except (urllib.error.URLError, OSError) as exc:
+            raise LLMUnavailable(f"Anthropic chat failed: {exc}") from exc
         blocks = data.get("content", [])
         return blocks[0].get("text", "") if blocks else ""
-
-

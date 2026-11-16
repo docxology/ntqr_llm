@@ -23,8 +23,9 @@ evaluable, before any solve and without ground truth. This screen identifies a c
 algebra; it does not certify an ensemble that passes. A scenario bootstrap puts a 95% CI
 of [0.000, 0.038] on the recovery MAE (well inside the
 0.102 SE reference), and a deterministic synthetic study extends the tests beyond
-the finite set of real evaluable models — error falls like `1/√Q` (slope
--0.58, stable across ensembles) — while mapping two honest limits: the
+the finite set of real evaluable models — recovery error conditional on complete physical
+support falls like `1/√Q` (slope -0.45, stable across selected ensembles) —
+while mapping two honest limits: the
 built-in failure alarm detects injected anti-correlation with no observed
 false positives on the selected independent draws, yet
 can miss positively-correlated (shared-training) errors, and the two-solution

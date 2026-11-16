@@ -30,9 +30,6 @@ SEED = 9000
 LLM_OUT = _common.OUTPUTS_DIR / "llm" / "multi_llm_personas_evaluation"
 
 
-from ntqr.llm.supporting_figures import plot_bootstrap as _plot
-
-
 def _load_result(path: Path) -> dict:
     doc = json.loads(path.read_text())
     return doc.get("result", doc) if isinstance(doc, dict) else doc
@@ -49,7 +46,9 @@ def reconstruct_records(model: str) -> list[tuple[str, tuple]]:
     ``by_scenario`` votes; the persona order matches ``personas.PERSONAS``.
     """
     votes = _load_result(_model_dir(model) / "votes.json")["by_scenario"]
-    truth = {s["id"]: personas.CALL_TO_LABEL[s["truth"]] for s in personas.SCENARIOS}
+    truth = {
+        s["id"]: personas.CALL_TO_LABEL[s["truth"]] for s in personas.SCENARIOS
+    }
     order = [p["key"] for p in personas.PERSONAS]
     records = []
     for sid, calls in votes.items():
@@ -59,6 +58,8 @@ def reconstruct_records(model: str) -> list[tuple[str, tuple]]:
 
 
 def main() -> int:
+    from ntqr.llm.supporting_figures import plot_bootstrap as _plot
+
     out_dir = _common.output_dir("sim", "bootstrap_recovery_ci")
     _common.banner("Scenario-bootstrap recovery CI (deterministic, offline)")
 

@@ -13,8 +13,11 @@ validated without a running Ollama. Runs under pytest *and* standalone:
 from __future__ import annotations
 
 import sys
+import urllib.error
 from pathlib import Path
 from types import SimpleNamespace
+
+import pytest
 
 SCRIPTS = Path(__file__).resolve().parent.parent / "scripts"
 sys.path.insert(0, str(SCRIPTS))
@@ -71,27 +74,61 @@ def test_collect_votes_tolerate_records_abstention():
     assert sample["prompt_version"] == _personas.PROMPT_VERSION
 
 
-def test_cache_preserves_unparsed_on_replay():
-    """A cached abstention stays an abstention on replay (no silent recount).
-
-    Regression for the bug where the cache stored only the post-fallback call
-    string, so re-running from cache reported 0 unparsed and silently erased a
-    material caveat (how many votes were unparseable model output).
-    """
+def test_cache_retries_unavailable_and_heals_on_replay():
+    """A later healthy client replaces transient transport abstentions."""
     _, unparsed1, cache = _analysis.collect_votes(
         _RaisingClient(), {}, refresh=True, on_error="tolerate"
     )
     n_calls = len(_personas.SCENARIOS) * len(_personas.PERSONAS)
     assert unparsed1 == n_calls
 
-    class _WouldSucceed(_RaisingClient):
+    class _HealthyClient(_RaisingClient):
+        def __init__(self):
+            self.calls = 0
+
         def complete(self, *a, **k):
+            self.calls += 1
             return '{"call": "bullish"}'
 
+    client = _HealthyClient()
     votes, unparsed2, _ = _analysis.collect_votes(
-        _WouldSucceed(), cache, refresh=False, on_error="tolerate"
+        client, cache, refresh=False, on_error="tolerate"
     )
-    assert unparsed2 == n_calls  # read from the cached record, not re-derived
+    assert client.calls == n_calls
+    assert unparsed2 == 0
+    some = _personas.SCENARIOS[0]["id"]
+    assert votes[some]["optimist"] == "bullish"
+    healed = cache[analysis.cache_key(client, "optimist", some)]
+    assert healed["parse_method"] == "schema_json"
+    assert healed["unparsed"] is False
+
+
+def test_cache_preserves_genuine_invalid_reply_on_replay():
+    """A genuine malformed reply remains a cached abstention."""
+
+    class _InvalidClient(_RaisingClient):
+        def complete(self, *a, **k):
+            return '{"call":"mixed"}'
+
+    _, unparsed1, cache = _analysis.collect_votes(
+        _InvalidClient(), {}, refresh=True, on_error="tolerate"
+    )
+    n_calls = len(_personas.SCENARIOS) * len(_personas.PERSONAS)
+    assert unparsed1 == n_calls
+    assert next(iter(cache.values()))["parse_method"] == "schema_json"
+
+    class _HealthyClient(_RaisingClient):
+        def __init__(self):
+            self.calls = 0
+
+        def complete(self, *a, **k):
+            self.calls += 1
+            return '{"call": "bullish"}'
+
+    client = _HealthyClient()
+    votes, unparsed2, _ = _analysis.collect_votes(client, cache, refresh=False)
+    assert client.calls == 0
+    assert unparsed2 == n_calls
     some = _personas.SCENARIOS[0]["id"]
     assert votes[some]["optimist"] is None
 
@@ -171,6 +208,38 @@ def test_ollama_json_mode_uses_schema_object_when_supplied(monkeypatch):
     assert captured["payload"]["options"]["temperature"] == 0.1
 
 
+@pytest.mark.parametrize(
+    "transport_error",
+    [
+        urllib.error.URLError("connection refused"),
+        urllib.error.HTTPError(
+            "https://api.anthropic.com/v1/messages",
+            504,
+            "Gateway Timeout",
+            None,
+            None,
+        ),
+        TimeoutError("timed out"),
+    ],
+    ids=["url_error", "http_error", "timeout"],
+)
+def test_anthropic_transport_failures_are_unavailable(
+    monkeypatch, transport_error
+):
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "test-key")
+
+    def fail_post(url, payload, headers, timeout):
+        raise transport_error
+
+    monkeypatch.setattr(_llm, "_post_json", fail_post)
+    client = _llm.LLMClient(backend="anthropic", model="fake")
+    with pytest.raises(
+        _llm.LLMUnavailable, match="Anthropic chat failed"
+    ) as exc_info:
+        client.complete("system", "user")
+    assert exc_info.value.__cause__ is transport_error
+
+
 def test_strict_parse_rejects_third_label_without_coercion():
     parsed = analysis.parse_call_record(
         '{"call":"neutral"}', schema_strict=True
@@ -231,6 +300,40 @@ def test_normalize_cache_record_reads_legacy_shape():
     assert record["call"] is None
     assert record["unparsed"] is True
     assert record["parse_method"] == "none"
+
+
+def test_collect_votes_fail_closed_on_inconsistent_cache_records():
+    client = _RaisingClient()
+    cells = [
+        (scenario["id"], persona["key"])
+        for scenario in _personas.SCENARIOS
+        for persona in _personas.PERSONAS
+    ]
+    cache = {
+        analysis.cache_key(client, persona_key, scenario_id): {
+            "call": "bullish",
+            "unparsed": False,
+        }
+        for scenario_id, persona_key in cells
+    }
+    malformed = (
+        {"call": "neutral", "unparsed": False, "schema_valid": True},
+        {"call": None, "unparsed": False, "final_parse_valid": True},
+        {"call": "bullish", "unparsed": True, "schema_valid": True},
+    )
+    for (scenario_id, persona_key), record in zip(cells, malformed):
+        cache[analysis.cache_key(client, persona_key, scenario_id)] = record
+
+    votes, unparsed, _ = _analysis.collect_votes(client, cache, refresh=False)
+
+    assert unparsed == len(malformed)
+    for scenario_id, persona_key in cells[: len(malformed)]:
+        assert votes[scenario_id][persona_key] is None
+    for record in malformed:
+        normalized = analysis.normalize_cache_record(record)
+        assert normalized["unparsed"] is True
+        assert normalized["schema_valid"] is False
+        assert normalized["final_parse_valid"] is False
 
 
 def test_safe_float_guards_complex():
@@ -531,6 +634,12 @@ def test_descriptive_stats_drops_none_and_handles_empty():
     assert s["n"] == 2
     assert s["std"] == 0.0
     assert s["median"] == 0.5
+
+
+@pytest.mark.parametrize("bad", [float("nan"), float("inf"), float("-inf")])
+def test_descriptive_stats_rejects_nonfinite_observations(bad):
+    with pytest.raises(ValueError, match="finite"):
+        analysis.descriptive_stats([0.5, bad])
 
 
 def test_sampling_noise_floor_matches_binomial_se():

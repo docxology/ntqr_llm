@@ -28,9 +28,6 @@ VALIDATION_SIDECAR = Path(
 )
 
 
-from ntqr.llm.supporting_figures import plot_validation_matrix as _plot
-
-
 def _load(path: Path):
     doc = json.loads(path.read_text())
     return doc.get("result", doc) if isinstance(doc, dict) else doc
@@ -107,7 +104,8 @@ def build_report(repo: Path | str = _common.REPO_ROOT) -> dict:
             "diagnostic_matches_solve",
             "Label-free diagnostic matches solver outcome",
             diag["diagnostic_matched_outcome"]
-            and sorted(diag["predicted_evaluable"]) == sorted(llm["evaluated_models"]),
+            and sorted(diag["predicted_evaluable"])
+            == sorted(llm["evaluated_models"]),
             (
                 f"predicted {len(diag['predicted_evaluable'])}; "
                 f"evaluated {len(llm['evaluated_models'])}"
@@ -154,7 +152,8 @@ def build_report(repo: Path | str = _common.REPO_ROOT) -> dict:
         _check(
             "tie_break_boundary",
             "Better-than-random tie-break boundary is quantified",
-            tie["safe_accuracy"] >= 0.8 and tie["max_catastrophic_rate"] >= 0.5,
+            tie["safe_accuracy"] >= 0.8
+            and tie["max_catastrophic_rate"] >= 0.5,
             (
                 f"safe to {tie['safe_accuracy']:.2f}; "
                 f"max inversion {tie['max_catastrophic_rate']:.0%}"
@@ -195,14 +194,22 @@ def write_report(
     repo: Path | str = _common.REPO_ROOT,
     out_dir: Path | None = None,
 ) -> tuple[Path, Path, Path]:
+    from ntqr.llm.supporting_figures import plot_validation_matrix as _plot
+
     repo = Path(repo)
-    out_dir = out_dir or _common.output_dir("validation", "statistical_validation")
+    out_dir = out_dir or _common.output_dir(
+        "validation", "statistical_validation"
+    )
     out_dir.mkdir(parents=True, exist_ok=True)
     summary = build_report(repo)
     summary_path = _common.save_json(out_dir, "summary.json", summary)
     figure_path = _plot(summary, out_dir)
     figure_inventory_count = len(
-        [sidecar for _, sidecar in manuscript_variables.FIGURES if sidecar is not None]
+        [
+            sidecar
+            for _, sidecar in manuscript_variables.FIGURES
+            if sidecar is not None
+        ]
     )
     sidecar_path = _common.save_json(
         out_dir,

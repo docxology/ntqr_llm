@@ -79,10 +79,15 @@ def label_vote_counts_from_json(data: Mapping[str, Mapping[str, int]]) -> dict:
 
 
 def save_label_vote_counts(path: Path, counts: LabelVoteCounts) -> Path:
-    path.write_text(
-        json.dumps(label_vote_counts_to_json(counts), indent=2) + "\n"
+    from ntqr.llm.artifacts import atomic_write_text
+
+    encoded = (
+        json.dumps(
+            label_vote_counts_to_json(counts), indent=2, allow_nan=False
+        )
+        + "\n"
     )
-    return path
+    return atomic_write_text(path, encoded)
 
 
 def load_label_vote_counts_file(path: Path) -> dict:

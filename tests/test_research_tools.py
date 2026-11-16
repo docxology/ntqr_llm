@@ -1,7 +1,12 @@
 """Real computation checks for profiling, publication and scholarship boundaries."""
 
 import pytest
-from ntqr.llm.runtime_profile import Workload, measure, source_binding, compare_reports
+from ntqr.llm.runtime_profile import (
+    Workload,
+    measure,
+    source_binding,
+    compare_reports,
+)
 from ntqr.llm.scholarship import bibliography_entries, audit_research
 from ntqr.llm.figure_export import export_figure
 
@@ -24,7 +29,11 @@ def test_profile_keeps_unprofiled_samples_separate_and_binds_sources(tmp_path):
     assert result["tracing"]["backend"] in {"profiling.tracing", "cProfile"}
     path.write_text("value = 2\n")
     assert source_binding(tmp_path, [path])["sha256"] != binding["sha256"]
-    report = {"runtime": {"python": "3.15.0"}, "source": binding, "workloads": [result]}
+    report = {
+        "runtime": {"python": "3.15.0"},
+        "source": binding,
+        "workloads": [result],
+    }
     changed = {**report, "runtime": {"python": "3.12.13"}}
     comparison = compare_reports(report, changed)["workloads"][0]
     assert not comparison["comparable"]
@@ -61,7 +70,9 @@ def test_citation_integrity_rejects_duplicate_entries_and_missing_evidence():
     assert not any("fig:diagram" in error for error in result["errors"])
 
 
-def test_figure_export_includes_selectable_vector_text_and_closes_figures(tmp_path):
+def test_figure_export_includes_selectable_vector_text_and_closes_figures(
+    tmp_path,
+):
     import matplotlib
 
     matplotlib.use("Agg")

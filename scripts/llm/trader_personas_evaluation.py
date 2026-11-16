@@ -40,7 +40,6 @@ _common.ensure_ntqr_importable()
 
 import _analysis  # noqa: E402  (thin collect-votes glue)
 import _llm  # noqa: E402
-from ntqr.llm.artifacts import save_json as save_cache
 from ntqr.llm import analysis  # noqa: E402
 from ntqr.llm import personas  # noqa: E402
 
@@ -54,6 +53,8 @@ REQUIRES = ["ollama"]
 
 
 def main(argv: list[str] | None = None) -> None:
+    from ntqr.llm.artifacts import save_json as save_cache
+
     config = _config.build_config(
         "llm",
         "trader_personas_evaluation",
@@ -118,7 +119,9 @@ def main(argv: list[str] | None = None) -> None:
     trio_votes = trio_label.to_TrioVoteCounts()
     error_independent = ErrorIndependentEvaluation(trio_votes)
     supervised = SupervisedEvaluation(trio_label)
-    comparison = analysis.build_comparison(supervised, error_independent, physical_only=True)
+    comparison = analysis.build_comparison(
+        supervised, error_independent, physical_only=True
+    )
     stats = analysis.recovery_stats(comparison)
 
     _common.save_json(

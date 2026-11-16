@@ -66,9 +66,10 @@ def render_one(template_text: str, values: dict[str, str], stem: str) -> str:
     return out
 
 
-def render_all() -> dict[Path, str]:
-    """Return {output_path: rendered_text} for every template."""
-    values = _values.compute_values(OUT_DIR)
+def render_all(values: dict[str, str] | None = None) -> dict[Path, str]:
+    """Return rendered templates, computing values only when none are supplied."""
+    if values is None:
+        values = _values.compute_values(OUT_DIR)
     rendered: dict[Path, str] = {}
     for stem, dest in TARGETS.items():
         tmpl = TEMPLATE_DIR / f"{stem}.md.tmpl"

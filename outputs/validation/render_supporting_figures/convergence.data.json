@@ -1,0 +1,173 @@
+{
+  "generated_at": "2026-11-11T00:55:43+00:00",
+  "schema_version": 2,
+  "ntqr_version": "0.9",
+  "result": {
+    "n_trials": 200,
+    "seed": 2024,
+    "rows": [
+      {
+        "q": 32,
+        "n_trials": 200,
+        "n_solved": 70,
+        "prevalence_abs_error_mean": 0.07035487946907709,
+        "prevalence_abs_error_sd": 0.052623399928780984,
+        "accuracy_mae_mean": 0.06009531896956983,
+        "accuracy_mae_sd": 0.028080361424457488
+      },
+      {
+        "q": 64,
+        "n_trials": 200,
+        "n_solved": 102,
+        "prevalence_abs_error_mean": 0.05356147909199682,
+        "prevalence_abs_error_sd": 0.04128155762806195,
+        "accuracy_mae_mean": 0.04711848644628518,
+        "accuracy_mae_sd": 0.022037000626653286
+      },
+      {
+        "q": 128,
+        "n_trials": 200,
+        "n_solved": 156,
+        "prevalence_abs_error_mean": 0.04085687339068948,
+        "prevalence_abs_error_sd": 0.03149698493090714,
+        "accuracy_mae_mean": 0.03525357862039778,
+        "accuracy_mae_sd": 0.017039421380700533
+      },
+      {
+        "q": 256,
+        "n_trials": 200,
+        "n_solved": 180,
+        "prevalence_abs_error_mean": 0.03359129726542265,
+        "prevalence_abs_error_sd": 0.023040774749932276,
+        "accuracy_mae_mean": 0.02747093598153054,
+        "accuracy_mae_sd": 0.011852526100006582
+      },
+      {
+        "q": 512,
+        "n_trials": 200,
+        "n_solved": 193,
+        "prevalence_abs_error_mean": 0.022656169820468124,
+        "prevalence_abs_error_sd": 0.01709750464454215,
+        "accuracy_mae_mean": 0.01896468384167412,
+        "accuracy_mae_sd": 0.010105626945958651
+      },
+      {
+        "q": 1024,
+        "n_trials": 200,
+        "n_solved": 199,
+        "prevalence_abs_error_mean": 0.016006103174862694,
+        "prevalence_abs_error_sd": 0.012017755109353805,
+        "accuracy_mae_mean": 0.013388868867065517,
+        "accuracy_mae_sd": 0.00669835199378713
+      },
+      {
+        "q": 2048,
+        "n_trials": 200,
+        "n_solved": 200,
+        "prevalence_abs_error_mean": 0.010822282680601158,
+        "prevalence_abs_error_sd": 0.008505673700927306,
+        "accuracy_mae_mean": 0.009492885256396837,
+        "accuracy_mae_sd": 0.004592462673990442
+      },
+      {
+        "q": 4096,
+        "n_trials": 200,
+        "n_solved": 200,
+        "prevalence_abs_error_mean": 0.008074467703508392,
+        "prevalence_abs_error_sd": 0.006017604868681868,
+        "accuracy_mae_mean": 0.006846216186171135,
+        "accuracy_mae_sd": 0.003285928187017254
+      }
+    ],
+    "sqrt_q_fit_accuracy": {
+      "slope": -0.45498557053026134,
+      "intercept": -1.160151837179257,
+      "r_squared": 0.9958531934019461,
+      "n": 8
+    },
+    "sqrt_q_fit_prevalence": {
+      "slope": -0.45264867172141726,
+      "intercept": -1.0130568932760666,
+      "r_squared": 0.9924744210501796,
+      "n": 8
+    },
+    "q_min": 32,
+    "q_max": 4096,
+    "smallest_q_acc_mae": 0.06009531896956983,
+    "largest_q_acc_mae": 0.006846216186171135,
+    "figure": "synthetic_convergence.png",
+    "title": "Synthetic convergence of NTQR recovery error",
+    "caption": "Synthetic error-independent ensembles show accuracy MAE falling close to the expected 1/sqrt(Q) sampling-noise rate.",
+    "x_label": "Test size Q (log scale)",
+    "y_label": "Unsupervised recovery error (log scale)",
+    "thresholds": [
+      {
+        "label": "sampling-noise slope",
+        "value": -0.5,
+        "meaning": "ideal log-log slope for 1/sqrt(Q) error decay"
+      }
+    ],
+    "metadata": {
+      "generated_utc": "2026-11-11T00:55:43.557272+00:00",
+      "study": "synthetic_recovery_study",
+      "deterministic": true,
+      "ensemble": {
+        "prevalence_a": 0.55,
+        "accuracies": [
+          {
+            "judge": 0,
+            "alpha": 0.9,
+            "beta": 0.8
+          },
+          {
+            "judge": 1,
+            "alpha": 0.85,
+            "beta": 0.75
+          },
+          {
+            "judge": 2,
+            "alpha": 0.7,
+            "beta": 0.95
+          }
+        ]
+      },
+      "n_trials_per_q": 200,
+      "seed": 2024
+    }
+  },
+  "caption": "Synthetic error-independent ensembles show accuracy MAE falling close to the expected 1/sqrt(Q) sampling-noise rate.",
+  "metadata": {
+    "generated_utc": "2026-11-11T00:55:43.557272+00:00",
+    "study": "synthetic_recovery_study",
+    "deterministic": true,
+    "ensemble": {
+      "prevalence_a": 0.55,
+      "accuracies": [
+        {
+          "judge": 0,
+          "alpha": 0.9,
+          "beta": 0.8
+        },
+        {
+          "judge": 1,
+          "alpha": 0.85,
+          "beta": 0.75
+        },
+        {
+          "judge": 2,
+          "alpha": 0.7,
+          "beta": 0.95
+        }
+      ]
+    },
+    "n_trials_per_q": 200,
+    "seed": 2024
+  },
+  "provenance": {
+    "source_file": "convergence.data.json",
+    "generated_utc": "2026-11-11T00:55:43.557272+00:00",
+    "study": "synthetic_recovery_study",
+    "deterministic": true,
+    "seed": 2024
+  }
+}

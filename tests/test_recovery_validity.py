@@ -32,7 +32,9 @@ def test_recorded_model_audit_needs_no_scenario_truth():
     first = audit_persona_records(records)
     changed_truth = {
         **records,
-        "truth": {key: "deliberately irrelevant" for key in records["by_scenario"]},
+        "truth": {
+            key: "deliberately irrelevant" for key in records["by_scenario"]
+        },
     }
     assert first == audit_persona_records(changed_truth)
     assert first["status"] == "physical_solution"
@@ -66,7 +68,10 @@ def test_real_out_of_range_roots_are_not_probabilities():
     assert scoring.mean_accuracy(impossible) > scoring.mean_accuracy(good)
     assert scoring.select_physical([impossible, good]) is good
     assert scoring.select_physical([impossible]) is None
-    assert "probability_out_of_range" in scoring.solution_validity(impossible)["issues"]
+    assert (
+        "probability_out_of_range"
+        in scoring.solution_validity(impossible)["issues"]
+    )
 
 
 def test_partial_recovery_does_not_outrank_a_complete_solution():
@@ -78,6 +83,22 @@ def test_partial_recovery_does_not_outrank_a_complete_solution():
     with pytest.raises(ValueError, match="same number"):
         scoring.accuracy_abs_errors(good, [{"a": 1, "b": 1}])
     assert scoring.safe_float(10**500) is None
+
+
+def test_real_nonphysical_roots_make_recovery_unavailable():
+    counts = {
+        "a": {("a", "a", "a"): 3},
+        "b": {("a", "b", "b"): 1, ("b", "b", "b"): 1, ("b", "a", "b"): 1},
+    }
+    result = simulation.solve_recovery(counts)
+
+    # Both algebraic roots are real, but each puts an accuracy outside [0, 1].
+    assert result["roots"] == pytest.approx([1 / 3, 2 / 3])
+    assert result["alarm"]
+    assert not result["prevalence_real"]
+    assert result["recovered_prevalence_a"] is None
+    assert result["prevalence_abs_error"] is None
+    assert result["accuracy_mae"] is None
 
 
 @pytest.mark.parametrize(
@@ -108,20 +129,32 @@ def test_constant_classifier_does_not_rule_out_all_interior_physical_models():
 
     # Both true-label strata have a constant first judge and independent fair
     # second/third judges. This is a physical latent model with p=1/2.
-    patterns = [("a", second, third) for second, third in product("ab", repeat=2)]
+    patterns = [
+        ("a", second, third) for second, third in product("ab", repeat=2)
+    ]
     labeled = {label: dict.fromkeys(patterns, 1) for label in "ab"}
     truth = simulation.sample_truth(labeled)
     physical = {
-        "prevalence": {"a": truth["prevalence_a"], "b": 1 - truth["prevalence_a"]},
+        "prevalence": {
+            "a": truth["prevalence_a"],
+            "b": 1 - truth["prevalence_a"],
+        },
         "accuracy": truth["accuracies"],
     }
     assert scoring.solution_validity(physical)["physical"]
     observed = {pattern: 2 for pattern in patterns}
     observed.update(
-        {pattern: 0 for pattern in product("ab", repeat=3) if pattern not in observed}
+        {
+            pattern: 0
+            for pattern in product("ab", repeat=3)
+            if pattern not in observed
+        }
     )
     evaluator = ErrorIndependentEvaluation(TrioVoteCounts(observed))
-    assert all(term == 0 for term in evaluator.alpha_prevalence_quadratic_terms().values())
+    assert all(
+        term == 0
+        for term in evaluator.alpha_prevalence_quadratic_terms().values()
+    )
 
 
 @pytest.mark.parametrize(

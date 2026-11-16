@@ -1,18 +1,21 @@
 """Tests for ntqr.llm.simulation -- the synthetic NTQR validation harness.
 
 No mocks: every test drives the *real* ntqr solver on seeded, deterministic
-synthetic vote counts. Params are kept small so the suite stays well under the
-10 s timeout while still exercising convergence, the 1/sqrt(Q) scaling, and the
-imaginary-prevalence alarm (including its common-mode blind spot).
+synthetic vote counts, exercising convergence, the 1/sqrt(Q) scaling, physical
+solution boundaries, and the imaginary-prevalence alarm (including its
+common-mode blind spot).
 
     .venv/bin/python -m pytest tests/test_simulation.py -q
 """
 
 from __future__ import annotations
 
+import json
 import random
+import runpy
 import sys
 from pathlib import Path
+from xml.etree import ElementTree as ET
 
 import pytest
 
@@ -128,6 +131,19 @@ def test_prevalence_discriminant_matches_quadratic():
     assert sim.prevalence_discriminant(ev) == pytest.approx(expected)
 
 
+def test_raw_recovery_mode_preserves_finite_nonphysical_roots():
+    counts = {
+        "a": {("a", "a", "a"): 3},
+        "b": {("a", "b", "b"): 1, ("b", "b", "b"): 1, ("b", "a", "b"): 1},
+    }
+    result = sim.solve_recovery(counts, physical_only=False)
+    assert not result["alarm"]
+    assert result["prevalence_real"]
+    assert result["recovered_prevalence_a"] == pytest.approx(1 / 3)
+    assert result["prevalence_abs_error"] == pytest.approx(1 / 6)
+    assert result["accuracy_mae"] is not None
+
+
 # --------------------------------------------------------------------------- #
 # Convergence and the 1/sqrt(Q) scaling
 # --------------------------------------------------------------------------- #
@@ -139,8 +155,25 @@ def test_convergence_error_decreases_with_q():
         large_q["prevalence_abs_error_mean"]
         < small_q["prevalence_abs_error_mean"]
     )
-    # all independent draws solve cleanly (no spurious alarms)
-    assert small_q["n_solved"] == small_q["n_trials"]
+    # Physical filtering can reject small-Q draws; both means use the remaining
+    # positive, bounded set of complete recoveries.
+    for row in rows:
+        assert 0 < row["n_solved"] <= row["n_trials"]
+        assert row["prevalence_abs_error_mean"] is not None
+        assert row["accuracy_mae_mean"] is not None
+        assert row["prevalence_abs_error_sd"] is not None
+        assert row["accuracy_mae_sd"] is not None
+
+
+def test_convergence_counts_only_complete_recoveries():
+    # Trial 1 has real prevalence roots but no complete physical solution. It
+    # must contribute to neither mean nor to the solved count.
+    row = sim.convergence_sweep(ENS, [8], n_trials=2, base_seed=7000)[0]
+    assert row["n_solved"] == 1
+    assert row["prevalence_abs_error_mean"] == pytest.approx(0.125)
+    assert row["accuracy_mae_mean"] == pytest.approx(0.0861111111111111)
+    assert row["prevalence_abs_error_sd"] == 0
+    assert row["accuracy_mae_sd"] == 0
 
 
 def test_sqrt_q_fit_slope_near_minus_half():
@@ -162,6 +195,56 @@ def test_sqrt_q_fit_needs_two_points():
 # --------------------------------------------------------------------------- #
 # The imaginary-prevalence alarm
 # --------------------------------------------------------------------------- #
+def test_independent_effective_accuracies_equal_configuration():
+    expected = [{"a": alpha, "b": beta} for alpha, beta in ENS.accuracies]
+    config = sim.CorrelationConfig("independent")
+    assert sim.effective_accuracies(ENS, config) == expected
+
+
+@pytest.mark.parametrize(
+    "config, expected",
+    [
+        (
+            sim.CorrelationConfig("common", common_mode=0.4),
+            [
+                {"a": 0.54, "b": 0.48},
+                {"a": 0.51, "b": 0.45},
+                {"a": 0.42, "b": 0.57},
+            ],
+        ),
+        (
+            sim.CorrelationConfig(
+                "anti+common",
+                common_mode=0.25,
+                anti_pair=(0, 1),
+                anti_strength=0.7,
+            ),
+            [
+                {"a": 0.675, "b": 0.6},
+                {"a": 0.41875, "b": 0.44875},
+                {"a": 0.525, "b": 0.7125},
+            ],
+        ),
+    ],
+    ids=["common_mode", "anti_pair_with_common_mode"],
+)
+def test_effective_marginals_match_formula_and_realized_generation(
+    config, expected
+):
+    effective = sim.effective_accuracies(ENS, config)
+    for expected_row, effective_row in zip(expected, effective):
+        assert effective_row["a"] == pytest.approx(expected_row["a"])
+        assert effective_row["b"] == pytest.approx(expected_row["b"])
+
+    counts = sim.generate_label_counts(
+        ENS, 20_000, random.Random(9182), config
+    )
+    realized = sim.sample_truth(counts)["accuracies"]
+    for effective_row, realized_row in zip(effective, realized):
+        assert realized_row["a"] == pytest.approx(effective_row["a"], abs=0.02)
+        assert realized_row["b"] == pytest.approx(effective_row["b"], abs=0.02)
+
+
 def test_no_false_alarm_on_independent():
     rows = sim.correlation_sweep(
         ENS,
@@ -274,3 +357,72 @@ def test_mv_more_robust_in_tiebreak_danger_zone():
     # MV's recovery is markedly better here, so EI wins well under half the time
     assert cell["ei_win_rate"] < 0.5
     assert cell["mv_mae_mean"] < cell["ei_mae_mean"]
+
+
+def test_recorded_artwork_uses_each_experiments_own_provenance(tmp_path):
+    """Generator and cached builders render real summaries, never new trials."""
+    source = (
+        REPO / "outputs/sim/synthetic_recovery_study/summary.json"
+    ).read_text(encoding="utf-8")
+    record = json.loads(source)
+    summary = record.get("result", record)
+    generator = runpy.run_path(
+        str(REPO / "scripts/sim/synthetic_recovery_study.py")
+    )
+    generated_record = json.loads(source)
+    generated_summary = generated_record.get("result", generated_record)
+    generator["_annotate_sidecars"](generated_summary)
+    for study, field in (
+        ("tie_break", "prevalence_a"),
+        ("mv_vs_ei", "prevalences"),
+    ):
+        metadata = generated_summary[study]["metadata"]
+        assert metadata[field] == summary[study][field]
+        assert "ensemble" not in metadata
+
+    generated_dir = tmp_path / "generator"
+    cached_dir = tmp_path / "cached"
+    generated_dir.mkdir()
+    cached_dir.mkdir()
+    generated = generator["render_figures"](generated_summary, generated_dir)
+    cached_renderer = runpy.run_path(
+        str(REPO / "scripts/validation/render_supporting_figures.py")
+    )
+    assert cached_renderer["main"](["--output-dir", str(cached_dir)]) == 0
+    studies = (
+        ("convergence", "attempts/Q"),
+        ("correlation", "trials/condition"),
+        ("tie_break", "trials/accuracy"),
+        ("mv_vs_ei", "trials/cell"),
+    )
+    artwork = []
+    for path, (study, unit) in zip(generated, studies, strict=True):
+        artwork.append((path, study, unit))
+        artwork.append((cached_dir / path.name, study, unit))
+    for path, study, unit in artwork:
+        assert path.is_file()
+        vector = path.with_suffix(".svg")
+        text = " ".join(
+            " ".join(ET.parse(vector).getroot().itertext()).split()
+        )
+        block = summary[study]
+        assert f"{block['n_trials']} {unit}" in text
+        assert f"seed={block['seed']}" in text
+        if "q" in block:
+            assert f"Q={block['q']}" in text
+        if study == "mv_vs_ei":
+            prevalences = ", ".join(f"{p:.2f}" for p in block["prevalences"])
+            assert f"p_a={{{prevalences}}}" in text
+            assert "symmetric judges" in text
+            assert "J0(" not in text
+        elif study == "tie_break":
+            assert f"p_a={block['prevalence_a']:.2f}" in text
+            assert "symmetric judges" in text
+            assert "J0(" not in text
+        else:
+            assert f"p_a={summary['ensemble']['prevalence_a']:.2f}" in text
+        if study == "convergence":
+            assert "complete physical / attempted" in text
+            assert "remaining attempts unavailable" in text
+            for row in block["rows"]:
+                assert f"{row['n_solved']}/{row['n_trials']}" in text

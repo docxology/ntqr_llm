@@ -361,8 +361,8 @@ z
    </g>
    <g id="patch_43">
     <path d="M 69.326357 306.593906 
-L 232.519207 306.593906 
-L 232.519207 37.922578 
+L 232.52133 306.593906 
+L 232.52133 37.922578 
 L 69.326357 37.922578 
 z
 " clip-path="url(#p5f5d67e6b3)" style="fill: #2ca02c; opacity: 0.12; stroke: #2ca02c; stroke-linejoin: miter"/>
@@ -594,7 +594,7 @@ L 373.538437 81.022578
    </g>
   </g>
   <g id="text_21">
-   <text style="font-size: 6px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #666666" x="269.325937" y="354.11625" transform="rotate(-0 269.325937 354.11625)">Recorded synthetic study; no new experiments or model calls</text>
+   <text style="font-size: 6px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #666666" x="269.325937" y="354.11625" transform="rotate(-0 269.325937 354.11625)">scenario bootstrap | model mistral:latest | 2000 resamples | 2026-11-10</text>
   </g>
  </g>
  <defs>
