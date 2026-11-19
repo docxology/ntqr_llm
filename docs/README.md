@@ -2,7 +2,7 @@
 
 Technical documentation for the algebraic-evaluation study that recovers
 LLM-persona accuracies from unlabeled votes. For the science, read the generated
-[`docs/manuscript/manuscript.md`](../manuscript/manuscript.md); for the software, read
+[`docs/manuscript/manuscript.md`](manuscript/manuscript.md); for the software, read
 here.
 
 ## Index
