@@ -11,4 +11,4 @@ repository is cited as the reproducible experiment artifact
 
 *Supplemental material (tie-break derivation, full vote tables, per-persona
 recovery, scenario list, reproduction commands, diagnostic definition):*
-[**supplemental.md**](supplemental.md).
+[**supplemental.md**](#sec:supplemental).

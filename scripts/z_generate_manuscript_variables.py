@@ -246,8 +246,21 @@ TOKEN_RE = re.compile(r"\{\{[A-Z0-9_]+\}\}")
 
 
 def _template_path_text(text: str) -> str:
-    return text.replace("../output/figures/", "../figures/").replace(
-        "../outputs/validation/render_supporting_figures/", "../figures/"
+    return (
+        text.replace("../../output/figures/", "../figures/")
+        .replace(
+            "../../outputs/validation/render_supporting_figures/",
+            "../figures/",
+        )
+        .replace(
+            "](../../README.md)",
+            "](https://github.com/docxology/ntqr_llm/blob/main/README.md)",
+        )
+        .replace(
+            "](../essays/",
+            "](https://github.com/docxology/ntqr_llm/blob/main/docs/essays/",
+        )
+        .replace("](supplemental.md)", "](#sec:supplemental)")
     )
 
 
@@ -298,6 +311,30 @@ def figure_payloads(figures=FIGURES) -> dict[Path, bytes]:
     return payloads
 
 
+# The token map contains formatted scalars and composite Markdown tables.
+_NUMERIC_TOKEN = re.compile(
+    r"(?<![\w@.-])-?(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?%?" r"(?![\w-]|\.\d)"
+)
+
+
+def numeric_evidence(values: dict[str, str]) -> dict[str, list[int | float]]:
+    """Expose the numeric components of each evidence-derived token."""
+    evidence = {}
+    for name, text in values.items():
+        numbers = []
+        for match in _NUMERIC_TOKEN.finditer(text):
+            value = match[0].replace(",", "")
+            if value.endswith("%"):
+                number = float(value[:-1]) / 100
+            else:
+                number = float(value) if "." in value else int(value)
+            if number not in numbers:
+                numbers.append(number)
+        if numbers:
+            evidence[name] = numbers
+    return evidence
+
+
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
@@ -313,8 +350,17 @@ def main(argv=None) -> int:
     main_text = rendered[MANUSCRIPT_DIR / "manuscript.md"]
     supplemental = rendered[MANUSCRIPT_DIR / "supplemental.md"]
     payloads = figure_payloads()
+    payloads[OUTPUT_FIGURES / "figure_registry.json"] = (
+        MANUSCRIPT_DIR / "figure_registry.json"
+    ).read_bytes()
     payloads[OUTPUT_DATA / "manuscript_variables.json"] = (
         json.dumps(values, indent=2, sort_keys=True, allow_nan=False) + "\n"
+    ).encode("utf-8")
+    payloads[OUTPUT_DATA / "manuscript_numeric_evidence.json"] = (
+        json.dumps(
+            numeric_evidence(values), indent=2, sort_keys=True, allow_nan=False
+        )
+        + "\n"
     ).encode("utf-8")
     for filename, section in _split_main(main_text).items():
         body = _template_path_text(section)
@@ -327,7 +373,11 @@ def main(argv=None) -> int:
     payloads[OUTPUT_MANUSCRIPT / "S01_supplemental.md"] = supp_body.encode(
         "utf-8"
     )
-    for name in ("config.yaml", "preamble.md", "references.bib"):
+    payloads[OUTPUT_MANUSCRIPT / "config.yaml"] = (
+        b"# Generated manuscript ordering\n"
+        + (MANUSCRIPT_DIR / "config.yaml").read_bytes()
+    )
+    for name in ("preamble.md", "references.bib"):
         payloads[OUTPUT_MANUSCRIPT / name] = (
             MANUSCRIPT_DIR / name
         ).read_bytes()

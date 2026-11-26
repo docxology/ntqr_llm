@@ -1,0 +1,769 @@
+{
+  "ABSTRACT_DISAGREEMENT": [
+    0.0,
+    0.03,
+    0.23
+  ],
+  "ABSTRACT_FAILURE": [
+    64
+  ],
+  "ABSTRACT_RECOVERY": [
+    0.012,
+    0.102,
+    0.57,
+    0.59
+  ],
+  "BASELINE_STRESS_NOTE": [
+    0.7,
+    947,
+    1152,
+    0.1
+  ],
+  "BOOT_DEGENERATE": [
+    0.02
+  ],
+  "BOOT_MAE_CI_HI": [
+    0.038
+  ],
+  "BOOT_MAE_CI_LO": [
+    0.0
+  ],
+  "BOOT_N": [
+    2000
+  ],
+  "BOOT_POINT_MAE": [
+    0.012
+  ],
+  "BOOT_PREV_CI_HI": [
+    0.047
+  ],
+  "BOOT_PREV_CI_LO": [
+    0.0
+  ],
+  "DISAGREEMENT_INTRO": [
+    0.0,
+    0.03,
+    0.23
+  ],
+  "DISCUSSION_RECOVERY_CLAIM": [
+    0.012,
+    0.102
+  ],
+  "DIS_EVAL_MEAN": [
+    0.1
+  ],
+  "DIS_EVAL_MEAN3": [
+    0.098
+  ],
+  "DIS_UNEVAL_MAX": [
+    0.0
+  ],
+  "DIS_UNEVAL_MEAN": [
+    0.0
+  ],
+  "DIS_UNEVAL_MIN": [
+    0.0
+  ],
+  "EXACTNESS_NOTE": [
+    0.1,
+    0.012,
+    0.102,
+    3.5
+  ],
+  "EXCELLENT": [
+    0.05
+  ],
+  "FIG4_SENTENCE": [
+    0.012,
+    0.102
+  ],
+  "FLOOR": [
+    0.102
+  ],
+  "FLOOR2": [
+    0.1
+  ],
+  "MAX_ABS_ERR": [
+    0.032
+  ],
+  "MIN_LABEL_COUNT": [
+    24
+  ],
+  "MIRROR_MEAN_ACC": [
+    0.11
+  ],
+  "MV_EI_BODY": [
+    0.012
+  ],
+  "MV_REC_MAE": [
+    0.012
+  ],
+  "MV_REC_MAE4": [
+    0.0119
+  ],
+  "N": [
+    3
+  ],
+  "NONCOMPLIANCE_NOTE": [
+    0.1,
+    192
+  ],
+  "N_BEARISH": [
+    24
+  ],
+  "N_BULLISH": [
+    40
+  ],
+  "N_CONSTANT_FAIL": [
+    1
+  ],
+  "N_EMBEDDED_FIGURES": [
+    17
+  ],
+  "N_EMBEDDED_FIGURES_W": [
+    17
+  ],
+  "N_EVALUABLE": [
+    5
+  ],
+  "N_FIGURES": [
+    10
+  ],
+  "N_LIB_TESTS": [
+    23
+  ],
+  "N_MODELS": [
+    6
+  ],
+  "N_NONCOMPLIANT": [
+    0
+  ],
+  "N_PERSONAS": [
+    3
+  ],
+  "N_SCRIPT_TESTS": [
+    152
+  ],
+  "N_TERMS": [
+    6
+  ],
+  "N_UNEVALUABLE": [
+    1
+  ],
+  "OPT_B_FRAC": [
+    19,
+    25
+  ],
+  "PESS_ABS_A": [
+    0.015
+  ],
+  "PESS_A_FRAC": [
+    23,
+    39
+  ],
+  "PESS_RECOVERED_PHRASE": [
+    0.59,
+    0.57
+  ],
+  "PESS_REC_A": [
+    0.59
+  ],
+  "PESS_TRUE_A": [
+    0.57
+  ],
+  "PREV_ABS_ERR": [
+    0.016
+  ],
+  "PREV_ABS_ERR4": [
+    0.0156
+  ],
+  "Q": [
+    64
+  ],
+  "R": [
+    2
+  ],
+  "RECOVERY_VERB": [
+    0.012,
+    0.102
+  ],
+  "REC_MAE": [
+    0.012
+  ],
+  "REC_MAE4": [
+    0.0119
+  ],
+  "REC_MAE_A": [
+    0.013
+  ],
+  "REC_MAE_A4": [
+    0.0132
+  ],
+  "REC_MAE_B": [
+    0.011
+  ],
+  "REC_MAE_B4": [
+    0.0106
+  ],
+  "REC_MAE_MAX": [
+    0.054
+  ],
+  "REC_MAE_MEDIAN": [
+    0.024
+  ],
+  "REC_MAE_MIN": [
+    0.012
+  ],
+  "REC_MAE_SPREAD": [
+    0.042
+  ],
+  "REC_PREV_A": [
+    0.609
+  ],
+  "REC_PREV_A4": [
+    0.6094
+  ],
+  "REC_PREV_FRAC": [
+    39,
+    64
+  ],
+  "S2_1": [
+    33,
+    3,
+    1,
+    24,
+    39,
+    25,
+    36,
+    28,
+    31
+  ],
+  "S2_2": [
+    23,
+    16,
+    1,
+    19,
+    5,
+    45,
+    39,
+    25,
+    41
+  ],
+  "S2_3": [
+    33,
+    5,
+    1,
+    24,
+    39,
+    25,
+    38,
+    26,
+    31
+  ],
+  "S2_4": [
+    34,
+    4,
+    1,
+    19,
+    5,
+    44,
+    20,
+    38,
+    26,
+    30
+  ],
+  "S2_5": [
+    37,
+    1,
+    23,
+    40,
+    24,
+    39,
+    25,
+    27
+  ],
+  "S2_6": [
+    40,
+    24
+  ],
+  "S2_ALL": [
+    33,
+    3,
+    1,
+    24,
+    39,
+    25,
+    36,
+    28,
+    31,
+    23,
+    16,
+    19,
+    5,
+    45,
+    41,
+    38,
+    26,
+    34,
+    4,
+    44,
+    20,
+    30,
+    37,
+    40,
+    27
+  ],
+  "S3_RECOVERY_INTERPRETATION": [
+    0.102
+  ],
+  "S3_RECOVERY_QUALIFIER": [
+    0.102
+  ],
+  "SAMPLING_LIMITATION": [
+    0.1
+  ],
+  "SEL_MEAN_ACC": [
+    0.89
+  ],
+  "SIM_ACCS": [
+    0.9,
+    0.8,
+    0.85,
+    0.75,
+    0.7,
+    0.95
+  ],
+  "SIM_ACC_MAE_QMAX": [
+    0.007
+  ],
+  "SIM_ACC_MAE_QMIN": [
+    0.06
+  ],
+  "SIM_ANTI_ALARM": [
+    0.94
+  ],
+  "SIM_COMMON_ALARM": [
+    0.0
+  ],
+  "SIM_COMMON_SILENT_ERR": [
+    0.042
+  ],
+  "SIM_CORR_N_TRIALS": [
+    200
+  ],
+  "SIM_CORR_Q": [
+    1024
+  ],
+  "SIM_FALSE_ALARM": [
+    0.0
+  ],
+  "SIM_INDEP_SILENT_ERR": [
+    0.016
+  ],
+  "SIM_MVEI_EI_ACC": [
+    0.74
+  ],
+  "SIM_MVEI_EI_EIMAE": [
+    0.047
+  ],
+  "SIM_MVEI_EI_MVMAE": [
+    0.068
+  ],
+  "SIM_MVEI_EI_PREV": [
+    0.55
+  ],
+  "SIM_MVEI_EI_RATIO": [
+    1.43
+  ],
+  "SIM_MVEI_EI_WIN": [
+    0.79
+  ],
+  "SIM_MVEI_MV_ACC": [
+    0.58
+  ],
+  "SIM_MVEI_MV_EIMAE": [
+    1.098
+  ],
+  "SIM_MVEI_MV_EIWIN": [
+    0.18
+  ],
+  "SIM_MVEI_MV_MVMAE": [
+    0.176
+  ],
+  "SIM_MVEI_MV_PREV": [
+    0.7
+  ],
+  "SIM_MVEI_N_TRIALS": [
+    150
+  ],
+  "SIM_MVEI_Q": [
+    512
+  ],
+  "SIM_N_TRIALS": [
+    200
+  ],
+  "SIM_PREVALENCE": [
+    0.55
+  ],
+  "SIM_PREV_SLOPE": [
+    -0.45
+  ],
+  "SIM_Q_MAX": [
+    4096
+  ],
+  "SIM_Q_MIN": [
+    32
+  ],
+  "SIM_R2": [
+    0.996
+  ],
+  "SIM_ROBUST_N": [
+    4
+  ],
+  "SIM_ROBUST_SLOPE_HI": [
+    -0.4
+  ],
+  "SIM_ROBUST_SLOPE_LO": [
+    -0.46
+  ],
+  "SIM_SLOPE": [
+    -0.45
+  ],
+  "SIM_SUPPORT_QMAX": [
+    200
+  ],
+  "SIM_SUPPORT_QMIN": [
+    70,
+    200
+  ],
+  "SIM_TABLE_CONVERGENCE": [
+    32,
+    0.06,
+    0.07,
+    70,
+    200,
+    130,
+    64,
+    0.047,
+    0.054,
+    102,
+    98,
+    128,
+    0.035,
+    0.041,
+    156,
+    44,
+    256,
+    0.027,
+    0.034,
+    180,
+    20,
+    512,
+    0.019,
+    0.023,
+    193,
+    7,
+    1024,
+    0.013,
+    0.016,
+    199,
+    1,
+    2048,
+    0.009,
+    0.011,
+    0,
+    4096,
+    0.007,
+    0.008
+  ],
+  "SIM_TABLE_CORRELATION": [
+    0.0,
+    0.0115,
+    0.016,
+    0.1,
+    0.008,
+    0.014,
+    0.2,
+    0.0041,
+    0.024,
+    0.3,
+    0.0021,
+    0.034,
+    0.4,
+    0.0013,
+    0.042,
+    0.0126,
+    0.043,
+    0.0962,
+    0.204,
+    0.94,
+    -0.0726,
+    0.407
+  ],
+  "SIM_TABLE_MVEI": [
+    0.55,
+    0.9,
+    0.011,
+    0.6,
+    0.82,
+    0.023,
+    0.032,
+    0.83,
+    0.74,
+    0.047,
+    0.068,
+    0.79,
+    0.66,
+    0.841,
+    0.116,
+    0.61,
+    0.58,
+    1.235,
+    0.176,
+    0.25,
+    0.7,
+    0.012,
+    0.013,
+    0.65,
+    0.027,
+    0.031,
+    0.059,
+    0.065,
+    0.64,
+    0.357,
+    0.113,
+    0.47,
+    1.098,
+    0.18,
+    0.85,
+    0.018,
+    0.019,
+    0.041,
+    0.037,
+    0.5,
+    0.096,
+    0.063,
+    0.45,
+    1.589,
+    0.109,
+    1.432,
+    0.173,
+    0.2
+  ],
+  "SIM_TABLE_ROBUSTNESS": [
+    2,
+    0.5,
+    -0.45,
+    0.984,
+    0.7,
+    -0.42,
+    0.986,
+    0.55,
+    -0.46,
+    0.993,
+    0.65,
+    -0.4,
+    0.961
+  ],
+  "SIM_TABLE_TIEBREAK": [
+    0.9,
+    0.0,
+    0.014,
+    0.82,
+    0.039,
+    0.76,
+    0.04,
+    0.093,
+    0.7,
+    0.26,
+    0.185,
+    0.62,
+    0.71,
+    0.423,
+    0.56,
+    0.85,
+    0.487,
+    0.52
+  ],
+  "SIM_TIEBREAK_MAX_CAT": [
+    0.85
+  ],
+  "SIM_TIEBREAK_N_TRIALS": [
+    200
+  ],
+  "SIM_TIEBREAK_PREV": [
+    0.6
+  ],
+  "SIM_TIEBREAK_Q": [
+    256
+  ],
+  "SIM_TIEBREAK_SAFE_ACC": [
+    0.82
+  ],
+  "SIM_UNAVAILABLE_QMIN": [
+    130,
+    200
+  ],
+  "T": [
+    1
+  ],
+  "TABLE_DISAGREEMENT": [
+    0.0,
+    0.03,
+    0.06,
+    0.1,
+    0.23
+  ],
+  "TABLE_MODEL_LINEUP": [
+    4.1,
+    0.054,
+    0.012,
+    2,
+    0.026,
+    0.024
+  ],
+  "TABLE_PROMPT_HEALTH": [
+    1.0,
+    0,
+    64,
+    0.703,
+    0.877,
+    0.609,
+    0.965,
+    0.641,
+    0.942,
+    0.625,
+    0.954,
+    0.578,
+    0.982,
+    0.688,
+    0.896,
+    0.594,
+    0.974,
+    0.531,
+    0.997,
+    0.516,
+    0.999,
+    0.562,
+    0.989
+  ],
+  "TABLE_RECOVERY_RANKING": [
+    1,
+    0.012,
+    0.032,
+    0.016,
+    2,
+    0.024,
+    0.05,
+    3,
+    0.031,
+    4,
+    0.026,
+    5,
+    0.054,
+    0.107,
+    0.062
+  ],
+  "TABLE_S3_RECOVERY": [
+    1.0,
+    0.0,
+    0.7917,
+    0.76,
+    0.0317,
+    0.975,
+    0.025,
+    0.575,
+    0.5897,
+    0.0147
+  ],
+  "TABLE_S6_DISAGREEMENT": [
+    0.0,
+    0.031,
+    0.062,
+    0.104,
+    0.229
+  ],
+  "TABLE_SCENARIOS_FULL": [
+    0.42,
+    0.3,
+    0.09,
+    0.2,
+    0.8
+  ],
+  "TABLE_SCENARIO_EXAMPLES": [
+    0.42
+  ],
+  "TEMP": [
+    0.1
+  ],
+  "TRUE_PREV_A": [
+    0.625
+  ],
+  "TRUE_PREV_A4": [
+    0.625
+  ],
+  "VALIDATION_N_CHECKS": [
+    9
+  ],
+  "VALIDATION_N_FAILED": [
+    0
+  ],
+  "VALIDATION_N_PASSED": [
+    9
+  ],
+  "VALIDATION_TABLE": [
+    5,
+    0.028,
+    0.102,
+    0.038,
+    1,
+    -0.455,
+    0.996,
+    0.0,
+    0.042,
+    0.82,
+    0.85,
+    0.79,
+    0.18,
+    17
+  ],
+  "WE_DELTA": [
+    0.0233
+  ],
+  "WE_DISCRIMINANT": [
+    0.0479
+  ],
+  "WE_F_BBB": [
+    0.2969
+  ],
+  "WE_HALF_SQRT": [
+    0.1094
+  ],
+  "WE_PAIR_01": [
+    0.1809
+  ],
+  "WE_PAIR_02": [
+    0.1067
+  ],
+  "WE_PAIR_12": [
+    0.1404
+  ],
+  "WE_PREV_ERR": [
+    0.0156
+  ],
+  "WE_ROOT_HI": [
+    0.6094
+  ],
+  "WE_ROOT_LO": [
+    0.3906
+  ],
+  "WE_SELECTED_PREV": [
+    0.6094
+  ],
+  "WE_TRIO_MOMENT": [
+    0.2735
+  ],
+  "WE_TRUE_PREV": [
+    0.625
+  ]
+}

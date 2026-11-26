@@ -11,9 +11,10 @@ do not edit the `.md` outputs directly.
 
 | You want to change… | Edit… |
 |---------------------|-------|
-| prose, structure, equations, figure captions | `scripts/manuscript/templates/*.md.tmpl` |
+| prose, structure, equations, figure captions | `docs/manuscript/templates/*.md.tmpl` |
 | a number, a table, a data-driven sentence | `scripts/manuscript/_values.py` (then reference the new `{{TOKEN}}`) |
 | metadata (title, authors, keywords, DOI) | `docs/manuscript/config.yaml` |
+| Figure alternative text and label-to-file mapping | [`figure_registry.json`](manuscript/figure_registry.json) |
 | PDF style (margins, link colors, LaTeX packages) | `docs/manuscript/config.yaml` and `docs/manuscript/preamble.md` |
 | the experiment (models, scenarios, personas) | `python/src/ntqr/llm/personas.py`, `multi_llm_personas_evaluation.py` — then re-run the sweep |
 
@@ -46,7 +47,7 @@ reproduction · `S6` the diagnostic defined · `S7` output inventory.
   appears, a `{{TOKEN}}` backs it and `_values.py` computes it from the data.
 - **Equations are static.** Symbolic math (LaTeX `$…$` / `$$…$$`) is structural,
   not data, so it lives in the template directly.
-- **Figures are embedded** with `![caption](../output/figures/<stem>.png)` — the
+- **Figures are embedded** with `![caption](../../output/figures/example.png)` — the
   hydrated copies written by `z_generate_manuscript_variables.py` (17 today; the
   count is the `N_EMBEDDED_FIGURES` token) — at their first reference; captions
   may interpolate tokens (e.g. `{{REC_MAE}}`).

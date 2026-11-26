@@ -1,6 +1,6 @@
 # AGENTS.md - scripts/manuscript
 
-Child dir: templates/ (.tmpl sources). render.py hydrates the templates with
+Source templates live under docs/manuscript/templates/. render.py hydrates them with
 _values.py tokens and writes the rendered manuscript files; drift gate:
 render.py --check. See docs/rendering_pipeline.md.
 
@@ -11,4 +11,4 @@ render.py --check. See docs/rendering_pipeline.md.
 
 Verify: uv run pytest tests/test_manuscript_render.py -q
 
-Upstream policy: see `../AGENTS.md` for this repository's conventions. The shared policy that governs template projects is maintained in the template repository, not restated here.
+Upstream policy: see `../../AGENTS.md` for this repository's conventions. The shared policy that governs template projects is maintained in the template repository, not restated here.

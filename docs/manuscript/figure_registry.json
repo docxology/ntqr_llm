@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "figures": [
+    {
+      "label": "fig:evaluation-pipeline",
+      "filename": "evaluation_pipeline.png",
+      "alt_text": "Flow diagram separating persona vote collection, the unlabeled NTQR solve, and authored-truth validation.",
+      "generated_by": "scripts/z_generate_manuscript_variables.py"
+    },
+    {
+      "label": "fig:best-model-recovery",
+      "filename": "best_model_recovery.png",
+      "alt_text": "Grouped bars compare algebraic and authored-reference accuracies for each persona and label.",
+      "generated_by": "scripts/z_generate_manuscript_variables.py"
+    },
+    {
+      "label": "fig:recovered-vs-true",
+      "filename": "recovered_vs_true_scatter.png",
+      "alt_text": "Scatterplot of recovered versus reference accuracy with a diagonal equality line.",
+      "generated_by": "scripts/z_generate_manuscript_variables.py"
+    },
+    {
+      "label": "fig:validation-accuracy-heatmap",
+      "filename": "validation_accuracy_heatmap.png",
+      "alt_text": "Paired heatmaps show reference accuracy and recovery error by model, persona, and label.",
+      "generated_by": "scripts/z_generate_manuscript_variables.py"
+    },
+    {
+      "label": "fig:bootstrap-recovery",
+      "filename": "bootstrap_recovery_mae.png",
+      "alt_text": "Histogram of scenario-bootstrap recovery error with a point estimate and uncertainty bounds.",
+      "generated_by": "scripts/z_generate_manuscript_variables.py"
+    },
+    {
+      "label": "fig:evaluability-diagnostic",
+      "filename": "evaluability_diagnostic.png",
+      "alt_text": "Bars show each judge's modal vote fraction and mark the constant-classifier boundary.",
+      "generated_by": "scripts/z_generate_manuscript_variables.py"
+    },
+    {
+      "label": "fig:prompt-compliance",
+      "filename": "prompt_compliance.png",
+      "alt_text": "A model-by-scenario grid distinguishes valid first replies, repaired replies, and missing votes.",
+      "generated_by": "scripts/z_generate_manuscript_variables.py"
+    },
+    {
+      "label": "fig:temperature-schema-comparison",
+      "filename": "temperature_schema_comparison.png",
+      "alt_text": "Model-wise parse rates compare two temperature and prompt configurations and mark evaluable models.",
+      "generated_by": "scripts/z_generate_manuscript_variables.py"
+    },
+    {
+      "label": "fig:disagreement-vs-evaluability",
+      "filename": "disagreement_vs_evaluability.png",
+      "alt_text": "Scatterplot of modal vote concentration against pairwise disagreement, separated by evaluability status.",
+      "generated_by": "scripts/z_generate_manuscript_variables.py"
+    },
+    {
+      "label": "fig:scenario-hardness",
+      "filename": "scenario_hardness.png",
+      "alt_text": "Each scenario is plotted by its fraction of bullish votes, distinguished by authored direction.",
+      "generated_by": "scripts/z_generate_manuscript_variables.py"
+    },
+    {
+      "label": "fig:recovery-mae-scorecard",
+      "filename": "recovery_mae_by_model.png",
+      "alt_text": "Bars compare recovery mean absolute error by evaluable model against two reference levels.",
+      "generated_by": "scripts/z_generate_manuscript_variables.py"
+    },
+    {
+      "label": "fig:synthetic-convergence",
+      "filename": "synthetic_convergence.png",
+      "alt_text": "Log-scale curves show conditional accuracy and prevalence recovery error across simulated test sizes.",
+      "generated_by": "scripts/z_generate_manuscript_variables.py"
+    },
+    {
+      "label": "fig:synthetic-alarm",
+      "filename": "synthetic_alarm.png",
+      "alt_text": "Panels show imaginary-root alarm rates and discriminant behavior under simulated error dependence.",
+      "generated_by": "scripts/z_generate_manuscript_variables.py"
+    },
+    {
+      "label": "fig:synthetic-tiebreak",
+      "filename": "synthetic_tiebreak.png",
+      "alt_text": "Curves compare mirror-selection rates and prevalence errors across judge strength settings.",
+      "generated_by": "scripts/z_generate_manuscript_variables.py"
+    },
+    {
+      "label": "fig:synthetic-mv-vs-ei",
+      "filename": "synthetic_mv_vs_ei.png",
+      "alt_text": "Panels compare majority-vote and error-independent recovery errors by judge strength and prevalence.",
+      "generated_by": "scripts/z_generate_manuscript_variables.py"
+    },
+    {
+      "label": "fig:validation-matrix",
+      "filename": "validation_matrix.png",
+      "alt_text": "Rows list the offline statistical checks and their observed evidence thresholds.",
+      "generated_by": "scripts/z_generate_manuscript_variables.py"
+    },
+    {
+      "label": "fig:physical-recovery-audit",
+      "filename": "physical_recovery_audit.png",
+      "alt_text": "The status of each recorded model's physical recovery is identified by labels and color.",
+      "generated_by": "scripts/z_generate_manuscript_variables.py"
+    }
+  ]
+}

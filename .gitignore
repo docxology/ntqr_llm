@@ -15,7 +15,6 @@ output/pdf/_combined_manuscript.*
 output/.pipeline/
 output/logs/
 output/reports/
-output/web/
 outputs/**/logs/
 outputs/**/tmp/
 

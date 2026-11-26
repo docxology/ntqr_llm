@@ -1,5 +1,5 @@
 <!-- GENERATED FILE — do not edit by hand.
-     Source: scripts/manuscript/templates/manuscript.md.tmpl
+     Source: docs/manuscript/templates/manuscript.md.tmpl
      Numbers: scripts/manuscript/_values.py  (read from generated JSON artifacts)
      Rebuild: python scripts/manuscript/render.py
      Verify:  python scripts/manuscript/render.py --check -->
@@ -65,7 +65,7 @@ available?
 
 Algebraic evaluation (the **NTQR** logic [@ntqr_0_9_docs;
 @corrada_emmanuel_2023_ntqr_logic; @corrada_emmanuel_2023_streaming]; see the
-repository root [README](../README.md)) takes a deliberately narrower stance.
+repository root [README](../../README.md)) takes a deliberately narrower stance.
 It constructs postulates — true for *any* finite test, containing no probability
 theory and no model of the task domain — that link the observed agreements and
 disagreements of an ensemble to the unknown statistics of their correctness.
@@ -196,7 +196,7 @@ Second, the authored scenario truth is kept out of the solve and used only
 afterward to score recovery error. [@fig:evaluation-pipeline] shows this
 separation explicitly.
 
-![Pipeline boundary for the experiment. Scenario facts and system prompts create parsed persona votes; the unsupervised NTQR solve sees only the resulting unlabeled agreement sketch. Authored truth is held out until the validation step, where recovered accuracies are compared with supervised truth.](../output/figures/evaluation_pipeline.png){#fig:evaluation-pipeline width=95%}
+![Pipeline boundary for the experiment. Scenario facts and system prompts create parsed persona votes; the unsupervised NTQR solve sees only the resulting unlabeled agreement sketch. Authored truth is held out until the validation step, where recovered accuracies are compared with supervised truth.](../../output/figures/evaluation_pipeline.png){#fig:evaluation-pipeline width=95%}
 
 ## The classifiers: three LLM personas {#sec:classifiers}
 
@@ -314,7 +314,7 @@ complete-postulate and streaming-algorithm line of work
 [@corrada_emmanuel_2023_ntqr_logic; @corrada_emmanuel_2023_streaming], with the
 agreement-rate literature as its nearest statistical antecedent
 [@platanios_2014_uai; @platanios_2016_icml]. We follow the construction in
-[`SimplestExampleOfEvaluationWithAlgebraicGeometry.md`](../docs/essays/SimplestExampleOfEvaluationWithAlgebraicGeometry.md)
+[`SimplestExampleOfEvaluationWithAlgebraicGeometry.md`](../essays/SimplestExampleOfEvaluationWithAlgebraicGeometry.md)
 and the public NTQR implementation documented for
 `ntqr.r2.evaluators.ErrorIndependentEvaluation` [@ntqr_0_9_docs].
 
@@ -499,9 +499,9 @@ poor accuracy as 0.59 (against a true 0.57) — **with no answer key**. Unsuperv
 evaluation is not merely detecting who is good; it is quantifying who is bad.
  At temperature 0.1 the recovery is close but not exact (recovery MAE 0.012, within the 0.102 sampling-noise floor); §3.5 and the limitations frame this as one stochastic draw, not a general guarantee.
 
-![Recovered vs. authored-truth per-persona, per-label accuracy for `mistral:latest`. Bars track the truth term for term; the answer-key-free algebra recovers even the Pessimist's poor bullish accuracy (0.57). Recovery MAE = 0.012.](../output/figures/best_model_recovery.png){#fig:best-model-recovery width=95%}
+![Recovered vs. authored-truth per-persona, per-label accuracy for `mistral:latest`. Bars track the truth term for term; the answer-key-free algebra recovers even the Pessimist's poor bullish accuracy (0.57). Recovery MAE = 0.012.](../../output/figures/best_model_recovery.png){#fig:best-model-recovery width=95%}
 
-![The same recovery as a scatter of recovered vs. true accuracy: points on the diagonal have zero error. For the evaluable model the terms sit near the line (recovery MAE 0.012).](../output/figures/recovered_vs_true_scatter.png){#fig:recovered-vs-true width=78%}
+![The same recovery as a scatter of recovered vs. true accuracy: points on the diagonal have zero error. For the evaluable model the terms sit near the line (recovery MAE 0.012).](../../output/figures/recovered_vs_true_scatter.png){#fig:recovered-vs-true width=78%}
 
 Across the five evaluable matrices, recovery MAE spans
 **0.012-0.054** with median **0.024**
@@ -522,7 +522,7 @@ shows how much the unsupervised recovery missed each term by.
 
 : Recovery ranking across evaluable model matrices. The MAE columns are computed after the unsupervised branch is selected; the authored truth is used only to score validation error. {#tbl:recovery-ranking}
 
-![Validation-only accuracy landscape across evaluable models. The left panel shows supervised true accuracy by model/persona/label; the right panel shows absolute error of the unsupervised recovery for the same terms.](../output/figures/validation_accuracy_heatmap.png){#fig:validation-accuracy-heatmap width=95%}
+![Validation-only accuracy landscape across evaluable models. The left panel shows supervised true accuracy by model/persona/label; the right panel shows absolute error of the unsupervised recovery for the same terms.](../../output/figures/validation_accuracy_heatmap.png){#fig:validation-accuracy-heatmap width=95%}
 
 **How stable is that number?** The recovery MAE is one figure from one finite
 test, so we bootstrap it: resample the 64 scenarios with replacement and
@@ -535,7 +535,7 @@ interval sits well below the 0.102 binomial SE reference ([@fig:bootstrap-recove
 classifier and the solve was unavailable, a concrete measure of how the
 evaluability condition (not the recovery accuracy) is the fragile part.
 
-![Bootstrap distribution of the unsupervised recovery MAE over 2000 scenario resamples of `mistral:latest`. The point estimate (0.012) and the 95% CI [0.000, 0.038] both sit far below the 0.102 binomial SE reference; 2% of resamples were degenerate.](../outputs/validation/render_supporting_figures/bootstrap_recovery_mae.png){#fig:bootstrap-recovery width=90%}
+![Bootstrap distribution of the unsupervised recovery MAE over 2000 scenario resamples of `mistral:latest`. The point estimate (0.012) and the 95% CI [0.000, 0.038] both sit far below the 0.102 binomial SE reference; 2% of resamples were degenerate.](../../outputs/validation/render_supporting_figures/bootstrap_recovery_mae.png){#fig:bootstrap-recovery width=90%}
 
 ## Failure modes: constant classifiers and non-compliance {#sec:failure-modes}
 
@@ -561,7 +561,7 @@ sweep or emitting a `NaN` statistic. [@fig:evaluability-diagnostic] shows each
 judge's modal-vote fraction per model; bars at 1.0 (red) are the
 constant classifiers — you can read the failures straight off the votes.
 
-![Per-judge modal-vote fraction for every model. A bar at 1.0 marks a constant classifier — a persona whose parseable calls never varied — which carries no error signal and makes the error-independent solve degenerate. The label-free read-out of which ensembles are unevaluable.](../output/figures/evaluability_diagnostic.png){#fig:evaluability-diagnostic width=95%}
+![Per-judge modal-vote fraction for every model. A bar at 1.0 marks a constant classifier — a persona whose parseable calls never varied — which carries no error signal and makes the error-independent solve degenerate. The label-free read-out of which ensembles are unevaluable.](../../output/figures/evaluability_diagnostic.png){#fig:evaluability-diagnostic width=95%}
 
 **Non-compliance (no fabricated votes).** At temperature 0.1, every model returned a parseable vote on all 192 persona calls -- no responses were unparseable, so no model was dropped for non-compliance.
 
@@ -588,14 +588,14 @@ constant classifiers — you can read the failures straight off the votes.
 
 : Prompt-health diagnostics by model and persona under prompt version `v3_binary_schema`. Model labels are compacted for PDF fit; the full model names appear in [@tbl:model-lineup] and in `summary.json`. Parse methods and entropy are derived from cached raw-response records. {#tbl:prompt-health}
 
-![Prompt compliance for the persona-scenario grid. Dark green cells were valid on the first schema-constrained attempt; light green cells were accepted only after the one allowed model-driven repair retry; red/grey cells remain missing votes rather than fabricated labels.](../output/figures/prompt_compliance.png){#fig:prompt-compliance width=95%}
+![Prompt compliance for the persona-scenario grid. Dark green cells were valid on the first schema-constrained attempt; light green cells were accepted only after the one allowed model-driven repair retry; red/grey cells remain missing votes rather than fabricated labels.](../../output/figures/prompt_compliance.png){#fig:prompt-compliance width=95%}
 
 The previous temperature 0.7 prompt contract is retained as a stress-test baseline: it parsed 947/1152 cells, whereas the current temperature 0.1 schema-constrained headline parsed 1152/1152. The comparison isolates interface compliance from the algebraic evaluability question. [@fig:temperature-schema-comparison] shows why the
 low-temperature schema-constrained run replaces the temperature-0.7 prompt as
 the headline experiment: parseability is now an interface check, while
 evaluable vote matrices remain the scientific object.
 
-![Temperature/schema comparison between the previous temperature-0.7 prompt contract and the current temperature-0.1 binary-schema run. Bar height is final parse rate; `E` marks a model whose final vote matrix was algebraically evaluable.](../output/figures/temperature_schema_comparison.png){#fig:temperature-schema-comparison width=95%}
+![Temperature/schema comparison between the previous temperature-0.7 prompt contract and the current temperature-0.1 binary-schema run. Bar height is final parse rate; `E` marks a model whose final vote matrix was algebraically evaluable.](../../output/figures/temperature_schema_comparison.png){#fig:temperature-schema-comparison width=95%}
 
 ## Disagreement is *not* evaluability (the non-obvious result) {#sec:disagreement-not-evaluability}
 
@@ -621,7 +621,7 @@ only the latter is necessary for a solution to exist. [@fig:disagreement-vs-eval
 plots the two axes against each other and shows the evaluable region is gated
 horizontally (by per-judge variation), not vertically (by disagreement).
 
-![Per-judge modal-vote concentration (x, low = every judge varies) against ensemble mean pairwise disagreement (y). Evaluable models avoid the constant-classifier boundary; unevaluable models hit it. The y-axis is descriptive, while the x-axis contains the solvability condition.](../output/figures/disagreement_vs_evaluability.png){#fig:disagreement-vs-evaluability width=95%}
+![Per-judge modal-vote concentration (x, low = every judge varies) against ensemble mean pairwise disagreement (y). Evaluable models avoid the constant-classifier boundary; unevaluable models hit it. The y-axis is descriptive, while the x-axis contains the solvability condition.](../../output/figures/disagreement_vs_evaluability.png){#fig:disagreement-vs-evaluability width=95%}
 
 ## A label-free diagnostic predicts evaluability {#sec:diagnostic-result}
 
@@ -634,7 +634,7 @@ six models (`diagnostic_matched_outcome = true`). The
 diagnostic needs no answer key and no solve: it is computed directly from the
 response matrix, making it a usable pre-flight "evaluation thermometer."
 
-![Scenario-level vote split and authored direction. Each point is one authored market scenario. The y-value is the fraction of parsed persona/model calls that were bullish; marker color is the authored operational truth. Points near 0.5 are the hard or intentionally mixed cases that create useful variation.](../output/figures/scenario_hardness.png){#fig:scenario-hardness width=95%}
+![Scenario-level vote split and authored direction. Each point is one authored market scenario. The y-value is the fraction of parsed persona/model calls that were bullish; marker color is the authored operational truth. Points near 0.5 are the hard or intentionally mixed cases that create useful variation.](../../output/figures/scenario_hardness.png){#fig:scenario-hardness width=95%}
 
 ## Majority voting and error-independent recovery coincided here {#sec:mv-ei-real}
 
@@ -673,7 +673,7 @@ a usable response matrix; the remaining simulation figures extend the same
 logic through deterministic simulation, bootstrap uncertainty, the tie-break
 boundary, and the EI-vs-MV trade-off.
 
-![Scorecard: unsupervised recovery MAE for each evaluable model (lower is better), drawn against the "excellent" (0.05) and sampling-noise-floor (0.102) reference lines. the five evaluable models sit at recovery MAE 0.012, within the 0.102 sampling-noise floor.](../output/figures/recovery_mae_by_model.png){#fig:recovery-mae-scorecard width=90%}
+![Scorecard: unsupervised recovery MAE for each evaluable model (lower is better), drawn against the "excellent" (0.05) and sampling-noise-floor (0.102) reference lines. the five evaluable models sit at recovery MAE 0.012, within the 0.102 sampling-noise floor.](../../output/figures/recovery_mae_by_model.png){#fig:recovery-mae-scorecard width=90%}
 
 ## Synthetic validation: recovery scaling and the alarm's blind spot {#sec:synthetic-validation}
 
@@ -717,7 +717,7 @@ recorded LLM recovery is explained only by finite-sample noise.
 
 : Synthetic recovery error vs. test size, conditional on successful complete physical recovery. The complete and unavailable counts each use all attempted draws as denominator; unavailable attempts are excluded from both error means, not counted as zero error or necessarily imaginary-root alarms. {#tbl:synthetic-convergence}
 
-![Conditional unsupervised recovery error vs. test size `Q` on log–log axes, from 200 attempted synthetic error-independent ensembles per point. Both errors use only the complete physical recoveries counted below each `Q` (accuracy MAE with ±1 sd error bars; prevalence error overlaid); remaining attempts are unavailable. The dotted line is a `1/√Q` reference; the conditional fitted slope is -0.45 (R² = 0.996), not a full-cohort success or independence guarantee.](../outputs/validation/render_supporting_figures/synthetic_convergence.png){#fig:synthetic-convergence width=90%}
+![Conditional unsupervised recovery error vs. test size `Q` on log–log axes, from 200 attempted synthetic error-independent ensembles per point. Both errors use only the complete physical recoveries counted below each `Q` (accuracy MAE with ±1 sd error bars; prevalence error overlaid); remaining attempts are unavailable. The dotted line is a `1/√Q` reference; the conditional fitted slope is -0.45 (R² = 0.996), not a full-cohort success or independence guarantee.](../../outputs/validation/render_supporting_figures/synthetic_convergence.png){#fig:synthetic-convergence width=90%}
 
 **The conditional pattern is not limited to one ensemble.** Repeating the
 convergence fit with the same complete-physical conditioning across
@@ -772,7 +772,7 @@ per-judge, per-label accuracies are serialized in `correlation.data.json`.
 
 : Alarm-firing rate by error structure at `Q = 1024` (200 trials each), using the historical raw-root rule rather than convergence's physical-support filter. `D` is the mean prevalence discriminant; the last column is the recovery error on the trials where the alarm stayed silent. {#tbl:synthetic-correlation}
 
-![Left: in the recorded raw-root experiment, the imaginary-prevalence alarm fires only under anti-correlation, never on independent or common-mode data. Right: the mechanism — as common-mode correlation strengthens, the discriminant `D` falls toward the `D = 0` alarm threshold but never crosses it, while the un-warned recovery error climbs.](../outputs/validation/render_supporting_figures/synthetic_alarm.png){#fig:synthetic-alarm width=95%}
+![Left: in the recorded raw-root experiment, the imaginary-prevalence alarm fires only under anti-correlation, never on independent or common-mode data. Right: the mechanism — as common-mode correlation strengthens, the discriminant `D` falls toward the `D = 0` alarm threshold but never crosses it, while the un-warned recovery error climbs.](../../outputs/validation/render_supporting_figures/synthetic_alarm.png){#fig:synthetic-alarm width=95%}
 
 The imaginary-prevalence alarm rejects the exact empirical model; it is not a
 calibrated test with a proven zero false-positive rate for independently sampled
@@ -813,7 +813,7 @@ and silently inverted.
 
 : Catastrophic mirror-selection (prevalence error > 0.25) vs. mean judge accuracy at prevalence 0.60, `Q = 256`, 200 trials each, preserving the historical raw-root rule. {#tbl:tiebreak}
 
-![The better-than-random tie-break is flawless for strong judges in this recorded raw-root experiment and inverts as the ensemble approaches random: catastrophic mirror-selection climbs from 0% to 85% and the mean prevalence error rises with it.](../outputs/validation/render_supporting_figures/synthetic_tiebreak.png){#fig:synthetic-tiebreak width=90%}
+![The better-than-random tie-break is flawless for strong judges in this recorded raw-root experiment and inverts as the ensemble approaches random: catastrophic mirror-selection climbs from 0% to 85% and the mean prevalence error rises with it.](../../outputs/validation/render_supporting_figures/synthetic_tiebreak.png){#fig:synthetic-tiebreak width=90%}
 
 ## Error-independent vs. majority-voting: exactness vs. robustness {#sec:mv-ei-synthetic}
 
@@ -866,7 +866,7 @@ conditions are in doubt — and report both, as we do per run.
 
 : Error-independent vs. majority-voting recovery MAE across a prevalence × accuracy grid (`Q = 512`, 150 trials per cell), using raw finite roots. "EI wins" is the fraction of jointly scored draws where the exact algebra's MAE was lower. {#tbl:mv-ei}
 
-![Raw-root recovery MAE of the error-independent algebra vs. majority-voting as judge accuracy falls from strong to near-random, one panel per recorded prevalence, with 150 trials per cell. EI is lower while judges are strong, then crosses above and diverges as its tie-break inverts; MV stays bounded throughout.](../outputs/validation/render_supporting_figures/synthetic_mv_vs_ei.png){#fig:synthetic-mv-vs-ei width=95%}
+![Raw-root recovery MAE of the error-independent algebra vs. majority-voting as judge accuracy falls from strong to near-random, one panel per recorded prevalence, with 150 trials per cell. EI is lower while judges are strong, then crosses above and diverges as its tie-break inverts; MV stays bounded throughout.](../../outputs/validation/render_supporting_figures/synthetic_mv_vs_ei.png){#fig:synthetic-mv-vs-ei width=95%}
 
 ## Statistical validation matrix {#sec:validation-matrix}
 
@@ -893,7 +893,7 @@ sidecar completeness.
 
 : Offline validation checks for the manuscript's load-bearing claims. Each row is computed from generated JSON artifacts, not hand-audited numbers in prose. {#tbl:validation-matrix}
 
-![Validation matrix for the statistical claims. Green rows are checks that passed against the generated artifacts; the evidence labels show the actual thresholds or counts used by each check.](../outputs/validation/render_supporting_figures/validation_matrix.png){#fig:validation-matrix width=95%}
+![Validation matrix for the statistical claims. Green rows are checks that passed against the generated artifacts; the evidence labels show the actual thresholds or counts used by each check.](../../outputs/validation/render_supporting_figures/validation_matrix.png){#fig:validation-matrix width=95%}
 
 ## Physical recovery audit of the recorded votes {#sec:physical-recovery-audit}
 
@@ -903,7 +903,7 @@ solutions. These statuses are model-consistency checks rather than proof of
 independence or future predictive performance. Input hashes link each result
 to the corresponding recorded vote file.
 
-![Physical-recovery status for each recorded model. Status labels are direct and redundant with color; passing checks probability constraints but does not prove error independence or orient the label mirror.](../output/figures/physical_recovery_audit.png){#fig:physical-recovery-audit width=95%}
+![Physical-recovery status for each recorded model. Status labels are direct and redundant with color; passing checks probability constraints but does not prove error independence or orient the label mirror.](../../output/figures/physical_recovery_audit.png){#fig:physical-recovery-audit width=95%}
 
 # Discussion {#sec:discussion}
 

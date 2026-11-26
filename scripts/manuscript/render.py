@@ -1,6 +1,6 @@
 """Render the manuscript from templates + the single-source-of-truth values.
 
-The prose lives in ``templates/*.md.tmpl`` with ``{{TOKEN}}`` placeholders;
+The prose lives in ``docs/manuscript/templates/*.md.tmpl`` with ``{{TOKEN}}`` placeholders;
 every token is filled from ``_values.compute_values`` (which reads only the
 JSON artifacts). This makes the manuscript a *generated* artifact: it cannot
 drift from the data, because the numbers are never typed by hand.
@@ -28,8 +28,8 @@ import _values  # noqa: E402
 
 REPO_ROOT = HERE.parents[1]
 OUT_DIR = REPO_ROOT / "outputs" / "llm" / "multi_llm_personas_evaluation"
-TEMPLATE_DIR = HERE / "templates"
 MANUSCRIPT_DIR = REPO_ROOT / "docs" / "manuscript"
+TEMPLATE_DIR = MANUSCRIPT_DIR / "templates"
 
 # template stem -> output file
 TARGETS = {

@@ -30,7 +30,7 @@ category — each script writes to `outputs/<category>/<script_stem>/`.
 | `validation/recovery_validity_report.py` | Physical-recovery audit of recorded votes, no answer key or model calls | `ntqr.llm.validity_audit` | `.venv/bin/python scripts/validation/recovery_validity_report.py` |
 | `validation/render_recorded_figures.py` | Model figures from persisted responses/comparisons only | `ntqr.llm.study_records`, `ntqr.llm.visualization` | `.venv/bin/python scripts/validation/render_recorded_figures.py` |
 | `validation/render_supporting_figures.py` | Supporting figures from recorded summaries, without rerunning experiments | `ntqr.llm.supporting_figures` | `.venv/bin/python scripts/validation/render_supporting_figures.py` |
-| `manuscript/render.py` | Hydrate `manuscript/templates/*.tmpl` with `_values` tokens; `--check` drift gate | `manuscript/_values.py` | `.venv/bin/python scripts/manuscript/render.py` |
+| `manuscript/render.py` | Hydrate `docs/manuscript/templates/*.tmpl` with `_values` tokens; `--check` drift gate | `manuscript/_values.py` | `.venv/bin/python scripts/manuscript/render.py` |
 
 `baselines/` and `configs/` also carry their own `README.md`/`AGENTS.md`;
 `scripts/_common.py` (paths, JSON + provenance sidecars) and
