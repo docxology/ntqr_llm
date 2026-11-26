@@ -24,7 +24,7 @@ available?
 
 Algebraic evaluation (the **NTQR** logic [@ntqr_0_9_docs;
 @corrada_emmanuel_2023_ntqr_logic; @corrada_emmanuel_2023_streaming]; see the
-repository root [README](../README.md)) takes a deliberately narrower stance.
+repository root [README](https://github.com/docxology/ntqr_llm/blob/main/README.md)) takes a deliberately narrower stance.
 It constructs postulates — true for *any* finite test, containing no probability
 theory and no model of the task domain — that link the observed agreements and
 disagreements of an ensemble to the unknown statistics of their correctness.

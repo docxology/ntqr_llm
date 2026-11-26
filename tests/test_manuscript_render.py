@@ -24,7 +24,7 @@ import render  # noqa: E402
 
 OUT = SCRIPTS.parent / "outputs" / "llm" / "multi_llm_personas_evaluation"
 REFERENCES = SCRIPTS.parent / "docs" / "manuscript" / "references.bib"
-TEMPLATES = SCRIPTS / "manuscript" / "templates"
+TEMPLATES = REFERENCES.parent / "templates"
 
 
 def _values_or_skip():
@@ -242,19 +242,19 @@ def test_rendered_manuscript_figure_inventory_has_sidecars():
         repo / "docs" / "manuscript" / "manuscript.md"
     ]
     links = re.findall(r"!\[.*?\]\(([^)]+\.png)\)", manuscript, re.S)
-    supporting = "../outputs/validation/render_supporting_figures"
+    supporting = "../../outputs/validation/render_supporting_figures"
     expected_sidecars = {
-        "../output/figures/physical_recovery_audit.png": "../output/figures/physical_recovery_audit.data.json",
-        "../output/figures/evaluation_pipeline.png": "../output/figures/evaluation_pipeline.data.json",
-        "../output/figures/disagreement_vs_evaluability.png": "../output/figures/disagreement_vs_evaluability.data.json",
-        "../output/figures/best_model_recovery.png": "../output/figures/best_model_recovery.data.json",
-        "../output/figures/recovered_vs_true_scatter.png": "../output/figures/recovered_vs_true_scatter.data.json",
-        "../output/figures/validation_accuracy_heatmap.png": "../output/figures/validation_accuracy_heatmap.data.json",
-        "../output/figures/evaluability_diagnostic.png": "../output/figures/evaluability_diagnostic.data.json",
-        "../output/figures/prompt_compliance.png": "../output/figures/prompt_compliance.data.json",
-        "../output/figures/temperature_schema_comparison.png": "../output/figures/temperature_schema_comparison.data.json",
-        "../output/figures/scenario_hardness.png": "../output/figures/scenario_hardness.data.json",
-        "../output/figures/recovery_mae_by_model.png": "../output/figures/recovery_mae_by_model.data.json",
+        "../../output/figures/physical_recovery_audit.png": "../../output/figures/physical_recovery_audit.data.json",
+        "../../output/figures/evaluation_pipeline.png": "../../output/figures/evaluation_pipeline.data.json",
+        "../../output/figures/disagreement_vs_evaluability.png": "../../output/figures/disagreement_vs_evaluability.data.json",
+        "../../output/figures/best_model_recovery.png": "../../output/figures/best_model_recovery.data.json",
+        "../../output/figures/recovered_vs_true_scatter.png": "../../output/figures/recovered_vs_true_scatter.data.json",
+        "../../output/figures/validation_accuracy_heatmap.png": "../../output/figures/validation_accuracy_heatmap.data.json",
+        "../../output/figures/evaluability_diagnostic.png": "../../output/figures/evaluability_diagnostic.data.json",
+        "../../output/figures/prompt_compliance.png": "../../output/figures/prompt_compliance.data.json",
+        "../../output/figures/temperature_schema_comparison.png": "../../output/figures/temperature_schema_comparison.data.json",
+        "../../output/figures/scenario_hardness.png": "../../output/figures/scenario_hardness.data.json",
+        "../../output/figures/recovery_mae_by_model.png": "../../output/figures/recovery_mae_by_model.data.json",
         f"{supporting}/synthetic_convergence.png": (
             f"{supporting}/convergence.data.json"
         ),
@@ -280,8 +280,8 @@ def test_rendered_manuscript_figure_inventory_has_sidecars():
         print("[SKIP] template figure hydration has not been run")
         return
     for image, sidecar in expected_sidecars.items():
-        image_path = (repo / image.removeprefix("../")).resolve()
-        sidecar_path = (repo / sidecar.removeprefix("../")).resolve()
+        image_path = (REFERENCES.parent / image).resolve()
+        sidecar_path = (REFERENCES.parent / sidecar).resolve()
         assert image_path.exists(), image
         assert sidecar_path.exists(), sidecar
         doc = json.loads(sidecar_path.read_text())

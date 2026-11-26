@@ -1,6 +1,6 @@
 # AGENTS.md - scripts
 
-Child dirs: baselines/, configs/, llm/, manuscript/ (with templates/), ntqr/,
+Child dirs: baselines/, configs/, llm/, manuscript/ (rendering scripts), ntqr/,
 sim/, validation/. Thin orchestrators only — import computation from
 `python/src/ntqr/`. The LLM-persona study computation lives in
 `python/src/ntqr/llm/` (`analysis`, `recovery_scoring`, `consistency`, `alarm_demo`, `simulation`,

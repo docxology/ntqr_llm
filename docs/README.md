@@ -1,69 +1,27 @@
-# Documentation — ntqr_llm_personas
+# NTQR LLM documentation
 
-Technical documentation for the algebraic-evaluation study that recovers
-LLM-persona accuracies from unlabeled votes. For the science, read the generated
-[`docs/manuscript/manuscript.md`](manuscript/manuscript.md); for the software, read
-here.
+The study evaluates binary LLM-persona votes using NTQR and compares inferred
+accuracies against authored scenario labels. The retained votes and their
+analysis support offline reproduction.
 
-## Index
+| Guide | Use it to |
+|---|---|
+| [Study overview](study.md) | Understand the research question, results, and empirical limits. |
+| [Manuscript and supplement](manuscript/README.md) | Read the full study, derivations, and results. |
+| [Setup and verification](VERIFICATION.md) | Install the locked environment and audit the recorded votes without Ollama. |
+| [Experiment configuration](configuration.md) | Find the persona, scenario, model, and collection settings. |
+| [Rendering pipeline](rendering_pipeline.md) | Generate the numbered sections, then render and validate PDF and HTML. |
+| [Manuscript authoring](manuscript_guide.md) | Edit the canonical templates, metadata, and figure references. |
+| [Architecture](architecture.md) | Trace the workflow from prompts or recorded votes through the evaluators and renderer. |
+| [Recovery validity](recovery_validity.md) | Interpret the physical-solution audit and artifact manifests. |
+| [Research integrity](research_integrity.md) and [claim registry](research_map.json) | Trace the evidence, citations, and inference boundaries. |
+| [Testing philosophy](testing_philosophy.md) | Understand the test layers and fixture policy. |
+| [NTQR 0.9 migration](ntqr09.md) | Check vendored source provenance and local changes. |
+| [Runtime profiling](runtime_profiling.md) | Run bounded profiles and interpret the archived benchmark receipts. |
+| [Essays](essays/README.md) | Read the conceptual background. |
+| [Maintenance backlog](TODO.md) | Find pending engineering work. |
 
-| Document | Purpose |
-|----------|---------|
-| [architecture.md](architecture.md) | system layers and the full data flow (personas → Ollama → votes → `ntqr` → simulation/bootstrap/validation artifacts → render) |
-| [rendering_pipeline.md](rendering_pipeline.md) | the `{{TOKEN}}`-injection pipeline; how validated numbers reach the prose; the `--check` drift gate |
-| [manuscript_guide.md](manuscript_guide.md) | how to author/extend the manuscript (edit `.tmpl`, add tokens to `_values.py`) |
-| [testing_philosophy.md](testing_philosophy.md) | zero-mock + no-fabricated-data, and why they matter for a generated manuscript |
-| [VERIFICATION.md](VERIFICATION.md) | the post-change verification routine and checklist |
-| [essays/](essays/) | conceptual background on algebraic evaluation (Dawid–Skene, Regnault, the algebraic-geometry primer) |
-
-## Getting started
-
-```bash
-# 1. regenerate the headline LLM data (needs Ollama + requested models)
-.venv/bin/python scripts/llm/multi_llm_personas_evaluation.py --set temperature=0.1 --set timeout=45
-
-# 2. regenerate deterministic offline validation artifacts
-.venv/bin/python scripts/sim/synthetic_recovery_study.py
-.venv/bin/python scripts/sim/bootstrap_recovery_ci.py
-.venv/bin/python scripts/validation/statistical_validation_report.py
-
-# 3. render the manuscript from templates + data (numbers injected, never typed)
-.venv/bin/python scripts/manuscript/render.py
-
-# 4. verify: no drift, tests green
-.venv/bin/python scripts/manuscript/render.py --check
-.venv/bin/python -m pytest tests/ -q
-```
-
-## Key concepts
-
-- **Generated manuscript** — every data-derived claim is a `{{TOKEN}}` filled
-  from generated JSON artifacts; the prose cannot drift from the data.
-- **Algebraic (NTQR) evaluation** — recover per-judge accuracies from votes alone,
-  no answer key; two logically consistent solutions, selected by a label-free
-  tie-break. Cite the public NTQR 0.9 documentation as `ntqr_0_9_docs`.
-- **Research context** — the manuscript now situates NTQR beside Dawid-Skene
-  truth inference, weak supervision, agreement-rate estimators, LLM-as-judge
-  evaluation, structured-output collection, and majority-vote/self-consistency
-  baselines; citation keys are checked against `docs/manuscript/references.bib`.
-- **Evaluability is per-judge** — a single constant classifier (a judge that never
-  varies) collapses the algebra regardless of how much the ensemble disagrees
-  (proved in manuscript §2.5, shown on real votes in Supplemental §S1.5).
-- **No fabrication** — unparseable replies are abstentions; non-compliant models
-  are named, never solved on invented votes.
-- **Seventeen embedded figures**, each with a parseable data sidecar so every
-  plotted value is machine-readable.
-
-- [NTQR 0.9 migration](ntqr09.md): release provenance, sparse API changes, local fixes, and offline verification.
-
-- [Recovery validity and reliable artifacts](recovery_validity.md): physical solutions, a truth-free audit, atomic checkpoints, and render manifests.
-
-
-## Profiling and research integrity
-
-- [Runtime profiling](runtime_profiling.md): Python 3.15, workload contracts,
-  source-bound measurements, comparison rules and sampling availability.
-- [Research integrity](research_integrity.md): inference boundaries, publication
-  artifacts, bibliography checks and figure regeneration.
-- [Claim registry](research_map.json): structured evidence paths, reviewed primary
-  references and explicit limits.
+The [analysis artifact index](../outputs/README.md) describes the saved
+outputs and data sidecars. The [delivery artifact index](../output/README.md)
+describes the renderer staging and publication files. The published version
+record is [Zenodo 20498700](https://zenodo.org/records/20498700).

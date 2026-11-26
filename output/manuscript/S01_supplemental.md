@@ -1,7 +1,7 @@
 # Supplemental material {#sec:supplemental}
 
 <!-- GENERATED FILE — do not edit by hand.
-     Source: scripts/manuscript/templates/supplemental.md.tmpl
+     Source: docs/manuscript/templates/supplemental.md.tmpl
      Numbers: scripts/manuscript/_values.py  (read from generated JSON artifacts)
      Rebuild: python scripts/manuscript/render.py -->
 
@@ -354,43 +354,27 @@ casting both calls, so no judge collapses to a constant classifier.
 
 ## S5 — Reproduction {#sec:reproduction}
 
-All commands run from the repository root. The sweep is reproducible offline
-from the cached votes (`outputs/llm/.../cache.json`); only a fresh `--set
-refresh=true` run needs a live Ollama.
+Run these commands from the repository root to verify the recorded run and
+derive a fresh physical-solution audit from the checked-in per-model votes.
+The audit uses no answer key, model server, or network.
 
 ```bash
-# 1. Project test suite (no network, no Ollama, no TeX):
-.venv/bin/python -m pytest tests/ -q                      # 152 tests
-#   or: cd python && ../.venv/bin/python -m pytest -q     # 23 library tests
+uv sync --locked --extra dev
+uv run --no-sync pytest
+uv run --no-sync python scripts/check_research.py
+uv run --no-sync python scripts/manuscript/render.py --check
+uv run --no-sync python scripts/z_generate_manuscript_variables.py --check
 
-# 2. Regenerate the multi-LLM sweep from the cache (JSON + figures):
-.venv/bin/python scripts/llm/multi_llm_personas_evaluation.py
-
-# 2b. Regenerate the deterministic synthetic-validation study (no network):
-.venv/bin/python scripts/sim/synthetic_recovery_study.py
-
-# 2c. Bootstrap a CI on the real recovery MAE (deterministic, offline):
-.venv/bin/python scripts/sim/bootstrap_recovery_ci.py
-
-# 2d. Regenerate the offline statistical validation matrix:
-.venv/bin/python scripts/validation/statistical_validation_report.py
-
-# 3. Re-inject the numbers into the manuscript (generated from templates):
-.venv/bin/python scripts/manuscript/render.py
-.venv/bin/python scripts/manuscript/render.py --check     # verify no drift
-.venv/bin/python scripts/z_generate_manuscript_variables.py
-
-# 4. Run the whole orchestrator harness including the LLM category:
-.venv/bin/python scripts/run_all.py --include llm
-
-# 5. Re-query live models (requires `ollama serve` and the pulled models):
-.venv/bin/python scripts/llm/multi_llm_personas_evaluation.py \
-    --set refresh=true --set timeout=45
-
-# 6. Run a custom model list:
-.venv/bin/python scripts/llm/multi_llm_personas_evaluation.py \
-    --set models='["granite4.1:3b","mistral:latest"]'
+audit_dir=$(mktemp -d)
+uv run --no-sync python scripts/validation/recovery_validity_report.py \
+    --output-dir "$audit_dir"
 ```
+
+The existing study values are read from the archived summaries and sidecars.
+The command above writes a new audit of the same votes into a temporary
+directory. Configuring and running the live sweep is a separate operation
+that creates new empirical observations. See the repository rendering guide
+for the pinned PDF and HTML build.
 
 Lint/format used in this study:
 `.venv/bin/ruff check scripts tests` and

@@ -140,7 +140,7 @@ complete-postulate and streaming-algorithm line of work
 [@corrada_emmanuel_2023_ntqr_logic; @corrada_emmanuel_2023_streaming], with the
 agreement-rate literature as its nearest statistical antecedent
 [@platanios_2014_uai; @platanios_2016_icml]. We follow the construction in
-[`SimplestExampleOfEvaluationWithAlgebraicGeometry.md`](../docs/essays/SimplestExampleOfEvaluationWithAlgebraicGeometry.md)
+[`SimplestExampleOfEvaluationWithAlgebraicGeometry.md`](https://github.com/docxology/ntqr_llm/blob/main/docs/essays/SimplestExampleOfEvaluationWithAlgebraicGeometry.md)
 and the public NTQR implementation documented for
 `ntqr.r2.evaluators.ErrorIndependentEvaluation` [@ntqr_0_9_docs].
 
