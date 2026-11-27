@@ -11,4 +11,4 @@ upward.
 
 This tree mirrors the more complete [`../r2/`](../r2/) implementation. The
 single-classifier alarm orchestrator exercises R=3 via `alarm_r3.json` — see
-[`../../../../../scripts/ntqr/`](../../../../../scripts/ntqr/).
+[`../../../../scripts/ntqr/`](../../../../scripts/ntqr/).

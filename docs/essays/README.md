@@ -112,9 +112,9 @@ Since this repository will contain code that carries out purely algebraic
 evaluation of binary classifiers, it cannot be the case that the only way we can
 evaluate intelligent agents is via the use of ever more intelligent ones.
 
-<p> <figure> <img src="img/OnlyIntelligentEvaluation.png" alt="The
-master/disciple evaluation paradigm." height="400"> <figcaption> Figure Caption:
-<b>The fallacy of "only intelligent evaluation"</b> </figcaption> </figure> </p>
+*Original illustration: “The fallacy of only intelligent evaluation,” showing
+the master/disciple evaluation paradigm. The image is absent from this
+checkout.*
 
 ### The existential AI risk for those that believe in the fallacy
 
@@ -129,10 +129,9 @@ build ever smarter agents that could very well turn malicious or otherwise
 threaten us. Algebraic evaluation is the way out of this trap we have made for
 ourselves.
 
-<p> <figure> <img src="img/AlgebraicEvaluation.png" alt="The self-evaluation
-paradigm." height="400"> <figcaption> Figure Caption: <b>Bypassing the
-principal/agent relationship of evaluation to make us safer.</b> </figcaption>
-</figure> </p>
+*Original illustration: “Bypassing the principal/agent relationship of
+evaluation to make us safer,” showing the self-evaluation paradigm. The
+image is absent from this checkout.*
 
 ## Guide to the repository
 

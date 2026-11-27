@@ -40,7 +40,7 @@ one evaluable model — evaluability is gated by a per-judge condition (no
 constant classifier), not by ensemble disagreement. The label-free
 `evaluability_diagnostic` predicts which models the algebra can solve with no
 answer key (`diagnostic_matched_outcome`). Full write-up in
-[`../../manuscript/`](../../manuscript/).
+[the manuscript](../../docs/manuscript/README.md).
 
 ## Reading comparison.json
 

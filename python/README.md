@@ -6,7 +6,8 @@
 
 # Logic tools to make your AI safer
 
-![NTQR](./img/NTQRpt24.png)
+The imported introduction’s logo and prevalence plot are absent from this
+checkout. The original prevalence-plot caption is retained below.
 
 ```console
 ~$: pip install ntqr
@@ -16,15 +17,11 @@
 ~$: jupyter notebook
 ```
 
-:::{figure-md}
-![Prevalence estimates](./img/threeLLMsBIGBenchMistakeMultistepArithmetic.png)
-
 **The only evaluations possible for three LLMs (Claude, Mistral, ChatGPT) that
 graded a fourth one (PaLM2) doing the multistep-arithmetic test in the
 BIG-Bench-Mistake dataset. Using the axiom for the single binary classifier, we
 can reduce each LLMs possible evaluations as grader of the PaLM2 to the
 circumscribed planes inside the space of all possible evaluations.**
-:::
 
 Evaluation of noisy decision makers in unsupervised settings is a fundamental
 safety engineering problem. This library contains algorithms that treat this
