@@ -35,5 +35,5 @@ from ntqr import uciadult_label_counts, TrioLabelVoteCounts, TrioVoteCounts
 
 Runnable, self-contained orchestrators that call these methods on the bundled
 UCI Adult data live at the repo root under
-[`../../../../scripts/ntqr/`](../../../../scripts/ntqr/), writing results to
-[`../../../../outputs/ntqr/`](../../../../outputs/ntqr/).
+[`../../../scripts/ntqr/`](../../../scripts/ntqr/), writing results to
+[`../../../outputs/ntqr/`](../../../outputs/ntqr/).

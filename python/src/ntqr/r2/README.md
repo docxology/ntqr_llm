@@ -15,4 +15,4 @@ evaluation is the integer triple `(Q_a, R_a_a, R_b_b)`.
 | `plots.py` | R=2 evaluation plots |
 
 Try it: `python -m ntqr.r2.evaluators` runs the module's demo. Worked
-orchestrators are at [`../../../../../scripts/ntqr/`](../../../../../scripts/ntqr/).
+orchestrators are at [`../../../../scripts/ntqr/`](../../../../scripts/ntqr/).
