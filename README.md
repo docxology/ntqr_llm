@@ -21,6 +21,11 @@ authority. See [the migration notes](docs/ntqr09.md) for source provenance and l
 
 ## Documentation
 
+Use Python 3.12 or later. To start without a model runtime, follow the
+[recorded-vote verification guide](docs/VERIFICATION.md). It checks the
+published analysis inputs and reruns the physical-solution audit on retained
+votes.
+
 - [Documentation index](docs/README.md) for setup, configuration, recorded evidence, and verification.
 - [Study overview](docs/study.md) for the algebra, findings, and limits.
 - [Manuscript and supplement](docs/manuscript/README.md) for the full study.
