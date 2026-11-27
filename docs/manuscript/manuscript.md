@@ -1119,7 +1119,7 @@ the 0.102 binomial SE reference.
 
 # References {#sec:references}
 
-The bibliography is generated from `manuscript/references.bib`. The central
+The bibliography is generated from `docs/manuscript/references.bib`. The central
 package citation is the public NTQR 0.9 documentation [@ntqr_0_9_docs], which
 documents the `ntqr.r2` evaluators and trio data sketches used here. This
 repository is cited as the reproducible experiment artifact
